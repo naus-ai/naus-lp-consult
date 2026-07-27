@@ -708,21 +708,23 @@ summary::-webkit-details-marker{display:none;}
         <form name="document-download" method="POST" action="/thanks.html" data-netlify="true" netlify-honeypot="bot-field" style="display:flex;flex-direction:column;gap:14px;margin:0">
           <input type="hidden" name="form-name" value="document-download">
           <p style="display:none"><label>この欄は空欄のままにしてください: <input name="bot-field"></label></p>
+          <!-- name属性はASCII固定(Netlify管理画面・通知メール・CSVエクスポートでの文字化けリスク回避)。
+               項目の対応: company=会社名 / name=氏名 / email=メールアドレス / phone=電話番号 -->
           <div>
             <label for="dl-company" class="dl-label">会社名<span style="color:#E4691F;margin-left:4px">必須</span></label>
-            <input id="dl-company" name="会社名" type="text" required autocomplete="organization" class="dl-field">
+            <input id="dl-company" name="company" type="text" required autocomplete="organization" class="dl-field">
           </div>
           <div>
             <label for="dl-name" class="dl-label">氏名<span style="color:#E4691F;margin-left:4px">必須</span></label>
-            <input id="dl-name" name="氏名" type="text" required autocomplete="name" class="dl-field">
+            <input id="dl-name" name="name" type="text" required autocomplete="name" class="dl-field">
           </div>
           <div>
             <label for="dl-email" class="dl-label">メールアドレス<span style="color:#E4691F;margin-left:4px">必須</span></label>
-            <input id="dl-email" name="メールアドレス" type="email" required autocomplete="email" class="dl-field">
+            <input id="dl-email" name="email" type="email" required autocomplete="email" class="dl-field">
           </div>
           <div>
             <label for="dl-tel" class="dl-label">電話番号<span style="color:#8A8F9C;font-size:12px;margin-left:4px">任意</span></label>
-            <input id="dl-tel" name="電話番号" type="tel" autocomplete="tel" class="dl-field">
+            <input id="dl-tel" name="phone" type="tel" autocomplete="tel" class="dl-field">
           </div>
           <button type="submit" class="btn-doc-submit"><span aria-hidden="true" style="width:22px;height:22px;background:#fff;-webkit-mask:url('assets/icon-mail.svg') center/contain no-repeat;mask:url('assets/icon-mail.svg') center/contain no-repeat"></span>送信して資料をダウンロード</button>
           <!-- 山口記入待ち: プライバシーポリシーページの完成後、下記文中の「(現在準備中です)」を削除し、「プライバシーポリシー」をリンクに置換する -->
