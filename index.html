@@ -730,6 +730,11 @@ summary::-webkit-details-marker{display:none;}
             <label for="dl-tel" class="dl-label">電話番号<span style="color:#8A8F9C;font-size:12px;margin-left:4px">任意</span></label>
             <input id="dl-tel" name="phone" type="tel" autocomplete="tel" class="dl-field">
           </div>
+          <!-- 自由記述欄(2026-07-27 山口承認で追加・任意項目)。name属性はASCII(message)、表示ラベルは日本語 -->
+          <div>
+            <label for="dl-message" class="dl-label">自由記述(ご質問・ご要望など)<span style="color:#8A8F9C;font-size:12px;margin-left:4px">任意</span></label>
+            <textarea id="dl-message" name="message" rows="4" class="dl-field" style="resize:vertical"></textarea>
+          </div>
           <button type="submit" class="btn-doc-submit"><span aria-hidden="true" style="width:22px;height:22px;background:#fff;-webkit-mask:url('assets/icon-mail.svg') center/contain no-repeat;mask:url('assets/icon-mail.svg') center/contain no-repeat"></span>送信して資料をダウンロード</button>
           <!-- 山口記入待ち: プライバシーポリシーページの完成後、下記文中の「(現在準備中です)」を削除し、「プライバシーポリシー」をリンクに置換する -->
           <p style="margin:0;font-size:12.5px;line-height:1.9;color:#8A8F9C">ご入力いただいた個人情報は、資料のご提供と、本サービスに関するご連絡のためにのみ利用します。プライバシーポリシー(現在準備中です)の公開後は、そちらで詳細をご確認いただけます。</p>
@@ -837,36 +842,46 @@ summary::-webkit-details-marker{display:none;}
 
     <div style="margin-top:44px;padding-top:40px;border-top:1px solid rgba(255,255,255,.14);text-align:left">
       <p style="margin:0 0 24px;font-size:16px;line-height:1.9;color:rgba(255,255,255,.72);text-align:center">日程調整がすぐに難しい場合は、下記フォームからもお問い合わせいただけます。</p>
+      <!-- お問い合わせフォーム(2026-07-27 山口承認で実装): Netlify Formsで受け付け、送信後 /contact-thanks.html に遷移。
+           旧実装はダミー(formタグ・name属性なし、送信ボタンはmailtoリンク)だったため、資料DLフォームと同じ流儀で機能させた。
+           form detectionは有効化済みのため、デプロイ時にこのフォーム(contact)も自動検出される。
+           送信データはNetlify管理画面のFormsタブに保存される。通知メールはNetlify側での設定が必要(未設定だと管理画面を開かない限り気づけない)。
+           スパム対策: netlify-honeypot(bot-field)+Netlify標準のAkismet。
+           見出し「お問合せフォーム」は2026-07-27 山口指示の表記どおり(旧「お問い合わせ内容」ラベル+選択ボタン2つは同指示で削除) -->
       <div id="contact-form" style="display:flex;flex-direction:column;gap:16px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:28px">
         <div>
-          <label style="display:block;font-size:14px;font-weight:700;color:rgba(255,255,255,.85);margin-bottom:8px">お問い合わせ内容<span style="color:#F0904F;margin-left:4px">必須</span></label>
-          <div style="display:flex;flex-wrap:wrap;gap:10px">
-            <button type="button" style="border-radius:999px;padding:10px 20px;font-size:15px;font-weight:700;font-family:inherit;cursor:pointer;border:1.5px solid #E4691F;background:#E4691F;color:#fff">無料相談したい</button>
-            <button type="button" style="border-radius:999px;padding:10px 20px;font-size:15px;font-weight:700;font-family:inherit;cursor:pointer;border:1.5px solid rgba(255,255,255,.35);background:transparent;color:rgba(255,255,255,.75)">資料がほしい</button>
+          <h3 style="margin:0;font-size:20px;font-weight:900;line-height:1.6;color:#fff">お問合せフォーム</h3>
+          <p style="margin:10px 0 0;font-size:13px;line-height:1.8;color:rgba(255,255,255,.6)">※紹介資料をご希望の方は、<a href="#download" style="color:#F0904F;text-decoration:underline;text-underline-offset:2px">資料ダウンロード</a>のフォームからお受け取りいただけます。</p>
+        </div>
+        <form name="contact" method="POST" action="/contact-thanks.html" data-netlify="true" netlify-honeypot="bot-field" style="display:flex;flex-direction:column;gap:16px;margin:0">
+          <input type="hidden" name="form-name" value="contact">
+          <p style="display:none"><label>この欄は空欄のままにしてください: <input name="bot-field"></label></p>
+          <!-- name属性はASCII固定(Netlify管理画面・通知メール・CSVエクスポートでの文字化けリスク回避)。
+               項目の対応: company=会社名 / name=氏名 / email=メールアドレス / phone=電話番号 / message=ご相談内容 -->
+          <div>
+            <label for="ct-company" style="display:block;font-size:14px;font-weight:700;color:rgba(255,255,255,.85);margin-bottom:6px">会社名<span style="color:#F0904F;margin-left:4px">必須</span></label>
+            <input id="ct-company" name="company" type="text" required autocomplete="organization" class="form-field" style="width:100%;box-sizing:border-box;font-size:16px;font-family:inherit;padding:13px 16px;border-radius:10px;border:1.5px solid rgba(255,255,255,.25);background:rgba(255,255,255,.06);color:#fff;outline:none">
           </div>
-          <p style="margin:10px 0 0;font-size:13px;line-height:1.8;color:rgba(255,255,255,.6)">※紹介資料は<a href="#download" style="color:#F0904F;text-decoration:underline;text-underline-offset:2px">資料ダウンロード</a>のフォームから、その場で受け取れます。</p>
-        </div>
-        <div>
-          <label style="display:block;font-size:14px;font-weight:700;color:rgba(255,255,255,.85);margin-bottom:6px">会社名<span style="color:#F0904F;margin-left:4px">必須</span></label>
-          <input type="text" class="form-field" style="width:100%;box-sizing:border-box;font-size:16px;font-family:inherit;padding:13px 16px;border-radius:10px;border:1.5px solid rgba(255,255,255,.25);background:rgba(255,255,255,.06);color:#fff;outline:none">
-        </div>
-        <div>
-          <label style="display:block;font-size:14px;font-weight:700;color:rgba(255,255,255,.85);margin-bottom:6px">氏名<span style="color:#F0904F;margin-left:4px">必須</span></label>
-          <input type="text" class="form-field" style="width:100%;box-sizing:border-box;font-size:16px;font-family:inherit;padding:13px 16px;border-radius:10px;border:1.5px solid rgba(255,255,255,.25);background:rgba(255,255,255,.06);color:#fff;outline:none">
-        </div>
-        <div>
-          <label style="display:block;font-size:14px;font-weight:700;color:rgba(255,255,255,.85);margin-bottom:6px">メールアドレス<span style="color:#F0904F;margin-left:4px">必須</span></label>
-          <input type="email" class="form-field" style="width:100%;box-sizing:border-box;font-size:16px;font-family:inherit;padding:13px 16px;border-radius:10px;border:1.5px solid rgba(255,255,255,.25);background:rgba(255,255,255,.06);color:#fff;outline:none">
-        </div>
-        <div>
-          <label style="display:block;font-size:14px;font-weight:700;color:rgba(255,255,255,.85);margin-bottom:6px">電話番号</label>
-          <input type="tel" class="form-field" style="width:100%;box-sizing:border-box;font-size:16px;font-family:inherit;padding:13px 16px;border-radius:10px;border:1.5px solid rgba(255,255,255,.25);background:rgba(255,255,255,.06);color:#fff;outline:none">
-        </div>
-        <div>
-          <label style="display:block;font-size:14px;font-weight:700;color:rgba(255,255,255,.85);margin-bottom:6px">ご相談内容(自由記入)</label>
-          <textarea rows="4" class="form-field" style="width:100%;box-sizing:border-box;font-size:16px;font-family:inherit;padding:13px 16px;border-radius:10px;border:1.5px solid rgba(255,255,255,.25);background:rgba(255,255,255,.06);color:#fff;outline:none;resize:vertical"></textarea>
-        </div>
-        <a href="mailto:info@naus.co.jp?subject=LPからのお問い合わせ" class="btn-form-submit" style="align-self:flex-start;display:inline-flex;align-items:center;justify-content:center;gap:8px;background:#fff;color:#1C2B4B;text-decoration:none;font-weight:700;font-size:16px;padding:14px 28px;border-radius:999px;border:0;cursor:pointer">この内容で問い合わせる</a>
+          <div>
+            <label for="ct-name" style="display:block;font-size:14px;font-weight:700;color:rgba(255,255,255,.85);margin-bottom:6px">氏名<span style="color:#F0904F;margin-left:4px">必須</span></label>
+            <input id="ct-name" name="name" type="text" required autocomplete="name" class="form-field" style="width:100%;box-sizing:border-box;font-size:16px;font-family:inherit;padding:13px 16px;border-radius:10px;border:1.5px solid rgba(255,255,255,.25);background:rgba(255,255,255,.06);color:#fff;outline:none">
+          </div>
+          <div>
+            <label for="ct-email" style="display:block;font-size:14px;font-weight:700;color:rgba(255,255,255,.85);margin-bottom:6px">メールアドレス<span style="color:#F0904F;margin-left:4px">必須</span></label>
+            <input id="ct-email" name="email" type="email" required autocomplete="email" class="form-field" style="width:100%;box-sizing:border-box;font-size:16px;font-family:inherit;padding:13px 16px;border-radius:10px;border:1.5px solid rgba(255,255,255,.25);background:rgba(255,255,255,.06);color:#fff;outline:none">
+          </div>
+          <div>
+            <label for="ct-tel" style="display:block;font-size:14px;font-weight:700;color:rgba(255,255,255,.85);margin-bottom:6px">電話番号<span style="color:rgba(255,255,255,.5);font-size:12px;margin-left:4px">任意</span></label>
+            <input id="ct-tel" name="phone" type="tel" autocomplete="tel" class="form-field" style="width:100%;box-sizing:border-box;font-size:16px;font-family:inherit;padding:13px 16px;border-radius:10px;border:1.5px solid rgba(255,255,255,.25);background:rgba(255,255,255,.06);color:#fff;outline:none">
+          </div>
+          <div>
+            <label for="ct-message" style="display:block;font-size:14px;font-weight:700;color:rgba(255,255,255,.85);margin-bottom:6px">ご相談内容(自由記入)<span style="color:rgba(255,255,255,.5);font-size:12px;margin-left:4px">任意</span></label>
+            <textarea id="ct-message" name="message" rows="4" class="form-field" style="width:100%;box-sizing:border-box;font-size:16px;font-family:inherit;padding:13px 16px;border-radius:10px;border:1.5px solid rgba(255,255,255,.25);background:rgba(255,255,255,.06);color:#fff;outline:none;resize:vertical"></textarea>
+          </div>
+          <button type="submit" class="btn-form-submit" style="align-self:flex-start;display:inline-flex;align-items:center;justify-content:center;gap:8px;background:#fff;color:#1C2B4B;font-family:inherit;font-weight:700;font-size:16px;padding:14px 28px;border-radius:999px;border:0;cursor:pointer">この内容で問い合わせる</button>
+          <!-- 山口記入待ち: プライバシーポリシーページの完成後、下記文中の「(現在準備中です)」を削除し、「プライバシーポリシー」をリンクに置換する(資料DLフォーム側の注記と同時に対応) -->
+          <p style="margin:0;font-size:12.5px;line-height:1.9;color:rgba(255,255,255,.6)">ご入力いただいた個人情報は、お問い合わせへのご回答と、本サービスに関するご連絡のためにのみ利用します。プライバシーポリシー(現在準備中です)の公開後は、そちらで詳細をご確認いただけます。</p>
+        </form>
       </div>
     </div>
   </div>
