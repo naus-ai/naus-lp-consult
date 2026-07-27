@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- このページは資料DLフォーム送信後のサンクスページ。検索結果に出す必要がないため、このnoindexは本番公開後も恒久的に残す(index.html冒頭の「本番公開時に削除する」noindexとは扱いが異なるので注意) -->
+<meta name="robots" content="noindex, nofollow">
+<title>資料ダウンロード|ゼロからAI Academy | naus</title>
+<meta name="description" content="「ゼロからAI Academy」紹介資料のダウンロードページです。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#FDFCFA;color:#232733;font-family:'Noto Sans JP',sans-serif;-webkit-font-smoothing:antialiased;}
+a{color:#1C2B4B;}
+a:hover{color:#D95F14;}
+.btn-dl:hover{background:#C95A1D;color:#fff;transform:translateY(-2px);}
+.link-back:hover{color:#D95F14;}
+</style>
+</head>
+<body>
+
+<!-- ===== ヘッダー(最小構成) ===== -->
+<header style="background:rgba(253,252,250,.92);border-bottom:1px solid rgba(28,43,75,.08)">
+  <div style="max-width:960px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px">
+    <a href="/" aria-label="トップページへ戻る" style="display:inline-flex;align-items:baseline;gap:8px;min-width:0;color:#1C2B4B;text-decoration:none"><span style="font-weight:900;font-size:clamp(15px,4vw,19px);letter-spacing:.02em;white-space:nowrap">ゼロからAI Academy</span><span style="font-weight:700;font-size:11px;letter-spacing:.06em;color:#8A8F9C;white-space:nowrap">by naus</span></a>
+  </div>
+</header>
+
+<!-- ===== サンクス+自動ダウンロード ===== -->
+<main style="background:linear-gradient(160deg,#FDFCFA 0%,#F6F1E8 70%,#F2EADC 100%)">
+  <div style="max-width:640px;margin:0 auto;padding:clamp(48px,10vw,88px) 24px clamp(64px,12vw,104px)">
+    <div style="background:#fff;border-radius:20px;box-shadow:0 20px 48px rgba(28,43,75,.12);padding:clamp(28px,6vw,48px);text-align:center">
+      <span aria-hidden="true" style="display:inline-flex;width:52px;height:52px;border-radius:50%;background:#E4691F;color:#fff;align-items:center;justify-content:center;font-weight:900;font-size:24px;margin-bottom:20px">✓</span>
+      <h1 style="margin:0 0 14px;font-size:clamp(22px,4.8vw,28px);font-weight:900;line-height:1.5;color:#1C2B4B">送信ありがとうございます</h1>
+      <p style="margin:0 0 28px;font-size:16px;line-height:2;color:#5A6172;text-wrap:pretty">「ゼロからAI Academy」紹介資料のダウンロードが、まもなく自動で始まります。</p>
+      <a id="dl-btn" href="assets/zerokara-ai-academy-intro.pdf" download="ゼロからAI Academy_紹介資料.pdf" class="btn-dl" style="display:inline-flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(135deg,#F07B2E,#D95614);color:#fff;text-decoration:none;font-weight:700;font-size:17px;padding:18px 32px;border-radius:999px;box-shadow:0 8px 24px rgba(228,105,31,.32)">資料をダウンロード(PDF・約5MB)<span aria-hidden="true">↓</span></a>
+      <p style="margin:16px 0 0;font-size:12.5px;line-height:1.8;color:#8A8F9C">ダウンロードが始まらない場合は、上のボタンをクリックしてください。</p>
+      <div style="margin-top:36px;padding-top:28px;border-top:1px solid rgba(28,43,75,.14);text-align:center">
+        <p style="margin:0 0 14px;font-size:15px;line-height:2;color:#5A6172;text-wrap:pretty">資料をご覧になって気になる点があれば、30分の無料相談でお聞かせください。</p>
+        <a href="https://calendar.app.google/BrR4kuBKG1XA17vw6" target="_blank" rel="noopener" style="font-size:15px;font-weight:700;color:#1C2B4B;text-decoration:underline;text-underline-offset:3px">無料相談(30分・オンライン)を予約する</a>
+      </div>
+    </div>
+    <p style="margin:28px 0 0;text-align:center"><a href="/" class="link-back" style="font-size:14px;font-weight:700;color:#5A6172;text-decoration:none">← ページに戻る</a></p>
+  </div>
+</main>
+
+<!-- ===== フッター(最小構成) ===== -->
+<footer style="background:#101A30;padding:28px 24px 44px;text-align:center">
+  <div style="font-weight:900;font-size:18px;letter-spacing:.04em;color:rgba(255,255,255,.85);margin-bottom:6px">ゼロからAI Academy</div>
+  <div style="font-size:12px;color:rgba(255,255,255,.5)">運営:株式会社naus</div>
+</footer>
+
+<script>
+// 送信直後にPDFのダウンロードを自動で開始する(失敗時も画面上のボタンから手動ダウンロード可能)
+(function(){
+  var btn=document.getElementById('dl-btn');
+  if(!btn)return;
+  setTimeout(function(){btn.click();},800);
+})();
+</script>
+</body>
+</html>
