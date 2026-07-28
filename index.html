@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- ⚠️確認用サイト限定の検索避け。本番公開(独自ドメイン consult.naus.co.jp)時に必ずこの2行を削除すること。削除し忘れると本番が検索に出ません。経緯: naus-ai-ops/docs/backlog.md -->
+<!-- ⚠️確認用サイト限定の検索避け。本番公開(独自ドメイン consult.naus.co.jp)時に必ずこの2行を削除すること。削除し忘れると本番が検索に出ません。 -->
 <meta name="robots" content="noindex, nofollow">
 <title>ゼロからAI Academy|採用担当者向けAIコンサル(スカウト自動化・求人票作成を内製化伴走で仕組み化) | naus</title>
 <meta name="description" content="「ゼロからAI Academy」は、スカウト自動化・求人票作成・求職者提案資料づくりなど、採用担当者の「作る」業務を生成AIで内製化する伴走型AIコンサルです。貴社のシステムや個人情報には直接アクセスせず、実務経験者が一社ごとに伴走します。まずは30分の無料相談から。">
@@ -13,8 +13,6 @@
 <meta property="og:title" content="ゼロからAI Academy|採用担当者向けAIコンサル(スカウト自動化・求人票作成を内製化伴走で仕組み化) | naus">
 <meta property="og:description" content="「ゼロからAI Academy」は、スカウト自動化・求人票作成・求職者提案資料づくりなど、採用担当者の「作る」業務を生成AIで内製化する伴走型AIコンサルです。貴社のシステムや個人情報には直接アクセスせず、実務経験者が一社ごとに伴走します。まずは30分の無料相談から。">
 <!-- 構造化データ(JSON-LD)ここから: Organization / Service / FAQPage -->
-<!-- 山口記入待ち: 以下は未確定のためJSON-LDに含めていません。確定後にOrganizationへ追記してください
-     - url (LP本番URL) / logo (ロゴ画像URL) / 正式名称の表記ゆれ・所在地・電話番号 / sameAs (公式SNS・note等のURL) -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -132,6 +130,7 @@ summary::-webkit-details-marker{display:none;}
 .header-right{display:flex;align-items:center;gap:28px;min-width:0;}
 .header-nav{display:flex;align-items:center;gap:26px;}
 .header-nav a{white-space:nowrap;}
+@media (max-width:840px){.header-nav{gap:14px;}}
 @media (max-width:767px){.header-nav{display:none;}}
 /* style-hover / style-focus(Claude Design独自属性)を通常のCSSに変換 */
 .btn-header-cta:hover{background:#C95A1D;color:#fff;}
@@ -189,8 +188,10 @@ summary::-webkit-details-marker{display:none;}
         <a href="#cases" style="color:#1C2B4B;text-decoration:none;font-weight:700;font-size:14px">実例</a>
         <a href="#pricing" style="color:#1C2B4B;text-decoration:none;font-weight:700;font-size:14px">料金</a>
         <a href="#faq" style="color:#1C2B4B;text-decoration:none;font-weight:700;font-size:14px">FAQ</a>
+        <a href="#download" style="color:#1C2B4B;text-decoration:none;font-weight:700;font-size:14px">資料請求</a>
+        <a href="#contact-form" style="color:#1C2B4B;text-decoration:none;font-weight:700;font-size:14px">問い合わせ</a>
       </nav>
-      <a href="https://calendar.app.google/BrR4kuBKG1XA17vw6" target="_blank" rel="noopener" class="btn-header-cta" style="display:inline-flex;align-items:center;background:#E4691F;color:#fff;text-decoration:none;font-weight:700;font-size:14px;padding:10px 18px;border-radius:999px;white-space:nowrap">無料相談を予約</a>
+      <a href="https://calendar.app.google/HHovS5GNzbaGfnQr9" target="_blank" rel="noopener" class="btn-header-cta" style="display:inline-flex;align-items:center;background:#E4691F;color:#fff;text-decoration:none;font-weight:700;font-size:14px;padding:10px 18px;border-radius:999px;white-space:nowrap">無料相談を予約</a>
     </div>
   </div>
 </header>
@@ -200,20 +201,14 @@ summary::-webkit-details-marker{display:none;}
   <div aria-hidden="true" style="position:absolute;inset:0;background:linear-gradient(115deg,transparent 58%,rgba(28,43,75,.035) 58%)"></div>
   <div style="position:relative;max-width:960px;margin:0 auto;padding:clamp(40px,8vw,64px) 24px clamp(56px,10vw,88px);display:flex;flex-wrap:wrap;gap:40px;align-items:center;justify-content:center">
     <div style="flex:1 1 380px;min-width:0;max-width:500px">
-      <p style="display:inline-flex;flex-wrap:wrap;align-items:center;gap:6px 10px;margin:0 0 18px;padding:9px 16px;background:rgba(255,255,255,.72);border:1.5px solid rgba(28,43,75,.14);border-radius:999px">
-        <span style="font-weight:900;font-size:14.5px;letter-spacing:.02em;color:#1C2B4B">ゼロからAI Academy</span>
-        <span aria-hidden="true" style="width:5px;height:5px;border-radius:50%;background:#E4691F"></span>
-        <span style="font-weight:700;font-size:12px;color:#5A6172">採用担当者向け・内製化伴走型AIコンサル</span>
-      </p>
       <h1 style="margin:0 0 24px;color:#1C2B4B;text-wrap:pretty">
         <span style="display:block;font-size:clamp(16px,3.6vw,21px);line-height:1.8;font-weight:700;margin-bottom:12px">AIは<span style="color:#E4691F;font-weight:900">チャットで質問するだけ</span>。そんな私たちが</span>
         <span style="display:block;font-size:clamp(24px,5vw,36px);line-height:1.55;font-weight:900">2ヶ月で業務量を<span style="color:#E4691F">80%削減</span>した<br>「AI活用術」を、貴社専用に構築します。</span>
       </h1>
       <p style="margin:0 0 32px;font-size:16px;line-height:2;color:#5A6172;text-wrap:pretty">採用担当者の方にも、採用を自ら担う経営者の方にも。テンプレ配布ではなく一緒に作り、仕組みもノウハウも貴社の手に残します。</p>
-      <a href="https://calendar.app.google/BrR4kuBKG1XA17vw6" target="_blank" rel="noopener" class="btn-hero-cta" style="display:inline-flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(135deg,#F07B2E,#D95614);color:#fff;text-decoration:none;font-weight:700;font-size:17px;padding:18px 32px;border-radius:999px;box-shadow:0 8px 24px rgba(228,105,31,.32)">無料相談(30分・オンライン)を予約する<span aria-hidden="true">→</span></a>
+      <a href="https://calendar.app.google/HHovS5GNzbaGfnQr9" target="_blank" rel="noopener" class="btn-hero-cta" style="display:inline-flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(135deg,#F07B2E,#D95614);color:#fff;text-decoration:none;font-weight:700;font-size:17px;padding:18px 32px;border-radius:999px;box-shadow:0 8px 24px rgba(228,105,31,.32)">無料相談(30分・オンライン)を予約する<span aria-hidden="true">→</span></a>
       <p style="margin:14px 0 0;font-size:12.5px;line-height:1.8;color:#8A8F9C">※「2ヶ月で80%削減」は、私たち自身が自社の採用業務で実践した結果です。</p>
     </div>
-    <!-- 主役ビジュアル: assets/meeting.webp(2026-07-16 WebP化。元のmeeting.pngはロールバック用にassets/へ残置) -->
     <div style="flex:0 1 420px;min-width:240px;width:100%;height:clamp(220px,66vw,460px)">
       <img src="assets/meeting.webp" alt="採用担当者とnausの担当者がオンラインで打ち合わせをしている様子" fetchpriority="high" style="width:100%;height:100%;object-fit:contain;border-radius:20px">
     </div>
@@ -237,7 +232,6 @@ summary::-webkit-details-marker{display:none;}
         <li style="display:flex;align-items:center;gap:16px;padding:20px 4px;border-top:1.5px solid rgba(28,43,75,.15);border-bottom:1.5px solid rgba(28,43,75,.15);font-size:19px;font-weight:900;color:#1C2B4B"><span aria-hidden="true" style="flex:none;width:10px;height:10px;border-radius:50%;background:#E4691F"></span>試しても、自社に合わない</li>
       </ul>
     </div>
-    <!-- イラスト: assets/thinking-man.png + assets/woman-thinking.png(いずれも未取得。山口が元ファイル提供後にこのパスへ配置) -->
     <div style="flex:1 1 420px;max-width:520px;min-width:240px;width:100%;height:clamp(240px,72vw,520px);display:flex;align-items:flex-end;justify-content:center;align-self:center">
       <div style="flex:none;width:64%;height:100%;position:relative;z-index:2">
         <img src="assets/thinking-man.png" alt="スカウト文や求人票の作成業務に頭を悩ませる採用担当者の男性" loading="lazy" style="width:100%;height:100%;object-fit:contain;border-radius:20px">
@@ -355,7 +349,7 @@ summary::-webkit-details-marker{display:none;}
         <p id="sd-cta-text" style="margin:0 0 24px;font-size:16px;line-height:2;color:#232733;font-weight:500;text-wrap:pretty"></p>
         <div style="display:flex;flex-wrap:wrap;gap:14px;align-items:center">
           <a href="#cases" class="sd-btn-cases" style="display:inline-flex;align-items:center;justify-content:center;gap:8px;background:#1C2B4B;color:#fff;text-decoration:none;font-weight:700;font-size:16px;padding:14px 26px;border-radius:10px">実例を見る</a>
-          <a href="https://calendar.app.google/BrR4kuBKG1XA17vw6" target="_blank" rel="noopener" class="sd-btn-consult" style="display:inline-flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(135deg,#F07B2E,#D95614);color:#fff;text-decoration:none;font-weight:700;font-size:16px;padding:14px 28px;border-radius:999px;box-shadow:0 8px 24px rgba(228,105,31,.32)">無料相談を予約する<span aria-hidden="true">→</span></a>
+          <a href="https://calendar.app.google/HHovS5GNzbaGfnQr9" target="_blank" rel="noopener" class="sd-btn-consult" style="display:inline-flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(135deg,#F07B2E,#D95614);color:#fff;text-decoration:none;font-weight:700;font-size:16px;padding:14px 28px;border-radius:999px;box-shadow:0 8px 24px rgba(228,105,31,.32)">無料相談を予約する<span aria-hidden="true">→</span></a>
         </div>
         <div style="margin-top:22px">
           <button type="button" id="sd-reset" class="sd-reset">もう一度診断する</button>
@@ -580,7 +574,6 @@ summary::-webkit-details-marker{display:none;}
       <div style="padding:36px 28px 36px 4px;border-bottom:1.5px solid rgba(28,43,75,.15)">
         <div style="display:flex;align-items:flex-start;gap:14px;margin-bottom:20px">
           <span aria-hidden="true" style="font-weight:900;font-size:72px;line-height:.9;color:transparent;-webkit-text-stroke:1.5px rgba(228,105,31,.6)">A</span>
-          <!-- パッケージ名は docs/pricing.md「セミナー経由パッケージ(スポット/伴走型)」に対応。LPでは料金非公開(2026-07-21 山口確定) -->
           <h3 style="margin:6px 0 0;font-size:20px;font-weight:900;color:#1C2B4B;line-height:1.5">単発型</h3>
         </div>
         <div style="margin-bottom:14px"><div style="font-size:13px;font-weight:700;color:#E4691F;margin-bottom:4px">やること</div><p style="margin:0;font-size:16px;line-height:1.8;color:#232733">スカウト文面・求人票など、選んだ1業務を単発で仕組み化</p></div>
@@ -680,39 +673,30 @@ summary::-webkit-details-marker{display:none;}
 <section id="download" data-screen-label="資料ダウンロード" style="background:linear-gradient(180deg,#F6F1E8,#F2EADC)">
   <div style="max-width:840px;margin:0 auto;padding:64px 24px 36px">
     <div style="display:flex;flex-wrap:wrap;background:#fff;border-radius:24px;overflow:hidden;box-shadow:0 20px 48px rgba(28,43,75,.12)">
-      <div aria-hidden="true" style="flex:1 1 260px;min-width:240px;position:relative;background:linear-gradient(150deg,#1C2B4B,#152039);display:flex;align-items:center;justify-content:center;padding:44px 24px;overflow:hidden">
-        <div style="position:relative;width:130px;background:#fff;border-radius:12px;box-shadow:0 16px 36px rgba(0,0,0,.35);padding:16px;display:flex;flex-direction:column;gap:8px;transform:rotate(-3deg)">
-          <span style="height:9px;width:58%;border-radius:4px;background:#1C2B4B"></span>
-          <span style="height:7px;width:92%;border-radius:4px;background:rgba(28,43,75,.14)"></span>
-          <span style="height:7px;width:80%;border-radius:4px;background:rgba(28,43,75,.14)"></span>
-          <span style="height:7px;width:86%;border-radius:4px;background:rgba(28,43,75,.14)"></span>
-          <span style="align-self:flex-start;padding:4px 10px;border-radius:999px;background:#E4691F;color:#fff;font-weight:900;font-size:11px;margin-top:4px">PDF</span>
-          <span aria-hidden="true" style="position:absolute;right:-16px;bottom:-16px;width:40px;height:40px;border-radius:50%;background:#E4691F;color:#fff;display:inline-flex;align-items:center;justify-content:center;font-weight:900;font-size:18px">↓</span>
-        </div>
-      </div>
-      <div style="flex:1.6 1 320px;min-width:0;padding:44px 36px">
-        <!-- 見出し: 2026-07-27 山口決定の一言コピー1行のみ(キッカー・リード文・操作説明・ページ数・容量は載せない) -->
-        <h2 style="margin:0 0 24px;font-size:clamp(22px,4.6vw,28px);font-weight:900;line-height:1.5;color:#1C2B4B">「ゼロからAI Academy」<span style="display:inline-block">紹介資料</span></h2>
-        <!-- 「この資料で分かること」: 2026-07-27 山口指示で簡潔な3項目(案A・数値なし)に差し替え。
-             各項目は assets/zerokara-ai-academy-intro.pdf(全22ページ・mdlsで実測)の実内容が根拠(PDF実読で確認済み)。
-             見出しの「数字」はPDF側にBefore→Afterの実数値が載っていることを指す。料金・金額はLPに出さないルールを維持 -->
-        <div style="margin:0 0 26px">
-          <div style="font-size:13px;font-weight:700;letter-spacing:.14em;color:#E4691F;margin-bottom:10px">この資料で分かること</div>
+      <div style="flex:1 1 300px;min-width:260px;background:linear-gradient(150deg,#1C2B4B,#152039);padding:44px 32px;display:flex;flex-direction:column;justify-content:center;gap:28px">
+        <h2 style="margin:0;font-size:clamp(22px,4.6vw,28px);font-weight:900;line-height:1.5;color:#fff">「ゼロからAI Academy」<span style="display:inline-block">紹介資料</span></h2>
+        <div>
+          <div style="font-size:13px;font-weight:700;letter-spacing:.14em;color:#F0904F;margin-bottom:10px">この資料で分かること</div>
           <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px">
-            <li style="display:flex;align-items:flex-start;gap:10px;font-size:15px;line-height:1.8;color:#232733"><span aria-hidden="true" style="flex:none;width:8px;height:8px;border-radius:50%;background:#E4691F;margin-top:9px"></span><span style="flex:1;min-width:0">スカウト文・提案資料・求人票・社外向け資料、4つの自動化のBefore→After</span></li>
-            <li style="display:flex;align-items:flex-start;gap:10px;font-size:15px;line-height:1.8;color:#232733"><span aria-hidden="true" style="flex:none;width:8px;height:8px;border-radius:50%;background:#E4691F;margin-top:9px"></span><span style="flex:1;min-width:0">AIの専門知識ゼロのメンバーが、つまずきながら業務に定着させるまでの実録</span></li>
-            <li style="display:flex;align-items:flex-start;gap:10px;font-size:15px;line-height:1.8;color:#232733"><span aria-hidden="true" style="flex:none;width:8px;height:8px;border-radius:50%;background:#E4691F;margin-top:9px"></span><span style="flex:1;min-width:0">支援パッケージ(単発型・継続伴走型)の違いと、ご契約後の流れ</span></li>
+            <li style="display:flex;align-items:flex-start;gap:10px;font-size:15px;line-height:1.8;color:rgba(255,255,255,.92)"><span aria-hidden="true" style="flex:none;width:8px;height:8px;border-radius:50%;background:#F0904F;margin-top:9px"></span><span style="flex:1;min-width:0">スカウト文・提案資料・求人票・社外向け資料、4つの自動化のBefore→After</span></li>
+            <li style="display:flex;align-items:flex-start;gap:10px;font-size:15px;line-height:1.8;color:rgba(255,255,255,.92)"><span aria-hidden="true" style="flex:none;width:8px;height:8px;border-radius:50%;background:#F0904F;margin-top:9px"></span><span style="flex:1;min-width:0">AIの専門知識ゼロのメンバーが、つまずきながら業務に定着させるまでの実録</span></li>
+            <li style="display:flex;align-items:flex-start;gap:10px;font-size:15px;line-height:1.8;color:rgba(255,255,255,.92)"><span aria-hidden="true" style="flex:none;width:8px;height:8px;border-radius:50%;background:#F0904F;margin-top:9px"></span><span style="flex:1;min-width:0">支援パッケージ(単発型・継続伴走型)の違いと、ご契約後の流れ</span></li>
           </ul>
         </div>
-        <!-- 資料DLフォーム(2026-07-27実装): Netlify Formsで受け付け、送信後 /thanks.html に遷移。DLはサンクスページのボタンから(自動DLは2026-07-27廃止)。
-             このフォームはNetlify管理画面で検出済み。<form>タグ・form-name・各inputのname・data-netlify・honeypot・actionは変更しない(変更すると再検出が必要になる恐れ)。
-             送信データはNetlify管理画面のFormsタブに保存される。通知メールはNetlify側での設定が必要(未設定だと管理画面を開かない限り気づけない)。
-             スパム対策: netlify-honeypot(bot-field)+Netlify標準のAkismet -->
+        <div aria-hidden="true" style="display:flex;justify-content:center">
+          <div style="position:relative;width:118px;background:#fff;border-radius:12px;box-shadow:0 16px 36px rgba(0,0,0,.35);padding:14px;display:flex;flex-direction:column;gap:7px;transform:rotate(-3deg)">
+            <span style="height:8px;width:58%;border-radius:4px;background:#1C2B4B"></span>
+            <span style="height:7px;width:92%;border-radius:4px;background:rgba(28,43,75,.14)"></span>
+            <span style="height:7px;width:80%;border-radius:4px;background:rgba(28,43,75,.14)"></span>
+            <span style="align-self:flex-start;padding:3px 9px;border-radius:999px;background:#E4691F;color:#fff;font-weight:900;font-size:11px;margin-top:2px">PDF</span>
+            <span style="position:absolute;right:-14px;bottom:-14px;width:36px;height:36px;border-radius:50%;background:#E4691F;color:#fff;display:inline-flex;align-items:center;justify-content:center;font-weight:900;font-size:16px">↓</span>
+          </div>
+        </div>
+      </div>
+      <div style="flex:1.3 1 320px;min-width:0;padding:44px 36px">
         <form name="document-download" method="POST" action="/thanks.html" data-netlify="true" netlify-honeypot="bot-field" style="display:flex;flex-direction:column;gap:14px;margin:0">
           <input type="hidden" name="form-name" value="document-download">
           <p style="display:none"><label>この欄は空欄のままにしてください: <input name="bot-field"></label></p>
-          <!-- name属性はASCII固定(Netlify管理画面・通知メール・CSVエクスポートでの文字化けリスク回避)。
-               項目の対応: company=会社名 / name=氏名 / email=メールアドレス / phone=電話番号 -->
           <div>
             <label for="dl-company" class="dl-label">会社名<span style="color:#E4691F;margin-left:4px">必須</span></label>
             <input id="dl-company" name="company" type="text" required autocomplete="organization" class="dl-field">
@@ -729,14 +713,12 @@ summary::-webkit-details-marker{display:none;}
             <label for="dl-tel" class="dl-label">電話番号<span style="color:#8A8F9C;font-size:12px;margin-left:4px">任意</span></label>
             <input id="dl-tel" name="phone" type="tel" autocomplete="tel" class="dl-field">
           </div>
-          <!-- 自由記述欄(2026-07-27 山口承認で追加・任意項目)。name属性はASCII(message)、表示ラベルは日本語 -->
           <div>
             <label for="dl-message" class="dl-label">自由記述(ご質問・ご要望など)<span style="color:#8A8F9C;font-size:12px;margin-left:4px">任意</span></label>
             <textarea id="dl-message" name="message" rows="4" class="dl-field" style="resize:vertical"></textarea>
           </div>
           <button type="submit" class="btn-doc-submit"><span aria-hidden="true" style="width:22px;height:22px;background:#fff;-webkit-mask:url('assets/icon-mail.svg') center/contain no-repeat;mask:url('assets/icon-mail.svg') center/contain no-repeat"></span>送信して資料をダウンロード</button>
-          <!-- 山口記入待ち: プライバシーポリシーページの完成後、下記文中の「(現在準備中です)」を削除し、「プライバシーポリシー」をリンクに置換する -->
-          <p style="margin:0;font-size:12.5px;line-height:1.9;color:#8A8F9C">ご入力いただいた個人情報は、資料のご提供と、本サービスに関するご連絡のためにのみ利用します。プライバシーポリシー(現在準備中です)の公開後は、そちらで詳細をご確認いただけます。</p>
+          <p style="margin:0;font-size:12.5px;line-height:1.9;color:#8A8F9C">ご入力いただいた個人情報は、資料のご提供と、本サービスに関するご連絡のためにのみ利用します。詳細は<a href="https://www.naus.co.jp/2" target="_blank" rel="noopener" style="display:inline-block">プライバシーポリシー</a>をご確認ください。</p>
         </form>
       </div>
     </div>
@@ -746,8 +728,6 @@ summary::-webkit-details-marker{display:none;}
 <!-- ===== 9. 実践レポート(同帯内・罫線リンク行) ===== -->
 <section data-screen-label="実践レポート" style="background:#F2EADC">
   <div style="max-width:840px;margin:0 auto;padding:0 24px 88px">
-    <!-- note実録記事は当面対応保留(2026-07-27 山口判断)。記事公開が決まったら、このdivをaタグに戻してhrefに記事URLを設定し、
-         文末を「公開しています。」へ、「公開予定」バッジを矢印(→)へ戻す -->
     <div style="display:flex;flex-wrap:wrap;align-items:center;gap:16px 20px;padding:28px 8px;border-top:1.5px solid rgba(28,43,75,.2);border-bottom:1.5px solid rgba(28,43,75,.2)">
       <div aria-hidden="true" style="flex:none;display:flex;align-items:center;justify-content:center">
         <span style="width:44px;height:44px;background:#1C2B4B;-webkit-mask:url('assets/icon-pen.svg') center/contain no-repeat;mask:url('assets/icon-pen.svg') center/contain no-repeat"></span>
@@ -837,17 +817,11 @@ summary::-webkit-details-marker{display:none;}
   <div style="position:relative;max-width:600px;margin:0 auto;padding:80px 24px;text-align:center">
     <h2 style="margin:0 0 18px;font-size:clamp(26px,5.6vw,36px);font-weight:900;line-height:1.5;color:#fff">まずは30分、お話ししませんか</h2>
     <p style="margin:0 0 36px;font-size:16px;line-height:2;color:rgba(255,255,255,.84);text-wrap:pretty">気になる業務が一つでもあれば、無料相談でお聞かせください。貴社に合った形をご一緒に考えます。</p>
-    <a href="https://calendar.app.google/BrR4kuBKG1XA17vw6" target="_blank" rel="noopener" class="btn-closing-cta" style="display:inline-flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(135deg,#F07B2E,#D95614);color:#fff;text-decoration:none;font-weight:700;font-size:17px;padding:18px 36px;border-radius:999px;box-shadow:0 8px 24px rgba(0,0,0,.3)">無料相談(30分・オンライン)を予約する<span aria-hidden="true">→</span></a>
+    <a href="https://calendar.app.google/HHovS5GNzbaGfnQr9" target="_blank" rel="noopener" class="btn-closing-cta" style="display:inline-flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(135deg,#F07B2E,#D95614);color:#fff;text-decoration:none;font-weight:700;font-size:17px;padding:18px 36px;border-radius:999px;box-shadow:0 8px 24px rgba(0,0,0,.3)">無料相談(30分・オンライン)を予約する<span aria-hidden="true">→</span></a>
 
     <div style="margin-top:44px;padding-top:40px;border-top:1px solid rgba(255,255,255,.14);text-align:left">
       <p style="margin:0 0 24px;font-size:16px;line-height:1.9;color:rgba(255,255,255,.72);text-align:center">日程調整がすぐに難しい場合は、下記フォームからもお問い合わせいただけます。</p>
-      <!-- お問い合わせフォーム(2026-07-27 山口承認で実装): Netlify Formsで受け付け、送信後 /contact-thanks.html に遷移。
-           旧実装はダミー(formタグ・name属性なし、送信ボタンはmailtoリンク)だったため、資料DLフォームと同じ流儀で機能させた。
-           form detectionは有効化済みのため、デプロイ時にこのフォーム(contact)も自動検出される。
-           送信データはNetlify管理画面のFormsタブに保存される。通知メールはNetlify側での設定が必要(未設定だと管理画面を開かない限り気づけない)。
-           スパム対策: netlify-honeypot(bot-field)+Netlify標準のAkismet。
-           見出し「お問合せフォーム」は2026-07-27 山口指示の表記どおり(旧「お問い合わせ内容」ラベル+選択ボタン2つは同指示で削除) -->
-      <div id="contact-form" style="display:flex;flex-direction:column;gap:16px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:28px">
+      <div id="contact-form" style="scroll-margin-top:76px;display:flex;flex-direction:column;gap:16px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:28px">
         <div>
           <h3 style="margin:0;font-size:20px;font-weight:900;line-height:1.6;color:#fff">お問合せフォーム</h3>
           <p style="margin:10px 0 0;font-size:13px;line-height:1.8;color:rgba(255,255,255,.6)">※紹介資料をご希望の方は、<a href="#download" style="color:#F0904F;text-decoration:underline;text-underline-offset:2px">資料ダウンロード</a>のフォームからお受け取りいただけます。</p>
@@ -855,8 +829,6 @@ summary::-webkit-details-marker{display:none;}
         <form name="contact" method="POST" action="/contact-thanks.html" data-netlify="true" netlify-honeypot="bot-field" style="display:flex;flex-direction:column;gap:16px;margin:0">
           <input type="hidden" name="form-name" value="contact">
           <p style="display:none"><label>この欄は空欄のままにしてください: <input name="bot-field"></label></p>
-          <!-- name属性はASCII固定(Netlify管理画面・通知メール・CSVエクスポートでの文字化けリスク回避)。
-               項目の対応: company=会社名 / name=氏名 / email=メールアドレス / phone=電話番号 / message=ご相談内容 -->
           <div>
             <label for="ct-company" style="display:block;font-size:14px;font-weight:700;color:rgba(255,255,255,.85);margin-bottom:6px">会社名<span style="color:#F0904F;margin-left:4px">必須</span></label>
             <input id="ct-company" name="company" type="text" required autocomplete="organization" class="form-field" style="width:100%;box-sizing:border-box;font-size:16px;font-family:inherit;padding:13px 16px;border-radius:10px;border:1.5px solid rgba(255,255,255,.25);background:rgba(255,255,255,.06);color:#fff;outline:none">
@@ -878,8 +850,7 @@ summary::-webkit-details-marker{display:none;}
             <textarea id="ct-message" name="message" rows="4" class="form-field" style="width:100%;box-sizing:border-box;font-size:16px;font-family:inherit;padding:13px 16px;border-radius:10px;border:1.5px solid rgba(255,255,255,.25);background:rgba(255,255,255,.06);color:#fff;outline:none;resize:vertical"></textarea>
           </div>
           <button type="submit" class="btn-form-submit" style="align-self:flex-start;display:inline-flex;align-items:center;justify-content:center;gap:8px;background:#fff;color:#1C2B4B;font-family:inherit;font-weight:700;font-size:16px;padding:14px 28px;border-radius:999px;border:0;cursor:pointer">この内容で問い合わせる</button>
-          <!-- 山口記入待ち: プライバシーポリシーページの完成後、下記文中の「(現在準備中です)」を削除し、「プライバシーポリシー」をリンクに置換する(資料DLフォーム側の注記と同時に対応) -->
-          <p style="margin:0;font-size:12.5px;line-height:1.9;color:rgba(255,255,255,.6)">ご入力いただいた個人情報は、お問い合わせへのご回答と、本サービスに関するご連絡のためにのみ利用します。プライバシーポリシー(現在準備中です)の公開後は、そちらで詳細をご確認いただけます。</p>
+          <p style="margin:0;font-size:12.5px;line-height:1.9;color:rgba(255,255,255,.6)">ご入力いただいた個人情報は、お問い合わせへのご回答と、本サービスに関するご連絡のためにのみ利用します。詳細は<a href="https://www.naus.co.jp/2" target="_blank" rel="noopener" style="display:inline-block;color:#F0904F;text-decoration:underline;text-underline-offset:2px">プライバシーポリシー</a>をご確認ください。</p>
         </form>
       </div>
     </div>
@@ -890,9 +861,8 @@ summary::-webkit-details-marker{display:none;}
 <footer style="background:#101A30;padding:28px 24px 44px;text-align:center">
   <div style="font-weight:900;font-size:18px;letter-spacing:.04em;color:rgba(255,255,255,.85);margin-bottom:6px">ゼロからAI Academy</div>
   <div style="font-size:12px;color:rgba(255,255,255,.5);margin-bottom:14px">運営:株式会社naus</div>
-  <!-- 山口記入待ち: プライバシーポリシーページの完成後、下記spanをaタグに戻してURLを設定する(リンク切れを見せないため一時的に非リンク表示にしている。ページ作成は別タスク) -->
   <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:8px 24px;margin-bottom:14px">
-    <span style="font-size:13px;color:rgba(255,255,255,.65)">プライバシーポリシー(準備中)</span>
+    <a href="https://www.naus.co.jp/2" target="_blank" rel="noopener" class="footer-company-link" style="font-size:13px;color:rgba(255,255,255,.65);text-decoration:underline;text-underline-offset:2px">プライバシーポリシー</a>
     <span style="font-size:13px;color:rgba(255,255,255,.65)">お問い合わせ: <a href="mailto:info@naus.co.jp" style="font-family:ui-monospace,Menlo,monospace;font-size:12px;background:rgba(255,255,255,.08);border-radius:6px;padding:2px 8px;color:rgba(255,255,255,.85);text-decoration:none">info@naus.co.jp</a></span>
   </div>
   <div style="font-size:13px;color:rgba(255,255,255,.5)"><a href="https://www.naus.co.jp/" target="_blank" rel="noopener" class="footer-company-link" style="color:rgba(255,255,255,.5);text-decoration:underline;text-underline-offset:2px">運営会社</a></div>
@@ -900,7 +870,7 @@ summary::-webkit-details-marker{display:none;}
 
 <!-- モバイル追従CTA -->
 <div style="position:fixed;left:0;right:0;bottom:0;z-index:60;padding:12px 16px calc(12px + env(safe-area-inset-bottom));background:rgba(255,255,255,.94);backdrop-filter:blur(10px);border-top:1px solid rgba(28,43,75,.12);display:flex;justify-content:center">
-  <a href="https://calendar.app.google/BrR4kuBKG1XA17vw6" target="_blank" rel="noopener" class="btn-sticky-cta" style="display:inline-flex;align-items:center;justify-content:center;gap:8px;width:100%;max-width:480px;background:linear-gradient(135deg,#F07B2E,#D95614);color:#fff;text-decoration:none;font-weight:700;font-size:16px;padding:15px 24px;border-radius:999px;box-shadow:0 6px 18px rgba(228,105,31,.35)">無料相談(30分・オンライン)を予約する</a>
+  <a href="https://calendar.app.google/HHovS5GNzbaGfnQr9" target="_blank" rel="noopener" class="btn-sticky-cta" style="display:inline-flex;align-items:center;justify-content:center;gap:8px;width:100%;max-width:480px;background:linear-gradient(135deg,#F07B2E,#D95614);color:#fff;text-decoration:none;font-weight:700;font-size:16px;padding:15px 24px;border-radius:999px;box-shadow:0 6px 18px rgba(228,105,31,.35)">無料相談(30分・オンライン)を予約する</a>
 </div>
 <div style="height:84px"></div>
 </body>
