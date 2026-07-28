@@ -1,9 +1,17 @@
 # Netlifyカスタムヘッダー定義(公開ディレクトリ=リポジトリ直下に配置)
 # 目的: 紹介資料PDFをブラウザで開かせず、確実に「ファイル保存」させる(2026-07-27)。
 #       download属性だけではSafari等でPDFが画面に開いてしまうことがあるため、サーバー側で強制する。
-# 注意: このファイルは資料PDFのダウンロード指定専用。セキュリティヘッダ等の追加は別タスク(公開準備)で行い、ここに混ぜない。
 # 保存ファイル名: 日本語ファイル名をヘッダーに入れると文字化けの恐れがあるため filename は指定しない。
 #                (モダンブラウザはリンク側の download 属性の名前で保存、それ以外はASCIIのファイル名のまま保存される)
 
 /assets/zerokara-ai-academy-intro.pdf
   Content-Disposition: attachment
+
+# 全ページ共通のセキュリティヘッダー。
+# 上の個別パス指定(PDFのダウンロード強制)を打ち消さないよう、全体指定(/*)は必ず最後に置く。
+/*
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
