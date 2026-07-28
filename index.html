@@ -175,6 +175,34 @@ summary::-webkit-details-marker{display:none;}
   .sd-fade{animation:sdFade .25s ease;}
   @keyframes sdFade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 }
+/* ===== 送信前の入力内容確認モーダル(cf-*) ===== */
+.cf-overlay{position:fixed;inset:0;z-index:200;display:flex;align-items:center;justify-content:center;padding:16px;box-sizing:border-box;background:rgba(16,26,48,.62);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);}
+.cf-overlay[hidden]{display:none;}
+.cf-dialog{display:flex;flex-direction:column;width:100%;max-width:520px;max-height:calc(100vh - 32px);max-height:calc(100dvh - 32px);box-sizing:border-box;background:#fff;border-radius:20px 20px 20px 4px;box-shadow:0 24px 56px rgba(28,43,75,.28);padding:clamp(22px,4.6vw,32px);text-align:left;}
+.cf-dialog:focus{outline:none;}
+.cf-title{margin:0;font-size:clamp(17px,3.6vw,20px);font-weight:900;line-height:1.6;letter-spacing:.04em;color:#1C2B4B;}
+.cf-list{flex:1 1 auto;overflow-y:auto;-webkit-overflow-scrolling:touch;margin:18px 0 0;padding:0;border-top:1px solid rgba(28,43,75,.12);}
+.cf-row{padding:13px 2px;border-bottom:1px solid rgba(28,43,75,.12);}
+.cf-key{margin:0;font-size:12.5px;font-weight:700;line-height:1.7;letter-spacing:.04em;color:#5A6172;}
+.cf-val{margin:3px 0 0;font-size:15.5px;line-height:1.9;color:#232733;white-space:pre-wrap;overflow-wrap:anywhere;}
+.cf-actions{flex:none;display:flex;flex-wrap:wrap;justify-content:flex-end;gap:12px;margin-top:22px;}
+.cf-btn{display:inline-flex;align-items:center;justify-content:center;font-family:inherit;font-weight:700;font-size:15.5px;line-height:1.4;padding:13px 26px;border-radius:999px;cursor:pointer;}
+.cf-btn:focus-visible{outline:2px solid #E4691F;outline-offset:2px;}
+.cf-btn:disabled{opacity:.55;cursor:not-allowed;}
+.cf-btn-cancel{background:#fff;color:#1C2B4B;border:1.5px solid rgba(28,43,75,.28);}
+.cf-btn-cancel:hover:not(:disabled){background:#F6F8FB;border-color:#1C2B4B;}
+.cf-btn-submit{background:linear-gradient(135deg,#F07B2E,#D95614);color:#fff;border:0;box-shadow:0 8px 24px rgba(228,105,31,.32);}
+.cf-btn-submit:hover:not(:disabled){background:#C95A1D;}
+@media (max-width:479px){
+  .cf-actions{flex-direction:column;gap:10px;}
+  .cf-btn{width:100%;}
+}
+@media (prefers-reduced-motion: no-preference){
+  .cf-overlay{animation:cfFade .18s ease;}
+  .cf-dialog{animation:cfPop .22s cubic-bezier(.22,1,.36,1);}
+  @keyframes cfFade{from{opacity:0}to{opacity:1}}
+  @keyframes cfPop{from{opacity:0;transform:translateY(10px) scale(.985)}to{opacity:1;transform:none}}
+}
 </style>
 </head>
 <body id="page-top">
@@ -873,5 +901,183 @@ summary::-webkit-details-marker{display:none;}
   <a href="https://calendar.app.google/HHovS5GNzbaGfnQr9" target="_blank" rel="noopener" class="btn-sticky-cta" style="display:inline-flex;align-items:center;justify-content:center;gap:8px;width:100%;max-width:480px;background:linear-gradient(135deg,#F07B2E,#D95614);color:#fff;text-decoration:none;font-weight:700;font-size:16px;padding:15px 24px;border-radius:999px;box-shadow:0 6px 18px rgba(228,105,31,.35)">無料相談(30分・オンライン)を予約する</a>
 </div>
 <div style="height:84px"></div>
+
+<!-- ===== 送信前の入力内容確認モーダル ===== -->
+<div id="cf-overlay" class="cf-overlay" hidden>
+  <div class="cf-dialog" role="dialog" aria-modal="true" aria-labelledby="cf-title" tabindex="-1">
+    <h2 id="cf-title" class="cf-title">入力内容をご確認ください</h2>
+    <dl id="cf-list" class="cf-list"></dl>
+    <div class="cf-actions">
+      <button type="button" id="cf-cancel" class="cf-btn cf-btn-cancel">修正する</button>
+      <button type="button" id="cf-submit" class="cf-btn cf-btn-submit">この内容で送信する</button>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  var overlay=document.getElementById('cf-overlay');
+  var dialog=overlay?overlay.querySelector('.cf-dialog'):null;
+  var list=document.getElementById('cf-list');
+  var btnCancel=document.getElementById('cf-cancel');
+  var btnSubmit=document.getElementById('cf-submit');
+  if(!overlay||!dialog||!list||!btnCancel||!btnSubmit)return;
+
+  var forms=[];
+  ['document-download','contact'].forEach(function(n){
+    var f=document.querySelector('form[name="'+n+'"]');
+    if(f)forms.push(f);
+  });
+  if(!forms.length)return;
+
+  // 確認画面に出さない制御用フィールド
+  var SKIP_NAME={'form-name':1,'bot-field':1};
+  var SKIP_TYPE={hidden:1,submit:1,button:1,reset:1,image:1,file:1,password:1};
+
+  function cleanText(node){
+    var c=node.cloneNode(true);
+    Array.prototype.slice.call(c.querySelectorAll('input,textarea,select,[aria-hidden="true"]')).forEach(function(n){
+      if(n.parentNode)n.parentNode.removeChild(n);
+    });
+    // 「必須」「任意」のバッジは項目名に含めない
+    Array.prototype.slice.call(c.querySelectorAll('span')).forEach(function(n){
+      var t=(n.textContent||'').replace(/\s/g,'');
+      if((t==='必須'||t==='任意')&&n.parentNode)n.parentNode.removeChild(n);
+    });
+    return (c.textContent||'').replace(/\s+/g,' ').trim();
+  }
+  function ownLabel(el){
+    var lab=null;
+    if(el.id)lab=document.querySelector('label[for="'+el.id+'"]');
+    if(!lab&&el.closest)lab=el.closest('label');
+    if(lab)return cleanText(lab);
+    return el.getAttribute('aria-label')||el.name;
+  }
+  function groupLabel(el){
+    var fs=el.closest?el.closest('fieldset'):null;
+    var lg=fs?fs.querySelector('legend'):null;
+    if(lg)return cleanText(lg);
+    return ownLabel(el);
+  }
+
+  function collect(form){
+    var rows=[],doneRadio={};
+    Array.prototype.slice.call(form.elements).forEach(function(el){
+      var name=el.name;
+      if(!name||SKIP_NAME[name]||el.disabled)return;
+      var type=(el.type||'').toLowerCase();
+      if(SKIP_TYPE[type])return;
+      if(type==='radio'){
+        if(doneRadio[name]||!el.checked)return;
+        doneRadio[name]=1;
+        rows.push({k:groupLabel(el),v:ownLabel(el)});
+        return;
+      }
+      if(type==='checkbox'){
+        if(!el.checked)return;
+        rows.push({k:groupLabel(el),v:ownLabel(el)});
+        return;
+      }
+      if(el.tagName==='SELECT'){
+        var picked=[];
+        Array.prototype.slice.call(el.options).forEach(function(o){
+          if(o.selected&&o.value!=='')picked.push((o.textContent||'').trim());
+        });
+        if(!picked.length)return;
+        rows.push({k:ownLabel(el),v:picked.join('、')});
+        return;
+      }
+      var v=(el.value||'').replace(/\r\n/g,'\n').trim();
+      if(!v)return; // 未入力の任意項目は行ごと出さない
+      rows.push({k:ownLabel(el),v:v});
+    });
+    return rows;
+  }
+
+  function render(rows){
+    while(list.firstChild)list.removeChild(list.firstChild);
+    rows.forEach(function(r){
+      var wrap=document.createElement('div');
+      wrap.className='cf-row';
+      var dt=document.createElement('dt');
+      dt.className='cf-key';
+      dt.textContent=r.k;
+      var dd=document.createElement('dd');
+      dd.className='cf-val';
+      dd.textContent=r.v;
+      wrap.appendChild(dt);
+      wrap.appendChild(dd);
+      list.appendChild(wrap);
+    });
+  }
+
+  var current=null,sending=false,lastFocus=null,prevOverflow='';
+  var submitLabel=btnSubmit.textContent;
+
+  function open(form){
+    current=form;
+    render(collect(form));
+    lastFocus=document.activeElement;
+    prevOverflow=document.body.style.overflow;
+    document.body.style.overflow='hidden';
+    overlay.hidden=false;
+    list.scrollTop=0;
+    dialog.focus();
+  }
+  function close(){
+    overlay.hidden=true;
+    document.body.style.overflow=prevOverflow;
+    current=null;
+    if(lastFocus&&lastFocus.focus)lastFocus.focus();
+  }
+
+  forms.forEach(function(form){
+    form.addEventListener('submit',function(e){
+      // 実送信は「この内容で送信する」を押したときだけ(submitイベントを経由しないので二重送信にならない)
+      e.preventDefault();
+      open(form);
+    });
+  });
+
+  btnCancel.addEventListener('click',close);
+  overlay.addEventListener('click',function(e){if(sending)return;if(e.target===overlay)close();});
+  btnSubmit.addEventListener('click',function(){
+    if(!current||sending)return;
+    sending=true;
+    btnSubmit.disabled=true;
+    btnSubmit.textContent='送信しています…';
+    btnCancel.disabled=true;
+    HTMLFormElement.prototype.submit.call(current);
+  });
+
+  // ブラウザの「戻る」で復帰したときは送信中の表示が残らないよう初期状態へ戻す
+  window.addEventListener('pageshow',function(){
+    sending=false;
+    btnSubmit.disabled=false;
+    btnSubmit.textContent=submitLabel;
+    btnCancel.disabled=false;
+    overlay.hidden=true;
+    document.body.style.overflow=prevOverflow;
+    current=null;
+  });
+
+  document.addEventListener('keydown',function(e){
+    if(overlay.hidden)return;
+    var k=e.key;
+    if(k==='Escape'||k==='Esc'){
+      if(sending)return;
+      e.preventDefault();
+      close();
+      return;
+    }
+    if(k==='Tab'){
+      var f=[btnCancel,btnSubmit].filter(function(b){return !b.disabled;});
+      if(!f.length){e.preventDefault();dialog.focus();return;}
+      var first=f[0],last=f[f.length-1],a=document.activeElement;
+      if(e.shiftKey&&(a===first||a===dialog)){e.preventDefault();last.focus();}
+      else if(!e.shiftKey&&a===last){e.preventDefault();first.focus();}
+    }
+  });
+})();
+</script>
 </body>
 </html>
