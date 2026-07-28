@@ -1068,7 +1068,7 @@ summary::-webkit-details-marker{display:none;}
   });
 
   btnCancel.addEventListener('click',close);
-  overlay.addEventListener('click',function(e){if(e.target===overlay)close();});
+  overlay.addEventListener('click',function(e){if(sending)return;if(e.target===overlay)close();});
   btnSubmit.addEventListener('click',function(){
     if(!current||sending)return;
     sending=true;
