@@ -1073,6 +1073,7 @@ summary::-webkit-details-marker{display:none;}
     if(!current||sending)return;
     sending=true;
     btnSubmit.disabled=true;
+    btnSubmit.textContent='送信しています…';
     btnCancel.disabled=true;
     HTMLFormElement.prototype.submit.call(current);
   });
