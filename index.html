@@ -1041,6 +1041,7 @@ summary::-webkit-details-marker{display:none;}
   }
 
   var current=null,sending=false,lastFocus=null,prevOverflow='';
+  var submitLabel=btnSubmit.textContent;
 
   function open(form){
     current=form;
@@ -1076,6 +1077,17 @@ summary::-webkit-details-marker{display:none;}
     btnSubmit.textContent='送信しています…';
     btnCancel.disabled=true;
     HTMLFormElement.prototype.submit.call(current);
+  });
+
+  // ブラウザの「戻る」で復帰したときは送信中の表示が残らないよう初期状態へ戻す
+  window.addEventListener('pageshow',function(){
+    sending=false;
+    btnSubmit.disabled=false;
+    btnSubmit.textContent=submitLabel;
+    btnCancel.disabled=false;
+    overlay.hidden=true;
+    document.body.style.overflow=prevOverflow;
+    current=null;
   });
 
   document.addEventListener('keydown',function(e){
