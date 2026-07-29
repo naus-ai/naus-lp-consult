@@ -202,6 +202,32 @@ summary::-webkit-details-marker{display:none;}
   @keyframes cfPop{from{opacity:0;transform:translateY(10px) scale(.985)}to{opacity:1;transform:none}}
 }
 </style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PBV2G5VQC2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-PBV2G5VQC2');
+</script>
+<!-- End Google tag -->
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '2440792759753410');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=2440792759753410&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
 </head>
 <body id="page-top">
 
@@ -1076,6 +1102,15 @@ summary::-webkit-details-marker{display:none;}
     }
   });
 })();
+</script>
+<script>
+document.addEventListener('click', function (e) {
+  var link = e.target.closest('a[href*="calendar.app.google"]');
+  if (link) {
+    gtag('event', 'Schedule');
+    fbq('track', 'Schedule');
+  }
+});
 </script>
 </body>
 </html>
