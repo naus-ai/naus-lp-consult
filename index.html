@@ -1122,5 +1122,38 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   });
 })();
 </script>
+<script>
+(function(){
+  var toggle=document.getElementById('mm-toggle');
+  var icon=document.getElementById('mm-icon');
+  var panel=document.getElementById('mm-panel');
+  var scrim=document.getElementById('mm-scrim');
+  if(!toggle||!icon||!panel||!scrim)return;
+
+  function isOpen(){return !panel.hidden;}
+  function open(){
+    panel.hidden=false;
+    scrim.hidden=false;
+    toggle.setAttribute('aria-expanded','true');
+    icon.textContent='✕';
+  }
+  function close(){
+    panel.hidden=true;
+    scrim.hidden=true;
+    toggle.setAttribute('aria-expanded','false');
+    icon.textContent='☰';
+  }
+  toggle.addEventListener('click',function(){
+    if(isOpen()){close();}else{open();}
+  });
+  scrim.addEventListener('click',close);
+  Array.prototype.slice.call(panel.querySelectorAll('.mm-link')).forEach(function(a){
+    a.addEventListener('click',close);
+  });
+  window.addEventListener('resize',function(){
+    if(window.innerWidth>=768&&isOpen())close();
+  });
+})();
+</script>
 </body>
 </html>
