@@ -139,6 +139,7 @@ summary::-webkit-details-marker{display:none;}
 @media (max-width:767px){.header-nav{display:none;}}
 /* style-hover / style-focus(Claude Design独自属性)を通常のCSSに変換 */
 .btn-header-cta:hover{background:#C95A1D;color:#fff;}
+.btn-cases-cta:hover{background:#C95A1D;color:#fff;}
 .btn-hero-cta:hover{background:#C95A1D;color:#fff;transform:translateY(-2px);}
 /* 資料ダウンロードフォーム(dl-*) */
 .dl-label{display:block;font-size:14px;font-weight:700;color:#1C2B4B;margin-bottom:6px;}
@@ -208,6 +209,27 @@ summary::-webkit-details-marker{display:none;}
   @keyframes cfFade{from{opacity:0}to{opacity:1}}
   @keyframes cfPop{from{opacity:0;transform:translateY(10px) scale(.985)}to{opacity:1;transform:none}}
 }
+/* ===== スマホ版ハンバーガーメニュー(mm-*) ===== */
+.mm-toggle{display:none;background:none;border:0;cursor:pointer;padding:8px;font-size:22px;line-height:1;color:#1C2B4B;}
+@media (max-width:767px){
+  .btn-header-cta{display:none!important;}
+  .mm-toggle{display:inline-flex;align-items:center;justify-content:center;}
+  .mm-panel{max-height:calc(100dvh - 163px);overflow-y:auto;}
+}
+.mm-panel{position:absolute;top:100%;left:0;right:0;z-index:1;background:#FDFCFA;border-bottom:1px solid rgba(28,43,75,.12);box-shadow:0 16px 32px rgba(28,43,75,.18);display:flex;flex-direction:column;padding:8px 20px 16px;box-sizing:border-box;}
+.mm-panel[hidden]{display:none;}
+.mm-link{display:block;padding:14px 4px;font-size:16px;font-weight:700;color:#1C2B4B;text-decoration:none;border-top:1px solid rgba(28,43,75,.08);}
+.mm-link:first-child{border-top:0;}
+.mm-link:hover{color:#D95F14;}
+.mm-scrim{position:fixed;inset:0;z-index:48;background:rgba(16,26,48,.45);}
+.mm-scrim[hidden]{display:none;}
+@media (min-width:768px){
+  .mm-panel,.mm-scrim{display:none!important;}
+}
+@media (prefers-reduced-motion: no-preference){
+  .mm-panel{animation:mmSlide .18s ease;}
+  @keyframes mmSlide{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+}
 </style>
 </head>
 <body id="page-top">
@@ -229,9 +251,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <a href="#contact-form" style="color:#1C2B4B;text-decoration:none;font-weight:700;font-size:14px">問い合わせ</a>
       </nav>
       <a href="https://calendar.app.google/F6qpCXCqKXQDYe5D8" target="_blank" rel="noopener" class="btn-header-cta" style="display:inline-flex;align-items:center;background:#E4691F;color:#fff;text-decoration:none;font-weight:700;font-size:14px;padding:10px 18px;border-radius:999px;white-space:nowrap">無料相談を予約</a>
+      <button type="button" id="mm-toggle" class="mm-toggle" aria-expanded="false" aria-controls="mm-panel" aria-label="メニューを開く"><span id="mm-icon" aria-hidden="true">☰</span></button>
     </div>
   </div>
+    <nav id="mm-panel" class="mm-panel" aria-label="モバイルメニュー" hidden>
+      <a href="#cases" class="mm-link">実例</a>
+      <a href="#pricing" class="mm-link">料金</a>
+      <a href="#faq" class="mm-link">FAQ</a>
+      <a href="#download" class="mm-link">資料請求</a>
+      <a href="#contact-form" class="mm-link">問い合わせ</a>
+      <a href="https://calendar.app.google/F6qpCXCqKXQDYe5D8" target="_blank" rel="noopener" class="mm-link">無料相談</a>
+    </nav>
 </header>
+<div id="mm-scrim" class="mm-scrim" hidden></div>
 
 <!-- ===== 1. ヒーロー ===== -->
 <section data-screen-label="ヒーロー" style="position:relative;overflow:hidden;background:linear-gradient(160deg,#FDFCFA 0%,#F6F1E8 70%,#F2EADC 100%)">
@@ -593,6 +625,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- ===== 4.5 資料請求バンド ===== -->
+<section style="background:linear-gradient(180deg,#F2EADC,#F6F1E8)">
+  <div style="max-width:840px;margin:0 auto;padding:clamp(28px,5vw,40px) 24px;text-align:center">
+    <a href="#download" class="btn-cases-cta" style="display:inline-flex;align-items:center;justify-content:center;background:#fff;color:#C0501A;border:2px solid #C0501A;text-decoration:none;font-weight:700;font-size:16px;padding:16px 32px;border-radius:999px;box-shadow:0 8px 24px rgba(228,105,31,.32)">もっと詳しく知りたい方は資料請求</a>
   </div>
 </section>
 
@@ -1085,6 +1124,39 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       if(e.shiftKey&&(a===first||a===dialog)){e.preventDefault();last.focus();}
       else if(!e.shiftKey&&a===last){e.preventDefault();first.focus();}
     }
+  });
+})();
+</script>
+<script>
+(function(){
+  var toggle=document.getElementById('mm-toggle');
+  var icon=document.getElementById('mm-icon');
+  var panel=document.getElementById('mm-panel');
+  var scrim=document.getElementById('mm-scrim');
+  if(!toggle||!icon||!panel||!scrim)return;
+
+  function isOpen(){return !panel.hidden;}
+  function open(){
+    panel.hidden=false;
+    scrim.hidden=false;
+    toggle.setAttribute('aria-expanded','true');
+    icon.textContent='✕';
+  }
+  function close(){
+    panel.hidden=true;
+    scrim.hidden=true;
+    toggle.setAttribute('aria-expanded','false');
+    icon.textContent='☰';
+  }
+  toggle.addEventListener('click',function(){
+    if(isOpen()){close();}else{open();}
+  });
+  scrim.addEventListener('click',close);
+  Array.prototype.slice.call(panel.querySelectorAll('.mm-link')).forEach(function(a){
+    a.addEventListener('click',close);
+  });
+  window.addEventListener('resize',function(){
+    if(window.innerWidth>=768&&isOpen())close();
   });
 })();
 </script>
