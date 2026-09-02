@@ -405,7 +405,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <p class="sd-cta-text">無料相談で、貴社に合った進め方をご案内します。</p>
           <div style="display:flex;flex-wrap:wrap;gap:16px;align-items:center">
             <button type="button" id="sd-reset" class="sd-reset">もう一度診断する</button>
-            <a href="https://calendar.app.google/F6qpCXCqKXQDYe5D8" target="_blank" rel="noopener" class="sd-btn-consult">無料相談を予約する<span aria-hidden="true">→</span></a>
+            <a href="https://calendar.app.google/F6qpCXCqKXQDYe5D8" target="_blank" rel="noopener" id="sd-cta-btn" class="sd-btn-consult"><span id="sd-cta-btn-label">無料相談を予約する</span><span aria-hidden="true">→</span></a>
           </div>
         </div>
       </div>
@@ -446,10 +446,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         '複数の業務で仕組み化が進んでいる']}
     ];
     var LEVELS={
-      1:{label:'レベル1',title:'個人の工夫止まり',desc:'AI活用は、今のところ一部の人の工夫にとどまっているようです。まずは1つの業務から「個人の工夫」を「チームの型」に変えていくと、負担を減らせる余地がありそうです。'},
-      2:{label:'レベル2',title:'チーム内で一部活用',desc:'チーム内では一部の業務でAIの活用が始まっています。この動きをチーム全体・他部署にも広げていくことで、効果を実感できる範囲がさらに広がりそうです。'},
-      3:{label:'レベル3',title:'仕組み化が進行中',desc:'複数の業務で仕組み化が進み、定着に近づいている段階です。残る業務への横展開や、属人化しやすい部分の仕上げが次のテーマになりそうです。'},
-      4:{label:'レベル4',title:'全社定着',desc:'AI活用がすでに全社的に定着しています。次のフェーズとして、さらなる磨き込みや他部署・他業務への横展開を検討する余地がありそうです。'}
+      1:{label:'レベル1',title:'個人の工夫止まり',desc:'AI活用は、今のところ一部の人の工夫にとどまっているようです。まずは1つの業務から「個人の工夫」を「チームの型」に変えていくと、負担を減らせる余地がありそうです。',cta:'何から仕組み化すべきか相談する'},
+      2:{label:'レベル2',title:'チーム内で一部活用',desc:'チーム内では一部の業務でAIの活用が始まっています。この動きをチーム全体・他部署にも広げていくことで、効果を実感できる範囲がさらに広がりそうです。',cta:'全社展開の進め方を相談する'},
+      3:{label:'レベル3',title:'仕組み化が進行中',desc:'複数の業務で仕組み化が進み、定着に近づいている段階です。残る業務への横展開や、属人化しやすい部分の仕上げが次のテーマになりそうです。',cta:'社内浸透するためにどうすべきか相談する'},
+      4:{label:'レベル4',title:'全社定着',desc:'AI活用がすでに全社的に定着しています。次のフェーズとして、さらなる磨き込みや他部署・他業務への横展開を検討する余地がありそうです。',cta:'さらなる展開を相談する'}
     };
     var LETTERS=['A','B','C','D'];
     var quiz=document.getElementById('sd-quiz');
@@ -527,6 +527,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       document.getElementById('sd-level-badge').textContent='診断結果 LEVEL '+level+' /4';
       document.getElementById('sd-level-title').textContent=LEVELS[level].title;
       document.getElementById('sd-level-desc').textContent=LEVELS[level].desc;
+      document.getElementById('sd-cta-btn-label').textContent=LEVELS[level].cta;
       quiz.hidden=true;
       result.hidden=false;
       result.classList.remove('sd-fade');void result.offsetWidth;result.classList.add('sd-fade');
