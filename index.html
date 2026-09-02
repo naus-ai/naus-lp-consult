@@ -379,7 +379,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </div>
           <div class="sd-nav">
             <button type="button" id="sd-back" class="sd-back" hidden>← 戻る</button>
-            <button type="button" id="sd-see" class="sd-see" hidden disabled>結果を見る</button>
+            <button type="button" id="sd-see" class="sd-see" disabled>結果を見る</button>
           </div>
         </div>
         <!-- 結果パート -->
@@ -497,7 +497,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       renderOptions(i);
       back.hidden=i===0;
       var last=i===N-1;
-      see.hidden=!last;
       see.disabled=!(last&&answers[i]!==null);
       qwrap.classList.remove('sd-fade');void qwrap.offsetWidth;qwrap.classList.add('sd-fade');
     }
