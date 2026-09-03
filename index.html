@@ -126,7 +126,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
-<link rel="preload" as="image" href="assets/hero-illustration-v2.webp" type="image/webp" fetchpriority="high">
+<link rel="preload" as="image" href="assets/hero-illustration-v3.webp" type="image/webp" fetchpriority="high">
 <style>
 body{margin:0;background:#FDFCFA;color:#232733;font-family:'Noto Sans JP',sans-serif;-webkit-font-smoothing:antialiased;}
 a{color:#1C2B4B;}
@@ -233,7 +233,7 @@ summary::-webkit-details-marker{display:none;}
 /* ===== ヒーロー(hero-*) ===== */
 .hero-inner{position:relative;max-width:960px;margin:0 auto;padding:clamp(28px,5.5vw,44px) 24px clamp(36px,6.5vw,56px);min-height:480px;box-sizing:border-box;display:flex;align-items:center;}
 .hero-text{position:relative;z-index:1;flex:0 1 500px;max-width:500px;min-width:0;}
-.hero-media{position:absolute;top:50%;right:-164px;transform:translateY(calc(-50% + 42px));width:clamp(320px,calc(100vw - 310px),650px);z-index:0;pointer-events:none;}
+.hero-media{position:absolute;top:50%;right:-164px;transform:translateY(calc(-50% + (clamp(28px,5.5vw,44px) - clamp(36px,6.5vw,56px))/2));width:clamp(320px,calc(100vw - 310px),650px);z-index:0;pointer-events:none;}
 .hero-media img{width:100%;height:auto;display:block;}
 @media (max-width:767px){
   .hero-inner{display:block;min-height:0;}
@@ -297,7 +297,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <p style="margin:14px 0 0;font-size:12.5px;line-height:1.8;color:#8A8F9C">※「2ヶ月で80%削減」は、私たち自身が自社の採用業務で実践した結果です。</p>
     </div>
     <div class="hero-media">
-      <img src="assets/hero-illustration-v2.webp" alt="ノートPCに向かう人物の様子。中央のハブから「自然言語で指示するだけ」「非エンジニアでも簡単操作」の吹き出しと、複数の業務アイコンが放射状に広がり、業務削減率80%を示している" fetchpriority="high">
+      <img src="assets/hero-illustration-v3.webp" alt="ノートPCに向かう人物の様子。中央のハブから「自然言語で指示するだけ」「非エンジニアでも簡単操作」の吹き出しと、複数の業務アイコンが放射状に広がり、業務削減率80%を示している" fetchpriority="high">
     </div>
   </div>
 </section>
