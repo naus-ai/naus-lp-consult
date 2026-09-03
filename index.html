@@ -232,9 +232,12 @@ summary::-webkit-details-marker{display:none;}
 }
 /* ===== ヒーロー(hero-*) ===== */
 .hero-inner{position:relative;max-width:960px;margin:0 auto;padding:clamp(28px,5.5vw,44px) 24px clamp(36px,6.5vw,56px);min-height:480px;box-sizing:border-box;display:flex;align-items:center;}
-.hero-text{position:relative;z-index:1;flex:0 1 500px;max-width:500px;min-width:0;}
+.hero-text{position:relative;z-index:1;flex:0 1 480px;max-width:480px;min-width:0;}
 .hero-media{position:absolute;top:50%;right:-164px;transform:translateY(calc(-50% + (clamp(28px,5.5vw,44px) - clamp(36px,6.5vw,56px))/2));width:clamp(320px,calc(100vw - 310px),650px);z-index:0;pointer-events:none;}
 .hero-media img{width:100%;height:auto;display:block;}
+@media (min-width:768px){
+  .hero-inner{padding-left:12px;}
+}
 @media (max-width:767px){
   .hero-inner{display:block;min-height:0;}
   .hero-text{max-width:none;}
