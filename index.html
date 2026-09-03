@@ -299,16 +299,6 @@ summary::-webkit-details-marker{display:none;}
 }
 .uc-cta{display:inline-flex;align-items:center;justify-content:center;gap:8px;width:100%;box-sizing:border-box;margin-top:8px;background:linear-gradient(135deg,#F07B2E,#D95614);color:#fff;text-decoration:none;font-weight:700;font-size:15.5px;line-height:1.5;padding:15px 22px;border-radius:999px;box-shadow:0 8px 24px rgba(228,105,31,.32);text-align:center;}
 .uc-cta:hover{background:#C95A1D;color:#fff;}
-.uc-real-note{margin:0 0 18px;font-size:13px;color:#8A8F9C;}
-.uc-real-item{padding:16px 0;border-top:1px solid rgba(28,43,75,.12);}
-.uc-real-item:first-child{border-top:0;padding-top:0;}
-.uc-real-item h4{margin:0 0 10px;font-size:15.5px;font-weight:900;color:#1C2B4B;}
-.uc-real-row{margin:0 0 6px;font-size:14.5px;line-height:1.8;color:#5A6172;}
-.uc-real-row .uc-real-tag{font-weight:700;font-size:13px;letter-spacing:.1em;margin-right:8px;color:#8A8F9C;}
-.uc-real-row.uc-real-after{margin:0 0 10px;color:#1C2B4B;font-weight:500;}
-.uc-real-row.uc-real-after .uc-real-tag{color:#E4691F;}
-.uc-real-effect{margin:10px 0 0;font-size:13px;line-height:1.8;color:#8A8F9C;}
-.uc-real-effect .uc-real-tag{font-weight:700;font-size:12px;letter-spacing:.08em;margin-right:8px;border:1px solid rgba(28,43,75,.22);border-radius:999px;padding:2px 9px;white-space:nowrap;color:#8A8F9C;}
 @media (prefers-reduced-motion: no-preference){
   .uc-overlay{animation:ucFade .18s ease;}
   .uc-dialog{animation:ucPop .22s cubic-bezier(.22,1,.36,1);}
@@ -736,21 +726,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       html+=ctaHtml();
       return html;
     }
-    function buildRealBody(c){
-      var html='';
-      html+='<p class="uc-kicker">'+escapeHtml(groupLabel(c))+'・実績のご紹介</p>';
-      html+='<h3 class="uc-modal-title" id="uc-modal-title">'+escapeHtml(c.title)+'</h3>';
-      html+='<p class="uc-real-note">naus自身の採用・人材紹介の実務で使い、育ててきた仕組みです。</p>';
-      html+=(c.cases||[]).map(function(item){
-        return '<div class="uc-real-item"><h4>'+escapeHtml(item.title)+'</h4>'+
-          '<p class="uc-real-row"><span class="uc-real-tag">BEFORE</span>'+escapeHtml(item.before)+'</p>'+
-          '<p class="uc-real-row uc-real-after"><span class="uc-real-tag">AFTER</span>'+escapeHtml(item.after)+'</p>'+
-          '<p class="uc-real-effect"><span class="uc-real-tag">効果</span>'+escapeHtml(item.effect)+'</p></div>';
-      }).join('');
-      html+=ctaHtml();
-      return html;
-    }
-
     function renderGrid(cards,container){
       cards.forEach(function(c){
         var btn=document.createElement('button');
@@ -764,8 +739,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     }
 
     function openModal(c){
-      body.innerHTML=c.isRealCase?buildRealBody(c):buildHypothesisBody(c);
-      if(c.isRealCase){dialog.classList.add('uc-dialog-real');}else{dialog.classList.remove('uc-dialog-real');}
+      body.innerHTML=buildHypothesisBody(c);
       var moreBtn=body.querySelector('#uc-more-toggle');
       if(moreBtn){
         moreBtn.addEventListener('click',function(){
