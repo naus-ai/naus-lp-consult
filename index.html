@@ -233,8 +233,8 @@ summary::-webkit-details-marker{display:none;}
 /* ===== ヒーロー(hero-*) ===== */
 .hero-inner{position:relative;max-width:960px;margin:0 auto;padding:clamp(28px,5.5vw,44px) 24px clamp(36px,6.5vw,56px);min-height:480px;box-sizing:border-box;display:flex;align-items:center;}
 .hero-text{position:relative;z-index:1;flex:0 1 500px;max-width:500px;min-width:0;}
-.hero-media{position:absolute;top:50%;right:0;transform:translateY(calc(-50% + 42px));width:clamp(320px,calc(90vw - 307px),557px);z-index:0;pointer-events:none;}
-.hero-media img{width:100%;height:auto;display:block;mix-blend-mode:multiply;}
+.hero-media{position:absolute;top:50%;right:-164px;transform:translateY(calc(-50% + 42px));width:clamp(320px,calc(100vw - 310px),650px);z-index:0;pointer-events:none;}
+.hero-media img{width:100%;height:auto;display:block;mix-blend-mode:multiply;mask-image:radial-gradient(ellipse 72% 72% at center,#000 60%,transparent 100%);-webkit-mask-image:radial-gradient(ellipse 72% 72% at center,#000 60%,transparent 100%);}
 @media (max-width:767px){
   .hero-inner{display:block;min-height:0;}
   .hero-text{max-width:none;}
