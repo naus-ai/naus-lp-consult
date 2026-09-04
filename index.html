@@ -139,7 +139,6 @@ summary::-webkit-details-marker{display:none;}
 @media (max-width:767px){.header-nav{display:none;}}
 /* style-hover / style-focus(Claude Design独自属性)を通常のCSSに変換 */
 .btn-header-cta:hover{background:#C95A1D;color:#fff;}
-.btn-cases-cta:hover{background:#C95A1D;color:#fff;}
 .btn-hero-cta:hover{background:#C95A1D;color:#fff;transform:translateY(-2px);}
 /* 資料ダウンロードフォーム(dl-*) */
 .dl-label{display:block;font-size:14px;font-weight:700;color:#1C2B4B;margin-bottom:6px;}
@@ -230,6 +229,81 @@ summary::-webkit-details-marker{display:none;}
   .mm-panel{animation:mmSlide .18s ease;}
   @keyframes mmSlide{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
 }
+/* ===== セクション区分バッジ(sec-badge-*、他セクションと共通) ===== */
+.sec-badge-num{display:inline-flex;align-items:center;justify-content:center;flex:none;width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,#F07B2E,#D95614);color:#fff;font-weight:900;font-size:14px;}
+.sec-badge-label{display:inline-flex;align-items:center;background:#fff;border:1px solid rgba(28,43,75,.14);border-radius:999px;padding:7px 16px;font-size:12px;font-weight:700;letter-spacing:.14em;color:#1C2B4B;box-shadow:0 4px 12px rgba(28,43,75,.07);}
+/* ===== 業種・職種別活用カード(uc-*) ===== */
+.uc-group+.uc-group{margin-top:48px;}
+.uc-group-head{display:flex;align-items:center;gap:14px;margin:0 0 20px;}
+.uc-group-head h3{margin:0;font-size:18px;font-weight:900;color:#1C2B4B;white-space:nowrap;}
+.uc-group-head-line{flex:1;height:1px;background:rgba(28,43,75,.14);}
+.uc-group-head-sub{font-size:11px;font-weight:700;letter-spacing:.16em;color:#5A6172;white-space:nowrap;}
+.uc-grid{display:grid;grid-template-columns:repeat(1,1fr);gap:16px;}
+@media (min-width:360px){.uc-grid{grid-template-columns:repeat(2,1fr);}}
+@media (min-width:600px){.uc-grid{grid-template-columns:repeat(3,1fr);}}
+@media (min-width:900px){.uc-grid{grid-template-columns:repeat(5,1fr);}}
+.uc-card{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:10px;width:100%;box-sizing:border-box;background:#fff;border:1px solid rgba(28,43,75,.08);border-radius:26px;padding:22px 12px 18px;margin:0;cursor:pointer;font-family:inherit;text-align:center;box-shadow:0 6px 18px rgba(28,43,75,.06);transition:transform .18s ease,box-shadow .18s ease;}
+.uc-card:hover,.uc-card:focus-visible{transform:translateY(-4px);box-shadow:0 14px 30px rgba(28,43,75,.14);}
+.uc-card:focus-visible{outline:2px solid #E4691F;outline-offset:2px;}
+.uc-card svg{display:block;width:72px;height:60px;}
+.uc-card-label{font-size:13.5px;font-weight:700;line-height:1.5;color:#1C2B4B;}
+/* モーダル */
+.uc-overlay{position:fixed;inset:0;z-index:220;display:flex;align-items:center;justify-content:center;padding:16px;box-sizing:border-box;background:rgba(16,26,48,.62);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);}
+.uc-overlay[hidden]{display:none;}
+.uc-dialog{position:relative;width:100%;max-width:680px;max-height:calc(100vh - 32px);max-height:calc(100dvh - 32px);overflow-y:auto;-webkit-overflow-scrolling:touch;box-sizing:border-box;background:#fff;border-radius:20px 20px 20px 4px;box-shadow:0 24px 56px rgba(28,43,75,.28);padding:clamp(24px,5vw,36px);text-align:left;}
+.uc-dialog:focus{outline:none;}
+.uc-close{position:absolute;top:16px;right:16px;flex:none;width:36px;height:36px;border-radius:50%;border:0;background:#F3F5F9;color:#1C2B4B;font-size:18px;line-height:1;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;}
+.uc-close:hover{background:#E7EDF6;}
+.uc-kicker{margin:0 0 8px;font-size:11px;font-weight:700;letter-spacing:.14em;color:#8A8F9C;}
+.uc-modal-title{margin:0 0 20px;padding-right:32px;font-size:clamp(19px,4vw,23px);font-weight:900;line-height:1.5;color:#1C2B4B;}
+.uc-block{border-radius:16px;padding:18px 20px;margin:0 0 14px;}
+.uc-block-problem{background:#FCEEE3;}
+.uc-block-approach{background:#EEF2F8;}
+.uc-block-head{display:flex;align-items:center;gap:10px;margin:0 0 10px;font-size:13.5px;font-weight:900;letter-spacing:.02em;}
+.uc-block-problem .uc-block-head{color:#A8430F;}
+.uc-block-approach .uc-block-head{color:#1C2B4B;}
+.uc-block-icon{flex:none;width:26px;height:26px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;}
+.uc-block-problem .uc-block-icon{background:#E4691F;}
+.uc-block-approach .uc-block-icon{background:#1C2B4B;}
+.uc-problem-list{margin:0;padding-left:20px;font-size:14.5px;line-height:1.9;color:#5A6172;}
+.uc-problem-list li+li{margin-top:6px;}
+.uc-approach-list{margin:0;padding-left:20px;font-size:14.5px;line-height:1.9;color:#232733;}
+.uc-approach-list li+li{margin-top:6px;}
+.uc-arrow{display:flex;justify-content:center;margin:2px 0 14px;color:#C0501A;font-weight:900;font-size:18px;}
+.uc-more-btn{display:flex;width:100%;box-sizing:border-box;align-items:center;justify-content:center;gap:8px;background:none;border:1.5px solid rgba(28,43,75,.24);border-radius:999px;padding:13px 20px;font-family:inherit;font-weight:700;font-size:13.5px;color:#1C2B4B;cursor:pointer;margin:4px 0 18px;}
+.uc-more-btn:hover{border-color:#1C2B4B;}
+.uc-more-btn .uc-chevron{display:inline-block;transition:transform .18s ease;}
+.uc-more-btn[aria-expanded="true"] .uc-chevron{transform:rotate(180deg);}
+.uc-detail{display:flex;flex-direction:column;gap:16px;margin:0 0 8px;}
+.uc-detail[hidden]{display:none;}
+.uc-detail-item h4{margin:0 0 6px;font-size:12.5px;font-weight:700;letter-spacing:.06em;color:#8A8F9C;}
+.uc-detail-item p{margin:0;font-size:14.5px;line-height:1.85;color:#232733;}
+.uc-detail-item .uc-detail-head-icon{display:flex;align-items:center;gap:6px;margin:0 0 10px;font-size:12.5px;font-weight:700;letter-spacing:.06em;color:#8A8F9C;}
+.uc-detail-icon{display:inline-flex;flex:none;color:#C0501A;}
+.uc-steps{display:flex;flex-direction:column;gap:8px;}
+.uc-step{display:flex;align-items:center;gap:12px;}
+.uc-step-badge{flex:none;width:26px;height:26px;border-radius:50%;background:#1C2B4B;color:#fff;font-weight:900;font-size:12.5px;display:inline-flex;align-items:center;justify-content:center;}
+.uc-step-card{flex:1;min-width:0;margin:0;background:#fff;border:1px solid rgba(28,43,75,.1);border-radius:12px;padding:10px 14px;font-size:13.5px;line-height:1.6;color:#232733;box-shadow:0 2px 8px rgba(28,43,75,.05);}
+.uc-effect-flow{display:flex;align-items:stretch;gap:10px;}
+.uc-effect-box{flex:1 1 0;min-width:0;box-sizing:border-box;border-radius:12px;padding:12px 14px;}
+.uc-effect-box p{margin:6px 0 0;font-size:13.5px;line-height:1.6;color:#232733;}
+.uc-effect-before{background:#F3F5F9;}
+.uc-effect-after{background:#FCEEE3;}
+.uc-effect-tag{display:inline-block;font-weight:700;font-size:11px;letter-spacing:.1em;color:#5A6172;}
+.uc-effect-after .uc-effect-tag{color:#A8430F;}
+.uc-effect-arrow{flex:none;display:flex;align-items:center;justify-content:center;color:#C0501A;font-weight:900;font-size:16px;}
+@media (max-width:479px){
+  .uc-effect-flow{flex-direction:column;}
+  .uc-effect-arrow{transform:rotate(90deg);padding:2px 0;}
+}
+.uc-cta{display:inline-flex;align-items:center;justify-content:center;gap:8px;width:100%;box-sizing:border-box;margin-top:8px;background:linear-gradient(135deg,#F07B2E,#D95614);color:#fff;text-decoration:none;font-weight:700;font-size:15.5px;line-height:1.5;padding:15px 22px;border-radius:999px;box-shadow:0 8px 24px rgba(228,105,31,.32);text-align:center;}
+.uc-cta:hover{background:#C95A1D;color:#fff;}
+@media (prefers-reduced-motion: no-preference){
+  .uc-overlay{animation:ucFade .18s ease;}
+  .uc-dialog{animation:ucPop .22s cubic-bezier(.22,1,.36,1);}
+  @keyframes ucFade{from{opacity:0}to{opacity:1}}
+  @keyframes ucPop{from{opacity:0;transform:translateY(10px) scale(.985)}to{opacity:1;transform:none}}
+}
 </style>
 </head>
 <body id="page-top">
@@ -244,7 +318,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <a href="#page-top" aria-label="ページの先頭へ戻る" style="display:inline-flex;align-items:baseline;gap:8px;min-width:0;color:#1C2B4B;text-decoration:none"><span style="font-weight:900;font-size:clamp(15px,4vw,19px);letter-spacing:.02em;white-space:nowrap">ゼロからAI Academy</span><span style="font-weight:700;font-size:11px;letter-spacing:.06em;color:#8A8F9C;white-space:nowrap">by naus</span></a>
     <div class="header-right">
       <nav class="header-nav">
-        <a href="#cases" style="color:#1C2B4B;text-decoration:none;font-weight:700;font-size:14px">実例</a>
+        <a href="#industries" style="color:#1C2B4B;text-decoration:none;font-weight:700;font-size:14px">実例</a>
         <a href="#pricing" style="color:#1C2B4B;text-decoration:none;font-weight:700;font-size:14px">料金</a>
         <a href="#faq" style="color:#1C2B4B;text-decoration:none;font-weight:700;font-size:14px">FAQ</a>
         <a href="#download" style="color:#1C2B4B;text-decoration:none;font-weight:700;font-size:14px">資料ダウンロード</a>
@@ -255,7 +329,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
   </div>
     <nav id="mm-panel" class="mm-panel" aria-label="モバイルメニュー" hidden>
-      <a href="#cases" class="mm-link">実例</a>
+      <a href="#industries" class="mm-link">実例</a>
       <a href="#pricing" class="mm-link">料金</a>
       <a href="#faq" class="mm-link">FAQ</a>
       <a href="#download" class="mm-link">資料ダウンロード</a>
@@ -420,7 +494,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
         <p id="sd-cta-text" style="margin:0 0 24px;font-size:16px;line-height:2;color:#232733;font-weight:500;text-wrap:pretty"></p>
         <div style="display:flex;flex-wrap:wrap;gap:14px;align-items:center">
-          <a href="#cases" class="sd-btn-cases" style="display:inline-flex;align-items:center;justify-content:center;gap:8px;background:#1C2B4B;color:#fff;text-decoration:none;font-weight:700;font-size:16px;padding:14px 26px;border-radius:10px">実例を見る</a>
+          <a href="#industries" class="sd-btn-cases" style="display:inline-flex;align-items:center;justify-content:center;gap:8px;background:#1C2B4B;color:#fff;text-decoration:none;font-weight:700;font-size:16px;padding:14px 26px;border-radius:10px">実例を見る</a>
           <a href="https://calendar.app.google/F6qpCXCqKXQDYe5D8" target="_blank" rel="noopener" class="sd-btn-consult" style="display:inline-flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(135deg,#F07B2E,#D95614);color:#fff;text-decoration:none;font-weight:700;font-size:16px;padding:14px 28px;border-radius:999px;box-shadow:0 8px 24px rgba(228,105,31,.32)">無料相談を予約する<span aria-hidden="true">→</span></a>
         </div>
         <div style="margin-top:22px">
@@ -541,101 +615,176 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </section>
 
-<!-- ===== 4. 実例4本(クリーム帯・罫線ジグザグ) ===== -->
-<section id="cases" data-screen-label="実例4本" style="position:relative;overflow:hidden;background:linear-gradient(180deg,#F6F1E8,#F2EADC)">
-  <div style="position:relative;max-width:840px;margin:0 auto;padding:72px 24px">
-    <div style="max-width:640px;margin-bottom:24px">
-      <div style="display:flex;align-items:baseline;gap:16px;margin-bottom:18px">
-        <span aria-hidden="true" style="font-weight:900;font-size:64px;line-height:1;color:transparent;-webkit-text-stroke:1.5px rgba(228,105,31,.55)">03</span>
-        <span style="font-size:13px;font-weight:700;letter-spacing:.18em;color:#E4691F">CASES</span>
+<!-- ===== 4. 業種・職種別の活用ガイド(03 USE CASES) ===== -->
+<section id="industries" data-screen-label="業種職種別活用" style="position:relative;overflow:hidden;background:#EEF2F8;border-top:1px solid rgba(28,43,75,.08)">
+  <div style="position:relative;max-width:1080px;margin:0 auto;padding:68px 24px">
+    <div style="display:flex;flex-direction:column;gap:14px;align-items:center;text-align:center;margin-bottom:40px">
+      <div style="display:inline-flex;align-items:center;gap:10px">
+        <span class="sec-badge-num" aria-hidden="true">03</span>
+        <span class="sec-badge-label">USE CASES</span>
       </div>
-      <h2 style="margin:0 0 20px;font-size:clamp(24px,5vw,32px);font-weight:900;line-height:1.5;color:#1C2B4B">私たちが実践してきた4つの仕組み</h2>
-      <p style="margin:0;font-size:16px;line-height:2;color:#5A6172;text-wrap:pretty">自社の採用・人材紹介の実務で使い、育ててきた仕組みです。そのままではなく、貴社に合わせて組み立て直します。</p>
+      <h2 style="margin:0;font-size:clamp(24px,5vw,32px);font-weight:900;line-height:1.5;color:#1C2B4B">貴社の業種・職種では、こんな活用ができます</h2>
+      <p style="margin:0;max-width:520px;font-size:16px;line-height:2;color:#5A6172;text-wrap:pretty">カードを選ぶと、お困りごとと解決アプローチをご覧いただけます。</p>
     </div>
-    <!-- 1 -->
-    <div style="display:flex;flex-wrap:wrap;gap:28px;align-items:center;padding:44px 0;border-top:1.5px solid rgba(28,43,75,.15);margin-top:24px">
-      <div style="flex:1 1 340px;min-width:0;display:flex;gap:20px">
-        <span aria-hidden="true" style="flex:none;font-weight:900;font-size:56px;line-height:1;color:transparent;-webkit-text-stroke:1.5px rgba(28,43,75,.35)">1</span>
-        <div>
-          <h3 style="margin:2px 0 14px;font-size:20px;font-weight:900;color:#1C2B4B">スカウト自動化</h3>
-          <p style="margin:0 0 8px;font-size:16px;line-height:1.9;color:#5A6172"><span style="font-weight:700;color:#8A8F9C;font-size:13px;letter-spacing:.1em;margin-right:8px">BEFORE</span>候補者ごとにスカウト文面をゼロから考えていた</p>
-          <p style="margin:0;font-size:16px;line-height:1.9;color:#1C2B4B;font-weight:500"><span style="font-weight:700;color:#E4691F;font-size:13px;letter-spacing:.1em;margin-right:8px">AFTER</span>経歴に合わせた下書きを自動生成、担当者は言葉選びに集中</p>
-          <p style="margin:10px 0 0;font-size:13.5px;line-height:1.8;color:#8A8F9C"><span style="font-weight:700;font-size:12px;letter-spacing:.1em;margin-right:8px;border:1px solid rgba(28,43,75,.22);border-radius:999px;padding:2px 9px;white-space:nowrap">効果</span>文面づくりに追われず、候補者一人ひとりに向き合う余裕が生まれました。</p>
-        </div>
-      </div>
-      <div aria-hidden="true" style="flex:0 1 220px;min-width:180px;display:flex;justify-content:center">
-        <div style="width:170px;background:#fff;border-radius:12px;box-shadow:0 12px 28px rgba(28,43,75,.12);padding:14px;display:flex;flex-direction:column;gap:8px">
-          <div style="display:flex;align-items:center;gap:8px"><span style="width:22px;height:22px;border-radius:50%;background:#1C2B4B"></span><span style="height:8px;flex:1;border-radius:4px;background:rgba(28,43,75,.18)"></span></div>
-          <span style="height:8px;width:92%;border-radius:4px;background:rgba(28,43,75,.12)"></span>
-          <span style="height:8px;width:80%;border-radius:4px;background:rgba(28,43,75,.12)"></span>
-          <span style="height:20px;width:64%;border-radius:6px;background:#E4691F;margin-top:2px"></span>
-        </div>
-      </div>
-    </div>
-    <!-- 2 -->
-    <div style="display:flex;flex-wrap:wrap-reverse;gap:28px;align-items:center;padding:44px 0;border-top:1.5px solid rgba(28,43,75,.15)">
-      <div aria-hidden="true" style="flex:0 1 220px;min-width:180px;display:flex;justify-content:center">
-        <div style="display:flex;gap:-10px">
-          <div style="width:110px;background:#fff;border-radius:12px;box-shadow:0 12px 28px rgba(28,43,75,.12);padding:12px;display:flex;flex-direction:column;gap:7px;transform:rotate(-4deg)"><span style="height:8px;width:60%;border-radius:4px;background:#1C2B4B"></span><span style="height:7px;width:90%;border-radius:4px;background:rgba(28,43,75,.12)"></span><span style="height:7px;width:75%;border-radius:4px;background:rgba(28,43,75,.12)"></span><span style="height:7px;width:82%;border-radius:4px;background:rgba(28,43,75,.12)"></span></div>
-          <div style="width:110px;background:#fff;border-radius:12px;box-shadow:0 12px 28px rgba(28,43,75,.16);padding:12px;display:flex;flex-direction:column;gap:7px;transform:rotate(4deg) translateY(10px);margin-left:-24px"><span style="height:8px;width:55%;border-radius:4px;background:#E4691F"></span><span style="height:7px;width:88%;border-radius:4px;background:rgba(28,43,75,.12)"></span><span style="height:7px;width:70%;border-radius:4px;background:rgba(28,43,75,.12)"></span><span style="height:7px;width:85%;border-radius:4px;background:rgba(28,43,75,.12)"></span></div>
-        </div>
-      </div>
-      <div style="flex:1 1 340px;min-width:0;display:flex;gap:20px">
-        <span aria-hidden="true" style="flex:none;font-weight:900;font-size:56px;line-height:1;color:transparent;-webkit-text-stroke:1.5px rgba(28,43,75,.35)">2</span>
-        <div>
-          <h3 style="margin:2px 0 14px;font-size:20px;font-weight:900;color:#1C2B4B">求職者提案資料の自動化</h3>
-          <p style="margin:0 0 8px;font-size:16px;line-height:1.9;color:#5A6172"><span style="font-weight:700;color:#8A8F9C;font-size:13px;letter-spacing:.1em;margin-right:8px">BEFORE</span>提案資料を毎回ゼロから作成していた</p>
-          <p style="margin:0;font-size:16px;line-height:1.9;color:#1C2B4B;font-weight:500"><span style="font-weight:700;color:#E4691F;font-size:13px;letter-spacing:.1em;margin-right:8px">AFTER</span>情報を入力すれば構成・下書きが自動でできる</p>
-          <p style="margin:10px 0 0;font-size:13.5px;line-height:1.8;color:#8A8F9C"><span style="font-weight:700;font-size:12px;letter-spacing:.1em;margin-right:8px;border:1px solid rgba(28,43,75,.22);border-radius:999px;padding:2px 9px;white-space:nowrap">効果</span>資料づくりの負担が減り、面談や提案の中身に時間を使えるようになりました。</p>
-        </div>
-      </div>
-    </div>
-    <!-- 3 -->
-    <div style="display:flex;flex-wrap:wrap;gap:28px;align-items:center;padding:44px 0;border-top:1.5px solid rgba(28,43,75,.15)">
-      <div style="flex:1 1 340px;min-width:0;display:flex;gap:20px">
-        <span aria-hidden="true" style="flex:none;font-weight:900;font-size:56px;line-height:1;color:transparent;-webkit-text-stroke:1.5px rgba(28,43,75,.35)">3</span>
-        <div>
-          <h3 style="margin:2px 0 14px;font-size:20px;font-weight:900;color:#1C2B4B">求人作成の自動化</h3>
-          <p style="margin:0 0 8px;font-size:16px;line-height:1.9;color:#5A6172"><span style="font-weight:700;color:#8A8F9C;font-size:13px;letter-spacing:.1em;margin-right:8px">BEFORE</span>ヒアリング内容を求人票に落とし込むのに時間がかかっていた</p>
-          <p style="margin:0;font-size:16px;line-height:1.9;color:#1C2B4B;font-weight:500"><span style="font-weight:700;color:#E4691F;font-size:13px;letter-spacing:.1em;margin-right:8px">AFTER</span>メモから求人票の下書きを自動生成できる</p>
-          <p style="margin:10px 0 0;font-size:13.5px;line-height:1.8;color:#8A8F9C"><span style="font-weight:700;font-size:12px;letter-spacing:.1em;margin-right:8px;border:1px solid rgba(28,43,75,.22);border-radius:999px;padding:2px 9px;white-space:nowrap">効果</span>ゼロから書き起こす負担がなくなり、内容の磨き込みや確認に集中できるようになりました。</p>
-        </div>
-      </div>
-      <div aria-hidden="true" style="flex:0 1 220px;min-width:180px;display:flex;justify-content:center;align-items:center;gap:10px">
-        <div style="width:76px;background:#fff;border:1.5px dashed rgba(28,43,75,.3);border-radius:10px;padding:10px;display:flex;flex-direction:column;gap:6px"><span style="height:6px;width:80%;border-radius:3px;background:rgba(28,43,75,.2)"></span><span style="height:6px;width:60%;border-radius:3px;background:rgba(28,43,75,.2)"></span><span style="height:6px;width:88%;border-radius:3px;background:rgba(28,43,75,.2)"></span></div>
-        <span style="color:#E4691F;font-weight:900;font-size:20px">→</span>
-        <div style="width:104px;background:#fff;border-radius:10px;box-shadow:0 12px 28px rgba(28,43,75,.14);padding:12px;display:flex;flex-direction:column;gap:6px"><span style="height:8px;width:55%;border-radius:4px;background:#1C2B4B"></span><span style="height:7px;width:90%;border-radius:4px;background:rgba(28,43,75,.12)"></span><span style="height:7px;width:78%;border-radius:4px;background:rgba(28,43,75,.12)"></span><span style="height:16px;width:56%;border-radius:5px;background:#E4691F;margin-top:2px"></span></div>
-      </div>
-    </div>
-    <!-- 4 -->
-    <div style="display:flex;flex-wrap:wrap-reverse;gap:28px;align-items:center;padding:44px 0 8px;border-top:1.5px solid rgba(28,43,75,.15)">
-      <div aria-hidden="true" style="flex:0 1 220px;min-width:180px;display:flex;justify-content:center">
-        <div style="width:180px;background:#1C2B4B;border-radius:12px;box-shadow:0 14px 32px rgba(28,43,75,.28);padding:14px;display:flex;flex-direction:column;gap:8px">
-          <div style="display:flex;gap:5px"><span style="width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.3)"></span><span style="width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.3)"></span><span style="width:7px;height:7px;border-radius:50%;background:#E4691F"></span></div>
-          <span style="height:8px;width:70%;border-radius:4px;background:rgba(255,255,255,.55)"></span>
-          <span style="height:7px;width:92%;border-radius:4px;background:rgba(255,255,255,.2)"></span>
-          <span style="height:7px;width:64%;border-radius:4px;background:#F0904F"></span>
-          <span style="height:7px;width:84%;border-radius:4px;background:rgba(255,255,255,.2)"></span>
-        </div>
-      </div>
-      <div style="flex:1 1 340px;min-width:0;display:flex;gap:20px">
-        <span aria-hidden="true" style="flex:none;font-weight:900;font-size:56px;line-height:1;color:transparent;-webkit-text-stroke:1.5px rgba(28,43,75,.35)">4</span>
-        <div>
-          <h3 style="margin:2px 0 14px;font-size:20px;font-weight:900;color:#1C2B4B">採用資料の自動化・カスタマイズ</h3>
-          <p style="margin:0 0 8px;font-size:16px;line-height:1.9;color:#5A6172"><span style="font-weight:700;color:#8A8F9C;font-size:13px;letter-spacing:.1em;margin-right:8px">BEFORE</span>資料の作り直しや外部委託に時間がかかっていた</p>
-          <p style="margin:0;font-size:16px;line-height:1.9;color:#1C2B4B;font-weight:500"><span style="font-weight:700;color:#E4691F;font-size:13px;letter-spacing:.1em;margin-right:8px">AFTER</span>Claude Codeで自社の手でフォーマットを保守できる</p>
-          <p style="margin:10px 0 0;font-size:13.5px;line-height:1.8;color:#8A8F9C"><span style="font-weight:700;font-size:12px;letter-spacing:.1em;margin-right:8px;border:1px solid rgba(28,43,75,.22);border-radius:999px;padding:2px 9px;white-space:nowrap">効果</span>外部への依頼を待たず、必要なタイミングで自分たちの手で資料を直せるようになりました。</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
 
-<!-- ===== 4.5 資料請求バンド ===== -->
-<section style="background:linear-gradient(180deg,#F2EADC,#F6F1E8)">
-  <div style="max-width:840px;margin:0 auto;padding:clamp(28px,5vw,40px) 24px;text-align:center">
-    <a href="#download" class="btn-cases-cta" style="display:inline-flex;align-items:center;justify-content:center;background:#fff;color:#C0501A;border:2px solid #C0501A;text-decoration:none;font-weight:700;font-size:16px;padding:16px 32px;border-radius:999px;box-shadow:0 8px 24px rgba(228,105,31,.32)">もっと詳しく知りたい方は資料ダウンロード</a>
+    <div class="uc-group">
+      <div class="uc-group-head"><h3>業種別の活用</h3><span class="uc-group-head-line" aria-hidden="true"></span><span class="uc-group-head-sub">BY INDUSTRY</span></div>
+      <div class="uc-grid" id="uc-grid-industry"></div>
+    </div>
+
+    <div class="uc-group">
+      <div class="uc-group-head"><h3>職種別の活用</h3><span class="uc-group-head-line" aria-hidden="true"></span><span class="uc-group-head-sub">BY ROLE</span></div>
+      <div class="uc-grid" id="uc-grid-role"></div>
+    </div>
   </div>
+
+  <div id="uc-overlay" class="uc-overlay" hidden>
+    <div class="uc-dialog" role="dialog" aria-modal="true" aria-labelledby="uc-modal-title" tabindex="-1">
+      <button type="button" id="uc-close" class="uc-close" aria-label="閉じる">×</button>
+      <div id="uc-modal-body"></div>
+    </div>
+  </div>
+  <script>
+  (function(){
+    var industryGrid=document.getElementById('uc-grid-industry');
+    var roleGrid=document.getElementById('uc-grid-role');
+    var overlay=document.getElementById('uc-overlay');
+    var dialog=overlay?overlay.querySelector('.uc-dialog'):null;
+    var body=document.getElementById('uc-modal-body');
+    var closeBtn=document.getElementById('uc-close');
+    if(!industryGrid||!roleGrid||!overlay||!dialog||!body||!closeBtn)return;
+
+    var ICON_WARN='<svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M8 2l7 12H1z" fill="none" stroke="#fff" stroke-width="1.3" stroke-linejoin="round"/><path d="M8 6.4v3.2" stroke="#fff" stroke-width="1.3" stroke-linecap="round"/><circle cx="8" cy="11.7" r=".9" fill="#fff"/></svg>';
+    var ICON_BULB='<svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M8 2a4.5 4.5 0 00-2.6 8.2c.4.3.6.8.6 1.3v.3h4v-.3c0-.5.2-1 .6-1.3A4.5 4.5 0 008 2z" fill="none" stroke="#fff" stroke-width="1.3" stroke-linejoin="round"/><path d="M6.5 14h3" stroke="#fff" stroke-width="1.3" stroke-linecap="round"/></svg>';
+    var ICON_ARROW='<svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M2 8h10M8 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    var ICON_GRAPH='<svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><rect x="2" y="9" width="3" height="5" rx=".5" fill="currentColor"/><rect x="6.5" y="6" width="3" height="8" rx=".5" fill="currentColor"/><rect x="11" y="2" width="3" height="12" rx=".5" fill="currentColor"/></svg>';
+
+    var ICONS={
+      'hr-agency':'<path d="M6 50c8-8 22-12 30-12s22 4 30 12z" fill="#FCEEE3"/><circle cx="26" cy="22" r="9" fill="#F2B08A"/><path d="M13 48c0-8 6-13 13-13s13 5 13 13z" fill="#1C2B4B"/><circle cx="49" cy="26" r="7" fill="#EEF2F8"/><path d="M38 48c0-6.5 5-10.5 11-10.5S60 41.5 60 48z" fill="#EEF2F8"/><path d="M34 14h10l-2.5-4z" fill="#E4691F"/>',
+      'professional-services':'<path d="M6 50c8-8 22-12 30-12s22 4 30 12z" fill="#EEF2F8"/><rect x="20" y="8" width="32" height="40" rx="4" fill="#fff" stroke="#EEF2F8" stroke-width="2"/><rect x="27" y="17" width="18" height="3" rx="1.5" fill="#E7EDF6"/><rect x="27" y="24" width="14" height="3" rx="1.5" fill="#E7EDF6"/><rect x="27" y="31" width="18" height="3" rx="1.5" fill="#EEF2F8"/><circle cx="45" cy="40" r="8" fill="#E4691F" opacity="0.9"/><path d="M41 40l3 3 5-5.5" stroke="#fff" stroke-width="2.4" stroke-linecap="round" fill="none"/>',
+      'real-estate':'<path d="M6 50c8-8 22-12 30-12s22 4 30 12z" fill="#FCEEE3"/><path d="M14 26L36 10l22 16z" fill="#E4691F"/><rect x="20" y="26" width="32" height="22" fill="#fff" stroke="#F2EADC" stroke-width="2"/><rect x="26" y="31" width="9" height="9" rx="1.5" fill="#E7EDF6"/><rect x="39" y="31" width="8" height="17" rx="1.5" fill="#1C2B4B"/>',
+      'retail-ec':'<path d="M6 50c8-8 22-12 30-12s22 4 30 12z" fill="#EEF2F8"/><path d="M16 20h40l-4 28H20z" fill="#fff" stroke="#EEF2F8" stroke-width="2"/><path d="M16 20h10l-2 6a5 5 0 0 1-9-3z" fill="#E4691F"/><path d="M26 20h10l-1 6a4.5 4.5 0 0 1-9 0z" fill="#F2B08A"/><path d="M36 20h10l1 6a4.5 4.5 0 0 1-9 0z" fill="#E4691F"/><path d="M46 20h10l1 3a5 5 0 0 1-9 3z" fill="#F2B08A"/><rect x="30" y="34" width="12" height="14" rx="2" fill="#1C2B4B"/>',
+      'local-government':'<path d="M6 50c8-8 22-12 30-12s22 4 30 12z" fill="#FCEEE3"/><path d="M36 8l6 5H36z" fill="#E4691F"/><rect x="35" y="6" width="2" height="10" fill="#C0501A"/><path d="M14 24L36 16l22 8z" fill="#1C2B4B"/><rect x="18" y="24" width="36" height="24" fill="#fff" stroke="#EEF2F8" stroke-width="2"/><rect x="23" y="29" width="5" height="19" fill="#E7EDF6"/><rect x="33" y="29" width="5" height="19" fill="#E7EDF6"/><rect x="43" y="29" width="5" height="19" fill="#E7EDF6"/>',
+      'hr-recruiting':'<path d="M6 50c8-8 22-12 30-12s22 4 30 12z" fill="#EEF2F8"/><circle cx="30" cy="21" r="9" fill="#F2B08A"/><path d="M17 48c0-8 6-13 13-13s13 5 13 13z" fill="#1C2B4B"/><circle cx="51" cy="38" r="10" fill="#E4691F"/><path d="M46.5 38l3.5 3.5 6-6.5" stroke="#fff" stroke-width="2.6" stroke-linecap="round" fill="none"/>',
+      'sales':'<path d="M6 50c8-8 22-12 30-12s22 4 30 12z" fill="#FCEEE3"/><rect x="16" y="32" width="10" height="16" rx="3" fill="#EEF2F8"/><rect x="31" y="24" width="10" height="24" rx="3" fill="#E7EDF6"/><rect x="46" y="14" width="10" height="34" rx="3" fill="#1C2B4B"/><path d="M18 26l14-8 10 6 14-12" stroke="#E4691F" stroke-width="3" stroke-linecap="round" fill="none"/><circle cx="56" cy="12" r="4" fill="#E4691F"/>',
+      'marketing':'<path d="M6 50c8-8 22-12 30-12s22 4 30 12z" fill="#EEF2F8"/><path d="M18 24l26-12v28L18 32z" fill="#E4691F"/><path d="M18 24h6v10h-6z" fill="#C0501A"/><path d="M22 34h6l2 12h-6z" fill="#F2B08A"/><path d="M50 20a10 10 0 0 1 0 16M55 14a17 17 0 0 1 0 28" stroke="#1C2B4B" stroke-width="3" stroke-linecap="round" fill="none"/>',
+      'customer-support':'<path d="M6 50c8-8 22-12 30-12s22 4 30 12z" fill="#FCEEE3"/><circle cx="36" cy="24" r="10" fill="#F2B08A"/><path d="M22 48c0-8 6.5-13 14-13s14 5 14 13z" fill="#1C2B4B"/><path d="M20 26a16 16 0 0 1 32 0" stroke="#E4691F" stroke-width="3.4" stroke-linecap="round" fill="none"/><rect x="15" y="24" width="7" height="12" rx="3.5" fill="#E4691F"/><rect x="50" y="24" width="7" height="12" rx="3.5" fill="#E4691F"/>',
+      'back-office':'<path d="M6 50c8-8 22-12 30-12s22 4 30 12z" fill="#EEF2F8"/><rect x="18" y="14" width="32" height="34" rx="4" fill="#fff" stroke="#EEF2F8" stroke-width="2" transform="rotate(-6 34 31)"/><rect x="22" y="18" width="32" height="34" rx="4" fill="#1C2B4B"/><rect x="28" y="26" width="20" height="3" rx="1.5" fill="#E7EDF6"/><rect x="28" y="33" width="14" height="3" rx="1.5" fill="#E7EDF6"/><rect x="28" y="40" width="17" height="3" rx="1.5" fill="#41527A"/><circle cx="52" cy="16" r="6" fill="#E4691F"/>'
+    };
+    function personIcon(id){
+      return '<svg viewBox="0 0 72 60" aria-hidden="true" focusable="false">'+(ICONS[id]||'')+'</svg>';
+    }
+
+    var CTA_TEXT='',CARDS=[],lastFocus=null,prevOverflow='';
+
+    function escapeHtml(s){
+      return String(s==null?'':s).replace(/[&<>"']/g,function(m){
+        return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m];
+      });
+    }
+    function detailItem(label,text){
+      return '<div class="uc-detail-item"><h4>'+escapeHtml(label)+'</h4><p>'+escapeHtml(text)+'</p></div>';
+    }
+    function iconDetailHead(label,icon){
+      return '<h4 class="uc-detail-head-icon"><span class="uc-detail-icon" aria-hidden="true">'+icon+'</span>'+escapeHtml(label)+'</h4>';
+    }
+    function usageStepsHtml(steps){
+      var items=(steps||[]).map(function(s,i){
+        return '<div class="uc-step"><span class="uc-step-badge" aria-hidden="true">'+(i+1)+'</span><p class="uc-step-card">'+escapeHtml(s)+'</p></div>';
+      }).join('');
+      return '<div class="uc-steps">'+items+'</div>';
+    }
+    function effectFlowHtml(beforeShort,afterShort){
+      return '<div class="uc-effect-flow">'+
+        '<div class="uc-effect-box uc-effect-before"><span class="uc-effect-tag">BEFORE</span><p>'+escapeHtml(beforeShort)+'</p></div>'+
+        '<div class="uc-effect-arrow" aria-hidden="true">→</div>'+
+        '<div class="uc-effect-box uc-effect-after"><span class="uc-effect-tag">AFTER</span><p>'+escapeHtml(afterShort)+'</p></div>'+
+        '</div>';
+    }
+    function ctaHtml(){
+      return '<a href="https://calendar.app.google/F6qpCXCqKXQDYe5D8" target="_blank" rel="noopener" class="uc-cta">'+escapeHtml(CTA_TEXT)+'<span aria-hidden="true">→</span></a>';
+    }
+    function groupLabel(c){return c.category==='industry'?'業種別の活用':'職種別の活用';}
+
+    function buildHypothesisBody(c){
+      var html='';
+      html+='<p class="uc-kicker">'+escapeHtml(groupLabel(c))+'</p>';
+      html+='<h3 class="uc-modal-title" id="uc-modal-title">'+escapeHtml(c.title)+'</h3>';
+      html+='<div class="uc-block uc-block-problem"><p class="uc-block-head"><span class="uc-block-icon">'+ICON_WARN+'</span>よくあるお困りごと</p><ul class="uc-problem-list">'+
+        c.problems.map(function(p){return '<li>'+escapeHtml(p)+'</li>';}).join('')+'</ul></div>';
+      html+='<div class="uc-arrow" aria-hidden="true">↓</div>';
+      html+='<div class="uc-block uc-block-approach"><p class="uc-block-head"><span class="uc-block-icon">'+ICON_BULB+'</span>AIでの解決アプローチ</p><ul class="uc-approach-list">'+
+        (c.approach||[]).map(function(a){return '<li>'+escapeHtml(a)+'</li>';}).join('')+'</ul></div>';
+      html+='<button type="button" class="uc-more-btn" id="uc-more-toggle" aria-expanded="false" aria-controls="uc-detail-panel"><span class="uc-more-label">もっと詳しく見る</span><span class="uc-chevron" aria-hidden="true">▾</span></button>';
+      html+='<div class="uc-detail" id="uc-detail-panel" hidden>';
+      html+='<div class="uc-detail-item">'+iconDetailHead('具体的な活用シーン',ICON_ARROW)+usageStepsHtml(c.usageSteps)+'</div>';
+      html+='<div class="uc-detail-item">'+iconDetailHead('想定される効果',ICON_GRAPH)+effectFlowHtml(c.beforeShort,c.afterShort)+'</div>';
+      html+=detailItem('導入時の注意点',c.caution);
+      html+=detailItem('こんな会社に向いています',c.fitFor);
+      html+='</div>';
+      html+=ctaHtml();
+      return html;
+    }
+    function renderGrid(cards,container){
+      cards.forEach(function(c){
+        var btn=document.createElement('button');
+        btn.type='button';
+        btn.className='uc-card';
+        btn.setAttribute('data-id',c.id);
+        btn.innerHTML=personIcon(c.icon)+'<span class="uc-card-label">'+escapeHtml(c.title)+'</span>';
+        btn.addEventListener('click',function(){openModal(c);});
+        container.appendChild(btn);
+      });
+    }
+
+    function openModal(c){
+      body.innerHTML=buildHypothesisBody(c);
+      var moreBtn=body.querySelector('#uc-more-toggle');
+      if(moreBtn){
+        moreBtn.addEventListener('click',function(){
+          var panel=body.querySelector('#uc-detail-panel');
+          var expanded=moreBtn.getAttribute('aria-expanded')==='true';
+          moreBtn.setAttribute('aria-expanded',String(!expanded));
+          panel.hidden=expanded;
+          moreBtn.querySelector('.uc-more-label').textContent=expanded?'もっと詳しく見る':'閉じる';
+        });
+      }
+      lastFocus=document.activeElement;
+      prevOverflow=document.body.style.overflow;
+      document.body.style.overflow='hidden';
+      overlay.hidden=false;
+      dialog.scrollTop=0;
+      closeBtn.focus();
+    }
+    function closeModal(){
+      overlay.hidden=true;
+      document.body.style.overflow=prevOverflow;
+      if(lastFocus&&lastFocus.focus)lastFocus.focus();
+    }
+
+    closeBtn.addEventListener('click',closeModal);
+    overlay.addEventListener('click',function(e){if(e.target===overlay)closeModal();});
+    document.addEventListener('keydown',function(e){
+      if(overlay.hidden)return;
+      var k=e.key;
+      if(k==='Escape'||k==='Esc'){e.preventDefault();closeModal();return;}
+      if(k==='Tab'){
+        var focusables=Array.prototype.slice.call(dialog.querySelectorAll('button,a[href]')).filter(function(el){return el.offsetParent!==null&&!el.hidden;});
+        if(!focusables.length)return;
+        var first=focusables[0],last=focusables[focusables.length-1],a=document.activeElement;
+        if(e.shiftKey&&(a===first||a===dialog)){e.preventDefault();last.focus();}
+        else if(!e.shiftKey&&a===last){e.preventDefault();first.focus();}
+      }
+    });
+
+    fetch('data/use-cases.json').then(function(r){return r.json();}).then(function(data){
+      CTA_TEXT=data.cta||'';
+      CARDS=data.cards||[];
+      renderGrid(CARDS.filter(function(c){return c.category==='industry';}),industryGrid);
+      renderGrid(CARDS.filter(function(c){return c.category==='role';}),roleGrid);
+    }).catch(function(){/* データ取得に失敗した場合、カード自体を表示しない(空のグリッドのまま) */});
+  })();
+  </script>
 </section>
 
 <!-- ===== 5. 支援パッケージ(白・罫線カラム) ===== -->
