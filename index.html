@@ -152,14 +152,19 @@ summary::-webkit-details-marker{display:none;}
 .btn-sticky-cta:hover{background:#C95A1D;color:#fff;}
 /* 統合お問い合わせセクション(uc-*): 資料ダウンロード/問い合わせのタブ切替 */
 .uc-tabs{display:flex;align-items:flex-end;gap:6px;padding-left:4px;}
-.uc-tab{position:relative;z-index:1;border:0;border-radius:16px 16px 0 0;padding:14px 26px;font-family:inherit;font-weight:700;font-size:15px;cursor:pointer;white-space:nowrap;background:#FBEEE4;color:#C95A1D;}
-.uc-tab[aria-selected="true"]{z-index:2;background:#E4691F;color:#fff;}
-.uc-tab:not([aria-selected="true"]):hover{background:#F6DFC9;}
-.uc-card{position:relative;background:#fff;border-radius:4px 20px 20px 20px;overflow:hidden;box-shadow:0 20px 48px rgba(28,43,75,.12);}
-.uc-panel{display:flex;flex-wrap:wrap;}
+.uc-tab{position:relative;z-index:1;border:0;border-radius:16px 16px 0 0;padding:14px 26px;font-family:inherit;font-weight:700;font-size:15px;cursor:pointer;white-space:nowrap;background:#F3E3D0;color:#814D1F;}
+.uc-tab[aria-selected="true"]{z-index:2;background:#E4A670;color:#583111;}
+.uc-tab:not([aria-selected="true"]):hover{background:#ECD5B7;}
+.uc-card{position:relative;background:#E4A670;border-radius:4px 20px 20px 20px;box-shadow:0 20px 48px rgba(28,43,75,.12);padding:14px;}
+.uc-panel{display:flex;flex-wrap:wrap;gap:14px;}
 .uc-panel[hidden]{display:none;}
-.uc-navy{flex:1 1 300px;min-width:260px;background:linear-gradient(150deg,#1C2B4B,#152039);padding:44px 32px;display:flex;flex-direction:column;justify-content:center;gap:28px;}
-.uc-form-side{flex:1.3 1 320px;min-width:0;padding:44px 36px;}
+.uc-navy{flex:1 1 300px;min-width:260px;background:linear-gradient(150deg,#1C2B4B,#152039);border-radius:16px;padding:32px 28px;display:flex;flex-direction:column;justify-content:center;gap:22px;}
+.uc-form-side{flex:1.3 1 320px;min-width:0;background:#fff;border-radius:16px;padding:32px 32px;}
+.uc-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px 16px;margin:0;}
+.uc-form-grid .uc-full{grid-column:1 / -1;}
+@media (max-width:479px){
+  .uc-form-grid{grid-template-columns:1fr;}
+}
 /* ===== 簡易診断セクション(sd-*) ===== */
 .sd-card{background:#fff;border-radius:20px 20px 20px 4px;box-shadow:0 20px 48px rgba(28,43,75,.12);padding:clamp(24px,5.4vw,40px);}
 .sd-q{border:0;margin:0;padding:0;min-width:0;}
@@ -861,7 +866,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <!-- 資料ダウンロード パネル -->
       <div id="uc-panel-doc" class="uc-panel" role="tabpanel" aria-labelledby="uc-tab-doc">
         <div class="uc-navy">
-          <h3 style="margin:0;font-size:clamp(20px,4.2vw,24px);font-weight:900;line-height:1.5;color:#fff">「ゼロからAI Academy」<span style="display:inline-block">紹介資料</span></h3>
+          <h3 style="margin:0;font-size:clamp(20px,4.2vw,24px);font-weight:900;line-height:1.5;color:#fff">無料で資料ダウンロード</h3>
           <div>
             <div style="font-size:13px;font-weight:700;letter-spacing:.14em;color:#F0904F;margin-bottom:10px">この資料で分かること</div>
             <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px">
@@ -881,9 +886,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </div>
         </div>
         <div class="uc-form-side">
-          <form name="document-download" method="POST" action="/thanks.html" data-netlify="true" netlify-honeypot="bot-field" style="display:flex;flex-direction:column;gap:14px;margin:0">
+          <form name="document-download" method="POST" action="/thanks.html" data-netlify="true" netlify-honeypot="bot-field" class="uc-form-grid">
             <input type="hidden" name="form-name" value="document-download">
-            <p style="display:none"><label>この欄は空欄のままにしてください: <input name="bot-field"></label></p>
+            <p style="display:none" class="uc-full"><label>この欄は空欄のままにしてください: <input name="bot-field"></label></p>
             <div>
               <label for="dl-company" class="dl-label">会社名<span style="color:#E4691F;margin-left:4px">必須</span></label>
               <input id="dl-company" name="company" type="text" required autocomplete="organization" class="dl-field">
@@ -900,12 +905,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               <label for="dl-tel" class="dl-label">電話番号<span style="color:#8A8F9C;font-size:12px;margin-left:4px">任意</span></label>
               <input id="dl-tel" name="phone" type="tel" autocomplete="tel" class="dl-field">
             </div>
-            <div>
+            <div class="uc-full">
               <label for="dl-message" class="dl-label">自由記述(ご質問・ご要望など)<span style="color:#8A8F9C;font-size:12px;margin-left:4px">任意</span></label>
               <textarea id="dl-message" name="message" rows="4" class="dl-field" style="resize:vertical"></textarea>
             </div>
-            <button type="submit" class="btn-doc-submit"><span aria-hidden="true" style="width:22px;height:22px;background:#fff;-webkit-mask:url('assets/icon-mail.svg') center/contain no-repeat;mask:url('assets/icon-mail.svg') center/contain no-repeat"></span>送信して資料をダウンロード</button>
-            <p style="margin:0;font-size:12.5px;line-height:1.9;color:#8A8F9C">ご入力いただいた個人情報は、資料のご提供と、本サービスに関するご連絡のためにのみ利用します。詳細は<a href="https://www.naus.co.jp/2" target="_blank" rel="noopener" style="display:inline-block">プライバシーポリシー</a>をご確認ください。</p>
+            <button type="submit" class="btn-doc-submit uc-full"><span aria-hidden="true" style="width:22px;height:22px;background:#fff;-webkit-mask:url('assets/icon-mail.svg') center/contain no-repeat;mask:url('assets/icon-mail.svg') center/contain no-repeat"></span>送信して資料をダウンロード</button>
+            <p class="uc-full" style="margin:0;font-size:12.5px;line-height:1.9;color:#8A8F9C">ご入力いただいた個人情報は、資料のご提供と、本サービスに関するご連絡のためにのみ利用します。詳細は<a href="https://www.naus.co.jp/2" target="_blank" rel="noopener" style="display:inline-block">プライバシーポリシー</a>をご確認ください。</p>
           </form>
         </div>
       </div>
@@ -933,9 +938,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
         <div class="uc-form-side">
           <p style="margin:0 0 14px;font-size:12.5px;line-height:1.9;color:#8A8F9C">※紹介資料をご希望の方は、<a href="#download" style="color:#C0501A;text-decoration:underline;text-underline-offset:2px">資料ダウンロード</a>のタブからお受け取りいただけます。</p>
-          <form name="contact" method="POST" action="/contact-thanks.html" data-netlify="true" netlify-honeypot="bot-field" style="display:flex;flex-direction:column;gap:14px;margin:0">
+          <form name="contact" method="POST" action="/contact-thanks.html" data-netlify="true" netlify-honeypot="bot-field" class="uc-form-grid">
             <input type="hidden" name="form-name" value="contact">
-            <p style="display:none"><label>この欄は空欄のままにしてください: <input name="bot-field"></label></p>
+            <p style="display:none" class="uc-full"><label>この欄は空欄のままにしてください: <input name="bot-field"></label></p>
             <div>
               <label for="ct-company" class="dl-label">会社名<span style="color:#E4691F;margin-left:4px">必須</span></label>
               <input id="ct-company" name="company" type="text" required autocomplete="organization" class="dl-field">
@@ -952,12 +957,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               <label for="ct-tel" class="dl-label">電話番号<span style="color:#8A8F9C;font-size:12px;margin-left:4px">任意</span></label>
               <input id="ct-tel" name="phone" type="tel" autocomplete="tel" class="dl-field">
             </div>
-            <div>
+            <div class="uc-full">
               <label for="ct-message" class="dl-label">ご相談内容(自由記入)<span style="color:#8A8F9C;font-size:12px;margin-left:4px">任意</span></label>
               <textarea id="ct-message" name="message" rows="4" class="dl-field" style="resize:vertical"></textarea>
             </div>
-            <button type="submit" class="btn-doc-submit"><span aria-hidden="true" style="width:22px;height:22px;background:#fff;-webkit-mask:url('assets/icon-mail.svg') center/contain no-repeat;mask:url('assets/icon-mail.svg') center/contain no-repeat"></span>この内容で問い合わせる</button>
-            <p style="margin:0;font-size:12.5px;line-height:1.9;color:#8A8F9C">ご入力いただいた個人情報は、お問い合わせへのご回答と、本サービスに関するご連絡のためにのみ利用します。詳細は<a href="https://www.naus.co.jp/2" target="_blank" rel="noopener" style="display:inline-block">プライバシーポリシー</a>をご確認ください。</p>
+            <button type="submit" class="btn-doc-submit uc-full"><span aria-hidden="true" style="width:22px;height:22px;background:#fff;-webkit-mask:url('assets/icon-mail.svg') center/contain no-repeat;mask:url('assets/icon-mail.svg') center/contain no-repeat"></span>この内容で問い合わせる</button>
+            <p class="uc-full" style="margin:0;font-size:12.5px;line-height:1.9;color:#8A8F9C">ご入力いただいた個人情報は、お問い合わせへのご回答と、本サービスに関するご連絡のためにのみ利用します。詳細は<a href="https://www.naus.co.jp/2" target="_blank" rel="noopener" style="display:inline-block">プライバシーポリシー</a>をご確認ください。</p>
           </form>
         </div>
       </div>
