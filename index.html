@@ -152,32 +152,67 @@ summary::-webkit-details-marker{display:none;}
 .btn-sticky-cta:hover{background:#C95A1D;color:#fff;}
 .btn-form-submit:hover{background:rgba(255,255,255,.88);}
 .form-field:focus{border-color:#E4691F;}
-/* ===== 簡易診断セクション(sd-*) ===== */
-.sd-card{background:#fff;border-radius:20px 20px 20px 4px;box-shadow:0 20px 48px rgba(28,43,75,.12);padding:clamp(24px,5.4vw,40px);}
-.sd-q{border:0;margin:0;padding:0;min-width:0;}
-.sd-q-title{margin:0 0 20px;padding:0;font-size:clamp(17px,3.8vw,20px);font-weight:900;line-height:1.7;color:#1C2B4B;text-wrap:pretty;}
-.sd-opt{position:relative;display:flex;align-items:flex-start;gap:14px;padding:14px 16px;border:1.5px solid rgba(28,43,75,.18);border-radius:12px;cursor:pointer;background:#fff;}
-.sd-opt+.sd-opt{margin-top:10px;}
+/* ===== 01 あるある+SELF-CHECK統合セクション(pain-*/sd-*) ===== */
+.sec-badge-num{display:inline-flex;align-items:center;justify-content:center;flex:none;width:34px;height:34px;border-radius:50%;background:#E4691F;color:#fff;font-weight:900;font-size:14px;}
+.sec-badge-label{display:inline-flex;align-items:center;background:#fff;border:1px solid rgba(28,43,75,.14);border-radius:999px;padding:7px 16px;font-size:12px;font-weight:700;letter-spacing:.14em;color:#1C2B4B;box-shadow:0 4px 12px rgba(28,43,75,.07);}
+.pains-grid{display:grid;grid-template-columns:minmax(0,1.05fr) auto minmax(0,1fr);gap:16px;align-items:stretch;}
+.pains-cards{display:grid;grid-template-columns:repeat(2,1fr);grid-auto-rows:1fr;gap:10px;}
+.pains-arrow{display:flex;align-items:center;justify-content:center;padding:8px 0;}
+.pains-arrow-badge{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:50%;background:#fff;border:1.5px solid rgba(28,43,75,.14);box-shadow:0 8px 20px rgba(28,43,75,.08);color:#E4691F;font-size:18px;font-weight:900;}
+.pain-card{background:#FFFDFA;border:1px solid rgba(228,105,31,.18);border-radius:18px;padding:16px 18px;display:flex;gap:12px;align-items:center;}
+.pain-icon-wrap{flex:none;width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;}
+.pain-icon{width:20px;height:20px;display:inline-block;-webkit-mask-size:contain;mask-size:contain;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-position:center;mask-position:center;}
+.pain-text{margin:0;font-size:15px;line-height:1.7;color:#232733;}
+@media (max-width:767px){
+  .pains-grid{grid-template-columns:1fr;}
+  .pains-arrow-badge{transform:rotate(90deg);}
+}
+@media (max-width:520px){
+  .pains-cards{grid-template-columns:1fr;}
+}
+.sd-card{background:#fff;border-radius:20px 20px 20px 4px;box-shadow:0 20px 48px rgba(28,43,75,.12);padding:clamp(22px,4.6vw,30px) clamp(22px,4.4vw,28px) clamp(24px,4.6vw,30px);}
+.sd-label{font-size:12px;font-weight:700;letter-spacing:.16em;color:#E4691F;margin-bottom:10px;}
+.sd-heading{margin:0 0 24px;font-size:clamp(18px,3.6vw,21px);font-weight:900;line-height:1.6;color:#1C2B4B;text-wrap:pretty;}
+.sd-meta{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px;}
+.sd-qnum{font-size:13px;font-weight:700;color:#1C2B4B;}
+.sd-remain{font-size:12.5px;font-weight:700;color:#8A8F9C;}
+.sd-track{height:6px;border-radius:3px;background:rgba(28,43,75,.12);overflow:hidden;margin-bottom:24px;}
+.sd-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,#F07B2E,#D95614);}
+.sd-q-title{margin:0 0 18px;padding:0;font-size:clamp(16px,3.4vw,18px);font-weight:900;line-height:1.7;color:#1C2B4B;text-wrap:pretty;}
+.sd-opt{width:100%;box-sizing:border-box;display:flex;align-items:flex-start;gap:12px;padding:13px 15px;border:1.5px solid rgba(28,43,75,.18);border-radius:12px;background:#fff;font-family:inherit;text-align:left;cursor:pointer;}
+.sd-opt+.sd-opt{margin-top:9px;}
 .sd-opt:hover{border-color:rgba(228,105,31,.55);}
-.sd-opt:has(input:focus-visible){outline:2px solid #E4691F;outline-offset:2px;}
-.sd-opt:has(input:checked){border-color:#E4691F;background:rgba(228,105,31,.07);}
-.sd-opt input{position:absolute;opacity:0;pointer-events:none;}
-.sd-letter{flex:none;width:26px;height:26px;border-radius:50%;border:1.5px solid rgba(28,43,75,.3);color:#1C2B4B;display:inline-flex;align-items:center;justify-content:center;font-weight:900;font-size:13px;margin-top:2px;}
-.sd-opt:has(input:checked) .sd-letter{background:#E4691F;border-color:#E4691F;color:#fff;}
-.sd-opt-text{flex:1;font-size:15px;line-height:1.8;color:#232733;}
+.sd-opt:focus-visible{outline:2px solid #E4691F;outline-offset:2px;}
+.sd-opt.is-selected{border-color:#E4691F;background:rgba(228,105,31,.07);}
+.sd-letter{flex:none;width:24px;height:24px;border-radius:50%;border:1.5px solid rgba(28,43,75,.3);color:#1C2B4B;display:inline-flex;align-items:center;justify-content:center;font-weight:900;font-size:12px;margin-top:1px;}
+.sd-opt.is-selected .sd-letter{background:#E4691F;border-color:#E4691F;color:#fff;}
+.sd-opt-text{flex:1;font-size:14.5px;line-height:1.75;color:#232733;}
+.sd-nav{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:22px;}
 .sd-back{background:none;border:0;padding:4px 0;font-family:inherit;font-size:14px;font-weight:700;color:#5A6172;cursor:pointer;}
 .sd-back:hover{color:#D95F14;}
-.sd-see{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(135deg,#F07B2E,#D95614);color:#fff;border:0;font-family:inherit;font-weight:700;font-size:16px;padding:14px 30px;border-radius:999px;box-shadow:0 8px 24px rgba(228,105,31,.32);cursor:pointer;}
+.sd-back[hidden]{visibility:hidden;}
+.sd-see{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(135deg,#F07B2E,#D95614);color:#fff;border:0;font-family:inherit;font-weight:700;font-size:15px;padding:13px 26px;border-radius:999px;box-shadow:0 8px 24px rgba(228,105,31,.32);cursor:pointer;}
 .sd-see:hover{background:#C95A1D;}
 .sd-see:disabled{opacity:.45;cursor:not-allowed;box-shadow:none;}
 .sd-see[hidden]{display:none;}
-.sd-btn-cases:hover{background:#152039;color:#fff;}
+.sd-result-label{font-size:12px;font-weight:700;letter-spacing:.16em;color:#E4691F;margin-bottom:16px;}
+.sd-gauge{margin-bottom:22px;}
+.sd-gauge-track{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;height:10px;margin-bottom:8px;}
+.sd-gauge-seg{border-radius:4px;background:rgba(28,43,75,.12);}
+.sd-gauge-seg.is-filled{background:linear-gradient(90deg,#F07B2E,#D95614);}
+.sd-gauge-labels{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;}
+.sd-gauge-labels span{font-size:11px;font-weight:700;color:#8A8F9C;text-align:center;}
+.sd-gauge-labels span.is-current{color:#E4691F;}
+.sd-level-badge{display:inline-flex;align-items:center;gap:6px;background:#1C2B4B;color:#fff;font-weight:900;font-size:13px;letter-spacing:.04em;padding:7px 16px;border-radius:999px;margin-bottom:16px;}
+.sd-level-title{margin:0 0 12px;font-size:clamp(19px,4vw,23px);font-weight:900;line-height:1.5;color:#1C2B4B;}
+.sd-level-desc{margin:0 0 20px;font-size:15.5px;line-height:1.9;color:#5A6172;text-wrap:pretty;}
+.sd-cta-text{margin:0 0 22px;font-size:15px;line-height:1.9;color:#232733;font-weight:500;}
+.sd-btn-consult{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(135deg,#F07B2E,#D95614);color:#fff;text-decoration:none;font-weight:700;font-size:15.5px;padding:14px 28px;border-radius:999px;box-shadow:0 8px 24px rgba(228,105,31,.32);}
 .sd-btn-consult:hover{background:#C95A1D;color:#fff;}
-.sd-reset{background:none;border:0;padding:0 0 1px;font-family:inherit;font-size:14px;font-weight:700;color:#5A6172;cursor:pointer;border-bottom:1px solid rgba(28,43,75,.3);}
+.sd-reset{background:none;border:0;padding:0 0 1px;font-family:inherit;font-size:13.5px;font-weight:700;color:#5A6172;cursor:pointer;border-bottom:1px solid rgba(28,43,75,.3);}
 .sd-reset:hover{color:#D95F14;border-color:rgba(217,95,20,.5);}
 @media (prefers-reduced-motion: no-preference){
-  .sd-opt{transition:border-color .15s ease,background-color .15s ease;}
-  #sd-bar,#sd-score-bar{transition:width .3s ease;}
+  .sd-opt,.sd-gauge-seg{transition:border-color .15s ease,background-color .15s ease;}
   .sd-fade{animation:sdFade .25s ease;}
   @keyframes sdFade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 }
@@ -305,233 +340,228 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </section>
 
-<!-- ===== 2. 課題提起(白+右イラスト・2カラム) ===== -->
-<section data-screen-label="課題提起" style="position:relative;overflow:hidden;background:#FDFCFA">
-  <div style="position:absolute;top:0;right:0;width:44%;min-width:280px;height:100%;background:linear-gradient(200deg,#EEF2F8,#FDFCFA 85%)"></div>
-  <div style="position:relative;max-width:960px;margin:0 auto;padding:clamp(48px,8vw,72px) 24px;display:flex;flex-wrap:wrap;gap:40px;align-items:flex-start;justify-content:center">
-    <div style="flex:1 1 400px;max-width:540px;min-width:0">
-      <div style="display:flex;align-items:baseline;gap:16px;margin-bottom:18px">
-        <span aria-hidden="true" style="font-weight:900;font-size:64px;line-height:1;color:transparent;-webkit-text-stroke:1.5px rgba(228,105,31,.55)">01</span>
-        <span style="font-size:13px;font-weight:700;letter-spacing:.18em;color:#E4691F">PROBLEM</span>
+<!-- ===== 2. あるある+SELF-CHECK(01・統合セクション) ===== -->
+<section id="pains" data-screen-label="あるある+簡易診断" style="position:relative;overflow:hidden;background:#FDFCFA">
+  <div style="position:relative;max-width:1340px;margin:0 auto;padding:clamp(48px,8vw,68px) 24px">
+    <div style="display:flex;flex-direction:column;gap:14px;align-items:center;text-align:center;margin-bottom:34px">
+      <div style="display:inline-flex;align-items:center;gap:10px">
+        <span class="sec-badge-num" aria-hidden="true">01</span>
+        <span class="sec-badge-label">COMMON SITUATIONS</span>
       </div>
-      <h2 style="margin:0 0 20px;font-size:clamp(24px,5vw,32px);font-weight:900;line-height:1.5;color:#1C2B4B">会社ごとに違う、採用の悩み</h2>
-      <p style="margin:0 0 32px;font-size:16px;line-height:2;color:#5A6172;text-wrap:pretty">スカウト文、提案資料、求人票――日々の「作る」作業に追われていませんか。専任の採用担当者だけでなく、経営者自身がこの業務を抱えている会社も多いはずです。AIで楽になるのは分かっていても、何から手をつければいいか分からない。試してみても、自社の採用には合わない。</p>
-      <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column">
-        <li style="display:flex;align-items:center;gap:16px;padding:20px 4px;border-top:1.5px solid rgba(28,43,75,.15);font-size:19px;font-weight:900;color:#1C2B4B"><span aria-hidden="true" style="flex:none;width:10px;height:10px;border-radius:50%;background:#E4691F"></span>作る作業に追われている</li>
-        <li style="display:flex;align-items:center;gap:16px;padding:20px 4px;border-top:1.5px solid rgba(28,43,75,.15);font-size:19px;font-weight:900;color:#1C2B4B"><span aria-hidden="true" style="flex:none;width:10px;height:10px;border-radius:50%;background:#E4691F"></span>何から始めればいいか分からない</li>
-        <li style="display:flex;align-items:center;gap:16px;padding:20px 4px;border-top:1.5px solid rgba(28,43,75,.15);border-bottom:1.5px solid rgba(28,43,75,.15);font-size:19px;font-weight:900;color:#1C2B4B"><span aria-hidden="true" style="flex:none;width:10px;height:10px;border-radius:50%;background:#E4691F"></span>試しても、自社に合わない</li>
-      </ul>
+      <h2 style="margin:0;font-size:clamp(24px,5vw,32px);font-weight:900;line-height:1.5;color:#1C2B4B">こんな「AI活用あるある」、ありませんか?</h2>
+      <p style="margin:0;max-width:560px;font-size:16px;line-height:2;color:#5A6172;text-wrap:pretty">ひとつでも当てはまれば、ツールではなく「使い方の型」が足りていないサインです。</p>
     </div>
-    <div style="flex:1 1 420px;max-width:520px;min-width:240px;width:100%;height:clamp(240px,72vw,520px);display:flex;align-items:flex-end;justify-content:center;align-self:center">
-      <div style="flex:none;width:64%;height:100%;position:relative;z-index:2">
-        <img src="assets/thinking-man.png" alt="スカウト文や求人票の作成業務に頭を悩ませる採用担当者の男性" loading="lazy" style="width:100%;height:100%;object-fit:contain;border-radius:20px">
+    <div class="pains-grid">
+      <!-- あるあるカード6項目 -->
+      <div class="pains-cards">
+        <div class="pain-card">
+          <span class="pain-icon-wrap" style="background:rgba(228,105,31,.12)" aria-hidden="true"><span class="pain-icon" style="background:#E4691F;-webkit-mask-image:url('assets/icon-talk.svg');mask-image:url('assets/icon-talk.svg')"></span></span>
+          <p class="pain-text">AIにチャットで聞いてはみるが、結局は自分で書き直している</p>
+        </div>
+        <div class="pain-card">
+          <span class="pain-icon-wrap" style="background:rgba(28,43,75,.08)" aria-hidden="true"><span class="pain-icon" style="background:#1C2B4B;-webkit-mask-image:url('assets/icon-pen.svg');mask-image:url('assets/icon-pen.svg')"></span></span>
+          <p class="pain-text">資料の書式が人によってバラバラで、毎回一から考えている</p>
+        </div>
+        <div class="pain-card">
+          <span class="pain-icon-wrap" style="background:rgba(228,105,31,.12)" aria-hidden="true"><span class="pain-icon" style="background:#E4691F;-webkit-mask-image:url('assets/icon-handshake.svg');mask-image:url('assets/icon-handshake.svg')"></span></span>
+          <p class="pain-text">詳しい人に業務が集中し、その人が辞めると一気にノウハウが消える</p>
+        </div>
+        <div class="pain-card">
+          <span class="pain-icon-wrap" style="background:rgba(28,43,75,.08)" aria-hidden="true"><span class="pain-icon" style="background:#1C2B4B;-webkit-mask-image:url('assets/icon-glass.svg');mask-image:url('assets/icon-glass.svg')"></span></span>
+          <p class="pain-text">教える余裕がなく、各自が自己流でAIを使っている</p>
+        </div>
+        <div class="pain-card">
+          <span class="pain-icon-wrap" style="background:rgba(228,105,31,.12)" aria-hidden="true"><span class="pain-icon" style="background:#E4691F;-webkit-mask-image:url('assets/icon-megaphone.svg');mask-image:url('assets/icon-megaphone.svg')"></span></span>
+          <p class="pain-text">SNSで便利そうな事例を見るが、自社の業務にどう当てはめればいいか分からない</p>
+        </div>
+        <div class="pain-card">
+          <span class="pain-icon-wrap" style="background:rgba(28,43,75,.08)" aria-hidden="true"><span class="pain-icon" style="background:#1C2B4B;-webkit-mask-image:url('assets/icon-mail.svg');mask-image:url('assets/icon-mail.svg')"></span></span>
+          <p class="pain-text">経営層はAI活用に前向きだが、現場との温度差がある</p>
+        </div>
       </div>
-      <img src="assets/woman-thinking.png" alt="" aria-hidden="true" loading="lazy" style="flex:none;width:62%;height:100%;object-fit:contain;object-position:bottom;margin-left:-20%;position:relative;z-index:1;filter:drop-shadow(0 10px 18px rgba(28,43,75,.12))">
-    </div>
-  </div>
-  <!-- 課題→解決のブリッジ文 -->
-  <div style="position:relative;max-width:960px;margin:0 auto;padding:0 24px clamp(48px,8vw,64px);text-align:center">
-    <p style="margin:0;font-size:clamp(18px,4.2vw,24px);font-weight:900;line-height:1.8;color:#1C2B4B;text-wrap:pretty">その悩み、テンプレの配布ではなく、<br>貴社に合わせた<span style="color:#E4691F">仕組みづくり</span>で解決できます。</p>
-    <span aria-hidden="true" style="display:inline-flex;margin-top:20px;width:36px;height:36px;border-radius:50%;border:2px solid #E4691F;color:#E4691F;align-items:center;justify-content:center;font-weight:900;font-size:16px">↓</span>
-  </div>
-</section>
-
-<!-- ===== 2.5 採用業務AI化 簡易診断(薄ネイビー帯・1問ずつカード) ===== -->
-<section data-screen-label="簡易診断" style="position:relative;overflow:hidden;background:linear-gradient(180deg,#EEF2F8,#E7EDF6)">
-  <div aria-hidden="true" style="position:absolute;inset:0;background:linear-gradient(115deg,transparent 60%,rgba(255,255,255,.35) 60%)"></div>
-  <div style="position:relative;max-width:720px;margin:0 auto;padding:clamp(48px,8vw,72px) 24px">
-    <div style="text-align:center;margin-bottom:36px">
-      <div style="font-size:13px;font-weight:700;letter-spacing:.18em;color:#E4691F;margin-bottom:16px">SELF-CHECK</div>
-      <h2 style="margin:0 0 20px;font-size:clamp(24px,5vw,32px);font-weight:900;line-height:1.5;color:#1C2B4B">まず、自社の現在地を確認する</h2>
-      <p style="margin:0;font-size:16px;line-height:2;color:#5A6172;text-wrap:pretty">6個の質問に答えると、その場で今の状態と、参考になりそうな実例がわかります。連絡先の入力は不要です。</p>
-    </div>
-    <div class="sd-card">
-      <!-- 診断(質問パート) -->
-      <div id="sd-quiz">
-        <div style="margin-bottom:26px">
-          <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px">
-            <span id="sd-progress-text" aria-live="polite" style="font-size:14px;font-weight:700;color:#1C2B4B">質問 1 / 6</span>
-            <span id="sd-dots" aria-hidden="true" style="display:inline-flex;gap:6px">
-              <span style="width:8px;height:8px;border-radius:50%;background:rgba(28,43,75,.18)"></span>
-              <span style="width:8px;height:8px;border-radius:50%;background:rgba(28,43,75,.18)"></span>
-              <span style="width:8px;height:8px;border-radius:50%;background:rgba(28,43,75,.18)"></span>
-              <span style="width:8px;height:8px;border-radius:50%;background:rgba(28,43,75,.18)"></span>
-              <span style="width:8px;height:8px;border-radius:50%;background:rgba(28,43,75,.18)"></span>
-              <span style="width:8px;height:8px;border-radius:50%;background:rgba(28,43,75,.18)"></span>
-            </span>
+      <!-- 中央: 矢印 -->
+      <div class="pains-arrow" aria-hidden="true">
+        <span class="pains-arrow-badge">→</span>
+      </div>
+      <!-- 右: SELF-CHECKカード -->
+      <div id="selfcheck" class="sd-card">
+        <div class="sd-label">SELF-CHECK</div>
+        <h3 class="sd-heading">当てはまるものが多い方へ。<br>自社の現在地を確認しませんか?</h3>
+        <!-- 質問パート -->
+        <div id="sd-quiz">
+          <div class="sd-meta">
+            <span id="sd-qnum" class="sd-qnum" aria-live="polite">QUESTION 1 / 6</span>
+            <span id="sd-remain" class="sd-remain">残り6問</span>
           </div>
-          <div aria-hidden="true" style="height:6px;border-radius:3px;background:rgba(28,43,75,.12);overflow:hidden">
-            <div id="sd-bar" style="height:100%;width:16.67%;border-radius:3px;background:linear-gradient(90deg,#F07B2E,#D95614)"></div>
+          <div class="sd-track" aria-hidden="true"><div id="sd-fill" class="sd-fill" style="width:16.67%"></div></div>
+          <div id="sd-qwrap" class="sd-fade">
+            <h4 id="sd-qtitle" class="sd-q-title"></h4>
+            <div id="sd-options"></div>
+          </div>
+          <div class="sd-nav">
+            <button type="button" id="sd-back" class="sd-back" style="visibility:hidden">← 戻る</button>
+            <button type="button" id="sd-see" class="sd-see" disabled>結果を見る</button>
           </div>
         </div>
-        <form id="sd-form">
-          <fieldset class="sd-q sd-fade">
-            <legend class="sd-q-title">Q1. 候補者への声かけ文(スカウトメール・DM・LINEなど)は、どのように作っていますか?</legend>
-            <label class="sd-opt"><input type="radio" name="q1" value="4" data-cat="scout"><span class="sd-letter" aria-hidden="true">A</span><span class="sd-opt-text">候補者ごとに、経歴を読み込んでから一から書いている</span></label>
-            <label class="sd-opt"><input type="radio" name="q1" value="3" data-cat="scout"><span class="sd-letter" aria-hidden="true">B</span><span class="sd-opt-text">過去の文面をコピーして、目に付いた箇所だけ書き換えている</span></label>
-            <label class="sd-opt"><input type="radio" name="q1" value="2" data-cat="scout"><span class="sd-letter" aria-hidden="true">C</span><span class="sd-opt-text">いくつかのひな形(テンプレート)を使い分けて、都度当てはめている</span></label>
-            <label class="sd-opt"><input type="radio" name="q1" value="1" data-cat="scout"><span class="sd-letter" aria-hidden="true">D</span><span class="sd-opt-text">ChatGPTやClaudeなどのAIに候補者情報を渡し、下書きを作ってから自分で仕上げている</span></label>
-            <label class="sd-opt"><input type="radio" name="q1" value="0" data-cat="scout"><span class="sd-letter" aria-hidden="true">E</span><span class="sd-opt-text">候補者情報を入力すれば下書きがほぼ自動で出てくる仕組みがある、またはそもそもスカウトはほとんど行っていない</span></label>
-          </fieldset>
-          <fieldset class="sd-q sd-fade" hidden>
-            <legend class="sd-q-title">Q2. スカウト文面を1通仕上げるのにかかる時間は、平均するとどのくらいですか?</legend>
-            <label class="sd-opt"><input type="radio" name="q2" value="4" data-cat="scout"><span class="sd-letter" aria-hidden="true">A</span><span class="sd-opt-text">10分以上かかることが多い</span></label>
-            <label class="sd-opt"><input type="radio" name="q2" value="3" data-cat="scout"><span class="sd-letter" aria-hidden="true">B</span><span class="sd-opt-text">5〜10分くらい</span></label>
-            <label class="sd-opt"><input type="radio" name="q2" value="2" data-cat="scout"><span class="sd-letter" aria-hidden="true">C</span><span class="sd-opt-text">3〜5分くらい</span></label>
-            <label class="sd-opt"><input type="radio" name="q2" value="1" data-cat="scout"><span class="sd-letter" aria-hidden="true">D</span><span class="sd-opt-text">1〜3分くらい</span></label>
-            <label class="sd-opt"><input type="radio" name="q2" value="0" data-cat="scout"><span class="sd-letter" aria-hidden="true">E</span><span class="sd-opt-text">1分もかからない、またはほとんど時間をかけていない</span></label>
-          </fieldset>
-          <fieldset class="sd-q sd-fade" hidden>
-            <legend class="sd-q-title">Q3. 求人票や求人原稿(自社の募集要項、あるいはクライアント企業から預かった採用要件をもとに作るもの)は、どのように作成していますか?</legend>
-            <label class="sd-opt"><input type="radio" name="q3" value="4" data-cat="jobpost"><span class="sd-letter" aria-hidden="true">A</span><span class="sd-opt-text">ヒアリングメモや過去の資料を見ながら、文章を一から書いている</span></label>
-            <label class="sd-opt"><input type="radio" name="q3" value="3" data-cat="jobpost"><span class="sd-letter" aria-hidden="true">B</span><span class="sd-opt-text">過去の求人票を流用して、内容を手直ししている</span></label>
-            <label class="sd-opt"><input type="radio" name="q3" value="2" data-cat="jobpost"><span class="sd-letter" aria-hidden="true">C</span><span class="sd-opt-text">決まった構成(項目テンプレート)に沿って、都度情報を当てはめている</span></label>
-            <label class="sd-opt"><input type="radio" name="q3" value="1" data-cat="jobpost"><span class="sd-letter" aria-hidden="true">D</span><span class="sd-opt-text">AIに要件を渡して下書きを作らせ、表現の調整だけ自分で行っている</span></label>
-            <label class="sd-opt"><input type="radio" name="q3" value="0" data-cat="jobpost"><span class="sd-letter" aria-hidden="true">E</span><span class="sd-opt-text">情報を入力すれば下書きがほぼ自動でできる仕組みがある、または求人票作成に関わる機会がほとんどない</span></label>
-          </fieldset>
-          <fieldset class="sd-q sd-fade" hidden>
-            <legend class="sd-q-title">Q4. 求人票の内容を確定させるまでの手戻り(書き直し・すり合わせ)は?</legend>
-            <label class="sd-opt"><input type="radio" name="q4" value="4" data-cat="jobpost"><span class="sd-letter" aria-hidden="true">A</span><span class="sd-opt-text">何度もやり取りが発生し、確定までに時間がかかることが多い</span></label>
-            <label class="sd-opt"><input type="radio" name="q4" value="3" data-cat="jobpost"><span class="sd-letter" aria-hidden="true">B</span><span class="sd-opt-text">2〜3回のすり合わせが必要になることが多い</span></label>
-            <label class="sd-opt"><input type="radio" name="q4" value="2" data-cat="jobpost"><span class="sd-letter" aria-hidden="true">C</span><span class="sd-opt-text">1回程度の軽微な修正で済むことが多い</span></label>
-            <label class="sd-opt"><input type="radio" name="q4" value="1" data-cat="jobpost"><span class="sd-letter" aria-hidden="true">D</span><span class="sd-opt-text">ほぼ一度で通ることが多い</span></label>
-            <label class="sd-opt"><input type="radio" name="q4" value="0" data-cat="jobpost"><span class="sd-letter" aria-hidden="true">E</span><span class="sd-opt-text">ほぼ一度で通る、またはそもそも求人票の確定作業に関わる機会が少ない</span></label>
-          </fieldset>
-          <fieldset class="sd-q sd-fade" hidden>
-            <legend class="sd-q-title">Q5. 生成AI(ChatGPT、Claudeなど)の業務での使われ方は、どれに近いですか?</legend>
-            <label class="sd-opt"><input type="radio" name="q5" value="4"><span class="sd-letter" aria-hidden="true">A</span><span class="sd-opt-text">使ったことがない、または個人的に少し触った程度</span></label>
-            <label class="sd-opt"><input type="radio" name="q5" value="3"><span class="sd-letter" aria-hidden="true">B</span><span class="sd-opt-text">一部の人が自己流で使っている</span></label>
-            <label class="sd-opt"><input type="radio" name="q5" value="2"><span class="sd-letter" aria-hidden="true">C</span><span class="sd-opt-text">チームや部署単位で使い方をある程度揃えている</span></label>
-            <label class="sd-opt"><input type="radio" name="q5" value="1"><span class="sd-letter" aria-hidden="true">D</span><span class="sd-opt-text">部署をまたいで複数の業務に組み込まれている</span></label>
-            <label class="sd-opt"><input type="radio" name="q5" value="0"><span class="sd-letter" aria-hidden="true">E</span><span class="sd-opt-text">全社的に運用ルールが整い、業務に組み込まれている</span></label>
-          </fieldset>
-          <fieldset class="sd-q sd-fade" hidden>
-            <legend class="sd-q-title">Q6. 採用に関わる業務全体を振り返って、当てはまるものは?</legend>
-            <label class="sd-opt"><input type="radio" name="q6" value="4"><span class="sd-letter" aria-hidden="true">A</span><span class="sd-opt-text">少人数で大部分を手作業でこなしており、繁忙期は特に負担が大きい</span></label>
-            <label class="sd-opt"><input type="radio" name="q6" value="3"><span class="sd-letter" aria-hidden="true">B</span><span class="sd-opt-text">数名で分担しているが、繁忙期は手が回らないことが多い</span></label>
-            <label class="sd-opt"><input type="radio" name="q6" value="2"><span class="sd-letter" aria-hidden="true">C</span><span class="sd-opt-text">一部の業務は仕組み化されているが、まだ手作業が残っている</span></label>
-            <label class="sd-opt"><input type="radio" name="q6" value="1"><span class="sd-letter" aria-hidden="true">D</span><span class="sd-opt-text">主要な業務の多くが仕組み化されており、繁忙期も大きな負担にはならない</span></label>
-            <label class="sd-opt"><input type="radio" name="q6" value="0"><span class="sd-letter" aria-hidden="true">E</span><span class="sd-opt-text">業務が仕組み化されていて、候補者対応など注力したい仕事に十分な時間を割けている</span></label>
-          </fieldset>
-        </form>
-        <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:24px">
-          <button type="button" id="sd-back" class="sd-back" style="visibility:hidden">← 戻る</button>
-          <button type="button" id="sd-see" class="sd-see" hidden disabled>結果を見る</button>
-        </div>
-      </div>
-      <!-- 診断(結果パート) -->
-      <div id="sd-result" hidden>
-        <div style="font-size:13px;font-weight:700;letter-spacing:.18em;color:#E4691F;margin-bottom:18px">RESULT</div>
-        <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:10px">
-          <span style="font-size:14px;font-weight:700;color:#5A6172;margin-right:4px">スコア</span>
-          <span id="sd-score-num" style="font-size:44px;font-weight:900;line-height:1;color:#1C2B4B">0</span>
-          <span style="font-size:15px;font-weight:700;color:#5A6172">/ 24点</span>
-        </div>
-        <div aria-hidden="true" style="height:10px;border-radius:5px;background:rgba(28,43,75,.12);overflow:hidden;margin-bottom:28px">
-          <div id="sd-score-bar" style="height:100%;width:0%;border-radius:5px;background:linear-gradient(90deg,#F07B2E,#D95614)"></div>
-        </div>
-        <h3 id="sd-type" style="margin:0 0 14px;font-size:clamp(20px,4.4vw,24px);font-weight:900;line-height:1.5;color:#1C2B4B"></h3>
-        <p id="sd-comment" style="margin:0 0 24px;font-size:16px;line-height:2;color:#5A6172;text-wrap:pretty"></p>
-        <div style="background:#F6F1E8;border-left:3px solid #E4691F;border-radius:4px 12px 12px 4px;padding:18px 20px;margin-bottom:24px">
-          <div style="font-size:13px;font-weight:700;letter-spacing:.14em;color:#E4691F;margin-bottom:8px">参考になりそうな実例</div>
-          <p id="sd-case" style="margin:0;font-size:15px;line-height:1.9;color:#232733"></p>
-        </div>
-        <p id="sd-cta-text" style="margin:0 0 24px;font-size:16px;line-height:2;color:#232733;font-weight:500;text-wrap:pretty"></p>
-        <div style="display:flex;flex-wrap:wrap;gap:14px;align-items:center">
-          <a href="#cases" class="sd-btn-cases" style="display:inline-flex;align-items:center;justify-content:center;gap:8px;background:#1C2B4B;color:#fff;text-decoration:none;font-weight:700;font-size:16px;padding:14px 26px;border-radius:10px">実例を見る</a>
-          <a href="https://calendar.app.google/F6qpCXCqKXQDYe5D8" target="_blank" rel="noopener" class="sd-btn-consult" style="display:inline-flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(135deg,#F07B2E,#D95614);color:#fff;text-decoration:none;font-weight:700;font-size:16px;padding:14px 28px;border-radius:999px;box-shadow:0 8px 24px rgba(228,105,31,.32)">無料相談を予約する<span aria-hidden="true">→</span></a>
-        </div>
-        <div style="margin-top:22px">
-          <button type="button" id="sd-reset" class="sd-reset">もう一度診断する</button>
+        <!-- 結果パート -->
+        <div id="sd-result" hidden>
+          <div class="sd-result-label">YOUR RESULT</div>
+          <div class="sd-gauge">
+            <div id="sd-gauge-track" class="sd-gauge-track">
+              <div class="sd-gauge-seg" data-level="1"></div>
+              <div class="sd-gauge-seg" data-level="2"></div>
+              <div class="sd-gauge-seg" data-level="3"></div>
+              <div class="sd-gauge-seg" data-level="4"></div>
+            </div>
+            <div id="sd-gauge-labels" class="sd-gauge-labels">
+              <span data-level="1">レベル1</span>
+              <span data-level="2">レベル2</span>
+              <span data-level="3">レベル3</span>
+              <span data-level="4">レベル4</span>
+            </div>
+          </div>
+          <div id="sd-level-badge" class="sd-level-badge"></div>
+          <h3 id="sd-level-title" class="sd-level-title"></h3>
+          <p id="sd-level-desc" class="sd-level-desc"></p>
+          <p class="sd-cta-text">無料相談で、貴社に合った進め方をご案内します。</p>
+          <div style="display:flex;flex-wrap:wrap;gap:16px;align-items:center">
+            <button type="button" id="sd-reset" class="sd-reset">もう一度診断する</button>
+            <a href="https://calendar.app.google/F6qpCXCqKXQDYe5D8" target="_blank" rel="noopener" id="sd-cta-btn" class="sd-btn-consult"><span id="sd-cta-btn-label">無料相談を予約する</span><span aria-hidden="true">→</span></a>
+          </div>
         </div>
       </div>
     </div>
   </div>
   <script>
   (function(){
+    var QUESTIONS=[
+      {title:'Q1. 提案資料・報告書などの文書作成は、どのように行っていますか?',options:[
+        '毎回ゼロから考えて書いている',
+        '過去の資料をコピーして一部だけ書き換えている',
+        'いくつかのひな形を使い分けている',
+        'AIに下書きを作らせてから自分で仕上げている']},
+      {title:'Q2. 議事録・会議メモの作成は、どのように行っていますか?',options:[
+        '会議中にメモを取り、後で清書している',
+        '録音を聞き直しながら書き起こしている',
+        'AIの文字起こし機能は使うが、要約は自分でしている',
+        'AIに要約・タスク抽出まで任せている']},
+      {title:'Q3. 社内でAIツールを使っているのは、どのくらいの人数ですか?',options:[
+        'ほぼ自分一人',
+        '一部の詳しい人だけ',
+        '部署内の半数程度',
+        '部署内のほぼ全員']},
+      {title:'Q4. 「AIに詳しい人」が異動・退職したら、その人のノウハウはどうなりますか?',options:[
+        'ほぼ何も残らない',
+        '断片的なメモは残る程度',
+        'ある程度は引き継ぎ資料がある',
+        'プロンプトや手順が文書化されている']},
+      {title:'Q5. AI活用について、経営層と現場の温度感は合っていますか?',options:[
+        '経営層は関心が薄い',
+        '現場は乗り気だが経営層の理解が薄い',
+        '経営層は前向きだが現場が追いついていない',
+        'どちらも前向きだが進め方が定まっていない']},
+      {title:'Q6. 自社に合わせたAI活用の「仕組み」(誰が使っても同じ品質になる型)は、社内にありますか?',options:[
+        'まったくない',
+        '個人レベルでは工夫している人がいる',
+        '一部の業務だけ仕組み化されている',
+        '複数の業務で仕組み化が進んでいる']}
+    ];
+    var LEVELS={
+      1:{label:'レベル1',title:'個人の工夫止まり',desc:'AI活用は、今のところ一部の人の工夫にとどまっているようです。まずは1つの業務から「個人の工夫」を「チームの型」に変えていくと、負担を減らせる余地がありそうです。',cta:'何から仕組み化すべきか相談する'},
+      2:{label:'レベル2',title:'チーム内で一部活用',desc:'チーム内では一部の業務でAIの活用が始まっています。この動きをチーム全体・他部署にも広げていくことで、効果を実感できる範囲がさらに広がりそうです。',cta:'全社展開の進め方を相談する'},
+      3:{label:'レベル3',title:'仕組み化が進行中',desc:'複数の業務で仕組み化が進み、定着に近づいている段階です。残る業務への横展開や、属人化しやすい部分の仕上げが次のテーマになりそうです。',cta:'社内浸透するためにどうすべきか相談する'},
+      4:{label:'レベル4',title:'全社定着',desc:'AI活用がすでに全社的に定着しています。次のフェーズとして、さらなる磨き込みや他部署・他業務への横展開を検討する余地がありそうです。',cta:'さらなる展開を相談する'}
+    };
+    var LETTERS=['A','B','C','D'];
     var quiz=document.getElementById('sd-quiz');
-    var form=document.getElementById('sd-form');
-    var qs=Array.prototype.slice.call(form.querySelectorAll('.sd-q'));
-    var N=qs.length,cur=0,timer=null;
-    var ptext=document.getElementById('sd-progress-text');
-    var bar=document.getElementById('sd-bar');
-    var dots=Array.prototype.slice.call(document.getElementById('sd-dots').children);
+    var result=document.getElementById('sd-result');
+    var qnum=document.getElementById('sd-qnum');
+    var remain=document.getElementById('sd-remain');
+    var fill=document.getElementById('sd-fill');
+    var qwrap=document.getElementById('sd-qwrap');
+    var qtitle=document.getElementById('sd-qtitle');
+    var optionsWrap=document.getElementById('sd-options');
     var back=document.getElementById('sd-back');
     var see=document.getElementById('sd-see');
-    var result=document.getElementById('sd-result');
-    var TYPES={
-      A:{name:'タイプA:手作業ベースタイプ',
-         comment:'スカウト文面・求人票のいずれも、一から手作業で作られている割合が多いようです。一つひとつに丁寧に向き合っている裏返しでもありますが、その分、候補者対応や面談準備に使える時間が限られてしまっているかもしれません。',
-         cta:'どこから手をつければ負担が減るか、現状に合わせて一緒に整理することができます。無料相談で具体的にお話しませんか。'},
-      B:{name:'タイプB:自己流トライタイプ',
-         comment:'一部の業務や一部のメンバーでは、すでにAIやツールを試されているようです。ただ、業務全体としてはまだ「仕組み」として定着していない部分が残っているかもしれません。',
-         cta:'すでに試している取り組みを、チームで使える仕組みに育てる余地がありそうです。無料相談で今の状況を聞かせてください。'},
-      C:{name:'タイプC:部分仕組み化タイプ',
-         comment:'一部の業務ではすでに仕組み化が進んでいるようです。残り部分に手作業が集中している場合、そこがボトルネックになっている可能性があります。',
-         cta:'仕組み化できている部分とできていない部分を整理すると、次の一手が見えやすくなります。無料相談でご一緒に整理しましょう。'},
-      D:{name:'タイプD:仕組み化実践タイプ',
-         comment:'スカウト・求人票のいずれも、すでにある程度仕組み化が進んでいるようです。次の課題は、その仕組みを他の業務やメンバーにどう広げていくかかもしれません。',
-         cta:'今の仕組みをどう横展開するか、他社の実例も交えてお話しできます。よろしければ無料相談でどうぞ。'}
-    };
-    var CASES={
-      A:'このページで紹介している4つの実例のいずれにも伸びしろがありますが、最初の一歩には実例1「スカウト自動化」が着手しやすいはずです。扱う件数が多く、変化を実感しやすい業務だからです。',
-      D:'このページで紹介している実例のうち、実例4「採用資料の自動化・カスタマイズ」が参考になりそうです。仕組み化が進んでいる会社ほど、次は資料の保守・展開が課題になりやすいためです。',
-      scout:'特にスカウト文面の作成に時間がかかっているようです。このページで紹介している実例1「スカウト自動化」が参考になりそうです。',
-      jobpost:'特に求人票の作成に時間がかかっているようです。このページで紹介している実例3「求人作成の自動化」が参考になりそうです。'
-    };
-    function val(i){var r=qs[i].querySelector('input:checked');return r?parseInt(r.value,10):null;}
+    var N=QUESTIONS.length;
+    var answers=new Array(N).fill(null);
+    var cur=0,timer=null;
+
+    function renderOptions(i){
+      optionsWrap.innerHTML='';
+      QUESTIONS[i].options.forEach(function(text,idx){
+        var val=idx+1;
+        var btn=document.createElement('button');
+        btn.type='button';
+        btn.className='sd-opt'+(answers[i]===val?' is-selected':'');
+        btn.setAttribute('aria-pressed',answers[i]===val?'true':'false');
+        var letter=document.createElement('span');
+        letter.className='sd-letter';
+        letter.setAttribute('aria-hidden','true');
+        letter.textContent=LETTERS[idx];
+        var span=document.createElement('span');
+        span.className='sd-opt-text';
+        span.textContent=text;
+        btn.appendChild(letter);
+        btn.appendChild(span);
+        btn.addEventListener('click',function(){selectOption(i,val);});
+        optionsWrap.appendChild(btn);
+      });
+    }
+
     function show(i){
       cur=i;
-      qs.forEach(function(q,j){q.hidden=j!==i;});
-      ptext.textContent='質問 '+(i+1)+' / '+N;
-      bar.style.width=((i+1)/N*100)+'%';
-      dots.forEach(function(d,j){d.style.background=j<=i?'#E4691F':'rgba(28,43,75,.18)';});
+      qnum.textContent='QUESTION '+(i+1)+' / '+N;
+      remain.textContent='残り'+(N-(i+1))+'問';
+      fill.style.width=((i+1)/N*100)+'%';
+      qtitle.textContent=QUESTIONS[i].title;
+      renderOptions(i);
       back.style.visibility=i===0?'hidden':'visible';
       var last=i===N-1;
-      see.hidden=!last;
-      see.disabled=!(last&&val(i)!==null);
+      see.disabled=!(last&&answers[i]!==null);
+      qwrap.classList.remove('sd-fade');void qwrap.offsetWidth;qwrap.classList.add('sd-fade');
     }
-    function schedule(i){
-      if(i!==cur)return;
-      if(cur===N-1){see.disabled=(val(cur)===null);return;}
+
+    function selectOption(i,val){
+      answers[i]=val;
+      renderOptions(i);
+      if(i===N-1){see.disabled=false;return;}
       clearTimeout(timer);
       timer=setTimeout(function(){if(cur===i)show(i+1);},400);
     }
-    form.addEventListener('change',function(e){
-      if(e.target.type!=='radio')return;
-      schedule(qs.indexOf(e.target.closest('.sd-q')));
-    });
-    form.addEventListener('click',function(e){
-      var opt=e.target.closest('.sd-opt');
-      if(!opt)return;
-      var input=opt.querySelector('input');
-      if(input&&input.checked)schedule(qs.indexOf(opt.closest('.sd-q')));
-    });
+
     back.addEventListener('click',function(){clearTimeout(timer);if(cur>0)show(cur-1);});
+
     see.addEventListener('click',function(){
-      var total=0,scout=0,jobpost=0;
+      var total=0;
       for(var i=0;i<N;i++){
-        var v=val(i);
-        if(v===null){show(i);return;}
-        total+=v;
-        var cat=qs[i].querySelector('input').getAttribute('data-cat');
-        if(cat==='scout')scout+=v;else if(cat==='jobpost')jobpost+=v;
+        if(answers[i]===null){show(i);return;}
+        total+=answers[i];
       }
-      var t=total>=18?'A':total>=12?'B':total>=6?'C':'D';
-      var caseText=t==='A'?CASES.A:t==='D'?CASES.D:(scout>=jobpost?CASES.scout:CASES.jobpost);
-      document.getElementById('sd-score-num').textContent=total;
-      document.getElementById('sd-score-bar').style.width=(total/24*100)+'%';
-      document.getElementById('sd-type').textContent=TYPES[t].name;
-      document.getElementById('sd-comment').textContent=TYPES[t].comment;
-      document.getElementById('sd-case').textContent=caseText;
-      document.getElementById('sd-cta-text').textContent=TYPES[t].cta;
+      var level=total>=20?4:total>=15?3:total>=10?2:1;
+      document.querySelectorAll('#sd-gauge-track .sd-gauge-seg').forEach(function(seg){
+        seg.classList.toggle('is-filled',parseInt(seg.getAttribute('data-level'),10)<=level);
+      });
+      document.querySelectorAll('#sd-gauge-labels span').forEach(function(sp){
+        sp.classList.toggle('is-current',parseInt(sp.getAttribute('data-level'),10)===level);
+      });
+      document.getElementById('sd-level-badge').textContent='診断結果 LEVEL '+level+' /4';
+      document.getElementById('sd-level-title').textContent=LEVELS[level].title;
+      document.getElementById('sd-level-desc').textContent=LEVELS[level].desc;
+      document.getElementById('sd-cta-btn-label').textContent=LEVELS[level].cta;
       quiz.hidden=true;
       result.hidden=false;
       result.classList.remove('sd-fade');void result.offsetWidth;result.classList.add('sd-fade');
     });
+
     document.getElementById('sd-reset').addEventListener('click',function(){
-      form.reset();clearTimeout(timer);result.hidden=true;quiz.hidden=false;show(0);
+      answers=new Array(N).fill(null);
+      clearTimeout(timer);
+      result.hidden=true;
+      quiz.hidden=false;
+      show(0);
     });
+
     show(0);
   })();
   </script>
