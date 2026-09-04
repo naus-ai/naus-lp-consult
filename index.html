@@ -254,8 +254,8 @@ summary::-webkit-details-marker{display:none;}
 .pkg-check{flex:none;width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:11px;color:#fff;margin-top:1px;}
 .pkg-check-a{background:#1C2B4B;}
 .pkg-check-b{background:linear-gradient(135deg,#F07B2E,#D95614);}
-.pkg-foot{background:#1C2B4B;padding:22px 28px;text-align:center;border-radius:24px;display:flex;align-items:center;justify-content:center;gap:20px;flex-wrap:wrap;}
-.pkg-foot p{margin:0;font-size:15.5px;color:rgba(255,255,255,.86);}
+.pkg-foot{background:#EEF2F8;padding:16px 24px;text-align:center;border-radius:24px;display:flex;align-items:center;justify-content:center;gap:20px;flex-wrap:wrap;}
+.pkg-foot p{margin:0;font-size:15px;color:#41527A;}
 .pkg-foot a{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(135deg,#F07B2E,#D95614);color:#fff;text-decoration:none;font-weight:700;font-size:16px;padding:15px 32px;border-radius:999px;box-shadow:0 8px 24px rgba(228,105,31,.32);}
 .pkg-foot a:hover{background:#C95A1D;}
 .pkg-table{display:none;grid-template-columns:180px 1fr 1fr;background:#fff;border:1px solid rgba(28,43,75,.12);border-radius:28px;box-shadow:0 20px 48px rgba(28,43,75,.08);overflow:hidden;}
@@ -705,13 +705,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </defs>
   </svg>
   <div style="position:relative;max-width:960px;margin:0 auto;padding:clamp(48px,8vw,72px) 24px">
-    <div style="max-width:640px;margin-bottom:24px">
-      <div style="display:inline-flex;align-items:center;gap:10px;margin-bottom:18px">
+    <div style="display:flex;flex-direction:column;gap:14px;align-items:center;text-align:center;margin-bottom:24px">
+      <div style="display:inline-flex;align-items:center;gap:10px">
         <span class="sec-badge-num" aria-hidden="true">04</span>
         <span class="sec-badge-label">PACKAGES</span>
       </div>
-      <h2 style="margin:0 0 20px;font-size:clamp(24px,5vw,32px);font-weight:900;line-height:1.5;color:#1C2B4B">支援パッケージ(2つの関わり方)</h2>
-      <p style="margin:0;font-size:16px;line-height:2;color:#5A6172;text-wrap:pretty">まずは1つの業務から試すか、複数の業務をまとめて仕組み化するか。<br>貴社の状況に合わせてお選びいただけます。</p>
+      <h2 style="margin:0;font-size:clamp(24px,5vw,32px);font-weight:900;line-height:1.5;color:#1C2B4B">支援パッケージ(2つの関わり方)</h2>
+      <p style="margin:0;max-width:560px;font-size:16px;line-height:2;color:#5A6172;text-wrap:pretty">まずは1つの業務から試すか、複数の業務をまとめて仕組み化するか。<br>貴社の状況に合わせてお選びいただけます。</p>
     </div>
 
     <!-- 比較表(768px以上) -->
@@ -842,63 +842,40 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </section>
 
-<!-- ===== 6. 選ばれる理由(薄ネイビー帯・左イラスト) ===== -->
-<section data-screen-label="選ばれる理由" style="position:relative;overflow:hidden;background:linear-gradient(180deg,#EEF2F8,#E7EDF6)">
-  <div aria-hidden="true" style="position:absolute;inset:0;background:linear-gradient(115deg,transparent 60%,rgba(255,255,255,.35) 60%)"></div>
-  <div style="position:relative;max-width:960px;margin:0 auto;padding:72px 24px;display:flex;flex-wrap:wrap-reverse;gap:56px;align-items:center;justify-content:center">
-    <!-- イラスト: 握手(ユーザー指定素材) -->
-    <div style="flex:0 1 420px;min-width:300px;display:flex;justify-content:center">
-      <img src="assets/handshake.png" alt="nausの担当者と採用担当者が握手を交わすビジネスシーンのイラスト" loading="lazy" style="display:block;width:400px;max-width:100%;height:auto">
-    </div>
-    <div style="flex:1 1 400px;max-width:540px;min-width:0">
-      <div style="display:inline-flex;align-items:center;gap:10px;margin-bottom:18px">
-        <span class="sec-badge-num" aria-hidden="true">05</span>
-        <span class="sec-badge-label">WHY US</span>
-      </div>
-      <h2 style="margin:0 0 28px;font-size:clamp(24px,5vw,32px);font-weight:900;line-height:1.5;color:#1C2B4B">選ばれる理由</h2>
-      <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column">
-        <li style="display:flex;align-items:flex-start;gap:14px;padding:18px 4px;border-top:1px solid rgba(28,43,75,.14)"><span aria-hidden="true" style="flex:none;width:26px;height:26px;border-radius:50%;background:#E4691F;color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:14px;margin-top:2px">✓</span><div><div style="font-size:17px;font-weight:900;color:#1C2B4B;margin-bottom:4px">自社の実務で使っている仕組み</div><p style="margin:0;font-size:16px;line-height:1.8;color:#5A6172">ご紹介する4つの仕組みは、すべて自分たちの採用・人材紹介の現場で毎日使い、育てているものです</p></div></li>
-        <li style="display:flex;align-items:flex-start;gap:14px;padding:18px 4px;border-top:1px solid rgba(28,43,75,.14)"><span aria-hidden="true" style="flex:none;width:26px;height:26px;border-radius:50%;background:#E4691F;color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:14px;margin-top:2px">✓</span><div><div style="font-size:17px;font-weight:900;color:#1C2B4B;margin-bottom:4px">中身は一社ごとに設計</div><p style="margin:0;font-size:16px;line-height:1.8;color:#5A6172">テンプレ配布では終わらせない</p></div></li>
-        <li style="display:flex;align-items:flex-start;gap:14px;padding:18px 4px;border-top:1px solid rgba(28,43,75,.14);border-bottom:1px solid rgba(28,43,75,.14)"><span aria-hidden="true" style="flex:none;width:26px;height:26px;border-radius:50%;background:#E4691F;color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:14px;margin-top:2px">✓</span><div><div style="font-size:17px;font-weight:900;color:#1C2B4B;margin-bottom:4px">スキルと仕組みが、社内の資産になる</div><p style="margin:0;font-size:16px;line-height:1.8;color:#5A6172">丸ごと外注では社内に何も残りません。担当者が使いこなせる形でお渡しします</p></div></li>
-      </ul>
-    </div>
-  </div>
-</section>
-
 <!-- ===== 7. ご支援の流れ(白・横ステップ) ===== -->
 <section data-screen-label="ご支援の流れ" style="position:relative;overflow:hidden;background:#FDFCFA">
   <div style="position:relative;max-width:960px;margin:0 auto;padding:72px 24px">
-    <div style="max-width:640px;margin-bottom:48px">
-      <div style="display:inline-flex;align-items:center;gap:10px;margin-bottom:18px">
+    <div style="display:flex;flex-direction:column;gap:14px;align-items:center;text-align:center;margin-bottom:48px">
+      <div style="display:inline-flex;align-items:center;gap:10px">
         <span class="sec-badge-num" aria-hidden="true">06</span>
         <span class="sec-badge-label">FLOW</span>
       </div>
       <h2 style="margin:0;font-size:clamp(24px,5vw,32px);font-weight:900;line-height:1.5;color:#1C2B4B">ご支援の流れ</h2>
     </div>
     <ol style="list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:0;border-top:1.5px solid rgba(28,43,75,.15)">
-      <li style="position:relative;padding:40px 32px 8px 4px">
-        <span aria-hidden="true" style="position:absolute;top:-1px;left:4px;width:64px;height:3px;background:#E4691F"></span>
-        <div aria-hidden="true" style="position:relative;margin-bottom:22px;height:120px;display:flex;align-items:flex-end;overflow:hidden">
-          <span style="position:absolute;right:0;bottom:-14px;width:132px;height:132px;background:rgba(228,105,31,.13);-webkit-mask:url('assets/icon-talk.svg') center/contain no-repeat;mask:url('assets/icon-talk.svg') center/contain no-repeat"></span>
-          <span style="position:relative;font-weight:900;font-size:104px;line-height:1;color:#1C2B4B">1</span>
+      <li style="position:relative;padding:32px 24px 8px;text-align:center">
+        <span aria-hidden="true" style="position:absolute;top:-1px;left:50%;transform:translateX(-50%);width:64px;height:3px;background:#E4691F"></span>
+        <div aria-hidden="true" style="position:relative;margin:0 auto 16px;width:84px;height:84px;display:flex;align-items:center;justify-content:center">
+          <span style="position:absolute;inset:0;background:rgba(228,105,31,.13);-webkit-mask:url('assets/icon-talk.svg') center/contain no-repeat;mask:url('assets/icon-talk.svg') center/contain no-repeat"></span>
+          <span style="position:relative;font-weight:900;font-size:56px;line-height:1;color:#1C2B4B">1</span>
         </div>
         <div style="font-size:18px;font-weight:900;color:#1C2B4B;margin-bottom:6px">無料相談(30分)</div>
         <p style="margin:0;font-size:16px;line-height:1.8;color:#5A6172">現状とお困りごとをヒアリング</p>
       </li>
-      <li style="position:relative;padding:40px 32px 8px 4px">
-        <span aria-hidden="true" style="position:absolute;top:-1px;left:4px;width:64px;height:3px;background:#E4691F"></span>
-        <div aria-hidden="true" style="position:relative;margin-bottom:22px;height:120px;display:flex;align-items:flex-end;overflow:hidden">
-          <span style="position:absolute;right:0;bottom:-14px;width:132px;height:132px;background:rgba(28,43,75,.1);-webkit-mask:url('assets/icon-glass.svg') center/contain no-repeat;mask:url('assets/icon-glass.svg') center/contain no-repeat"></span>
-          <span style="position:relative;font-weight:900;font-size:104px;line-height:1;color:#1C2B4B">2</span>
+      <li style="position:relative;padding:32px 24px 8px;text-align:center">
+        <span aria-hidden="true" style="position:absolute;top:-1px;left:50%;transform:translateX(-50%);width:64px;height:3px;background:#E4691F"></span>
+        <div aria-hidden="true" style="position:relative;margin:0 auto 16px;width:84px;height:84px;display:flex;align-items:center;justify-content:center">
+          <span style="position:absolute;inset:0;background:rgba(28,43,75,.1);-webkit-mask:url('assets/icon-glass.svg') center/contain no-repeat;mask:url('assets/icon-glass.svg') center/contain no-repeat"></span>
+          <span style="position:relative;font-weight:900;font-size:56px;line-height:1;color:#1C2B4B">2</span>
         </div>
         <div style="font-size:18px;font-weight:900;color:#1C2B4B;margin-bottom:6px">現状診断</div>
         <p style="margin:0;font-size:16px;line-height:1.8;color:#5A6172">業務を棚卸し、仕組み化できる部分を整理</p>
       </li>
-      <li style="position:relative;padding:40px 32px 8px 4px">
-        <span aria-hidden="true" style="position:absolute;top:-1px;left:4px;width:64px;height:3px;background:#E4691F"></span>
-        <div aria-hidden="true" style="position:relative;margin-bottom:22px;height:120px;display:flex;align-items:flex-end;overflow:hidden">
-          <span style="position:absolute;right:0;bottom:-14px;width:132px;height:132px;background:rgba(228,105,31,.13);-webkit-mask:url('assets/icon-handshake.svg') center/contain no-repeat;mask:url('assets/icon-handshake.svg') center/contain no-repeat"></span>
-          <span style="position:relative;font-weight:900;font-size:104px;line-height:1;color:#E4691F">3</span>
+      <li style="position:relative;padding:32px 24px 8px;text-align:center">
+        <span aria-hidden="true" style="position:absolute;top:-1px;left:50%;transform:translateX(-50%);width:64px;height:3px;background:#E4691F"></span>
+        <div aria-hidden="true" style="position:relative;margin:0 auto 16px;width:84px;height:84px;display:flex;align-items:center;justify-content:center">
+          <span style="position:absolute;inset:0;background:rgba(228,105,31,.13);-webkit-mask:url('assets/icon-handshake.svg') center/contain no-repeat;mask:url('assets/icon-handshake.svg') center/contain no-repeat"></span>
+          <span style="position:relative;font-weight:900;font-size:56px;line-height:1;color:#E4691F">3</span>
         </div>
         <div style="font-size:18px;font-weight:900;color:#1C2B4B;margin-bottom:6px">伴走開始</div>
         <p style="margin:0;font-size:16px;line-height:1.8;color:#5A6172">仕組みづくりと定着支援</p>
