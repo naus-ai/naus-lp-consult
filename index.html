@@ -143,13 +143,30 @@ summary::-webkit-details-marker{display:none;}
 .dl-label{display:block;font-size:14px;font-weight:700;color:#1C2B4B;margin-bottom:6px;}
 .dl-field{width:100%;box-sizing:border-box;font-size:16px;font-family:inherit;padding:12px 14px;border-radius:10px;border:1.5px solid rgba(28,43,75,.24);background:#fff;color:#232733;outline:none;}
 .dl-field:focus{border-color:#E4691F;}
-.btn-doc-submit{display:inline-flex;align-items:center;justify-content:center;gap:10px;align-self:flex-start;background:#1C2B4B;color:#fff;border:0;cursor:pointer;font-family:inherit;font-weight:700;font-size:16px;padding:14px 26px;border-radius:10px;}
-.btn-doc-submit:hover{background:#152039;}
+.btn-doc-submit{display:inline-flex;align-items:center;justify-content:center;gap:10px;align-self:flex-start;background:#E4691F;color:#fff;border:0;cursor:pointer;font-family:inherit;font-weight:700;font-size:16px;padding:14px 26px;border-radius:10px;}
+.btn-doc-submit:hover{background:#C95A1D;}
 .footer-company-link:hover{color:rgba(255,255,255,.85);}
 .btn-closing-cta:hover{background:#F0904F;color:#fff;transform:translateY(-2px);}
 .btn-sticky-cta:hover{background:#C95A1D;color:#fff;}
 .btn-form-submit:hover{background:rgba(255,255,255,.88);}
 .form-field:focus{border-color:#E4691F;}
+/* 統合お問い合わせセクション(uc-*): 資料ダウンロード/問い合わせのタブ切替 */
+.uc-tabs{display:flex;align-items:flex-end;gap:6px;padding-left:20px;}
+.uc-tab{position:relative;z-index:1;border:0;border-radius:16px 16px 0 0;padding:14px 26px;font-family:inherit;font-weight:700;font-size:15px;text-align:center;cursor:pointer;white-space:nowrap;background:#F3E3D0;color:#814D1F;}
+#uc-tab-doc{min-width:160px;}
+#uc-tab-inquiry{min-width:188px;}
+.uc-tab[aria-selected="true"]{z-index:2;background:#E4A670;color:#583111;}
+.uc-tab:not([aria-selected="true"]):hover{background:#ECD5B7;}
+.uc-card{position:relative;background:#E4A670;border-radius:4px 20px 20px 20px;box-shadow:0 20px 48px rgba(28,43,75,.12);padding:14px;}
+.uc-panel{display:flex;flex-wrap:wrap;gap:14px;}
+.uc-panel[hidden]{display:none;}
+.uc-navy{flex:1 1 300px;min-width:260px;background:linear-gradient(150deg,#1C2B4B,#152039);border-radius:16px;padding:32px 28px;display:flex;flex-direction:column;justify-content:center;gap:22px;}
+.uc-form-side{flex:1.3 1 320px;min-width:0;background:#fff;border-radius:16px;padding:32px 32px;}
+.uc-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px 16px;margin:0;}
+.uc-form-grid .uc-full{grid-column:1 / -1;}
+@media (max-width:479px){
+  .uc-form-grid{grid-template-columns:1fr;}
+}
 /* ===== セクション区分バッジ(sec-badge-*、他セクションと共通) ===== */
 .sec-badge-num{display:inline-flex;align-items:center;justify-content:center;flex:none;width:34px;height:34px;border-radius:50%;background:#E4691F;color:#fff;font-weight:900;font-size:14px;}
 .sec-badge-label{display:inline-flex;align-items:center;background:#fff;border:1px solid rgba(28,43,75,.14);border-radius:999px;padding:7px 16px;font-size:12px;font-weight:700;letter-spacing:.14em;color:#1C2B4B;box-shadow:0 4px 12px rgba(28,43,75,.07);}
@@ -522,7 +539,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <a href="#pricing" style="color:#1C2B4B;text-decoration:none;font-weight:700;font-size:14px">料金</a>
         <a href="#faq" style="color:#1C2B4B;text-decoration:none;font-weight:700;font-size:14px">FAQ</a>
         <a href="#download" style="color:#1C2B4B;text-decoration:none;font-weight:700;font-size:14px">資料ダウンロード</a>
-        <a href="#contact-form" style="color:#1C2B4B;text-decoration:none;font-weight:700;font-size:14px">問い合わせ</a>
+        <a href="#contact" style="color:#1C2B4B;text-decoration:none;font-weight:700;font-size:14px">問い合わせ</a>
       </nav>
       <button type="button" id="mm-toggle" class="mm-toggle" aria-expanded="false" aria-controls="mm-panel" aria-label="メニューを開く"><span id="mm-icon" aria-hidden="true">☰</span></button>
     </div>
@@ -532,7 +549,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <a href="#pricing" class="mm-link">料金</a>
       <a href="#faq" class="mm-link">FAQ</a>
       <a href="#download" class="mm-link">資料ダウンロード</a>
-      <a href="#contact-form" class="mm-link">問い合わせ</a>
+      <a href="#contact" class="mm-link">問い合わせ</a>
+      <a href="https://calendar.app.google/F6qpCXCqKXQDYe5D8" target="_blank" rel="noopener" class="mm-link">無料相談</a>
     </nav>
 </header>
 <div id="mm-scrim" class="mm-scrim" hidden></div>
@@ -1323,69 +1341,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </section>
 
-<!-- ===== 8. 資料ダウンロード(分割バンド) ===== -->
-<section id="download" data-screen-label="資料ダウンロード" style="background:linear-gradient(180deg,#F6F1E8,#F2EADC)">
-  <div style="max-width:840px;margin:0 auto;padding:64px 24px 36px">
-    <div style="max-width:640px;margin-bottom:32px">
-      <div style="font-size:13px;font-weight:700;letter-spacing:.18em;color:#E4691F;margin-bottom:16px">DOWNLOAD</div>
-      <h2 style="margin:0;font-size:clamp(24px,5vw,32px);font-weight:900;line-height:1.5;color:#1C2B4B">「ゼロからAI Academy」<span style="display:inline-block">紹介資料</span></h2>
-    </div>
-    <div style="display:flex;flex-wrap:wrap;background:#fff;border-radius:24px;overflow:hidden;box-shadow:0 20px 48px rgba(28,43,75,.12)">
-      <div style="flex:1 1 300px;min-width:260px;background:linear-gradient(150deg,#1C2B4B,#152039);padding:44px 32px;display:flex;flex-direction:column;justify-content:center;gap:28px">
-        <div>
-          <div style="font-size:13px;font-weight:700;letter-spacing:.14em;color:#F0904F;margin-bottom:10px">この資料で分かること</div>
-          <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px">
-            <li style="display:flex;align-items:flex-start;gap:10px;font-size:15px;line-height:1.8;color:rgba(255,255,255,.92)"><span aria-hidden="true" style="flex:none;width:8px;height:8px;border-radius:50%;background:#F0904F;margin-top:9px"></span><span style="flex:1;min-width:0">スカウト文・提案資料・求人票・社外向け資料、4つの自動化のBefore→After</span></li>
-            <li style="display:flex;align-items:flex-start;gap:10px;font-size:15px;line-height:1.8;color:rgba(255,255,255,.92)"><span aria-hidden="true" style="flex:none;width:8px;height:8px;border-radius:50%;background:#F0904F;margin-top:9px"></span><span style="flex:1;min-width:0">AIの専門知識ゼロのメンバーが、つまずきながら業務に定着させるまでの実録</span></li>
-            <li style="display:flex;align-items:flex-start;gap:10px;font-size:15px;line-height:1.8;color:rgba(255,255,255,.92)"><span aria-hidden="true" style="flex:none;width:8px;height:8px;border-radius:50%;background:#F0904F;margin-top:9px"></span><span style="flex:1;min-width:0">支援パッケージ(単発型・継続伴走型)の違いと、ご契約後の流れ</span></li>
-          </ul>
-        </div>
-        <div aria-hidden="true" style="display:flex;justify-content:center">
-          <div style="position:relative;width:118px;background:#fff;border-radius:12px;box-shadow:0 16px 36px rgba(0,0,0,.35);padding:14px;display:flex;flex-direction:column;gap:7px;transform:rotate(-3deg)">
-            <span style="height:8px;width:58%;border-radius:4px;background:#1C2B4B"></span>
-            <span style="height:7px;width:92%;border-radius:4px;background:rgba(28,43,75,.14)"></span>
-            <span style="height:7px;width:80%;border-radius:4px;background:rgba(28,43,75,.14)"></span>
-            <span style="align-self:flex-start;padding:3px 9px;border-radius:999px;background:#E4691F;color:#fff;font-weight:900;font-size:11px;margin-top:2px">PDF</span>
-            <span style="position:absolute;right:-14px;bottom:-14px;width:36px;height:36px;border-radius:50%;background:#E4691F;color:#fff;display:inline-flex;align-items:center;justify-content:center;font-weight:900;font-size:16px">↓</span>
-          </div>
-        </div>
-      </div>
-      <div style="flex:1.3 1 320px;min-width:0;padding:44px 36px">
-        <form name="document-download" method="POST" action="/thanks.html" data-netlify="true" netlify-honeypot="bot-field" style="display:flex;flex-direction:column;gap:12px;margin:0">
-          <input type="hidden" name="form-name" value="document-download">
-          <p style="display:none"><label>この欄は空欄のままにしてください: <input name="bot-field"></label></p>
-          <div style="display:flex;flex-wrap:wrap;gap:12px">
-            <div style="flex:1 1 180px;min-width:0">
-              <label for="dl-company" class="dl-label">会社名<span style="color:#E4691F;margin-left:4px">必須</span></label>
-              <input id="dl-company" name="company" type="text" required autocomplete="organization" class="dl-field">
-            </div>
-            <div style="flex:1 1 180px;min-width:0">
-              <label for="dl-name" class="dl-label">氏名<span style="color:#E4691F;margin-left:4px">必須</span></label>
-              <input id="dl-name" name="name" type="text" required autocomplete="name" class="dl-field">
-            </div>
-          </div>
-          <div style="display:flex;flex-wrap:wrap;gap:12px">
-            <div style="flex:1 1 180px;min-width:0">
-              <label for="dl-email" class="dl-label">メールアドレス<span style="color:#E4691F;margin-left:4px">必須</span></label>
-              <input id="dl-email" name="email" type="email" required autocomplete="email" class="dl-field">
-            </div>
-            <div style="flex:1 1 180px;min-width:0">
-              <label for="dl-tel" class="dl-label">電話番号<span style="color:#8A8F9C;font-size:12px;margin-left:4px">任意</span></label>
-              <input id="dl-tel" name="phone" type="tel" autocomplete="tel" class="dl-field">
-            </div>
-          </div>
-          <div>
-            <label for="dl-message" class="dl-label">自由記述(ご質問・ご要望など)<span style="color:#8A8F9C;font-size:12px;margin-left:4px">任意</span></label>
-            <textarea id="dl-message" name="message" rows="3" class="dl-field" style="resize:vertical"></textarea>
-          </div>
-          <button type="submit" class="btn-doc-submit"><span aria-hidden="true" style="width:22px;height:22px;background:#fff;-webkit-mask:url('assets/icon-mail.svg') center/contain no-repeat;mask:url('assets/icon-mail.svg') center/contain no-repeat"></span>送信して資料をダウンロード</button>
-          <p style="margin:0;font-size:12.5px;line-height:1.9;color:#8A8F9C">ご入力いただいた個人情報は、資料のご提供と、本サービスに関するご連絡のためにのみ利用します。詳細は<a href="https://www.naus.co.jp/2" target="_blank" rel="noopener" style="display:inline-block">プライバシーポリシー</a>をご確認ください。</p>
-        </form>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- ===== 10. チーム・会社情報(白・アバター図)※一時的に非表示。復元する場合はこのコメントブロックごと解除してください =====
 <section data-screen-label="チーム・会社情報" style="position:relative;overflow:hidden;background:#FDFCFA">
   <div style="position:relative;max-width:960px;margin:0 auto;padding:72px 24px;display:flex;flex-wrap:wrap;gap:56px;align-items:center;justify-content:center">
@@ -1461,6 +1416,129 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </section>
 
+<!-- ===== 11.5 お問い合わせ(統合: 資料ダウンロード/問い合わせタブ切替) ===== -->
+<span id="download" aria-hidden="true" style="display:block;position:relative;scroll-margin-top:76px"></span>
+<section id="contact" data-screen-label="お問い合わせ" style="scroll-margin-top:76px;background:linear-gradient(180deg,#F6F1E8,#F2EADC)">
+  <div style="max-width:840px;margin:0 auto;padding:72px 24px 64px">
+    <div style="text-align:center;margin-bottom:32px">
+      <div style="font-size:13px;font-weight:700;letter-spacing:.18em;color:#E4691F;margin-bottom:16px">CONTACT</div>
+      <h2 style="margin:0 0 12px;font-size:clamp(24px,5vw,32px);font-weight:900;line-height:1.5;color:#1C2B4B">お問い合わせ</h2>
+      <p style="margin:0;font-size:16px;line-height:1.9;color:#5A6172">ご希望の内容に合わせて、タブをお選びください。</p>
+    </div>
+
+    <div class="uc-tabs" role="tablist" aria-label="お問い合わせの種類">
+      <button type="button" id="uc-tab-doc" class="uc-tab" data-uc-target="doc" role="tab" aria-selected="true" aria-controls="uc-panel-doc">資料ダウンロード</button>
+      <button type="button" id="uc-tab-inquiry" class="uc-tab" data-uc-target="inquiry" role="tab" aria-selected="false" aria-controls="uc-panel-inquiry" tabindex="-1">問い合わせ</button>
+    </div>
+
+    <div class="uc-card">
+      <!-- 資料ダウンロード パネル -->
+      <div id="uc-panel-doc" class="uc-panel" role="tabpanel" aria-labelledby="uc-tab-doc">
+        <div class="uc-navy">
+          <h3 style="margin:0;font-size:clamp(20px,4.2vw,24px);font-weight:900;line-height:1.5;color:#fff">無料で資料ダウンロード</h3>
+          <div>
+            <div style="font-size:13px;font-weight:700;letter-spacing:.14em;color:#F0904F;margin-bottom:10px">この資料で分かること</div>
+            <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px">
+              <li style="display:flex;align-items:flex-start;gap:10px;font-size:15px;line-height:1.8;color:rgba(255,255,255,.92)"><span aria-hidden="true" style="flex:none;width:8px;height:8px;border-radius:50%;background:#F0904F;margin-top:9px"></span><span style="flex:1;min-width:0">スカウト文・提案資料・求人票・社外向け資料、4つの自動化のBefore→After</span></li>
+              <li style="display:flex;align-items:flex-start;gap:10px;font-size:15px;line-height:1.8;color:rgba(255,255,255,.92)"><span aria-hidden="true" style="flex:none;width:8px;height:8px;border-radius:50%;background:#F0904F;margin-top:9px"></span><span style="flex:1;min-width:0">AIの専門知識ゼロのメンバーが、つまずきながら業務に定着させるまでの実録</span></li>
+              <li style="display:flex;align-items:flex-start;gap:10px;font-size:15px;line-height:1.8;color:rgba(255,255,255,.92)"><span aria-hidden="true" style="flex:none;width:8px;height:8px;border-radius:50%;background:#F0904F;margin-top:9px"></span><span style="flex:1;min-width:0">支援パッケージ(単発型・継続伴走型)の違いと、ご契約後の流れ</span></li>
+            </ul>
+          </div>
+          <div aria-hidden="true" style="display:flex;justify-content:center">
+            <div style="position:relative;width:118px;background:#fff;border-radius:12px;box-shadow:0 16px 36px rgba(0,0,0,.35);padding:14px;display:flex;flex-direction:column;gap:7px;transform:rotate(-3deg)">
+              <span style="height:8px;width:58%;border-radius:4px;background:#1C2B4B"></span>
+              <span style="height:7px;width:92%;border-radius:4px;background:rgba(28,43,75,.14)"></span>
+              <span style="height:7px;width:80%;border-radius:4px;background:rgba(28,43,75,.14)"></span>
+              <span style="align-self:flex-start;padding:3px 9px;border-radius:999px;background:#E4691F;color:#fff;font-weight:900;font-size:11px;margin-top:2px">PDF</span>
+              <span style="position:absolute;right:-14px;bottom:-14px;width:36px;height:36px;border-radius:50%;background:#E4691F;color:#fff;display:inline-flex;align-items:center;justify-content:center;font-weight:900;font-size:16px">↓</span>
+            </div>
+          </div>
+        </div>
+        <div class="uc-form-side">
+          <form name="document-download" method="POST" action="/thanks.html" data-netlify="true" netlify-honeypot="bot-field" class="uc-form-grid">
+            <input type="hidden" name="form-name" value="document-download">
+            <p style="display:none" class="uc-full"><label>この欄は空欄のままにしてください: <input name="bot-field"></label></p>
+            <div>
+              <label for="dl-company" class="dl-label">会社名<span style="color:#E4691F;margin-left:4px">必須</span></label>
+              <input id="dl-company" name="company" type="text" required autocomplete="organization" class="dl-field">
+            </div>
+            <div>
+              <label for="dl-name" class="dl-label">氏名<span style="color:#E4691F;margin-left:4px">必須</span></label>
+              <input id="dl-name" name="name" type="text" required autocomplete="name" class="dl-field">
+            </div>
+            <div>
+              <label for="dl-email" class="dl-label">メールアドレス<span style="color:#E4691F;margin-left:4px">必須</span></label>
+              <input id="dl-email" name="email" type="email" required autocomplete="email" class="dl-field">
+            </div>
+            <div>
+              <label for="dl-tel" class="dl-label">電話番号<span style="color:#8A8F9C;font-size:12px;margin-left:4px">任意</span></label>
+              <input id="dl-tel" name="phone" type="tel" autocomplete="tel" class="dl-field">
+            </div>
+            <div class="uc-full">
+              <label for="dl-message" class="dl-label">自由記述(ご質問・ご要望など)<span style="color:#8A8F9C;font-size:12px;margin-left:4px">任意</span></label>
+              <textarea id="dl-message" name="message" rows="4" class="dl-field" style="resize:vertical"></textarea>
+            </div>
+            <button type="submit" class="btn-doc-submit uc-full"><span aria-hidden="true" style="width:22px;height:22px;background:#fff;-webkit-mask:url('assets/icon-mail.svg') center/contain no-repeat;mask:url('assets/icon-mail.svg') center/contain no-repeat"></span>送信して資料をダウンロード</button>
+            <p class="uc-full" style="margin:0;font-size:12.5px;line-height:1.9;color:#8A8F9C">ご入力いただいた個人情報は、資料のご提供と、本サービスに関するご連絡のためにのみ利用します。詳細は<a href="https://www.naus.co.jp/2" target="_blank" rel="noopener" style="display:inline-block">プライバシーポリシー</a>をご確認ください。</p>
+          </form>
+        </div>
+      </div>
+
+      <!-- 問い合わせ パネル -->
+      <div id="uc-panel-inquiry" class="uc-panel" role="tabpanel" aria-labelledby="uc-tab-inquiry" hidden>
+        <div class="uc-navy">
+          <h3 style="margin:0;font-size:clamp(20px,4.2vw,24px);font-weight:900;line-height:1.5;color:#fff">ご質問・ご相談を承ります</h3>
+          <div>
+            <div style="font-size:13px;font-weight:700;letter-spacing:.14em;color:#F0904F;margin-bottom:10px">こんなご相談をいただきます</div>
+            <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px">
+              <li style="display:flex;align-items:flex-start;gap:10px;font-size:15px;line-height:1.8;color:rgba(255,255,255,.92)"><span aria-hidden="true" style="flex:none;width:8px;height:8px;border-radius:50%;background:#F0904F;margin-top:9px"></span><span style="flex:1;min-width:0">自社のどの業務からAI化できそうか、当てはめて聞きたい</span></li>
+              <li style="display:flex;align-items:flex-start;gap:10px;font-size:15px;line-height:1.8;color:rgba(255,255,255,.92)"><span aria-hidden="true" style="flex:none;width:8px;height:8px;border-radius:50%;background:#F0904F;margin-top:9px"></span><span style="flex:1;min-width:0">研修やセミナーの登壇・取材のご依頼</span></li>
+              <li style="display:flex;align-items:flex-start;gap:10px;font-size:15px;line-height:1.8;color:rgba(255,255,255,.92)"><span aria-hidden="true" style="flex:none;width:8px;height:8px;border-radius:50%;background:#F0904F;margin-top:9px"></span><span style="flex:1;min-width:0">支援パッケージや進め方についてのご質問</span></li>
+            </ul>
+          </div>
+          <div aria-hidden="true" style="display:flex;justify-content:center">
+            <div style="position:relative;width:118px;height:82px;background:#fff;border-radius:12px 12px 12px 4px;box-shadow:0 16px 36px rgba(0,0,0,.35);padding:14px;display:flex;flex-direction:column;gap:7px;transform:rotate(-3deg)">
+              <span style="height:8px;width:70%;border-radius:4px;background:#1C2B4B"></span>
+              <span style="height:7px;width:92%;border-radius:4px;background:rgba(28,43,75,.14)"></span>
+              <span style="height:7px;width:55%;border-radius:4px;background:rgba(28,43,75,.14)"></span>
+              <span style="position:absolute;right:-14px;bottom:-14px;width:36px;height:36px;border-radius:50%;background:#E4691F;color:#fff;display:inline-flex;align-items:center;justify-content:center;font-weight:900;font-size:18px">!</span>
+            </div>
+          </div>
+        </div>
+        <div class="uc-form-side">
+          <p style="margin:0 0 14px;font-size:12.5px;line-height:1.9;color:#8A8F9C">※紹介資料をご希望の方は、<a href="#download" style="color:#C0501A;text-decoration:underline;text-underline-offset:2px">資料ダウンロード</a>のタブからお受け取りいただけます。</p>
+          <form name="contact" method="POST" action="/contact-thanks.html" data-netlify="true" netlify-honeypot="bot-field" class="uc-form-grid">
+            <input type="hidden" name="form-name" value="contact">
+            <p style="display:none" class="uc-full"><label>この欄は空欄のままにしてください: <input name="bot-field"></label></p>
+            <div>
+              <label for="ct-company" class="dl-label">会社名<span style="color:#E4691F;margin-left:4px">必須</span></label>
+              <input id="ct-company" name="company" type="text" required autocomplete="organization" class="dl-field">
+            </div>
+            <div>
+              <label for="ct-name" class="dl-label">氏名<span style="color:#E4691F;margin-left:4px">必須</span></label>
+              <input id="ct-name" name="name" type="text" required autocomplete="name" class="dl-field">
+            </div>
+            <div>
+              <label for="ct-email" class="dl-label">メールアドレス<span style="color:#E4691F;margin-left:4px">必須</span></label>
+              <input id="ct-email" name="email" type="email" required autocomplete="email" class="dl-field">
+            </div>
+            <div>
+              <label for="ct-tel" class="dl-label">電話番号<span style="color:#8A8F9C;font-size:12px;margin-left:4px">任意</span></label>
+              <input id="ct-tel" name="phone" type="tel" autocomplete="tel" class="dl-field">
+            </div>
+            <div class="uc-full">
+              <label for="ct-message" class="dl-label">ご相談内容(自由記入)<span style="color:#8A8F9C;font-size:12px;margin-left:4px">任意</span></label>
+              <textarea id="ct-message" name="message" rows="4" class="dl-field" style="resize:vertical"></textarea>
+            </div>
+            <button type="submit" class="btn-doc-submit uc-full"><span aria-hidden="true" style="width:22px;height:22px;background:#fff;-webkit-mask:url('assets/icon-mail.svg') center/contain no-repeat;mask:url('assets/icon-mail.svg') center/contain no-repeat"></span>この内容で問い合わせる</button>
+            <p class="uc-full" style="margin:0;font-size:12.5px;line-height:1.9;color:#8A8F9C">ご入力いただいた個人情報は、お問い合わせへのご回答と、本サービスに関するご連絡のためにのみ利用します。詳細は<a href="https://www.naus.co.jp/2" target="_blank" rel="noopener" style="display:inline-block">プライバシーポリシー</a>をご確認ください。</p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ===== 12. 締めのCTA ===== -->
 <section data-screen-label="締めのCTA" style="position:relative;overflow:hidden;background:linear-gradient(150deg,#1C2B4B,#152039)">
   <div aria-hidden="true" style="position:absolute;inset:0;background:linear-gradient(115deg,transparent 62%,rgba(255,255,255,.03) 62%)"></div>
@@ -1468,46 +1546,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <h2 style="margin:0 0 18px;font-size:clamp(26px,5.6vw,36px);font-weight:900;line-height:1.5;color:#fff">まずは30分、お話ししませんか</h2>
     <p style="margin:0 0 36px;font-size:16px;line-height:2;color:rgba(255,255,255,.84);text-wrap:pretty">気になる業務が一つでもあれば、無料相談でお聞かせください。貴社に合った形をご一緒に考えます。</p>
     <a href="https://calendar.app.google/F6qpCXCqKXQDYe5D8" target="_blank" rel="noopener" class="btn-closing-cta" style="display:inline-flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(135deg,#F07B2E,#D95614);color:#fff;text-decoration:none;font-weight:700;font-size:17px;padding:18px 36px;border-radius:999px;box-shadow:0 8px 24px rgba(0,0,0,.3)">無料相談(30分・オンライン)を予約する<span aria-hidden="true">→</span></a>
-
-    <div style="margin-top:44px;padding-top:40px;border-top:1px solid rgba(255,255,255,.14);text-align:left">
-      <p style="margin:0 0 24px;font-size:16px;line-height:1.9;color:rgba(255,255,255,.72);text-align:center">日程調整がすぐに難しい場合は、下記フォームからもお問い合わせいただけます。</p>
-      <div id="contact-form" style="scroll-margin-top:76px;display:flex;flex-direction:column;gap:16px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:28px">
-        <div>
-          <h3 style="margin:0;font-size:20px;font-weight:900;line-height:1.6;color:#fff">お問合せフォーム</h3>
-          <p style="margin:10px 0 0;font-size:13px;line-height:1.8;color:rgba(255,255,255,.6)">※紹介資料をご希望の方は、<a href="#download" style="color:#F0904F;text-decoration:underline;text-underline-offset:2px">資料ダウンロード</a>のフォームからお受け取りいただけます。</p>
-        </div>
-        <form name="contact" method="POST" action="/contact-thanks.html" data-netlify="true" netlify-honeypot="bot-field" style="display:flex;flex-direction:column;gap:14px;margin:0">
-          <input type="hidden" name="form-name" value="contact">
-          <p style="display:none"><label>この欄は空欄のままにしてください: <input name="bot-field"></label></p>
-          <div style="display:flex;flex-wrap:wrap;gap:14px">
-            <div style="flex:1 1 180px;min-width:0">
-              <label for="ct-company" style="display:block;font-size:14px;font-weight:700;color:rgba(255,255,255,.85);margin-bottom:6px">会社名<span style="color:#F0904F;margin-left:4px">必須</span></label>
-              <input id="ct-company" name="company" type="text" required autocomplete="organization" class="form-field" style="width:100%;box-sizing:border-box;font-size:16px;font-family:inherit;padding:13px 16px;border-radius:10px;border:1.5px solid rgba(255,255,255,.25);background:rgba(255,255,255,.06);color:#fff;outline:none">
-            </div>
-            <div style="flex:1 1 180px;min-width:0">
-              <label for="ct-name" style="display:block;font-size:14px;font-weight:700;color:rgba(255,255,255,.85);margin-bottom:6px">氏名<span style="color:#F0904F;margin-left:4px">必須</span></label>
-              <input id="ct-name" name="name" type="text" required autocomplete="name" class="form-field" style="width:100%;box-sizing:border-box;font-size:16px;font-family:inherit;padding:13px 16px;border-radius:10px;border:1.5px solid rgba(255,255,255,.25);background:rgba(255,255,255,.06);color:#fff;outline:none">
-            </div>
-          </div>
-          <div style="display:flex;flex-wrap:wrap;gap:14px">
-            <div style="flex:1 1 180px;min-width:0">
-              <label for="ct-email" style="display:block;font-size:14px;font-weight:700;color:rgba(255,255,255,.85);margin-bottom:6px">メールアドレス<span style="color:#F0904F;margin-left:4px">必須</span></label>
-              <input id="ct-email" name="email" type="email" required autocomplete="email" class="form-field" style="width:100%;box-sizing:border-box;font-size:16px;font-family:inherit;padding:13px 16px;border-radius:10px;border:1.5px solid rgba(255,255,255,.25);background:rgba(255,255,255,.06);color:#fff;outline:none">
-            </div>
-            <div style="flex:1 1 180px;min-width:0">
-              <label for="ct-tel" style="display:block;font-size:14px;font-weight:700;color:rgba(255,255,255,.85);margin-bottom:6px">電話番号<span style="color:rgba(255,255,255,.5);font-size:12px;margin-left:4px">任意</span></label>
-              <input id="ct-tel" name="phone" type="tel" autocomplete="tel" class="form-field" style="width:100%;box-sizing:border-box;font-size:16px;font-family:inherit;padding:13px 16px;border-radius:10px;border:1.5px solid rgba(255,255,255,.25);background:rgba(255,255,255,.06);color:#fff;outline:none">
-            </div>
-          </div>
-          <div>
-            <label for="ct-message" style="display:block;font-size:14px;font-weight:700;color:rgba(255,255,255,.85);margin-bottom:6px">ご相談内容(自由記入)<span style="color:rgba(255,255,255,.5);font-size:12px;margin-left:4px">任意</span></label>
-            <textarea id="ct-message" name="message" rows="3" class="form-field" style="width:100%;box-sizing:border-box;font-size:16px;font-family:inherit;padding:13px 16px;border-radius:10px;border:1.5px solid rgba(255,255,255,.25);background:rgba(255,255,255,.06);color:#fff;outline:none;resize:vertical"></textarea>
-          </div>
-          <button type="submit" class="btn-form-submit" style="align-self:flex-start;display:inline-flex;align-items:center;justify-content:center;gap:8px;background:#fff;color:#1C2B4B;font-family:inherit;font-weight:700;font-size:16px;padding:14px 28px;border-radius:999px;border:0;cursor:pointer">この内容で問い合わせる</button>
-          <p style="margin:0;font-size:12.5px;line-height:1.9;color:rgba(255,255,255,.6)">ご入力いただいた個人情報は、お問い合わせへのご回答と、本サービスに関するご連絡のためにのみ利用します。詳細は<a href="https://www.naus.co.jp/2" target="_blank" rel="noopener" style="display:inline-block;color:#F0904F;text-decoration:underline;text-underline-offset:2px">プライバシーポリシー</a>をご確認ください。</p>
-        </form>
-      </div>
-    </div>
   </div>
 </section>
 
@@ -1862,6 +1900,29 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       past.forEach(function(item){pastList.appendChild(buildPastCard(item));});
     })
     .catch(function(){/* データ取得失敗時は静かに何も表示しない */});
+})();
+</script>
+<script>
+(function(){
+  var tabs=Array.prototype.slice.call(document.querySelectorAll('.uc-tab'));
+  var panels={doc:document.getElementById('uc-panel-doc'),inquiry:document.getElementById('uc-panel-inquiry')};
+  if(!tabs.length||!panels.doc||!panels.inquiry)return;
+
+  function activate(key){
+    tabs.forEach(function(t){
+      var on=t.getAttribute('data-uc-target')===key;
+      t.setAttribute('aria-selected',on?'true':'false');
+      t.tabIndex=on?0:-1;
+    });
+    Object.keys(panels).forEach(function(k){panels[k].hidden=(k!==key);});
+  }
+  tabs.forEach(function(t){
+    t.addEventListener('click',function(){activate(t.getAttribute('data-uc-target'));});
+  });
+  if(location.hash==='#contact')activate('inquiry');
+  window.addEventListener('hashchange',function(){
+    if(location.hash==='#contact')activate('inquiry');
+  });
 })();
 </script>
 </body>
