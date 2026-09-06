@@ -172,6 +172,7 @@ summary::-webkit-details-marker{display:none;}
 .sec-badge-num{display:inline-flex;align-items:center;justify-content:center;flex:none;width:34px;height:34px;border-radius:50%;background:#E4691F;color:#fff;font-weight:900;font-size:14px;}
 .sec-badge-label{display:inline-flex;align-items:center;font-size:12px;font-weight:700;letter-spacing:.14em;color:#1C2B4B;}
 /* ===== 01 あるある+SELF-CHECK統合セクション(pain-*, sd-*) ===== */
+.pains-lead{margin:0;font-size:16px;line-height:2;color:#5A6172;white-space:nowrap;}
 .pains-grid{display:grid;grid-template-columns:minmax(0,1.05fr) auto minmax(0,1fr);gap:16px;align-items:stretch;}
 .pains-cards{display:grid;grid-template-columns:1fr;gap:10px;}
 .pains-arrow{display:flex;align-items:center;justify-content:center;padding:8px 0;}
@@ -183,6 +184,7 @@ summary::-webkit-details-marker{display:none;}
 @media (max-width:767px){
   .pains-grid{grid-template-columns:1fr;}
   .pains-arrow-badge{transform:rotate(90deg);}
+  .pains-lead{white-space:normal;max-width:560px;}
 }
 .sd-card{background:#fff;border-radius:20px 20px 20px 4px;box-shadow:0 20px 48px rgba(28,43,75,.12);padding:clamp(22px,4.6vw,30px) clamp(22px,4.4vw,28px) clamp(24px,4.6vw,30px);}
 .sd-label{font-size:12px;font-weight:700;letter-spacing:.16em;color:#E4691F;margin-bottom:10px;}
@@ -595,7 +597,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <span class="sec-badge-label">COMMON SITUATIONS</span>
       </div>
       <h2 style="margin:0;font-size:clamp(24px,5vw,32px);font-weight:900;line-height:1.5;color:#1C2B4B">こんな「AI活用あるある」、ありませんか?</h2>
-      <p style="margin:0;font-size:clamp(7.5px,calc((100vw - 48px) / 38.81),16px);line-height:2;color:#5A6172;white-space:nowrap">ひとつでも当てはまれば、ツールではなく「使い方の型」が足りていないサインです。</p>
+      <p class="pains-lead">ひとつでも当てはまれば、ツールではなく「使い方の型」が足りていないサインです。</p>
     </div>
     <div class="pains-grid">
       <!-- あるあるカード6項目 -->
