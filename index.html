@@ -113,6 +113,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     },
     {
       "@type": "Question",
+      "name": "どのようなAIツールを使いますか?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Claude Codeという、指示を出せばファイルの作成・編集や複数ステップの作業をまとめて処理できるAIを中核に使います。会話だけで終わらず、一度作った仕組みは資産として残ります。エンジニア不在の私たち自身が作った仕組みなので、非エンジニアの方でも扱える形にします。"
+      }
+    },
+    {
+      "@type": "Question",
       "name": "契約期間はどのくらいですか?",
       "acceptedAnswer": {
         "@type": "Answer",
@@ -152,11 +160,16 @@ summary::-webkit-details-marker{display:none;}
 .form-field:focus{border-color:#E4691F;}
 /* 統合お問い合わせセクション(uc-*): 資料ダウンロード/問い合わせのタブ切替 */
 .uc-tabs{display:flex;align-items:flex-end;gap:6px;padding-left:20px;}
-.uc-tab{position:relative;z-index:1;border:0;border-radius:16px 16px 0 0;padding:14px 26px;font-family:inherit;font-weight:700;font-size:15px;text-align:center;cursor:pointer;white-space:nowrap;background:#F3E3D0;color:#814D1F;}
+.uc-tab{box-sizing:border-box;position:relative;z-index:1;border:0;border-radius:16px 16px 0 0;padding:14px 26px;font-family:inherit;font-weight:700;font-size:15px;text-align:center;cursor:pointer;white-space:nowrap;background:#F3E3D0;color:#814D1F;}
 #uc-tab-doc{min-width:160px;}
 #uc-tab-inquiry{min-width:188px;}
 .uc-tab[aria-selected="true"]{z-index:2;background:#E4A670;color:#583111;}
 .uc-tab:not([aria-selected="true"]):hover{background:#ECD5B7;}
+@media (max-width:479px){
+  .uc-tabs{padding-left:10px;gap:4px;}
+  .uc-tab{flex:1 1 0;min-width:0;padding:12px 10px;font-size:13px;}
+  #uc-tab-doc,#uc-tab-inquiry{min-width:0;}
+}
 .ucf-card{position:relative;background:#E4A670;border-radius:4px 20px 20px 20px;box-shadow:0 20px 48px rgba(28,43,75,.12);padding:14px;}
 .uc-panel{display:flex;flex-wrap:wrap;gap:14px;}
 .uc-panel[hidden]{display:none;}
@@ -173,17 +186,15 @@ summary::-webkit-details-marker{display:none;}
 .sec-badge-label{display:inline-flex;align-items:center;font-size:12px;font-weight:700;letter-spacing:.14em;color:#1C2B4B;}
 /* ===== 01 あるある+SELF-CHECK統合セクション(pain-*, sd-*) ===== */
 .pains-lead{margin:0;font-size:16px;line-height:2;color:#5A6172;white-space:nowrap;}
-.pains-grid{display:grid;grid-template-columns:minmax(0,1.05fr) auto minmax(0,1fr);gap:16px;align-items:stretch;}
-.pains-cards{display:grid;grid-template-columns:1fr;gap:10px;}
+.pains-cards{display:flex;flex-wrap:wrap;justify-content:center;gap:16px;margin-bottom:8px;}
 .pains-arrow{display:flex;align-items:center;justify-content:center;padding:8px 0;}
-.pains-arrow-badge{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:50%;background:rgba(228,105,31,.12);color:#E4691F;font-size:18px;font-weight:900;}
-.pain-card{background:#FFFDFA;border:1px solid rgba(228,105,31,.18);border-radius:18px;padding:16px 18px;display:flex;gap:12px;align-items:center;}
+.pains-arrow-badge{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:50%;background:rgba(228,105,31,.12);color:#E4691F;font-size:18px;font-weight:900;transform:rotate(90deg);}
+.pain-card{background:#FFFDFA;border:1px solid rgba(228,105,31,.18);border-radius:18px;padding:18px 20px;display:flex;gap:14px;align-items:flex-start;flex:1 1 260px;max-width:300px;box-sizing:border-box;}
 .pain-icon-wrap{flex:none;width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;}
 .pain-icon{width:20px;height:20px;display:inline-block;-webkit-mask-size:contain;mask-size:contain;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-position:center;mask-position:center;}
 .pain-text{margin:0;font-size:15px;line-height:1.7;color:#232733;}
+.selfcheck-wrap{max-width:640px;margin:0 auto;}
 @media (max-width:767px){
-  .pains-grid{grid-template-columns:1fr;}
-  .pains-arrow-badge{transform:rotate(90deg);}
   .pains-lead{white-space:normal;max-width:560px;}
 }
 .sd-card{background:#fff;border-radius:20px 20px 20px 4px;box-shadow:0 20px 48px rgba(28,43,75,.12);padding:clamp(22px,4.6vw,30px) clamp(22px,4.4vw,28px) clamp(24px,4.6vw,30px);}
@@ -260,8 +271,8 @@ summary::-webkit-details-marker{display:none;}
   @keyframes cfFade{from{opacity:0}to{opacity:1}}
   @keyframes cfPop{from{opacity:0;transform:translateY(10px) scale(.985)}to{opacity:1;transform:none}}
 }
-/* ===== 02 SOLUTION + WHY CLAUDE CODE(sol-*, wcc-*) ===== */
-.sol-lead-box{max-width:760px;margin:0 auto;box-sizing:border-box;background:#fff;border:2px solid #E4691F;border-radius:22px;padding:clamp(24px,4vw,32px) clamp(20px,4vw,36px);box-shadow:0 20px 44px rgba(228,105,31,.14);text-align:center;}
+/* ===== 02 SOLUTION(sol-*) ===== */
+.sol-lead-box{max-width:760px;margin:0 auto;box-sizing:border-box;background:#fff;border-radius:22px;padding:clamp(24px,4vw,32px) clamp(20px,4vw,36px);box-shadow:0 16px 40px rgba(28,43,75,.08);text-align:center;}
 .sol-lead-pill{display:inline-flex;align-items:center;background:#E4691F;color:#fff;font-size:12.5px;font-weight:700;letter-spacing:.06em;padding:7px 18px;border-radius:999px;margin-bottom:16px;}
 .sol-lead-l1{margin:0 0 8px;font-size:clamp(16px,3.4vw,18px);font-weight:700;color:#1C2B4B;line-height:1.7;text-wrap:pretty;}
 .sol-lead-l2{margin:0;font-size:clamp(20px,4.4vw,26px);font-weight:900;color:#E4691F;line-height:1.5;text-wrap:pretty;}
@@ -270,70 +281,29 @@ summary::-webkit-details-marker{display:none;}
 .sol-card-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px;}
 .sol-num{font-weight:900;font-size:40px;line-height:1;color:#E4691F;}
 .sol-icon-wrap{flex:none;width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;}
-.sol-card-title{margin:0 0 10px;font-size:17px;font-weight:900;line-height:1.6;color:#1C2B4B;text-wrap:pretty;}
+.sol-card-title{margin:0 0 10px;font-size:19px;font-weight:900;line-height:1.6;color:#1C2B4B;text-wrap:pretty;}
 .sol-card-text{margin:0;font-size:14.5px;line-height:1.85;color:#5A6172;}
-.sol-results{margin-top:24px;max-width:860px;margin-left:auto;margin-right:auto;box-sizing:border-box;background:#fff;border:1px solid rgba(28,43,75,.12);border-radius:24px;padding:clamp(18px,3vw,24px) clamp(18px,3vw,24px);}
-.sol-results-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:6px 16px;margin-bottom:14px;}
-.sol-results-head h3{margin:0;font-size:18px;font-weight:900;color:#1C2B4B;}
-.sol-results-note{font-size:12.5px;color:#8A8F9C;font-weight:500;}
-.sol-results-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
-.sol-result{display:flex;align-items:baseline;justify-content:center;flex-wrap:wrap;gap:10px;text-align:center;padding:12px 16px;border-radius:16px;}
-.sol-result--orange{background:rgba(228,105,31,.06);}
-.sol-result--navy{background:rgba(28,43,75,.05);}
-.sol-result-pill{display:inline-flex;flex:none;padding:5px 14px;border-radius:999px;font-size:12px;font-weight:700;margin-bottom:0;}
-.sol-result--orange .sol-result-pill{background:linear-gradient(135deg,#F07B2E,#D95614);color:#fff;}
-.sol-result--navy .sol-result-pill{background:#1C2B4B;color:#fff;}
-.sol-result-num{font-size:clamp(26px,4.4vw,32px);font-weight:900;line-height:1;}
-.sol-result-num span{font-size:.5em;}
+.sol-results{margin-top:24px;max-width:860px;margin-left:auto;margin-right:auto;}
+.sol-results-head{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:32px;}
+.sol-results-head h3{margin:0;font-size:16px;font-weight:900;color:#1C2B4B;white-space:nowrap;}
+.sol-results-line{flex:1 1 auto;height:1px;background:rgba(28,43,75,.18);}
+.sol-results-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:32px;}
+.sol-result{display:flex;flex-direction:column;align-items:center;text-align:center;gap:2px;}
+.sol-result-title{margin:0 0 6px;font-size:14.5px;font-weight:700;color:#1C2B4B;}
+.sol-result-num{font-size:clamp(48px,9vw,68px);font-weight:900;line-height:1;}
+.sol-result-num span{font-size:.45em;}
 .sol-result--orange .sol-result-num{color:#E4691F;}
 .sol-result--navy .sol-result-num{color:#1C2B4B;}
-.sol-result-label{margin-top:0;font-size:14px;font-weight:700;color:#5A6172;}
-@media (max-width:520px){.sol-results-grid{grid-template-columns:1fr;}}
-.wcc-box{margin-top:36px;box-sizing:border-box;background:#fff;border-radius:32px;padding:clamp(24px,5vw,40px);box-shadow:0 20px 48px rgba(28,43,75,.08);}
-.wcc-head{display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px;margin-bottom:32px;}
-.wcc-badge{display:inline-flex;align-items:center;gap:10px;background:#fff;border:1px solid rgba(28,43,75,.14);border-radius:999px;padding:4px 20px 4px 4px;box-shadow:0 4px 12px rgba(28,43,75,.07);}
-.wcc-badge-num{display:inline-flex;align-items:center;justify-content:center;flex:none;width:34px;height:34px;border-radius:50%;background:#1C2B4B;color:#fff;font-weight:900;font-size:12.5px;}
-.wcc-badge-label{display:inline-flex;align-items:center;font-size:12px;font-weight:700;letter-spacing:.14em;color:#1C2B4B;}
-.wcc-title{margin:0;font-size:clamp(20px,4vw,26px);font-weight:900;color:#1C2B4B;line-height:1.5;}
-.wcc-lead{margin:0;max-width:760px;font-size:15.5px;line-height:2;color:#5A6172;text-wrap:pretty;}
-.wcc-cards{display:flex;flex-direction:column;gap:18px;}
-.wcc-card{display:flex;align-items:center;gap:24px;flex-wrap:wrap;background:#fff;border:1px solid rgba(28,43,75,.1);border-radius:26px;padding:28px;}
-.wcc-num{flex:none;font-weight:900;font-size:44px;line-height:1;color:#1C2B4B;opacity:.85;}
-.wcc-card-body{flex:1 1 320px;min-width:240px;}
-.wcc-card-body h4{margin:0 0 8px;font-size:17px;font-weight:900;color:#1C2B4B;line-height:1.6;}
-.wcc-card-body p{margin:0;font-size:14.5px;line-height:1.85;color:#5A6172;}
-.wcc-illust{flex:0 0 150px;width:150px;}
-.wcc-illust--compact{flex-basis:112px;width:112px;}
-.wcc-flow{display:flex;flex-direction:column;align-items:center;gap:4px;}
-.wcc-chip{width:100%;box-sizing:border-box;border-radius:12px;padding:10px 12px;}
-.wcc-illust--compact .wcc-chip{padding:7px 9px;border-radius:10px;}
-.wcc-chip--chat{background:#F2EADC;border:1px solid rgba(28,43,75,.1);}
-.wcc-chip--works{background:#fff;border:1.5px solid #C0501A;box-shadow:0 8px 20px rgba(228,105,31,.14);}
-.wcc-chip-label{display:block;font-size:10px;font-weight:900;letter-spacing:.1em;color:#8A8F9C;margin-bottom:6px;}
-.wcc-illust--compact .wcc-chip-label{margin-bottom:4px;}
-.wcc-chip--works .wcc-chip-label{color:#C0501A;}
-.wcc-chip-bar{display:block;height:6px;border-radius:3px;background:rgba(28,43,75,.14);margin-bottom:4px;}
-.wcc-chip-bar:last-child{margin-bottom:0;width:70%;}
-.wcc-illust--compact .wcc-chip-bar{height:5px;margin-bottom:3px;}
-.wcc-flow-arrow{font-size:16px;font-weight:900;color:#C0501A;line-height:1;}
-.wcc-illust--compact .wcc-flow-arrow{font-size:12px;}
-.wcc-check-row{display:flex;align-items:center;gap:6px;font-size:10.5px;font-weight:700;color:#1C2B4B;margin-top:4px;}
-.wcc-check-row:first-of-type{margin-top:0;}
-.wcc-illust--compact .wcc-check-row{margin-top:2px;font-size:9.5px;}
-.wcc-illust--compact .wcc-check-dot{width:12px;height:12px;font-size:8px;}
-.wcc-check-dot{flex:none;width:14px;height:14px;border-radius:50%;background:linear-gradient(135deg,#F07B2E,#D95614);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:9px;line-height:1;}
-.wcc-check-row:nth-of-type(3) .wcc-check-dot{background:#E4691F;}
-.wcc-check-row:nth-of-type(4) .wcc-check-dot{background:#1C2B4B;}
-.wcc-people{position:relative;display:flex;justify-content:center;align-items:flex-end;gap:8px;margin-bottom:10px;padding-top:14px;}
-.wcc-person{position:relative;width:34px;height:42px;}
-.wcc-person::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:20px;height:20px;border-radius:50%;background:#1C2B4B;}
-.wcc-person::after{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:34px;height:20px;border-radius:17px 17px 0 0;background:#1C2B4B;}
-.wcc-person--alt::before,.wcc-person--alt::after{background:rgba(28,43,75,.4);}
-.wcc-people-badge{position:absolute;top:0;left:50%;transform:translateX(-50%);width:18px;height:18px;border-radius:50%;background:linear-gradient(135deg,#F07B2E,#D95614);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:10px;font-weight:900;line-height:1;box-shadow:0 3px 8px rgba(228,105,31,.35);}
-.wcc-people-label{text-align:center;font-size:10px;font-weight:900;letter-spacing:.06em;color:#8A8F9C;line-height:1.6;}
+.sol-result-label{margin:4px 0 12px;font-size:14px;font-weight:700;color:#5A6172;}
+.sol-result-bar{width:100%;max-width:140px;height:4px;border-radius:999px;}
+.sol-result--orange .sol-result-bar{background:linear-gradient(90deg,#F07B2E,#D95614);}
+.sol-result--navy .sol-result-bar{background:rgba(28,43,75,.35);}
+@media (max-width:520px){
+  .sol-results-grid{grid-template-columns:1fr;gap:28px;}
+  .sol-results-head h3{white-space:normal;font-size:15px;}
+}
 @media (max-width:860px){
   .sol-lead-l1{font-size:15px;}
-  .wcc-illust{flex-basis:100%;width:auto;max-width:220px;margin:0 auto;}
 }
 /* ===== スマホ版ハンバーガーメニュー(mm-*) ===== */
 .mm-toggle{display:none;background:none;border:0;cursor:pointer;padding:8px;font-size:22px;line-height:1;color:#1C2B4B;}
@@ -449,11 +419,7 @@ summary::-webkit-details-marker{display:none;}
 .pkg-tag{display:inline-flex;align-items:center;align-self:flex-start;font-size:11.5px;font-weight:700;padding:5px 12px;border-radius:999px;}
 .pkg-tag-a{background:#fff;color:#41527A;border:1px solid rgba(28,43,75,.18);}
 .pkg-tag-b{background:#fff;color:#A8430F;}
-.pkg-period-text{margin:0 0 10px;font-size:16px;font-weight:900;color:#1C2B4B;}
-.pkg-bar-track{background:rgba(28,43,75,.1);border-radius:999px;height:7px;overflow:hidden;}
-.pkg-bar{height:100%;border-radius:999px;}
-.pkg-bar-a{background:#41527A;width:26%;}
-.pkg-bar-b{background:linear-gradient(90deg,#F07B2E,#D95614);width:82%;}
+.pkg-period-text{margin:0;font-size:16px;font-weight:900;color:#1C2B4B;}
 .pkg-p{margin:0;font-size:15px;line-height:1.7;color:#232733;}
 .pkg-cell-vcenter{display:flex;flex-direction:column;justify-content:center;}
 .pkg-checklist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:7px;}
@@ -599,39 +565,31 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <h2 style="margin:0;font-size:clamp(24px,5vw,32px);font-weight:900;line-height:1.5;color:#1C2B4B">こんな「AI活用あるある」、ありませんか?</h2>
       <p class="pains-lead">ひとつでも当てはまれば、ツールではなく「使い方の型」が足りていないサインです。</p>
     </div>
-    <div class="pains-grid">
-      <!-- あるあるカード6項目 -->
-      <div class="pains-cards">
-        <div class="pain-card">
-          <span class="pain-icon-wrap" style="background:rgba(228,105,31,.12)" aria-hidden="true"><span class="pain-icon" style="background:#E4691F;-webkit-mask-image:url('assets/icon-talk.svg');mask-image:url('assets/icon-talk.svg')"></span></span>
-          <p class="pain-text">AIにチャットで聞いてはみるが、結局は自分で書き直している</p>
-        </div>
-        <div class="pain-card">
-          <span class="pain-icon-wrap" style="background:rgba(28,43,75,.08)" aria-hidden="true"><span class="pain-icon" style="background:#1C2B4B;-webkit-mask-image:url('assets/icon-pen.svg');mask-image:url('assets/icon-pen.svg')"></span></span>
-          <p class="pain-text">資料の書式が人によってバラバラで、毎回一から考えている</p>
-        </div>
-        <div class="pain-card">
-          <span class="pain-icon-wrap" style="background:rgba(228,105,31,.12)" aria-hidden="true"><span class="pain-icon" style="background:#E4691F;-webkit-mask-image:url('assets/icon-handshake.svg');mask-image:url('assets/icon-handshake.svg')"></span></span>
-          <p class="pain-text">詳しい人に業務が集中し、その人が辞めると一気にノウハウが消える</p>
-        </div>
-        <div class="pain-card">
-          <span class="pain-icon-wrap" style="background:rgba(28,43,75,.08)" aria-hidden="true"><span class="pain-icon" style="background:#1C2B4B;-webkit-mask-image:url('assets/icon-glass.svg');mask-image:url('assets/icon-glass.svg')"></span></span>
-          <p class="pain-text">教える余裕がなく、各自が自己流でAIを使っている</p>
-        </div>
-        <div class="pain-card">
-          <span class="pain-icon-wrap" style="background:rgba(228,105,31,.12)" aria-hidden="true"><span class="pain-icon" style="background:#E4691F;-webkit-mask-image:url('assets/icon-megaphone.svg');mask-image:url('assets/icon-megaphone.svg')"></span></span>
-          <p class="pain-text">SNSで便利そうな事例を見るが、自社の業務にどう当てはめればいいか分からない</p>
-        </div>
-        <div class="pain-card">
-          <span class="pain-icon-wrap" style="background:rgba(28,43,75,.08)" aria-hidden="true"><span class="pain-icon" style="background:#1C2B4B;-webkit-mask-image:url('assets/icon-mail.svg');mask-image:url('assets/icon-mail.svg')"></span></span>
-          <p class="pain-text">経営層はAI活用に前向きだが、現場との温度差がある</p>
-        </div>
+    <!-- あるあるカード4項目 -->
+    <div class="pains-cards">
+      <div class="pain-card">
+        <span class="pain-icon-wrap" style="background:rgba(228,105,31,.12)" aria-hidden="true"><span class="pain-icon" style="background:#E4691F;-webkit-mask-image:url('assets/icon-talk.svg');mask-image:url('assets/icon-talk.svg')"></span></span>
+        <p class="pain-text">AIとチャットはしているが、何かの作業を頼むことはしていない</p>
       </div>
-      <!-- 中央: 矢印 -->
-      <div class="pains-arrow" aria-hidden="true">
-        <span class="pains-arrow-badge">→</span>
+      <div class="pain-card">
+        <span class="pain-icon-wrap" style="background:rgba(28,43,75,.08)" aria-hidden="true"><span class="pain-icon" style="background:#1C2B4B;-webkit-mask-image:url('assets/icon-person.svg');mask-image:url('assets/icon-person.svg')"></span></span>
+        <p class="pain-text">各自が自己流でAIを使っている</p>
       </div>
-      <!-- 右: SELF-CHECKカード -->
+      <div class="pain-card">
+        <span class="pain-icon-wrap" style="background:rgba(228,105,31,.12)" aria-hidden="true"><span class="pain-icon" style="background:#E4691F;-webkit-mask-image:url('assets/icon-megaphone.svg');mask-image:url('assets/icon-megaphone.svg')"></span></span>
+        <p class="pain-text">便利そうな事例を見るが、自社で活用できるかイメージがわかない</p>
+      </div>
+      <div class="pain-card">
+        <span class="pain-icon-wrap" style="background:rgba(28,43,75,.08)" aria-hidden="true"><span class="pain-icon" style="background:#1C2B4B;-webkit-mask-image:url('assets/icon-alert.svg');mask-image:url('assets/icon-alert.svg')"></span></span>
+        <p class="pain-text">AIを活用していない危機感を持っている</p>
+      </div>
+    </div>
+    <!-- 下向き矢印 -->
+    <div class="pains-arrow" aria-hidden="true">
+      <span class="pains-arrow-badge">→</span>
+    </div>
+    <!-- SELF-CHECKカード -->
+    <div class="selfcheck-wrap">
       <div id="selfcheck" class="sd-card">
         <div class="sd-label">SELF-CHECK</div>
         <h3 class="sd-heading">当てはまるものが多い方へ。<br>自社の現在地を確認しませんか?</h3>
@@ -815,8 +773,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </script>
 </section>
 
-<!-- ===== 3. 解決策+Claude Code採用理由(02 SOLUTION/02.2 WHY CLAUDE CODE) ===== -->
-<section id="solution" data-screen-label="解決策+Claude Code採用理由" style="position:relative;overflow:hidden;background:#FDFCFA;border-top:1px solid rgba(28,43,75,.08)">
+<!-- ===== 3. 解決策(02 SOLUTION) ===== -->
+<section id="solution" data-screen-label="解決策" style="position:relative;overflow:hidden;background:#FDFCFA;border-top:1px solid rgba(28,43,75,.08)">
   <div style="position:relative;max-width:1080px;margin:0 auto;padding:clamp(48px,8vw,68px) 24px">
     <!-- ヘッダー -->
     <div style="display:flex;flex-direction:column;gap:14px;align-items:center;text-align:center;margin-bottom:32px">
@@ -871,71 +829,22 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- 実践してきた成果 -->
     <div class="sol-results">
       <div class="sol-results-head">
-        <h3>実践してきた成果</h3>
-        <span class="sol-results-note">私たちが自社の業務で実践した結果です。</span>
+        <span class="sol-results-line" aria-hidden="true"></span>
+        <h3>私たちが自社の業務で実践した成果</h3>
+        <span class="sol-results-line" aria-hidden="true"></span>
       </div>
       <div class="sol-results-grid">
         <div class="sol-result sol-result--orange">
-          <span class="sol-result-pill">スカウト業務</span>
+          <p class="sol-result-title">採用におけるスカウト業務</p>
           <div class="sol-result-num">90<span>%</span></div>
-          <div class="sol-result-label">削減</div>
+          <p class="sol-result-label">削減</p>
+          <div class="sol-result-bar"></div>
         </div>
         <div class="sol-result sol-result--navy">
-          <span class="sol-result-pill">資料作成業務</span>
+          <p class="sol-result-title">資料作成・WEBサイト作成業務</p>
           <div class="sol-result-num">80<span>%</span></div>
-          <div class="sol-result-label">削減</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- WHY CLAUDE CODE -->
-    <div class="wcc-box">
-      <div class="wcc-head">
-        <div class="wcc-badge">
-          <span class="wcc-badge-num" aria-hidden="true">02.2</span>
-          <span class="wcc-badge-label">WHY CLAUDE CODE</span>
-        </div>
-        <h3 class="wcc-title">私たちがClaude Codeを採用する理由</h3>
-        <p class="wcc-lead">「AIはチャットで質問するだけ」を卒業するには、チャットの外側で「実際に動く仕組み」を作る必要があります。私たちがClaude Codeを中核に据えているのは、そのためです。</p>
-      </div>
-      <div class="wcc-cards">
-        <div class="wcc-card" style="padding:20px">
-          <span class="wcc-num" aria-hidden="true">01</span>
-          <div class="wcc-card-body">
-            <h4>会話で終わらず、仕組みが「形」になる</h4>
-            <p>多くのAIは質問をすると回答してくれる、「会話するAI」です。Claude Codeは「作業するAI」です。指示を出せばファイルを作成・編集し、複数ステップの作業をまとめて処理します。一度作った仕組みは資産として残ります。</p>
-          </div>
-          <div class="wcc-illust wcc-illust--compact" aria-hidden="true">
-            <div class="wcc-flow">
-              <div class="wcc-chip wcc-chip--chat">
-                <span class="wcc-chip-label">CHAT</span>
-                <span class="wcc-chip-bar"></span>
-                <span class="wcc-chip-bar"></span>
-              </div>
-              <span class="wcc-flow-arrow">↓</span>
-              <div class="wcc-chip wcc-chip--works">
-                <span class="wcc-chip-label">WORKS</span>
-                <span class="wcc-check-row"><span class="wcc-check-dot">✓</span>ファイル編集</span>
-                <span class="wcc-check-row"><span class="wcc-check-dot">✓</span>複数手順を実行</span>
-                <span class="wcc-check-row"><span class="wcc-check-dot">✓</span>仕組みが残る</span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="wcc-card">
-          <span class="wcc-num" aria-hidden="true">02</span>
-          <div class="wcc-card-body">
-            <h4>非エンジニアでも、扱える設計にできる</h4>
-            <p>私たち自身、エンジニアのいないチームでこの仕組みを作ってきました。専門知識がなくても担当者が扱える形に仕上げるノウハウがあります。</p>
-          </div>
-          <div class="wcc-illust" aria-hidden="true">
-            <div class="wcc-people">
-              <span class="wcc-people-badge">✓</span>
-              <span class="wcc-person"></span>
-              <span class="wcc-person wcc-person--alt"></span>
-            </div>
-            <div class="wcc-people-label">NO ENGINEERS<br>REQUIRED</div>
-          </div>
+          <p class="sol-result-label">削減</p>
+          <div class="sol-result-bar"></div>
         </div>
       </div>
     </div>
@@ -1149,11 +1058,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="pkg-label"><svg class="pkg-label-icon" aria-hidden="true"><use href="#pkg-ico-calendar"></use></svg>想定期間</div>
       <div class="pkg-cell-a">
         <p class="pkg-period-text">1〜2ヶ月</p>
-        <div class="pkg-bar-track"><div class="pkg-bar pkg-bar-a"></div></div>
       </div>
       <div class="pkg-cell-b">
         <p class="pkg-period-text">6ヶ月〜</p>
-        <div class="pkg-bar-track"><div class="pkg-bar pkg-bar-b"></div></div>
       </div>
 
       <div class="pkg-label"><svg class="pkg-label-icon" aria-hidden="true"><use href="#pkg-ico-target"></use></svg>やること</div>
@@ -1200,7 +1107,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <div class="pkg-card-row">
             <div class="pkg-card-row-label"><svg class="pkg-label-icon" aria-hidden="true"><use href="#pkg-ico-calendar"></use></svg>想定期間</div>
             <p class="pkg-period-text">1〜2ヶ月</p>
-            <div class="pkg-bar-track"><div class="pkg-bar pkg-bar-a"></div></div>
           </div>
           <div class="pkg-card-row">
             <div class="pkg-card-row-label"><svg class="pkg-label-icon" aria-hidden="true"><use href="#pkg-ico-target"></use></svg>やること</div>
@@ -1231,7 +1137,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <div class="pkg-card-row">
             <div class="pkg-card-row-label"><svg class="pkg-label-icon" aria-hidden="true"><use href="#pkg-ico-calendar"></use></svg>想定期間</div>
             <p class="pkg-period-text">6ヶ月〜</p>
-            <div class="pkg-bar-track"><div class="pkg-bar pkg-bar-b"></div></div>
           </div>
           <div class="pkg-card-row">
             <div class="pkg-card-row-label"><svg class="pkg-label-icon" aria-hidden="true"><use href="#pkg-ico-target"></use></svg>やること</div>
@@ -1415,6 +1320,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <p style="margin:0;padding:0 4px 24px 34px;font-size:16px;line-height:2;color:#5A6172">違いは大きく3つあります。ツールの導入やテンプレートの納品で終わらせず、貴社の担当者が自分で使い続けられる仕組みを一緒に作る内製化伴走型であること。支援するのが採用実務の経験者で、スカウトや求人票づくりの現場感を前提に中身を組み立てること。そして、貴社のシステムや個人情報に直接アクセスしない設計であることです。</p>
       </details>
       <details style="border-bottom:1.5px solid rgba(28,43,75,.18)">
+        <summary style="display:flex;align-items:center;gap:14px;padding:20px 4px;cursor:pointer;list-style:none"><span aria-hidden="true" style="flex:none;font-weight:900;color:#E4691F;font-size:17px">Q</span><span style="flex:1;font-size:16px;font-weight:700;color:#1C2B4B;line-height:1.6">どのようなAIツールを使いますか?</span><span aria-hidden="true" style="flex:none;width:28px;height:28px;border-radius:50%;border:1.5px solid rgba(28,43,75,.3);color:#1C2B4B;display:inline-flex;align-items:center;justify-content:center;font-size:15px">＋</span></summary>
+        <p style="margin:0;padding:0 4px 24px 34px;font-size:16px;line-height:2;color:#5A6172">Claude Codeという、指示を出せばファイルの作成・編集や複数ステップの作業をまとめて処理できるAIを中核に使います。会話だけで終わらず、一度作った仕組みは資産として残ります。エンジニア不在の私たち自身が作った仕組みなので、非エンジニアの方でも扱える形にします。</p>
+      </details>
+      <details style="border-bottom:1.5px solid rgba(28,43,75,.18)">
         <summary style="display:flex;align-items:center;gap:14px;padding:20px 4px;cursor:pointer;list-style:none"><span aria-hidden="true" style="flex:none;font-weight:900;color:#E4691F;font-size:17px">Q</span><span style="flex:1;font-size:16px;font-weight:700;color:#1C2B4B;line-height:1.6">契約期間はどのくらいですか?</span><span aria-hidden="true" style="flex:none;width:28px;height:28px;border-radius:50%;border:1.5px solid rgba(28,43,75,.3);color:#1C2B4B;display:inline-flex;align-items:center;justify-content:center;font-size:15px">＋</span></summary>
         <p style="margin:0;padding:0 4px 24px 34px;font-size:16px;line-height:2;color:#5A6172">仕組みが定着し、担当者が自走できるようになるまでを見据えた継続契約を基本としています。契約期間や進め方の詳細は、業務内容に応じて無料相談でご相談のうえご提案します。</p>
       </details>
@@ -1515,7 +1424,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </div>
         </div>
         <div class="uc-form-side">
-          <p style="margin:0 0 14px;font-size:12.5px;line-height:1.9;color:#8A8F9C">※紹介資料をご希望の方は、<a href="#download" style="color:#C0501A;text-decoration:underline;text-underline-offset:2px">資料ダウンロード</a>のタブからお受け取りいただけます。</p>
+          <p style="margin:0 0 14px;font-size:12.5px;line-height:1.9;color:#8A8F9C">※紹介資料をご希望の方は、<a href="#download" id="uc-doc-tab-link" style="color:#C0501A;text-decoration:underline;text-underline-offset:2px">資料ダウンロード</a>のタブからお受け取りいただけます。</p>
           <form name="contact" method="POST" action="/contact-thanks.html" data-netlify="true" netlify-honeypot="bot-field" class="uc-form-grid">
             <input type="hidden" name="form-name" value="contact">
             <p style="display:none" class="uc-full"><label>この欄は空欄のままにしてください: <input name="bot-field"></label></p>
@@ -1928,6 +1837,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   tabs.forEach(function(t){
     t.addEventListener('click',function(){activate(t.getAttribute('data-uc-target'));});
   });
+  var docTabLink=document.getElementById('uc-doc-tab-link');
+  if(docTabLink){
+    docTabLink.addEventListener('click',function(e){
+      e.preventDefault();
+      activate('doc');
+    });
+  }
   if(location.hash==='#contact')activate('inquiry');
   window.addEventListener('hashchange',function(){
     if(location.hash==='#contact')activate('inquiry');
