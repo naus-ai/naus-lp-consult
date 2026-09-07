@@ -11,7 +11,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- End Google Tag Manager -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ゼロからAI Academy|採用担当者向けAIコンサル(スカウト自動化・求人票作成を内製化伴走で仕組み化) | naus</title>
-<meta name="description" content="「ゼロからAI Academy」は、スカウト自動化・求人票作成・求職者提案資料づくりなど、採用担当者の「作る」業務を生成AIで内製化する伴走型AIコンサルです。貴社のシステムや個人情報には直接アクセスせず、実務経験者が一社ごとに伴走します。まずは30分の無料相談から。">
+<meta name="description" content="AI初心者向けの内製化支援サービス「ゼロからAI Academy」。テンプレ配布ではなく、AIを使いこなせる人を社内に増やします。貴社のシステムや個人情報には直接アクセスせず、実務経験者が一社ごとに伴走します。まずは30分の無料相談から。">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="naus">
 <meta property="og:locale" content="ja_JP">
@@ -73,18 +73,18 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "費用感を教えてください。",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "1つの業務を単発で仕組み化する「単発型」と、業務選びから自走化まで寄り添う「継続伴走型」の2つの関わり方をご用意しています。業務の範囲や支援の深さによって内容が変わるため、具体的な費用感は無料相談の中でご案内します。"
-      }
-    },
-    {
-      "@type": "Question",
       "name": "社内にエンジニアがいませんが、大丈夫ですか?",
       "acceptedAnswer": {
         "@type": "Answer",
         "text": "はい、問題ありません。プログラミングの知識がなくても、日々の業務の延長で使い続けられる形で仕組みを設計します。さらに伴走の中で使い方やノウハウが社内に蓄積されるので、担当者の方のスキルアップと、貴社の資産づくりにつながります。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "費用感を教えてください。",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "1つの業務を単発で仕組み化する「単発型」と、業務選びから自走化まで寄り添う「継続伴走型」の2つの関わり方をご用意しています。業務の範囲や支援の深さによって内容が変わるため、具体的な費用感は無料相談の中でご案内します。"
       }
     },
     {
@@ -126,7 +126,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
-<link rel="preload" as="image" href="assets/meeting.webp" type="image/webp" fetchpriority="high">
+<link rel="preload" as="image" href="assets/hero-illustration-v3.webp" type="image/webp" fetchpriority="high">
 <style>
 body{margin:0;background:#FDFCFA;color:#232733;font-family:'Noto Sans JP',sans-serif;-webkit-font-smoothing:antialiased;}
 a{color:#1C2B4B;}
@@ -138,46 +138,97 @@ summary::-webkit-details-marker{display:none;}
 @media (max-width:840px){.header-nav{gap:14px;}}
 @media (max-width:767px){.header-nav{display:none;}}
 /* style-hover / style-focus(Claude Design独自属性)を通常のCSSに変換 */
-.btn-header-cta:hover{background:#C95A1D;color:#fff;}
-.btn-cases-cta:hover{background:#C95A1D;color:#fff;}
 .btn-hero-cta:hover{background:#C95A1D;color:#fff;transform:translateY(-2px);}
 /* 資料ダウンロードフォーム(dl-*) */
 .dl-label{display:block;font-size:14px;font-weight:700;color:#1C2B4B;margin-bottom:6px;}
 .dl-field{width:100%;box-sizing:border-box;font-size:16px;font-family:inherit;padding:12px 14px;border-radius:10px;border:1.5px solid rgba(28,43,75,.24);background:#fff;color:#232733;outline:none;}
 .dl-field:focus{border-color:#E4691F;}
-.btn-doc-submit{display:inline-flex;align-items:center;justify-content:center;gap:10px;align-self:flex-start;background:#1C2B4B;color:#fff;border:0;cursor:pointer;font-family:inherit;font-weight:700;font-size:16px;padding:14px 26px;border-radius:10px;}
-.btn-doc-submit:hover{background:#152039;}
+.btn-doc-submit{display:inline-flex;align-items:center;justify-content:center;gap:10px;align-self:flex-start;background:#E4691F;color:#fff;border:0;cursor:pointer;font-family:inherit;font-weight:700;font-size:16px;padding:14px 26px;border-radius:10px;}
+.btn-doc-submit:hover{background:#C95A1D;}
 .footer-company-link:hover{color:rgba(255,255,255,.85);}
 .btn-closing-cta:hover{background:#F0904F;color:#fff;transform:translateY(-2px);}
 .btn-sticky-cta:hover{background:#C95A1D;color:#fff;}
 .btn-form-submit:hover{background:rgba(255,255,255,.88);}
 .form-field:focus{border-color:#E4691F;}
-/* ===== 簡易診断セクション(sd-*) ===== */
-.sd-card{background:#fff;border-radius:20px 20px 20px 4px;box-shadow:0 20px 48px rgba(28,43,75,.12);padding:clamp(24px,5.4vw,40px);}
-.sd-q{border:0;margin:0;padding:0;min-width:0;}
-.sd-q-title{margin:0 0 20px;padding:0;font-size:clamp(17px,3.8vw,20px);font-weight:900;line-height:1.7;color:#1C2B4B;text-wrap:pretty;}
-.sd-opt{position:relative;display:flex;align-items:flex-start;gap:14px;padding:14px 16px;border:1.5px solid rgba(28,43,75,.18);border-radius:12px;cursor:pointer;background:#fff;}
-.sd-opt+.sd-opt{margin-top:10px;}
+/* 統合お問い合わせセクション(uc-*): 資料ダウンロード/問い合わせのタブ切替 */
+.uc-tabs{display:flex;align-items:flex-end;gap:6px;padding-left:20px;}
+.uc-tab{position:relative;z-index:1;border:0;border-radius:16px 16px 0 0;padding:14px 26px;font-family:inherit;font-weight:700;font-size:15px;text-align:center;cursor:pointer;white-space:nowrap;background:#F3E3D0;color:#814D1F;}
+#uc-tab-doc{min-width:160px;}
+#uc-tab-inquiry{min-width:188px;}
+.uc-tab[aria-selected="true"]{z-index:2;background:#E4A670;color:#583111;}
+.uc-tab:not([aria-selected="true"]):hover{background:#ECD5B7;}
+.ucf-card{position:relative;background:#E4A670;border-radius:4px 20px 20px 20px;box-shadow:0 20px 48px rgba(28,43,75,.12);padding:14px;}
+.uc-panel{display:flex;flex-wrap:wrap;gap:14px;}
+.uc-panel[hidden]{display:none;}
+.uc-navy{flex:1 1 300px;min-width:260px;background:linear-gradient(150deg,#1C2B4B,#152039);border-radius:16px;padding:32px 28px;display:flex;flex-direction:column;justify-content:center;gap:22px;}
+.uc-form-side{flex:1.3 1 320px;min-width:0;background:#fff;border-radius:16px;padding:32px 32px;}
+.uc-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px 16px;margin:0;}
+.uc-form-grid .uc-full{grid-column:1 / -1;}
+@media (max-width:479px){
+  .uc-form-grid{grid-template-columns:1fr;}
+}
+/* ===== セクション区分バッジ(sec-badge-*、他セクションと共通) ===== */
+.sec-badge{display:inline-flex;align-items:center;gap:10px;background:#fff;border:1px solid rgba(28,43,75,.14);border-radius:999px;padding:4px 20px 4px 4px;box-shadow:0 4px 12px rgba(28,43,75,.07);}
+.sec-badge-num{display:inline-flex;align-items:center;justify-content:center;flex:none;width:34px;height:34px;border-radius:50%;background:#E4691F;color:#fff;font-weight:900;font-size:14px;}
+.sec-badge-label{display:inline-flex;align-items:center;font-size:12px;font-weight:700;letter-spacing:.14em;color:#1C2B4B;}
+/* ===== 01 あるある+SELF-CHECK統合セクション(pain-*, sd-*) ===== */
+.pains-lead{margin:0;font-size:16px;line-height:2;color:#5A6172;white-space:nowrap;}
+.pains-grid{display:grid;grid-template-columns:minmax(0,1.05fr) auto minmax(0,1fr);gap:16px;align-items:stretch;}
+.pains-cards{display:grid;grid-template-columns:1fr;gap:10px;}
+.pains-arrow{display:flex;align-items:center;justify-content:center;padding:8px 0;}
+.pains-arrow-badge{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:50%;background:rgba(228,105,31,.12);color:#E4691F;font-size:18px;font-weight:900;}
+.pain-card{background:#FFFDFA;border:1px solid rgba(228,105,31,.18);border-radius:18px;padding:16px 18px;display:flex;gap:12px;align-items:center;}
+.pain-icon-wrap{flex:none;width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;}
+.pain-icon{width:20px;height:20px;display:inline-block;-webkit-mask-size:contain;mask-size:contain;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-position:center;mask-position:center;}
+.pain-text{margin:0;font-size:15px;line-height:1.7;color:#232733;}
+@media (max-width:767px){
+  .pains-grid{grid-template-columns:1fr;}
+  .pains-arrow-badge{transform:rotate(90deg);}
+  .pains-lead{white-space:normal;max-width:560px;}
+}
+.sd-card{background:#fff;border-radius:20px 20px 20px 4px;box-shadow:0 20px 48px rgba(28,43,75,.12);padding:clamp(22px,4.6vw,30px) clamp(22px,4.4vw,28px) clamp(24px,4.6vw,30px);}
+.sd-label{font-size:12px;font-weight:700;letter-spacing:.16em;color:#E4691F;margin-bottom:10px;}
+.sd-heading{margin:0 0 24px;font-size:clamp(18px,3.6vw,21px);font-weight:900;line-height:1.6;color:#1C2B4B;text-wrap:pretty;}
+.sd-meta{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px;}
+.sd-qnum{font-size:13px;font-weight:700;color:#1C2B4B;}
+.sd-remain{font-size:12.5px;font-weight:700;color:#8A8F9C;}
+.sd-track{height:6px;border-radius:3px;background:rgba(28,43,75,.12);overflow:hidden;margin-bottom:24px;}
+.sd-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,#F07B2E,#D95614);}
+.sd-q-title{margin:0 0 18px;padding:0;font-size:clamp(16px,3.4vw,18px);font-weight:900;line-height:1.7;color:#1C2B4B;text-wrap:pretty;}
+.sd-opt{width:100%;box-sizing:border-box;display:flex;align-items:flex-start;gap:12px;padding:13px 15px;border:1.5px solid rgba(28,43,75,.18);border-radius:12px;background:#fff;font-family:inherit;text-align:left;cursor:pointer;}
+.sd-opt+.sd-opt{margin-top:9px;}
 .sd-opt:hover{border-color:rgba(228,105,31,.55);}
-.sd-opt:has(input:focus-visible){outline:2px solid #E4691F;outline-offset:2px;}
-.sd-opt:has(input:checked){border-color:#E4691F;background:rgba(228,105,31,.07);}
-.sd-opt input{position:absolute;opacity:0;pointer-events:none;}
-.sd-letter{flex:none;width:26px;height:26px;border-radius:50%;border:1.5px solid rgba(28,43,75,.3);color:#1C2B4B;display:inline-flex;align-items:center;justify-content:center;font-weight:900;font-size:13px;margin-top:2px;}
-.sd-opt:has(input:checked) .sd-letter{background:#E4691F;border-color:#E4691F;color:#fff;}
-.sd-opt-text{flex:1;font-size:15px;line-height:1.8;color:#232733;}
+.sd-opt:focus-visible{outline:2px solid #E4691F;outline-offset:2px;}
+.sd-opt.is-selected{border-color:#E4691F;background:rgba(228,105,31,.07);}
+.sd-letter{flex:none;width:24px;height:24px;border-radius:50%;border:1.5px solid rgba(28,43,75,.3);color:#1C2B4B;display:inline-flex;align-items:center;justify-content:center;font-weight:900;font-size:12px;margin-top:1px;}
+.sd-opt.is-selected .sd-letter{background:#E4691F;border-color:#E4691F;color:#fff;}
+.sd-opt-text{flex:1;font-size:14.5px;line-height:1.75;color:#232733;}
+.sd-nav{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:22px;}
 .sd-back{background:none;border:0;padding:4px 0;font-family:inherit;font-size:14px;font-weight:700;color:#5A6172;cursor:pointer;}
 .sd-back:hover{color:#D95F14;}
-.sd-see{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(135deg,#F07B2E,#D95614);color:#fff;border:0;font-family:inherit;font-weight:700;font-size:16px;padding:14px 30px;border-radius:999px;box-shadow:0 8px 24px rgba(228,105,31,.32);cursor:pointer;}
+.sd-back[hidden]{visibility:hidden;}
+.sd-see{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(135deg,#F07B2E,#D95614);color:#fff;border:0;font-family:inherit;font-weight:700;font-size:15px;padding:13px 26px;border-radius:999px;box-shadow:0 8px 24px rgba(228,105,31,.32);cursor:pointer;}
 .sd-see:hover{background:#C95A1D;}
 .sd-see:disabled{opacity:.45;cursor:not-allowed;box-shadow:none;}
 .sd-see[hidden]{display:none;}
-.sd-btn-cases:hover{background:#152039;color:#fff;}
+.sd-result-label{font-size:12px;font-weight:700;letter-spacing:.16em;color:#E4691F;margin-bottom:16px;}
+.sd-gauge{margin-bottom:22px;}
+.sd-gauge-track{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;height:10px;margin-bottom:8px;}
+.sd-gauge-seg{border-radius:4px;background:rgba(28,43,75,.12);}
+.sd-gauge-seg.is-filled{background:linear-gradient(90deg,#F07B2E,#D95614);}
+.sd-gauge-labels{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;}
+.sd-gauge-labels span{font-size:11px;font-weight:700;color:#8A8F9C;text-align:center;}
+.sd-gauge-labels span.is-current{color:#E4691F;}
+.sd-level-badge{display:inline-flex;align-items:center;gap:6px;background:#1C2B4B;color:#fff;font-weight:900;font-size:13px;letter-spacing:.04em;padding:7px 16px;border-radius:999px;margin-bottom:16px;}
+.sd-level-title{margin:0 0 12px;font-size:clamp(19px,4vw,23px);font-weight:900;line-height:1.5;color:#1C2B4B;}
+.sd-level-desc{margin:0 0 20px;font-size:15.5px;line-height:1.9;color:#5A6172;text-wrap:pretty;}
+.sd-cta-text{margin:0 0 22px;font-size:15px;line-height:1.9;color:#232733;font-weight:500;}
+.sd-btn-consult{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(135deg,#F07B2E,#D95614);color:#fff;text-decoration:none;font-weight:700;font-size:15.5px;padding:14px 28px;border-radius:999px;box-shadow:0 8px 24px rgba(228,105,31,.32);}
 .sd-btn-consult:hover{background:#C95A1D;color:#fff;}
-.sd-reset{background:none;border:0;padding:0 0 1px;font-family:inherit;font-size:14px;font-weight:700;color:#5A6172;cursor:pointer;border-bottom:1px solid rgba(28,43,75,.3);}
+.sd-reset{background:none;border:0;padding:0 0 1px;font-family:inherit;font-size:13.5px;font-weight:700;color:#5A6172;cursor:pointer;border-bottom:1px solid rgba(28,43,75,.3);}
 .sd-reset:hover{color:#D95F14;border-color:rgba(217,95,20,.5);}
 @media (prefers-reduced-motion: no-preference){
-  .sd-opt{transition:border-color .15s ease,background-color .15s ease;}
-  #sd-bar,#sd-score-bar{transition:width .3s ease;}
+  .sd-opt,.sd-gauge-seg{transition:border-color .15s ease,background-color .15s ease;}
   .sd-fade{animation:sdFade .25s ease;}
   @keyframes sdFade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 }
@@ -209,10 +260,84 @@ summary::-webkit-details-marker{display:none;}
   @keyframes cfFade{from{opacity:0}to{opacity:1}}
   @keyframes cfPop{from{opacity:0;transform:translateY(10px) scale(.985)}to{opacity:1;transform:none}}
 }
+/* ===== 02 SOLUTION + WHY CLAUDE CODE(sol-*, wcc-*) ===== */
+.sol-lead-box{max-width:760px;margin:0 auto;box-sizing:border-box;background:#fff;border:2px solid #E4691F;border-radius:22px;padding:clamp(24px,4vw,32px) clamp(20px,4vw,36px);box-shadow:0 20px 44px rgba(228,105,31,.14);text-align:center;}
+.sol-lead-pill{display:inline-flex;align-items:center;background:#E4691F;color:#fff;font-size:12.5px;font-weight:700;letter-spacing:.06em;padding:7px 18px;border-radius:999px;margin-bottom:16px;}
+.sol-lead-l1{margin:0 0 8px;font-size:clamp(16px,3.4vw,18px);font-weight:700;color:#1C2B4B;line-height:1.7;text-wrap:pretty;}
+.sol-lead-l2{margin:0;font-size:clamp(20px,4.4vw,26px);font-weight:900;color:#E4691F;line-height:1.5;text-wrap:pretty;}
+.sol-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;margin-top:32px;}
+.sol-card{background:#fff;border-radius:26px;padding:30px;box-shadow:0 16px 40px rgba(28,43,75,.08);}
+.sol-card-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px;}
+.sol-num{font-weight:900;font-size:40px;line-height:1;color:#E4691F;}
+.sol-icon-wrap{flex:none;width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;}
+.sol-card-title{margin:0 0 10px;font-size:17px;font-weight:900;line-height:1.6;color:#1C2B4B;text-wrap:pretty;}
+.sol-card-text{margin:0;font-size:14.5px;line-height:1.85;color:#5A6172;}
+.sol-results{margin-top:24px;max-width:860px;margin-left:auto;margin-right:auto;box-sizing:border-box;background:#fff;border:1px solid rgba(28,43,75,.12);border-radius:24px;padding:clamp(18px,3vw,24px) clamp(18px,3vw,24px);}
+.sol-results-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:6px 16px;margin-bottom:14px;}
+.sol-results-head h3{margin:0;font-size:18px;font-weight:900;color:#1C2B4B;}
+.sol-results-note{font-size:12.5px;color:#8A8F9C;font-weight:500;}
+.sol-results-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
+.sol-result{display:flex;align-items:baseline;justify-content:center;flex-wrap:wrap;gap:10px;text-align:center;padding:12px 16px;border-radius:16px;}
+.sol-result--orange{background:rgba(228,105,31,.06);}
+.sol-result--navy{background:rgba(28,43,75,.05);}
+.sol-result-pill{display:inline-flex;flex:none;padding:5px 14px;border-radius:999px;font-size:12px;font-weight:700;margin-bottom:0;}
+.sol-result--orange .sol-result-pill{background:linear-gradient(135deg,#F07B2E,#D95614);color:#fff;}
+.sol-result--navy .sol-result-pill{background:#1C2B4B;color:#fff;}
+.sol-result-num{font-size:clamp(26px,4.4vw,32px);font-weight:900;line-height:1;}
+.sol-result-num span{font-size:.5em;}
+.sol-result--orange .sol-result-num{color:#E4691F;}
+.sol-result--navy .sol-result-num{color:#1C2B4B;}
+.sol-result-label{margin-top:0;font-size:14px;font-weight:700;color:#5A6172;}
+@media (max-width:520px){.sol-results-grid{grid-template-columns:1fr;}}
+.wcc-box{margin-top:36px;box-sizing:border-box;background:#fff;border-radius:32px;padding:clamp(24px,5vw,40px);box-shadow:0 20px 48px rgba(28,43,75,.08);}
+.wcc-head{display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px;margin-bottom:32px;}
+.wcc-badge{display:inline-flex;align-items:center;gap:10px;background:#fff;border:1px solid rgba(28,43,75,.14);border-radius:999px;padding:4px 20px 4px 4px;box-shadow:0 4px 12px rgba(28,43,75,.07);}
+.wcc-badge-num{display:inline-flex;align-items:center;justify-content:center;flex:none;width:34px;height:34px;border-radius:50%;background:#1C2B4B;color:#fff;font-weight:900;font-size:12.5px;}
+.wcc-badge-label{display:inline-flex;align-items:center;font-size:12px;font-weight:700;letter-spacing:.14em;color:#1C2B4B;}
+.wcc-title{margin:0;font-size:clamp(20px,4vw,26px);font-weight:900;color:#1C2B4B;line-height:1.5;}
+.wcc-lead{margin:0;max-width:760px;font-size:15.5px;line-height:2;color:#5A6172;text-wrap:pretty;}
+.wcc-cards{display:flex;flex-direction:column;gap:18px;}
+.wcc-card{display:flex;align-items:center;gap:24px;flex-wrap:wrap;background:#fff;border:1px solid rgba(28,43,75,.1);border-radius:26px;padding:28px;}
+.wcc-num{flex:none;font-weight:900;font-size:44px;line-height:1;color:#1C2B4B;opacity:.85;}
+.wcc-card-body{flex:1 1 320px;min-width:240px;}
+.wcc-card-body h4{margin:0 0 8px;font-size:17px;font-weight:900;color:#1C2B4B;line-height:1.6;}
+.wcc-card-body p{margin:0;font-size:14.5px;line-height:1.85;color:#5A6172;}
+.wcc-illust{flex:0 0 150px;width:150px;}
+.wcc-illust--compact{flex-basis:112px;width:112px;}
+.wcc-flow{display:flex;flex-direction:column;align-items:center;gap:4px;}
+.wcc-chip{width:100%;box-sizing:border-box;border-radius:12px;padding:10px 12px;}
+.wcc-illust--compact .wcc-chip{padding:7px 9px;border-radius:10px;}
+.wcc-chip--chat{background:#F2EADC;border:1px solid rgba(28,43,75,.1);}
+.wcc-chip--works{background:#fff;border:1.5px solid #C0501A;box-shadow:0 8px 20px rgba(228,105,31,.14);}
+.wcc-chip-label{display:block;font-size:10px;font-weight:900;letter-spacing:.1em;color:#8A8F9C;margin-bottom:6px;}
+.wcc-illust--compact .wcc-chip-label{margin-bottom:4px;}
+.wcc-chip--works .wcc-chip-label{color:#C0501A;}
+.wcc-chip-bar{display:block;height:6px;border-radius:3px;background:rgba(28,43,75,.14);margin-bottom:4px;}
+.wcc-chip-bar:last-child{margin-bottom:0;width:70%;}
+.wcc-illust--compact .wcc-chip-bar{height:5px;margin-bottom:3px;}
+.wcc-flow-arrow{font-size:16px;font-weight:900;color:#C0501A;line-height:1;}
+.wcc-illust--compact .wcc-flow-arrow{font-size:12px;}
+.wcc-check-row{display:flex;align-items:center;gap:6px;font-size:10.5px;font-weight:700;color:#1C2B4B;margin-top:4px;}
+.wcc-check-row:first-of-type{margin-top:0;}
+.wcc-illust--compact .wcc-check-row{margin-top:2px;font-size:9.5px;}
+.wcc-illust--compact .wcc-check-dot{width:12px;height:12px;font-size:8px;}
+.wcc-check-dot{flex:none;width:14px;height:14px;border-radius:50%;background:linear-gradient(135deg,#F07B2E,#D95614);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:9px;line-height:1;}
+.wcc-check-row:nth-of-type(3) .wcc-check-dot{background:#E4691F;}
+.wcc-check-row:nth-of-type(4) .wcc-check-dot{background:#1C2B4B;}
+.wcc-people{position:relative;display:flex;justify-content:center;align-items:flex-end;gap:8px;margin-bottom:10px;padding-top:14px;}
+.wcc-person{position:relative;width:34px;height:42px;}
+.wcc-person::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:20px;height:20px;border-radius:50%;background:#1C2B4B;}
+.wcc-person::after{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:34px;height:20px;border-radius:17px 17px 0 0;background:#1C2B4B;}
+.wcc-person--alt::before,.wcc-person--alt::after{background:rgba(28,43,75,.4);}
+.wcc-people-badge{position:absolute;top:0;left:50%;transform:translateX(-50%);width:18px;height:18px;border-radius:50%;background:linear-gradient(135deg,#F07B2E,#D95614);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:10px;font-weight:900;line-height:1;box-shadow:0 3px 8px rgba(228,105,31,.35);}
+.wcc-people-label{text-align:center;font-size:10px;font-weight:900;letter-spacing:.06em;color:#8A8F9C;line-height:1.6;}
+@media (max-width:860px){
+  .sol-lead-l1{font-size:15px;}
+  .wcc-illust{flex-basis:100%;width:auto;max-width:220px;margin:0 auto;}
+}
 /* ===== スマホ版ハンバーガーメニュー(mm-*) ===== */
 .mm-toggle{display:none;background:none;border:0;cursor:pointer;padding:8px;font-size:22px;line-height:1;color:#1C2B4B;}
 @media (max-width:767px){
-  .btn-header-cta{display:none!important;}
   .mm-toggle{display:inline-flex;align-items:center;justify-content:center;}
   .mm-panel{max-height:calc(100dvh - 163px);overflow-y:auto;}
 }
@@ -230,6 +355,176 @@ summary::-webkit-details-marker{display:none;}
   .mm-panel{animation:mmSlide .18s ease;}
   @keyframes mmSlide{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
 }
+/* ===== ヒーロー(hero-*) ===== */
+.hero-inner{position:relative;max-width:960px;margin:0 auto;padding:clamp(28px,5.5vw,44px) 24px clamp(36px,6.5vw,56px);min-height:480px;box-sizing:border-box;display:flex;align-items:center;}
+.hero-text{position:relative;z-index:1;flex:0 1 480px;max-width:480px;min-width:0;}
+.hero-media{position:absolute;top:50%;right:-164px;transform:translateY(calc(-50% + (clamp(28px,5.5vw,44px) - clamp(36px,6.5vw,56px))/2));width:clamp(320px,calc(100vw - 310px),650px);z-index:0;pointer-events:none;}
+.hero-media img{width:100%;height:auto;display:block;}
+@media (min-width:768px){
+  .hero-inner{padding-left:12px;}
+}
+@media (max-width:767px){
+  .hero-inner{display:block;min-height:0;}
+  .hero-text{max-width:none;}
+  .hero-media{position:static;transform:none;width:100%;max-width:420px;margin:28px auto 0;right:auto;top:auto;}
+}
+/* ===== 業種・職種別活用カード(uc-*) ===== */
+.uc-group+.uc-group{margin-top:48px;}
+.uc-group-head{display:flex;align-items:center;gap:14px;margin:0 0 20px;}
+.uc-group-head h3{margin:0;font-size:18px;font-weight:900;color:#1C2B4B;white-space:nowrap;}
+.uc-group-head-line{flex:1;height:1px;background:rgba(28,43,75,.14);}
+.uc-group-head-sub{font-size:11px;font-weight:700;letter-spacing:.16em;color:#5A6172;white-space:nowrap;}
+.uc-grid{display:grid;grid-template-columns:repeat(1,1fr);gap:16px;}
+@media (min-width:360px){.uc-grid{grid-template-columns:repeat(2,1fr);}}
+@media (min-width:600px){.uc-grid{grid-template-columns:repeat(3,1fr);}}
+@media (min-width:900px){.uc-grid{grid-template-columns:repeat(5,1fr);}}
+.uc-card{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:10px;width:100%;box-sizing:border-box;background:#fff;border:1px solid rgba(28,43,75,.08);border-radius:26px;padding:22px 12px 18px;margin:0;cursor:pointer;font-family:inherit;text-align:center;box-shadow:0 6px 18px rgba(28,43,75,.06);transition:transform .18s ease,box-shadow .18s ease;}
+.uc-card:hover,.uc-card:focus-visible{transform:translateY(-4px);box-shadow:0 14px 30px rgba(28,43,75,.14);}
+.uc-card:focus-visible{outline:2px solid #E4691F;outline-offset:2px;}
+.uc-card svg{display:block;width:72px;height:60px;}
+.uc-card-label{font-size:13.5px;font-weight:700;line-height:1.5;color:#1C2B4B;}
+/* モーダル */
+.uc-overlay{position:fixed;inset:0;z-index:220;display:flex;align-items:center;justify-content:center;padding:16px;box-sizing:border-box;background:rgba(16,26,48,.62);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);}
+.uc-overlay[hidden]{display:none;}
+.uc-dialog{position:relative;width:100%;max-width:680px;max-height:calc(100vh - 32px);max-height:calc(100dvh - 32px);overflow-y:auto;-webkit-overflow-scrolling:touch;box-sizing:border-box;background:#fff;border-radius:20px 20px 20px 4px;box-shadow:0 24px 56px rgba(28,43,75,.28);padding:clamp(24px,5vw,36px);text-align:left;}
+.uc-dialog:focus{outline:none;}
+.uc-close{position:absolute;top:16px;right:16px;flex:none;width:36px;height:36px;border-radius:50%;border:0;background:#F3F5F9;color:#1C2B4B;font-size:18px;line-height:1;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;}
+.uc-close:hover{background:#E7EDF6;}
+.uc-kicker{margin:0 0 8px;font-size:11px;font-weight:700;letter-spacing:.14em;color:#8A8F9C;}
+.uc-modal-title{margin:0 0 20px;padding-right:32px;font-size:clamp(19px,4vw,23px);font-weight:900;line-height:1.5;color:#1C2B4B;}
+.uc-block{border-radius:16px;padding:18px 20px;margin:0 0 14px;}
+.uc-block-problem{background:#FCEEE3;}
+.uc-block-approach{background:#EEF2F8;}
+.uc-block-head{display:flex;align-items:center;gap:10px;margin:0 0 10px;font-size:13.5px;font-weight:900;letter-spacing:.02em;}
+.uc-block-problem .uc-block-head{color:#A8430F;}
+.uc-block-approach .uc-block-head{color:#1C2B4B;}
+.uc-block-icon{flex:none;width:26px;height:26px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;}
+.uc-block-problem .uc-block-icon{background:#E4691F;}
+.uc-block-approach .uc-block-icon{background:#1C2B4B;}
+.uc-problem-list{margin:0;padding-left:20px;font-size:14.5px;line-height:1.9;color:#5A6172;}
+.uc-problem-list li+li{margin-top:6px;}
+.uc-approach-list{margin:0;padding-left:20px;font-size:14.5px;line-height:1.9;color:#232733;}
+.uc-approach-list li+li{margin-top:6px;}
+.uc-arrow{display:flex;justify-content:center;margin:2px 0 14px;color:#C0501A;font-weight:900;font-size:18px;}
+.uc-more-btn{display:flex;width:100%;box-sizing:border-box;align-items:center;justify-content:center;gap:8px;background:none;border:1.5px solid rgba(28,43,75,.24);border-radius:999px;padding:13px 20px;font-family:inherit;font-weight:700;font-size:13.5px;color:#1C2B4B;cursor:pointer;margin:4px 0 18px;}
+.uc-more-btn:hover{border-color:#1C2B4B;}
+.uc-more-btn .uc-chevron{display:inline-block;transition:transform .18s ease;}
+.uc-more-btn[aria-expanded="true"] .uc-chevron{transform:rotate(180deg);}
+.uc-detail{display:flex;flex-direction:column;gap:16px;margin:0 0 8px;}
+.uc-detail[hidden]{display:none;}
+.uc-detail-item h4{margin:0 0 6px;font-size:12.5px;font-weight:700;letter-spacing:.06em;color:#8A8F9C;}
+.uc-detail-item p{margin:0;font-size:14.5px;line-height:1.85;color:#232733;}
+.uc-detail-item .uc-detail-head-icon{display:flex;align-items:center;gap:6px;margin:0 0 10px;font-size:12.5px;font-weight:700;letter-spacing:.06em;color:#8A8F9C;}
+.uc-detail-icon{display:inline-flex;flex:none;color:#C0501A;}
+.uc-steps{display:flex;flex-direction:column;gap:8px;}
+.uc-step{display:flex;align-items:center;gap:12px;}
+.uc-step-badge{flex:none;width:26px;height:26px;border-radius:50%;background:#1C2B4B;color:#fff;font-weight:900;font-size:12.5px;display:inline-flex;align-items:center;justify-content:center;}
+.uc-step-card{flex:1;min-width:0;margin:0;background:#fff;border:1px solid rgba(28,43,75,.1);border-radius:12px;padding:10px 14px;font-size:13.5px;line-height:1.6;color:#232733;box-shadow:0 2px 8px rgba(28,43,75,.05);}
+.uc-effect-flow{display:flex;align-items:stretch;gap:10px;}
+.uc-effect-box{flex:1 1 0;min-width:0;box-sizing:border-box;border-radius:12px;padding:12px 14px;}
+.uc-effect-box p{margin:6px 0 0;font-size:13.5px;line-height:1.6;color:#232733;}
+.uc-effect-before{background:#F3F5F9;}
+.uc-effect-after{background:#FCEEE3;}
+.uc-effect-tag{display:inline-block;font-weight:700;font-size:11px;letter-spacing:.1em;color:#5A6172;}
+.uc-effect-after .uc-effect-tag{color:#A8430F;}
+.uc-effect-arrow{flex:none;display:flex;align-items:center;justify-content:center;color:#C0501A;font-weight:900;font-size:16px;}
+@media (max-width:479px){
+  .uc-effect-flow{flex-direction:column;}
+  .uc-effect-arrow{transform:rotate(90deg);padding:2px 0;}
+}
+.uc-cta{display:inline-flex;align-items:center;justify-content:center;gap:8px;width:100%;box-sizing:border-box;margin-top:8px;background:linear-gradient(135deg,#F07B2E,#D95614);color:#fff;text-decoration:none;font-weight:700;font-size:15.5px;line-height:1.5;padding:15px 22px;border-radius:999px;box-shadow:0 8px 24px rgba(228,105,31,.32);text-align:center;}
+.uc-cta:hover{background:#C95A1D;color:#fff;}
+@media (prefers-reduced-motion: no-preference){
+  .uc-overlay{animation:ucFade .18s ease;}
+  .uc-dialog{animation:ucPop .22s cubic-bezier(.22,1,.36,1);}
+  @keyframes ucFade{from{opacity:0}to{opacity:1}}
+  @keyframes ucPop{from{opacity:0;transform:translateY(10px) scale(.985)}to{opacity:1;transform:none}}
+}
+/* ===== 04 支援パッケージ 比較表(pkg-*) ===== */
+.pkg-label-icon{flex:none;width:20px;height:20px;color:#8A8F9C;}
+.pkg-plan-name{margin:0;font-size:19px;font-weight:900;}
+.pkg-plan-letter{display:inline-block;font-weight:900;font-size:32px;line-height:1;margin-right:3px;}
+.pkg-plan-letter-a{color:#1C2B4B;}
+.pkg-plan-letter-b{color:#fff;text-shadow:0 2px 5px rgba(122,46,8,.4);}
+.pkg-tag{display:inline-flex;align-items:center;align-self:flex-start;font-size:11.5px;font-weight:700;padding:5px 12px;border-radius:999px;}
+.pkg-tag-a{background:#fff;color:#41527A;border:1px solid rgba(28,43,75,.18);}
+.pkg-tag-b{background:#fff;color:#A8430F;}
+.pkg-period-text{margin:0 0 10px;font-size:16px;font-weight:900;color:#1C2B4B;}
+.pkg-bar-track{background:rgba(28,43,75,.1);border-radius:999px;height:7px;overflow:hidden;}
+.pkg-bar{height:100%;border-radius:999px;}
+.pkg-bar-a{background:#41527A;width:26%;}
+.pkg-bar-b{background:linear-gradient(90deg,#F07B2E,#D95614);width:82%;}
+.pkg-p{margin:0;font-size:15px;line-height:1.7;color:#232733;}
+.pkg-cell-vcenter{display:flex;flex-direction:column;justify-content:center;}
+.pkg-checklist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:7px;}
+.pkg-checklist li{display:flex;align-items:flex-start;gap:8px;font-size:14.5px;line-height:1.7;color:#232733;}
+.pkg-check{flex:none;width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:11px;color:#fff;margin-top:1px;}
+.pkg-check-a{background:#1C2B4B;}
+.pkg-check-b{background:linear-gradient(135deg,#F07B2E,#D95614);}
+.pkg-foot{background:#EEF2F8;padding:16px 24px;text-align:center;border-radius:24px;display:flex;align-items:center;justify-content:center;gap:20px;flex-wrap:wrap;}
+.pkg-foot p{margin:0;font-size:15px;color:#41527A;}
+.pkg-foot a{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(135deg,#F07B2E,#D95614);color:#fff;text-decoration:none;font-weight:700;font-size:16px;padding:15px 32px;border-radius:999px;box-shadow:0 8px 24px rgba(228,105,31,.32);}
+.pkg-foot a:hover{background:#C95A1D;}
+.pkg-table{display:none;grid-template-columns:180px 1fr 1fr;background:#fff;border:1px solid rgba(28,43,75,.12);border-radius:28px;box-shadow:0 20px 48px rgba(28,43,75,.08);overflow:hidden;}
+.pkg-table>*{padding:17px 18px;border-top:1px solid rgba(28,43,75,.1);}
+.pkg-table>*:nth-child(-n+3){border-top:0;}
+.pkg-table .pkg-row-head{display:flex;flex-direction:row;align-items:center;flex-wrap:wrap;gap:8px 12px;}
+.pkg-table .pkg-row-head-a{background:#EEF2F8;}
+.pkg-table .pkg-row-head-b{background:linear-gradient(135deg,#F07B2E,#D95614);}
+.pkg-table .pkg-row-head-a .pkg-plan-name{color:#1C2B4B;}
+.pkg-table .pkg-row-head-b .pkg-plan-name{color:#fff;}
+.pkg-table .pkg-label{display:flex;align-items:center;gap:10px;background:#fff;font-size:13.5px;font-weight:700;color:#5A6172;}
+.pkg-table .pkg-cell-a{background:#fff;}
+.pkg-table .pkg-cell-b{background:#FCEEE3;}
+.pkg-table .pkg-foot{grid-column:1/-1;border-radius:0;}
+.pkg-cards{display:flex;flex-direction:column;gap:20px;}
+.pkg-card{background:#fff;border:1px solid rgba(28,43,75,.12);border-radius:24px;overflow:hidden;box-shadow:0 14px 32px rgba(28,43,75,.08);}
+.pkg-card-head{padding:22px 22px 20px;display:flex;flex-direction:row;align-items:center;flex-wrap:wrap;gap:8px 12px;}
+.pkg-card-a .pkg-card-head{background:#EEF2F8;}
+.pkg-card-b .pkg-card-head{background:linear-gradient(135deg,#F07B2E,#D95614);}
+.pkg-card-a .pkg-plan-name{color:#1C2B4B;}
+.pkg-card-b .pkg-plan-name{color:#fff;}
+.pkg-card-body{padding:4px 22px 24px;display:flex;flex-direction:column;}
+.pkg-card-row{display:flex;flex-direction:column;gap:8px;padding:14px 0;border-top:1px solid rgba(28,43,75,.08);}
+.pkg-card-row:first-child{border-top:0;padding-top:16px;}
+.pkg-card-row-label{display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:700;letter-spacing:.04em;color:#8A8F9C;}
+.pkg-card-row-label .pkg-label-icon{width:16px;height:16px;}
+@media (min-width:768px){
+  .pkg-table{display:grid;}
+  .pkg-cards{display:none;}
+}
+/* ===== 07 セミナー・勉強会(sem-*) ===== */
+.sem-subhead{display:flex;align-items:center;gap:16px;margin-bottom:24px;}
+.sem-subhead-title{margin:0;font-size:19px;font-weight:900;color:#1C2B4B;white-space:nowrap;}
+.sem-subhead-line{flex:1 1 auto;height:1px;background:rgba(28,43,75,.16);}
+.sem-subhead-en{flex:none;font-size:12px;font-weight:700;letter-spacing:.14em;color:#A8430F;}
+.sem-card-upcoming{display:grid;grid-template-columns:320px 1fr;max-width:820px;margin:0 auto;background:#fff;border:2px solid #E4691F;border-radius:22px;box-shadow:0 16px 40px rgba(228,105,31,.16);overflow:hidden;text-decoration:none;color:inherit;}
+.sem-card-upcoming-thumb{background:#F6F1E8;}
+.sem-card-upcoming-thumb img{display:block;width:100%;height:100%;min-height:150px;object-fit:cover;}
+.sem-card-upcoming-body{padding:18px 22px;display:flex;flex-direction:column;gap:8px;min-width:0;}
+.sem-card-upcoming-top{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.sem-pill-upcoming{flex:none;display:inline-flex;align-items:center;background:linear-gradient(135deg,#F07B2E,#D95614);color:#fff;font-size:11.5px;font-weight:700;letter-spacing:.05em;padding:5px 12px;border-radius:999px;}
+.sem-meta{font-size:13px;color:#5A6172;font-weight:700;}
+.sem-card-upcoming-title{margin:0;font-size:17px;font-weight:900;line-height:1.65;color:#1C2B4B;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;line-clamp:2;overflow:hidden;}
+.sem-card-upcoming-summary{margin:0;font-size:14.5px;line-height:1.8;color:#5A6172;}
+.sem-card-upcoming-foot{margin-top:4px;display:flex;justify-content:flex-end;}
+.sem-btn-apply{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#F07B2E,#D95614);color:#fff;font-weight:700;font-size:14px;padding:11px 24px;border-radius:999px;box-shadow:0 8px 20px rgba(228,105,31,.28);}
+.sem-past-scroll{display:flex;gap:20px;overflow-x:auto;padding:4px 4px 18px;-webkit-overflow-scrolling:touch;scroll-snap-type:x proximity;}
+.sem-past-card{flex:0 0 320px;scroll-snap-align:start;background:#fff;border:1px solid rgba(28,43,75,.12);border-radius:22px;overflow:hidden;box-shadow:0 10px 26px rgba(28,43,75,.08);text-decoration:none;color:inherit;display:flex;flex-direction:column;}
+.sem-past-thumb img{display:block;width:100%;height:170px;object-fit:cover;background:#F6F1E8;}
+.sem-past-body{padding:14px 18px 18px;display:flex;flex-direction:column;gap:6px;}
+.sem-past-label{align-self:flex-start;display:inline-flex;align-items:center;background:#fff;border:1px solid rgba(28,43,75,.18);color:#41527A;font-size:11px;font-weight:700;letter-spacing:.08em;padding:4px 10px;border-radius:999px;}
+.sem-past-title{margin:0;font-size:15px;font-weight:900;line-height:1.65;color:#1C2B4B;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;line-clamp:2;overflow:hidden;}
+.sem-past-date{margin:0;font-size:12.5px;color:#5A6172;font-weight:700;}
+@media (max-width:560px){
+  .sem-card-upcoming{grid-template-columns:1fr;}
+  .sem-card-upcoming-thumb img{min-height:160px;}
+}
+/* ===== 06 FLOW 数字+アイコン(flow-num-icon) ===== */
+.flow-num-icon{display:flex;flex-direction:row;align-items:center;justify-content:center;gap:8px;margin-bottom:10px;}
+@media (max-width:359px){
+  .flow-num-icon{flex-direction:column;gap:4px;}
+}
 </style>
 </head>
 <body id="page-top">
@@ -244,22 +539,23 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <a href="#page-top" aria-label="ページの先頭へ戻る" style="display:inline-flex;align-items:baseline;gap:8px;min-width:0;color:#1C2B4B;text-decoration:none"><span style="font-weight:900;font-size:clamp(15px,4vw,19px);letter-spacing:.02em;white-space:nowrap">ゼロからAI Academy</span><span style="font-weight:700;font-size:11px;letter-spacing:.06em;color:#8A8F9C;white-space:nowrap">by naus</span></a>
     <div class="header-right">
       <nav class="header-nav">
-        <a href="#cases" style="color:#1C2B4B;text-decoration:none;font-weight:700;font-size:14px">実例</a>
-        <a href="#pricing" style="color:#1C2B4B;text-decoration:none;font-weight:700;font-size:14px">料金</a>
+        <a href="#solution" style="color:#1C2B4B;text-decoration:none;font-weight:700;font-size:14px">サービス</a>
+        <a href="#industries" style="color:#1C2B4B;text-decoration:none;font-weight:700;font-size:14px">ユースケース</a>
+        <a href="#pricing" style="color:#1C2B4B;text-decoration:none;font-weight:700;font-size:14px">プラン</a>
+        <a href="#news" style="color:#1C2B4B;text-decoration:none;font-weight:700;font-size:14px">NEWS</a>
         <a href="#faq" style="color:#1C2B4B;text-decoration:none;font-weight:700;font-size:14px">FAQ</a>
-        <a href="#download" style="color:#1C2B4B;text-decoration:none;font-weight:700;font-size:14px">資料ダウンロード</a>
-        <a href="#contact-form" style="color:#1C2B4B;text-decoration:none;font-weight:700;font-size:14px">問い合わせ</a>
+        <a href="#contact" style="color:#1C2B4B;text-decoration:none;font-weight:700;font-size:14px">問い合わせ</a>
       </nav>
-      <a href="https://calendar.app.google/F6qpCXCqKXQDYe5D8" target="_blank" rel="noopener" class="btn-header-cta" style="display:inline-flex;align-items:center;background:#E4691F;color:#fff;text-decoration:none;font-weight:700;font-size:14px;padding:10px 18px;border-radius:999px;white-space:nowrap">無料相談を予約</a>
       <button type="button" id="mm-toggle" class="mm-toggle" aria-expanded="false" aria-controls="mm-panel" aria-label="メニューを開く"><span id="mm-icon" aria-hidden="true">☰</span></button>
     </div>
   </div>
     <nav id="mm-panel" class="mm-panel" aria-label="モバイルメニュー" hidden>
-      <a href="#cases" class="mm-link">実例</a>
-      <a href="#pricing" class="mm-link">料金</a>
+      <a href="#solution" class="mm-link">サービス</a>
+      <a href="#industries" class="mm-link">ユースケース</a>
+      <a href="#pricing" class="mm-link">プラン</a>
+      <a href="#news" class="mm-link">NEWS</a>
       <a href="#faq" class="mm-link">FAQ</a>
-      <a href="#download" class="mm-link">資料ダウンロード</a>
-      <a href="#contact-form" class="mm-link">問い合わせ</a>
+      <a href="#contact" class="mm-link">問い合わせ</a>
       <a href="https://calendar.app.google/F6qpCXCqKXQDYe5D8" target="_blank" rel="noopener" class="mm-link">無料相談</a>
     </nav>
 </header>
@@ -267,441 +563,701 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <!-- ===== 1. ヒーロー ===== -->
 <section data-screen-label="ヒーロー" style="position:relative;overflow:hidden;background:linear-gradient(160deg,#FDFCFA 0%,#F6F1E8 70%,#F2EADC 100%)">
-  <div aria-hidden="true" style="position:absolute;inset:0;background:linear-gradient(115deg,transparent 58%,rgba(28,43,75,.035) 58%)"></div>
-  <div style="position:relative;max-width:960px;margin:0 auto;padding:clamp(40px,8vw,64px) 24px clamp(56px,10vw,88px);display:flex;flex-wrap:wrap;gap:40px;align-items:center;justify-content:center">
-    <div style="flex:1 1 380px;min-width:0;max-width:500px">
-      <h1 style="margin:0 0 24px;color:#1C2B4B;text-wrap:pretty">
-        <span style="display:block;font-size:clamp(16px,3.6vw,21px);line-height:1.8;font-weight:700;margin-bottom:12px">AIは<span style="color:#E4691F;font-weight:900">チャットで質問するだけ</span>。そんな私たちが</span>
-        <span style="display:block;font-size:clamp(24px,5vw,36px);line-height:1.55;font-weight:900">2ヶ月で業務量を<span style="color:#E4691F">80%削減</span>した<br>「AI活用術」を、貴社専用に構築します。</span>
-      </h1>
-      <p style="margin:0 0 32px;font-size:16px;line-height:2;color:#5A6172;text-wrap:pretty">採用担当者の方にも、採用を自ら担う経営者の方にも。テンプレ配布ではなく一緒に作り、仕組みもノウハウも貴社の手に残します。</p>
+  <div aria-hidden="true" style="position:absolute;inset:0;background:linear-gradient(115deg,transparent 80%,rgba(28,43,75,.035) 80%)"></div>
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div style="display:inline-flex;align-items:center;gap:12px;background:linear-gradient(135deg,#F07B2E,#D95614);border-radius:999px;padding:7px 22px 7px 7px;margin-bottom:20px;box-shadow:0 8px 24px rgba(228,105,31,.32)">
+        <span style="background:#fff;color:#C0501A;font-weight:900;font-size:14px;padding:8px 17px;border-radius:999px;white-space:nowrap">AI初心者向け</span>
+        <span style="color:#fff;font-weight:700;font-size:14.5px;white-space:nowrap">内製化支援サービス</span>
+      </div>
+      <h1 style="margin:0 0 14px;color:#1C2B4B;font-size:clamp(19px,6vw,38px);line-height:1.5;font-weight:900;text-wrap:pretty">AIツールを入れるより、<br><span style="white-space:nowrap">AIを使いこなす人を育てる。</span></h1>
+      <div style="display:flex;align-items:center;gap:10px;margin:0 0 18px">
+        <span aria-hidden="true" style="display:inline-block;width:34px;height:3px;border-radius:999px;background:#E4691F;flex:0 0 auto"></span>
+        <p style="margin:0;font-size:clamp(16px,3.6vw,20px);font-weight:900;color:#1C2B4B;letter-spacing:.02em">ゼロからAI Academy</p>
+      </div>
+      <p style="margin:0 0 32px;font-size:16px;line-height:2;color:#5A6172;text-wrap:pretty">「AIはチャットで質問するだけ」だった私たちが、2ヶ月で業務量80%削減。そのノウハウを伝えるとともに、<span style="white-space:nowrap">社内にAI人材を育てます。</span></p>
       <div style="display:flex;flex-wrap:wrap;align-items:stretch;gap:12px">
         <a href="#download" style="display:inline-flex;align-items:center;justify-content:center;flex:1 1 190px;min-width:0;box-sizing:border-box;background:#fff;color:#C0501A;border:2px solid #C0501A;text-decoration:none;font-weight:700;font-size:14px;padding:13px 14px;border-radius:999px;text-align:center">まずは資料ダウンロード</a>
         <a href="https://calendar.app.google/F6qpCXCqKXQDYe5D8" target="_blank" rel="noopener" class="btn-hero-cta" style="display:inline-flex;align-items:center;justify-content:center;gap:8px;flex:1 1 190px;min-width:0;box-sizing:border-box;background:linear-gradient(135deg,#F07B2E,#D95614);color:#fff;text-decoration:none;font-weight:700;font-size:14px;padding:15px 16px;border-radius:999px;box-shadow:0 8px 24px rgba(228,105,31,.32);text-align:center">無料相談（30分/オンライン）</a>
       </div>
       <p style="margin:14px 0 0;font-size:12.5px;line-height:1.8;color:#8A8F9C">※「2ヶ月で80%削減」は、私たち自身が自社の採用業務で実践した結果です。</p>
     </div>
-    <div style="flex:0 1 420px;min-width:240px;width:100%;height:clamp(220px,66vw,460px)">
-      <img src="assets/meeting.webp" alt="採用担当者とnausの担当者がオンラインで打ち合わせをしている様子" fetchpriority="high" style="width:100%;height:100%;object-fit:contain;border-radius:20px">
+    <div class="hero-media">
+      <img src="assets/hero-illustration-v3.webp" alt="ノートPCに向かう人物の様子。中央のハブから「自然言語で指示するだけ」「非エンジニアでも簡単操作」の吹き出しと、複数の業務アイコンが放射状に広がり、業務削減率80%を示している" fetchpriority="high">
     </div>
   </div>
 </section>
 
-<!-- ===== 2. 課題提起(白+右イラスト・2カラム) ===== -->
-<section data-screen-label="課題提起" style="position:relative;overflow:hidden;background:#FDFCFA">
-  <div style="position:absolute;top:0;right:0;width:44%;min-width:280px;height:100%;background:linear-gradient(200deg,#EEF2F8,#FDFCFA 85%)"></div>
-  <div style="position:relative;max-width:960px;margin:0 auto;padding:clamp(48px,8vw,72px) 24px;display:flex;flex-wrap:wrap;gap:40px;align-items:flex-start;justify-content:center">
-    <div style="flex:1 1 400px;max-width:540px;min-width:0">
-      <div style="display:flex;align-items:baseline;gap:16px;margin-bottom:18px">
-        <span aria-hidden="true" style="font-weight:900;font-size:64px;line-height:1;color:transparent;-webkit-text-stroke:1.5px rgba(228,105,31,.55)">01</span>
-        <span style="font-size:13px;font-weight:700;letter-spacing:.18em;color:#E4691F">PROBLEM</span>
+<!-- ===== 2. あるある+SELF-CHECK(01・統合セクション) ===== -->
+<section id="pains" data-screen-label="あるある+簡易診断" style="position:relative;overflow:hidden;background:#FDFCFA">
+  <div style="position:relative;max-width:1340px;margin:0 auto;padding:clamp(48px,8vw,68px) 24px">
+    <div style="display:flex;flex-direction:column;gap:14px;align-items:center;text-align:center;margin-bottom:34px">
+      <div class="sec-badge">
+        <span class="sec-badge-num" aria-hidden="true">01</span>
+        <span class="sec-badge-label">COMMON SITUATIONS</span>
       </div>
-      <h2 style="margin:0 0 20px;font-size:clamp(24px,5vw,32px);font-weight:900;line-height:1.5;color:#1C2B4B">会社ごとに違う、採用の悩み</h2>
-      <p style="margin:0 0 32px;font-size:16px;line-height:2;color:#5A6172;text-wrap:pretty">スカウト文、提案資料、求人票――日々の「作る」作業に追われていませんか。専任の採用担当者だけでなく、経営者自身がこの業務を抱えている会社も多いはずです。AIで楽になるのは分かっていても、何から手をつければいいか分からない。試してみても、自社の採用には合わない。</p>
-      <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column">
-        <li style="display:flex;align-items:center;gap:16px;padding:20px 4px;border-top:1.5px solid rgba(28,43,75,.15);font-size:19px;font-weight:900;color:#1C2B4B"><span aria-hidden="true" style="flex:none;width:10px;height:10px;border-radius:50%;background:#E4691F"></span>作る作業に追われている</li>
-        <li style="display:flex;align-items:center;gap:16px;padding:20px 4px;border-top:1.5px solid rgba(28,43,75,.15);font-size:19px;font-weight:900;color:#1C2B4B"><span aria-hidden="true" style="flex:none;width:10px;height:10px;border-radius:50%;background:#E4691F"></span>何から始めればいいか分からない</li>
-        <li style="display:flex;align-items:center;gap:16px;padding:20px 4px;border-top:1.5px solid rgba(28,43,75,.15);border-bottom:1.5px solid rgba(28,43,75,.15);font-size:19px;font-weight:900;color:#1C2B4B"><span aria-hidden="true" style="flex:none;width:10px;height:10px;border-radius:50%;background:#E4691F"></span>試しても、自社に合わない</li>
-      </ul>
+      <h2 style="margin:0;font-size:clamp(24px,5vw,32px);font-weight:900;line-height:1.5;color:#1C2B4B">こんな「AI活用あるある」、ありませんか?</h2>
+      <p class="pains-lead">ひとつでも当てはまれば、ツールではなく「使い方の型」が足りていないサインです。</p>
     </div>
-    <div style="flex:1 1 420px;max-width:520px;min-width:240px;width:100%;height:clamp(240px,72vw,520px);display:flex;align-items:flex-end;justify-content:center;align-self:center">
-      <div style="flex:none;width:64%;height:100%;position:relative;z-index:2">
-        <img src="assets/thinking-man.png" alt="スカウト文や求人票の作成業務に頭を悩ませる採用担当者の男性" loading="lazy" style="width:100%;height:100%;object-fit:contain;border-radius:20px">
+    <div class="pains-grid">
+      <!-- あるあるカード6項目 -->
+      <div class="pains-cards">
+        <div class="pain-card">
+          <span class="pain-icon-wrap" style="background:rgba(228,105,31,.12)" aria-hidden="true"><span class="pain-icon" style="background:#E4691F;-webkit-mask-image:url('assets/icon-talk.svg');mask-image:url('assets/icon-talk.svg')"></span></span>
+          <p class="pain-text">AIにチャットで聞いてはみるが、結局は自分で書き直している</p>
+        </div>
+        <div class="pain-card">
+          <span class="pain-icon-wrap" style="background:rgba(28,43,75,.08)" aria-hidden="true"><span class="pain-icon" style="background:#1C2B4B;-webkit-mask-image:url('assets/icon-pen.svg');mask-image:url('assets/icon-pen.svg')"></span></span>
+          <p class="pain-text">資料の書式が人によってバラバラで、毎回一から考えている</p>
+        </div>
+        <div class="pain-card">
+          <span class="pain-icon-wrap" style="background:rgba(228,105,31,.12)" aria-hidden="true"><span class="pain-icon" style="background:#E4691F;-webkit-mask-image:url('assets/icon-handshake.svg');mask-image:url('assets/icon-handshake.svg')"></span></span>
+          <p class="pain-text">詳しい人に業務が集中し、その人が辞めると一気にノウハウが消える</p>
+        </div>
+        <div class="pain-card">
+          <span class="pain-icon-wrap" style="background:rgba(28,43,75,.08)" aria-hidden="true"><span class="pain-icon" style="background:#1C2B4B;-webkit-mask-image:url('assets/icon-glass.svg');mask-image:url('assets/icon-glass.svg')"></span></span>
+          <p class="pain-text">教える余裕がなく、各自が自己流でAIを使っている</p>
+        </div>
+        <div class="pain-card">
+          <span class="pain-icon-wrap" style="background:rgba(228,105,31,.12)" aria-hidden="true"><span class="pain-icon" style="background:#E4691F;-webkit-mask-image:url('assets/icon-megaphone.svg');mask-image:url('assets/icon-megaphone.svg')"></span></span>
+          <p class="pain-text">SNSで便利そうな事例を見るが、自社の業務にどう当てはめればいいか分からない</p>
+        </div>
+        <div class="pain-card">
+          <span class="pain-icon-wrap" style="background:rgba(28,43,75,.08)" aria-hidden="true"><span class="pain-icon" style="background:#1C2B4B;-webkit-mask-image:url('assets/icon-mail.svg');mask-image:url('assets/icon-mail.svg')"></span></span>
+          <p class="pain-text">経営層はAI活用に前向きだが、現場との温度差がある</p>
+        </div>
       </div>
-      <img src="assets/woman-thinking.png" alt="" aria-hidden="true" loading="lazy" style="flex:none;width:62%;height:100%;object-fit:contain;object-position:bottom;margin-left:-20%;position:relative;z-index:1;filter:drop-shadow(0 10px 18px rgba(28,43,75,.12))">
-    </div>
-  </div>
-  <!-- 課題→解決のブリッジ文 -->
-  <div style="position:relative;max-width:960px;margin:0 auto;padding:0 24px clamp(48px,8vw,64px);text-align:center">
-    <p style="margin:0;font-size:clamp(18px,4.2vw,24px);font-weight:900;line-height:1.8;color:#1C2B4B;text-wrap:pretty">その悩み、テンプレの配布ではなく、<br>貴社に合わせた<span style="color:#E4691F">仕組みづくり</span>で解決できます。</p>
-    <span aria-hidden="true" style="display:inline-flex;margin-top:20px;width:36px;height:36px;border-radius:50%;border:2px solid #E4691F;color:#E4691F;align-items:center;justify-content:center;font-weight:900;font-size:16px">↓</span>
-  </div>
-</section>
-
-<!-- ===== 2.5 採用業務AI化 簡易診断(薄ネイビー帯・1問ずつカード) ===== -->
-<section data-screen-label="簡易診断" style="position:relative;overflow:hidden;background:linear-gradient(180deg,#EEF2F8,#E7EDF6)">
-  <div aria-hidden="true" style="position:absolute;inset:0;background:linear-gradient(115deg,transparent 60%,rgba(255,255,255,.35) 60%)"></div>
-  <div style="position:relative;max-width:720px;margin:0 auto;padding:clamp(48px,8vw,72px) 24px">
-    <div style="text-align:center;margin-bottom:36px">
-      <div style="font-size:13px;font-weight:700;letter-spacing:.18em;color:#E4691F;margin-bottom:16px">SELF-CHECK</div>
-      <h2 style="margin:0 0 20px;font-size:clamp(24px,5vw,32px);font-weight:900;line-height:1.5;color:#1C2B4B">まず、自社の現在地を確認する</h2>
-      <p style="margin:0;font-size:16px;line-height:2;color:#5A6172;text-wrap:pretty">6個の質問に答えると、その場で今の状態と、参考になりそうな実例がわかります。連絡先の入力は不要です。</p>
-    </div>
-    <div class="sd-card">
-      <!-- 診断(質問パート) -->
-      <div id="sd-quiz">
-        <div style="margin-bottom:26px">
-          <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px">
-            <span id="sd-progress-text" aria-live="polite" style="font-size:14px;font-weight:700;color:#1C2B4B">質問 1 / 6</span>
-            <span id="sd-dots" aria-hidden="true" style="display:inline-flex;gap:6px">
-              <span style="width:8px;height:8px;border-radius:50%;background:rgba(28,43,75,.18)"></span>
-              <span style="width:8px;height:8px;border-radius:50%;background:rgba(28,43,75,.18)"></span>
-              <span style="width:8px;height:8px;border-radius:50%;background:rgba(28,43,75,.18)"></span>
-              <span style="width:8px;height:8px;border-radius:50%;background:rgba(28,43,75,.18)"></span>
-              <span style="width:8px;height:8px;border-radius:50%;background:rgba(28,43,75,.18)"></span>
-              <span style="width:8px;height:8px;border-radius:50%;background:rgba(28,43,75,.18)"></span>
-            </span>
+      <!-- 中央: 矢印 -->
+      <div class="pains-arrow" aria-hidden="true">
+        <span class="pains-arrow-badge">→</span>
+      </div>
+      <!-- 右: SELF-CHECKカード -->
+      <div id="selfcheck" class="sd-card">
+        <div class="sd-label">SELF-CHECK</div>
+        <h3 class="sd-heading">当てはまるものが多い方へ。<br>自社の現在地を確認しませんか?</h3>
+        <!-- 質問パート -->
+        <div id="sd-quiz">
+          <div class="sd-meta">
+            <span id="sd-qnum" class="sd-qnum" aria-live="polite">QUESTION 1 / 6</span>
+            <span id="sd-remain" class="sd-remain">残り6問</span>
           </div>
-          <div aria-hidden="true" style="height:6px;border-radius:3px;background:rgba(28,43,75,.12);overflow:hidden">
-            <div id="sd-bar" style="height:100%;width:16.67%;border-radius:3px;background:linear-gradient(90deg,#F07B2E,#D95614)"></div>
+          <div class="sd-track" aria-hidden="true"><div id="sd-fill" class="sd-fill" style="width:16.67%"></div></div>
+          <div id="sd-qwrap" class="sd-fade">
+            <h4 id="sd-qtitle" class="sd-q-title"></h4>
+            <div id="sd-options"></div>
+          </div>
+          <div class="sd-nav">
+            <button type="button" id="sd-back" class="sd-back" style="visibility:hidden">← 戻る</button>
+            <button type="button" id="sd-see" class="sd-see" disabled>結果を見る</button>
           </div>
         </div>
-        <form id="sd-form">
-          <fieldset class="sd-q sd-fade">
-            <legend class="sd-q-title">Q1. 候補者への声かけ文(スカウトメール・DM・LINEなど)は、どのように作っていますか?</legend>
-            <label class="sd-opt"><input type="radio" name="q1" value="4" data-cat="scout"><span class="sd-letter" aria-hidden="true">A</span><span class="sd-opt-text">候補者ごとに、経歴を読み込んでから一から書いている</span></label>
-            <label class="sd-opt"><input type="radio" name="q1" value="3" data-cat="scout"><span class="sd-letter" aria-hidden="true">B</span><span class="sd-opt-text">過去の文面をコピーして、目に付いた箇所だけ書き換えている</span></label>
-            <label class="sd-opt"><input type="radio" name="q1" value="2" data-cat="scout"><span class="sd-letter" aria-hidden="true">C</span><span class="sd-opt-text">いくつかのひな形(テンプレート)を使い分けて、都度当てはめている</span></label>
-            <label class="sd-opt"><input type="radio" name="q1" value="1" data-cat="scout"><span class="sd-letter" aria-hidden="true">D</span><span class="sd-opt-text">ChatGPTやClaudeなどのAIに候補者情報を渡し、下書きを作ってから自分で仕上げている</span></label>
-            <label class="sd-opt"><input type="radio" name="q1" value="0" data-cat="scout"><span class="sd-letter" aria-hidden="true">E</span><span class="sd-opt-text">候補者情報を入力すれば下書きがほぼ自動で出てくる仕組みがある、またはそもそもスカウトはほとんど行っていない</span></label>
-          </fieldset>
-          <fieldset class="sd-q sd-fade" hidden>
-            <legend class="sd-q-title">Q2. スカウト文面を1通仕上げるのにかかる時間は、平均するとどのくらいですか?</legend>
-            <label class="sd-opt"><input type="radio" name="q2" value="4" data-cat="scout"><span class="sd-letter" aria-hidden="true">A</span><span class="sd-opt-text">10分以上かかることが多い</span></label>
-            <label class="sd-opt"><input type="radio" name="q2" value="3" data-cat="scout"><span class="sd-letter" aria-hidden="true">B</span><span class="sd-opt-text">5〜10分くらい</span></label>
-            <label class="sd-opt"><input type="radio" name="q2" value="2" data-cat="scout"><span class="sd-letter" aria-hidden="true">C</span><span class="sd-opt-text">3〜5分くらい</span></label>
-            <label class="sd-opt"><input type="radio" name="q2" value="1" data-cat="scout"><span class="sd-letter" aria-hidden="true">D</span><span class="sd-opt-text">1〜3分くらい</span></label>
-            <label class="sd-opt"><input type="radio" name="q2" value="0" data-cat="scout"><span class="sd-letter" aria-hidden="true">E</span><span class="sd-opt-text">1分もかからない、またはほとんど時間をかけていない</span></label>
-          </fieldset>
-          <fieldset class="sd-q sd-fade" hidden>
-            <legend class="sd-q-title">Q3. 求人票や求人原稿(自社の募集要項、あるいはクライアント企業から預かった採用要件をもとに作るもの)は、どのように作成していますか?</legend>
-            <label class="sd-opt"><input type="radio" name="q3" value="4" data-cat="jobpost"><span class="sd-letter" aria-hidden="true">A</span><span class="sd-opt-text">ヒアリングメモや過去の資料を見ながら、文章を一から書いている</span></label>
-            <label class="sd-opt"><input type="radio" name="q3" value="3" data-cat="jobpost"><span class="sd-letter" aria-hidden="true">B</span><span class="sd-opt-text">過去の求人票を流用して、内容を手直ししている</span></label>
-            <label class="sd-opt"><input type="radio" name="q3" value="2" data-cat="jobpost"><span class="sd-letter" aria-hidden="true">C</span><span class="sd-opt-text">決まった構成(項目テンプレート)に沿って、都度情報を当てはめている</span></label>
-            <label class="sd-opt"><input type="radio" name="q3" value="1" data-cat="jobpost"><span class="sd-letter" aria-hidden="true">D</span><span class="sd-opt-text">AIに要件を渡して下書きを作らせ、表現の調整だけ自分で行っている</span></label>
-            <label class="sd-opt"><input type="radio" name="q3" value="0" data-cat="jobpost"><span class="sd-letter" aria-hidden="true">E</span><span class="sd-opt-text">情報を入力すれば下書きがほぼ自動でできる仕組みがある、または求人票作成に関わる機会がほとんどない</span></label>
-          </fieldset>
-          <fieldset class="sd-q sd-fade" hidden>
-            <legend class="sd-q-title">Q4. 求人票の内容を確定させるまでの手戻り(書き直し・すり合わせ)は?</legend>
-            <label class="sd-opt"><input type="radio" name="q4" value="4" data-cat="jobpost"><span class="sd-letter" aria-hidden="true">A</span><span class="sd-opt-text">何度もやり取りが発生し、確定までに時間がかかることが多い</span></label>
-            <label class="sd-opt"><input type="radio" name="q4" value="3" data-cat="jobpost"><span class="sd-letter" aria-hidden="true">B</span><span class="sd-opt-text">2〜3回のすり合わせが必要になることが多い</span></label>
-            <label class="sd-opt"><input type="radio" name="q4" value="2" data-cat="jobpost"><span class="sd-letter" aria-hidden="true">C</span><span class="sd-opt-text">1回程度の軽微な修正で済むことが多い</span></label>
-            <label class="sd-opt"><input type="radio" name="q4" value="1" data-cat="jobpost"><span class="sd-letter" aria-hidden="true">D</span><span class="sd-opt-text">ほぼ一度で通ることが多い</span></label>
-            <label class="sd-opt"><input type="radio" name="q4" value="0" data-cat="jobpost"><span class="sd-letter" aria-hidden="true">E</span><span class="sd-opt-text">ほぼ一度で通る、またはそもそも求人票の確定作業に関わる機会が少ない</span></label>
-          </fieldset>
-          <fieldset class="sd-q sd-fade" hidden>
-            <legend class="sd-q-title">Q5. 生成AI(ChatGPT、Claudeなど)の業務での使われ方は、どれに近いですか?</legend>
-            <label class="sd-opt"><input type="radio" name="q5" value="4"><span class="sd-letter" aria-hidden="true">A</span><span class="sd-opt-text">使ったことがない、または個人的に少し触った程度</span></label>
-            <label class="sd-opt"><input type="radio" name="q5" value="3"><span class="sd-letter" aria-hidden="true">B</span><span class="sd-opt-text">一部の人が自己流で使っている</span></label>
-            <label class="sd-opt"><input type="radio" name="q5" value="2"><span class="sd-letter" aria-hidden="true">C</span><span class="sd-opt-text">チームや部署単位で使い方をある程度揃えている</span></label>
-            <label class="sd-opt"><input type="radio" name="q5" value="1"><span class="sd-letter" aria-hidden="true">D</span><span class="sd-opt-text">部署をまたいで複数の業務に組み込まれている</span></label>
-            <label class="sd-opt"><input type="radio" name="q5" value="0"><span class="sd-letter" aria-hidden="true">E</span><span class="sd-opt-text">全社的に運用ルールが整い、業務に組み込まれている</span></label>
-          </fieldset>
-          <fieldset class="sd-q sd-fade" hidden>
-            <legend class="sd-q-title">Q6. 採用に関わる業務全体を振り返って、当てはまるものは?</legend>
-            <label class="sd-opt"><input type="radio" name="q6" value="4"><span class="sd-letter" aria-hidden="true">A</span><span class="sd-opt-text">少人数で大部分を手作業でこなしており、繁忙期は特に負担が大きい</span></label>
-            <label class="sd-opt"><input type="radio" name="q6" value="3"><span class="sd-letter" aria-hidden="true">B</span><span class="sd-opt-text">数名で分担しているが、繁忙期は手が回らないことが多い</span></label>
-            <label class="sd-opt"><input type="radio" name="q6" value="2"><span class="sd-letter" aria-hidden="true">C</span><span class="sd-opt-text">一部の業務は仕組み化されているが、まだ手作業が残っている</span></label>
-            <label class="sd-opt"><input type="radio" name="q6" value="1"><span class="sd-letter" aria-hidden="true">D</span><span class="sd-opt-text">主要な業務の多くが仕組み化されており、繁忙期も大きな負担にはならない</span></label>
-            <label class="sd-opt"><input type="radio" name="q6" value="0"><span class="sd-letter" aria-hidden="true">E</span><span class="sd-opt-text">業務が仕組み化されていて、候補者対応など注力したい仕事に十分な時間を割けている</span></label>
-          </fieldset>
-        </form>
-        <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:24px">
-          <button type="button" id="sd-back" class="sd-back" style="visibility:hidden">← 戻る</button>
-          <button type="button" id="sd-see" class="sd-see" hidden disabled>結果を見る</button>
-        </div>
-      </div>
-      <!-- 診断(結果パート) -->
-      <div id="sd-result" hidden>
-        <div style="font-size:13px;font-weight:700;letter-spacing:.18em;color:#E4691F;margin-bottom:18px">RESULT</div>
-        <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:10px">
-          <span style="font-size:14px;font-weight:700;color:#5A6172;margin-right:4px">スコア</span>
-          <span id="sd-score-num" style="font-size:44px;font-weight:900;line-height:1;color:#1C2B4B">0</span>
-          <span style="font-size:15px;font-weight:700;color:#5A6172">/ 24点</span>
-        </div>
-        <div aria-hidden="true" style="height:10px;border-radius:5px;background:rgba(28,43,75,.12);overflow:hidden;margin-bottom:28px">
-          <div id="sd-score-bar" style="height:100%;width:0%;border-radius:5px;background:linear-gradient(90deg,#F07B2E,#D95614)"></div>
-        </div>
-        <h3 id="sd-type" style="margin:0 0 14px;font-size:clamp(20px,4.4vw,24px);font-weight:900;line-height:1.5;color:#1C2B4B"></h3>
-        <p id="sd-comment" style="margin:0 0 24px;font-size:16px;line-height:2;color:#5A6172;text-wrap:pretty"></p>
-        <div style="background:#F6F1E8;border-left:3px solid #E4691F;border-radius:4px 12px 12px 4px;padding:18px 20px;margin-bottom:24px">
-          <div style="font-size:13px;font-weight:700;letter-spacing:.14em;color:#E4691F;margin-bottom:8px">参考になりそうな実例</div>
-          <p id="sd-case" style="margin:0;font-size:15px;line-height:1.9;color:#232733"></p>
-        </div>
-        <p id="sd-cta-text" style="margin:0 0 24px;font-size:16px;line-height:2;color:#232733;font-weight:500;text-wrap:pretty"></p>
-        <div style="display:flex;flex-wrap:wrap;gap:14px;align-items:center">
-          <a href="#cases" class="sd-btn-cases" style="display:inline-flex;align-items:center;justify-content:center;gap:8px;background:#1C2B4B;color:#fff;text-decoration:none;font-weight:700;font-size:16px;padding:14px 26px;border-radius:10px">実例を見る</a>
-          <a href="https://calendar.app.google/F6qpCXCqKXQDYe5D8" target="_blank" rel="noopener" class="sd-btn-consult" style="display:inline-flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(135deg,#F07B2E,#D95614);color:#fff;text-decoration:none;font-weight:700;font-size:16px;padding:14px 28px;border-radius:999px;box-shadow:0 8px 24px rgba(228,105,31,.32)">無料相談を予約する<span aria-hidden="true">→</span></a>
-        </div>
-        <div style="margin-top:22px">
-          <button type="button" id="sd-reset" class="sd-reset">もう一度診断する</button>
+        <!-- 結果パート -->
+        <div id="sd-result" hidden>
+          <div class="sd-result-label">YOUR RESULT</div>
+          <div class="sd-gauge">
+            <div id="sd-gauge-track" class="sd-gauge-track">
+              <div class="sd-gauge-seg" data-level="1"></div>
+              <div class="sd-gauge-seg" data-level="2"></div>
+              <div class="sd-gauge-seg" data-level="3"></div>
+              <div class="sd-gauge-seg" data-level="4"></div>
+            </div>
+            <div id="sd-gauge-labels" class="sd-gauge-labels">
+              <span data-level="1">レベル1</span>
+              <span data-level="2">レベル2</span>
+              <span data-level="3">レベル3</span>
+              <span data-level="4">レベル4</span>
+            </div>
+          </div>
+          <div id="sd-level-badge" class="sd-level-badge"></div>
+          <h3 id="sd-level-title" class="sd-level-title"></h3>
+          <p id="sd-level-desc" class="sd-level-desc"></p>
+          <p class="sd-cta-text">無料相談で、貴社に合った進め方をご案内します。</p>
+          <div style="display:flex;flex-wrap:wrap;gap:16px;align-items:center">
+            <button type="button" id="sd-reset" class="sd-reset">もう一度診断する</button>
+            <a href="https://calendar.app.google/F6qpCXCqKXQDYe5D8" target="_blank" rel="noopener" id="sd-cta-btn" class="sd-btn-consult"><span id="sd-cta-btn-label">無料相談を予約する</span><span aria-hidden="true">→</span></a>
+          </div>
         </div>
       </div>
     </div>
   </div>
   <script>
   (function(){
+    var QUESTIONS=[
+      {title:'Q1. 提案資料・報告書などの文書作成は、どのように行っていますか?',options:[
+        '毎回ゼロから考えて書いている',
+        '過去の資料をコピーして一部だけ書き換えている',
+        'いくつかのひな形を使い分けている',
+        'AIに下書きを作らせてから自分で仕上げている']},
+      {title:'Q2. 議事録・会議メモの作成は、どのように行っていますか?',options:[
+        '会議中にメモを取り、後で清書している',
+        '録音を聞き直しながら書き起こしている',
+        'AIの文字起こし機能は使うが、要約は自分でしている',
+        'AIに要約・タスク抽出まで任せている']},
+      {title:'Q3. 社内でAIツールを使っているのは、どのくらいの人数ですか?',options:[
+        'ほぼ自分一人',
+        '一部の詳しい人だけ',
+        '部署内の半数程度',
+        '部署内のほぼ全員']},
+      {title:'Q4. 「AIに詳しい人」が異動・退職したら、その人のノウハウはどうなりますか?',options:[
+        'ほぼ何も残らない',
+        '断片的なメモは残る程度',
+        'ある程度は引き継ぎ資料がある',
+        'プロンプトや手順が文書化されている']},
+      {title:'Q5. AI活用について、経営層と現場の温度感は合っていますか?',options:[
+        '経営層は関心が薄い',
+        '現場は乗り気だが経営層の理解が薄い',
+        '経営層は前向きだが現場が追いついていない',
+        'どちらも前向きだが進め方が定まっていない']},
+      {title:'Q6. 自社に合わせたAI活用の「仕組み」(誰が使っても同じ品質になる型)は、社内にありますか?',options:[
+        'まったくない',
+        '個人レベルでは工夫している人がいる',
+        '一部の業務だけ仕組み化されている',
+        '複数の業務で仕組み化が進んでいる']}
+    ];
+    var LEVELS={
+      1:{label:'レベル1',title:'個人の工夫止まり',desc:'AI活用は、今のところ一部の人の工夫にとどまっているようです。まずは1つの業務から「個人の工夫」を「チームの型」に変えていくと、負担を減らせる余地がありそうです。',cta:'何から仕組み化すべきか相談する'},
+      2:{label:'レベル2',title:'チーム内で一部活用',desc:'チーム内では一部の業務でAIの活用が始まっています。この動きをチーム全体・他部署にも広げていくことで、効果を実感できる範囲がさらに広がりそうです。',cta:'全社展開の進め方を相談する'},
+      3:{label:'レベル3',title:'仕組み化が進行中',desc:'複数の業務で仕組み化が進み、定着に近づいている段階です。残る業務への横展開や、属人化しやすい部分の仕上げが次のテーマになりそうです。',cta:'社内浸透するためにどうすべきか相談する'},
+      4:{label:'レベル4',title:'全社定着',desc:'AI活用がすでに全社的に定着しています。次のフェーズとして、さらなる磨き込みや他部署・他業務への横展開を検討する余地がありそうです。',cta:'さらなる展開を相談する'}
+    };
+    var LETTERS=['A','B','C','D'];
     var quiz=document.getElementById('sd-quiz');
-    var form=document.getElementById('sd-form');
-    var qs=Array.prototype.slice.call(form.querySelectorAll('.sd-q'));
-    var N=qs.length,cur=0,timer=null;
-    var ptext=document.getElementById('sd-progress-text');
-    var bar=document.getElementById('sd-bar');
-    var dots=Array.prototype.slice.call(document.getElementById('sd-dots').children);
+    var result=document.getElementById('sd-result');
+    var qnum=document.getElementById('sd-qnum');
+    var remain=document.getElementById('sd-remain');
+    var fill=document.getElementById('sd-fill');
+    var qwrap=document.getElementById('sd-qwrap');
+    var qtitle=document.getElementById('sd-qtitle');
+    var optionsWrap=document.getElementById('sd-options');
     var back=document.getElementById('sd-back');
     var see=document.getElementById('sd-see');
-    var result=document.getElementById('sd-result');
-    var TYPES={
-      A:{name:'タイプA:手作業ベースタイプ',
-         comment:'スカウト文面・求人票のいずれも、一から手作業で作られている割合が多いようです。一つひとつに丁寧に向き合っている裏返しでもありますが、その分、候補者対応や面談準備に使える時間が限られてしまっているかもしれません。',
-         cta:'どこから手をつければ負担が減るか、現状に合わせて一緒に整理することができます。無料相談で具体的にお話しませんか。'},
-      B:{name:'タイプB:自己流トライタイプ',
-         comment:'一部の業務や一部のメンバーでは、すでにAIやツールを試されているようです。ただ、業務全体としてはまだ「仕組み」として定着していない部分が残っているかもしれません。',
-         cta:'すでに試している取り組みを、チームで使える仕組みに育てる余地がありそうです。無料相談で今の状況を聞かせてください。'},
-      C:{name:'タイプC:部分仕組み化タイプ',
-         comment:'一部の業務ではすでに仕組み化が進んでいるようです。残り部分に手作業が集中している場合、そこがボトルネックになっている可能性があります。',
-         cta:'仕組み化できている部分とできていない部分を整理すると、次の一手が見えやすくなります。無料相談でご一緒に整理しましょう。'},
-      D:{name:'タイプD:仕組み化実践タイプ',
-         comment:'スカウト・求人票のいずれも、すでにある程度仕組み化が進んでいるようです。次の課題は、その仕組みを他の業務やメンバーにどう広げていくかかもしれません。',
-         cta:'今の仕組みをどう横展開するか、他社の実例も交えてお話しできます。よろしければ無料相談でどうぞ。'}
-    };
-    var CASES={
-      A:'このページで紹介している4つの実例のいずれにも伸びしろがありますが、最初の一歩には実例1「スカウト自動化」が着手しやすいはずです。扱う件数が多く、変化を実感しやすい業務だからです。',
-      D:'このページで紹介している実例のうち、実例4「採用資料の自動化・カスタマイズ」が参考になりそうです。仕組み化が進んでいる会社ほど、次は資料の保守・展開が課題になりやすいためです。',
-      scout:'特にスカウト文面の作成に時間がかかっているようです。このページで紹介している実例1「スカウト自動化」が参考になりそうです。',
-      jobpost:'特に求人票の作成に時間がかかっているようです。このページで紹介している実例3「求人作成の自動化」が参考になりそうです。'
-    };
-    function val(i){var r=qs[i].querySelector('input:checked');return r?parseInt(r.value,10):null;}
+    var N=QUESTIONS.length;
+    var answers=new Array(N).fill(null);
+    var cur=0,timer=null;
+
+    function renderOptions(i){
+      optionsWrap.innerHTML='';
+      QUESTIONS[i].options.forEach(function(text,idx){
+        var val=idx+1;
+        var btn=document.createElement('button');
+        btn.type='button';
+        btn.className='sd-opt'+(answers[i]===val?' is-selected':'');
+        btn.setAttribute('aria-pressed',answers[i]===val?'true':'false');
+        var letter=document.createElement('span');
+        letter.className='sd-letter';
+        letter.setAttribute('aria-hidden','true');
+        letter.textContent=LETTERS[idx];
+        var span=document.createElement('span');
+        span.className='sd-opt-text';
+        span.textContent=text;
+        btn.appendChild(letter);
+        btn.appendChild(span);
+        btn.addEventListener('click',function(){selectOption(i,val);});
+        optionsWrap.appendChild(btn);
+      });
+    }
+
     function show(i){
       cur=i;
-      qs.forEach(function(q,j){q.hidden=j!==i;});
-      ptext.textContent='質問 '+(i+1)+' / '+N;
-      bar.style.width=((i+1)/N*100)+'%';
-      dots.forEach(function(d,j){d.style.background=j<=i?'#E4691F':'rgba(28,43,75,.18)';});
+      qnum.textContent='QUESTION '+(i+1)+' / '+N;
+      remain.textContent='残り'+(N-(i+1))+'問';
+      fill.style.width=((i+1)/N*100)+'%';
+      qtitle.textContent=QUESTIONS[i].title;
+      renderOptions(i);
       back.style.visibility=i===0?'hidden':'visible';
       var last=i===N-1;
-      see.hidden=!last;
-      see.disabled=!(last&&val(i)!==null);
+      see.disabled=!(last&&answers[i]!==null);
+      qwrap.classList.remove('sd-fade');void qwrap.offsetWidth;qwrap.classList.add('sd-fade');
     }
-    function schedule(i){
-      if(i!==cur)return;
-      if(cur===N-1){see.disabled=(val(cur)===null);return;}
+
+    function selectOption(i,val){
+      answers[i]=val;
+      renderOptions(i);
+      if(i===N-1){see.disabled=false;return;}
       clearTimeout(timer);
       timer=setTimeout(function(){if(cur===i)show(i+1);},400);
     }
-    form.addEventListener('change',function(e){
-      if(e.target.type!=='radio')return;
-      schedule(qs.indexOf(e.target.closest('.sd-q')));
-    });
-    form.addEventListener('click',function(e){
-      var opt=e.target.closest('.sd-opt');
-      if(!opt)return;
-      var input=opt.querySelector('input');
-      if(input&&input.checked)schedule(qs.indexOf(opt.closest('.sd-q')));
-    });
+
     back.addEventListener('click',function(){clearTimeout(timer);if(cur>0)show(cur-1);});
+
     see.addEventListener('click',function(){
-      var total=0,scout=0,jobpost=0;
+      var total=0;
       for(var i=0;i<N;i++){
-        var v=val(i);
-        if(v===null){show(i);return;}
-        total+=v;
-        var cat=qs[i].querySelector('input').getAttribute('data-cat');
-        if(cat==='scout')scout+=v;else if(cat==='jobpost')jobpost+=v;
+        if(answers[i]===null){show(i);return;}
+        total+=answers[i];
       }
-      var t=total>=18?'A':total>=12?'B':total>=6?'C':'D';
-      var caseText=t==='A'?CASES.A:t==='D'?CASES.D:(scout>=jobpost?CASES.scout:CASES.jobpost);
-      document.getElementById('sd-score-num').textContent=total;
-      document.getElementById('sd-score-bar').style.width=(total/24*100)+'%';
-      document.getElementById('sd-type').textContent=TYPES[t].name;
-      document.getElementById('sd-comment').textContent=TYPES[t].comment;
-      document.getElementById('sd-case').textContent=caseText;
-      document.getElementById('sd-cta-text').textContent=TYPES[t].cta;
+      var level=total>=20?4:total>=15?3:total>=10?2:1;
+      document.querySelectorAll('#sd-gauge-track .sd-gauge-seg').forEach(function(seg){
+        seg.classList.toggle('is-filled',parseInt(seg.getAttribute('data-level'),10)<=level);
+      });
+      document.querySelectorAll('#sd-gauge-labels span').forEach(function(sp){
+        sp.classList.toggle('is-current',parseInt(sp.getAttribute('data-level'),10)===level);
+      });
+      document.getElementById('sd-level-badge').textContent='診断結果 LEVEL '+level+' /4';
+      document.getElementById('sd-level-title').textContent=LEVELS[level].title;
+      document.getElementById('sd-level-desc').textContent=LEVELS[level].desc;
+      document.getElementById('sd-cta-btn-label').textContent=LEVELS[level].cta;
       quiz.hidden=true;
       result.hidden=false;
       result.classList.remove('sd-fade');void result.offsetWidth;result.classList.add('sd-fade');
     });
+
     document.getElementById('sd-reset').addEventListener('click',function(){
-      form.reset();clearTimeout(timer);result.hidden=true;quiz.hidden=false;show(0);
+      answers=new Array(N).fill(null);
+      clearTimeout(timer);
+      result.hidden=true;
+      quiz.hidden=false;
+      show(0);
     });
+
     show(0);
   })();
   </script>
 </section>
 
-<!-- ===== 3. 解決策(ネイビー全幅・図解左) ===== -->
-<section data-screen-label="解決策" style="position:relative;overflow:hidden;background:linear-gradient(140deg,#1C2B4B,#152039)">
-  <div aria-hidden="true" style="position:absolute;inset:0;background:linear-gradient(115deg,transparent 62%,rgba(255,255,255,.03) 62%)"></div>
-  <div style="position:relative;max-width:960px;margin:0 auto;padding:72px 24px;display:flex;flex-wrap:wrap-reverse;gap:56px;align-items:center;justify-content:center">
-    <!-- ビジュアル: 実務者が手を動かす -->
-    <div aria-hidden="true" style="flex:0 1 360px;min-width:280px;display:flex;justify-content:center">
-      <div style="padding:24px">
-        <img src="assets/working-woman.png" alt="" loading="lazy" style="display:block;width:300px;max-width:100%;height:auto;filter:brightness(1.22) contrast(1.04) drop-shadow(0 12px 24px rgba(0,0,0,.35))">
+<!-- ===== 3. 解決策+Claude Code採用理由(02 SOLUTION/02.2 WHY CLAUDE CODE) ===== -->
+<section id="solution" data-screen-label="解決策+Claude Code採用理由" style="position:relative;overflow:hidden;background:#FDFCFA;border-top:1px solid rgba(28,43,75,.08)">
+  <div style="position:relative;max-width:1080px;margin:0 auto;padding:clamp(48px,8vw,68px) 24px">
+    <!-- ヘッダー -->
+    <div style="display:flex;flex-direction:column;gap:14px;align-items:center;text-align:center;margin-bottom:32px">
+      <div class="sec-badge">
+        <span class="sec-badge-num" aria-hidden="true">02</span>
+        <span class="sec-badge-label">SOLUTION</span>
+      </div>
+      <h2 style="margin:0;font-size:clamp(24px,5vw,32px);font-weight:900;line-height:1.5;color:#1C2B4B">内製化伴走型のAIコンサル</h2>
+    </div>
+
+    <!-- 対象者を明示する強調ボックス -->
+    <div class="sol-lead-box">
+      <span class="sol-lead-pill">AI活用初心者の方向けサービスです</span>
+      <p class="sol-lead-l1">「AIは日常的に触っているけれど、結局チャットで質問するだけ」</p>
+      <p class="sol-lead-l2">そんな方、働き方を変えませんか?</p>
+    </div>
+
+    <!-- 3つの特徴 -->
+    <div class="sol-grid">
+      <div class="sol-card">
+        <div class="sol-card-top">
+          <span class="sol-num" aria-hidden="true">01</span>
+          <span class="sol-icon-wrap" style="background:rgba(228,105,31,.12);color:#E4691F" aria-hidden="true">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M12 3 2 8l10 5 10-5-10-5Z"/><path d="M6 10.5V16c0 1.5 2.7 3 6 3s6-1.5 6-3v-5.5"/><path d="M22 8v6"/></svg>
+          </span>
+        </div>
+        <h3 class="sol-card-title">「作業を巻き取る」のではなく「使い方を教える」</h3>
+        <p class="sol-card-text">私たちが仕組みを作って終わりではなく、担当者自身がその仕組みを理解し、自分で調整・応用できるようになるまで伴走します。気づけば、その方が「社内でAIに一番詳しい人」になっています。</p>
+      </div>
+      <div class="sol-card">
+        <div class="sol-card-top">
+          <span class="sol-num" aria-hidden="true">02</span>
+          <span class="sol-icon-wrap" style="background:rgba(28,43,75,.08);color:#1C2B4B" aria-hidden="true">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M3.5 16.5 16.5 3.5l4 4-13 13z"/><path d="m13.5 6.5 2 2M10.5 9.5l2 2M7.5 12.5l2 2"/></svg>
+          </span>
+        </div>
+        <h3 class="sol-card-title">汎用テンプレートではなく、貴社専用の「型」</h3>
+        <p class="sol-card-text">汎用テンプレートをそのまま渡すのではなく、貴社の業務・仕様に合わせて中身を一から設計します。「自分の仕事で使える」形に仕上げるので、現場に定着しやすくなります。</p>
+      </div>
+      <div class="sol-card">
+        <div class="sol-card-top">
+          <span class="sol-num" aria-hidden="true">03</span>
+          <span class="sol-icon-wrap" style="background:rgba(228,105,31,.12);color:#E4691F" aria-hidden="true">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M12 3 5 6v5c0 4.6 3 7.6 7 9 4-1.4 7-4.4 7-9V6l-7-3Z"/><path d="m9 12 2 2 4-4"/></svg>
+          </span>
+        </div>
+        <h3 class="sol-card-title">個人情報・システムには触れません</h3>
+        <p class="sol-card-text">貴社のツール操作、システムへの直接アクセスは一切行いません。データを扱う操作は、すべて貴社の担当者の手元で行っていただく設計です。</p>
       </div>
     </div>
-    <div style="flex:1 1 400px;max-width:540px;min-width:0">
-      <div style="display:flex;align-items:baseline;gap:16px;margin-bottom:18px">
-        <span aria-hidden="true" style="font-weight:900;font-size:64px;line-height:1;color:transparent;-webkit-text-stroke:1.5px rgba(255,255,255,.4)">02</span>
-        <span style="font-size:13px;font-weight:700;letter-spacing:.18em;color:#F0904F">SOLUTION</span>
+
+    <!-- 実践してきた成果 -->
+    <div class="sol-results">
+      <div class="sol-results-head">
+        <h3>実践してきた成果</h3>
+        <span class="sol-results-note">私たちが自社の業務で実践した結果です。</span>
       </div>
-      <h2 style="margin:0 0 20px;font-size:clamp(24px,5vw,32px);font-weight:900;line-height:1.5;color:#fff">内製化伴走型のAIコンサル</h2>
-      <p style="margin:0;font-size:16px;line-height:2;color:rgba(255,255,255,.84);text-wrap:pretty">この仕組みづくりを、私たちは「ゼロからAI Academy」としてご提供しています。支援の型(パッケージ)は具体的に示しつつ、中身は会社ごとに一から設計します。仕組みは担当者自身が理解し、使い続けられる形でお渡しします。</p>
-      <p style="margin:18px 0 0;padding:14px 18px;background:rgba(255,255,255,.08);border-left:3px solid #F0904F;border-radius:4px 12px 12px 4px;font-size:15.5px;line-height:2;color:#fff;font-weight:700;text-wrap:pretty">AIの知識はゼロで大丈夫です。私たち自身、エンジニアのいないチームでこれらの仕組みを作ってきました。</p>
+      <div class="sol-results-grid">
+        <div class="sol-result sol-result--orange">
+          <span class="sol-result-pill">スカウト業務</span>
+          <div class="sol-result-num">90<span>%</span></div>
+          <div class="sol-result-label">削減</div>
+        </div>
+        <div class="sol-result sol-result--navy">
+          <span class="sol-result-pill">資料作成業務</span>
+          <div class="sol-result-num">80<span>%</span></div>
+          <div class="sol-result-label">削減</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- WHY CLAUDE CODE -->
+    <div class="wcc-box">
+      <div class="wcc-head">
+        <div class="wcc-badge">
+          <span class="wcc-badge-num" aria-hidden="true">02.2</span>
+          <span class="wcc-badge-label">WHY CLAUDE CODE</span>
+        </div>
+        <h3 class="wcc-title">私たちがClaude Codeを採用する理由</h3>
+        <p class="wcc-lead">「AIはチャットで質問するだけ」を卒業するには、チャットの外側で「実際に動く仕組み」を作る必要があります。私たちがClaude Codeを中核に据えているのは、そのためです。</p>
+      </div>
+      <div class="wcc-cards">
+        <div class="wcc-card" style="padding:20px">
+          <span class="wcc-num" aria-hidden="true">01</span>
+          <div class="wcc-card-body">
+            <h4>会話で終わらず、仕組みが「形」になる</h4>
+            <p>多くのAIは質問をすると回答してくれる、「会話するAI」です。Claude Codeは「作業するAI」です。指示を出せばファイルを作成・編集し、複数ステップの作業をまとめて処理します。一度作った仕組みは資産として残ります。</p>
+          </div>
+          <div class="wcc-illust wcc-illust--compact" aria-hidden="true">
+            <div class="wcc-flow">
+              <div class="wcc-chip wcc-chip--chat">
+                <span class="wcc-chip-label">CHAT</span>
+                <span class="wcc-chip-bar"></span>
+                <span class="wcc-chip-bar"></span>
+              </div>
+              <span class="wcc-flow-arrow">↓</span>
+              <div class="wcc-chip wcc-chip--works">
+                <span class="wcc-chip-label">WORKS</span>
+                <span class="wcc-check-row"><span class="wcc-check-dot">✓</span>ファイル編集</span>
+                <span class="wcc-check-row"><span class="wcc-check-dot">✓</span>複数手順を実行</span>
+                <span class="wcc-check-row"><span class="wcc-check-dot">✓</span>仕組みが残る</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="wcc-card">
+          <span class="wcc-num" aria-hidden="true">02</span>
+          <div class="wcc-card-body">
+            <h4>非エンジニアでも、扱える設計にできる</h4>
+            <p>私たち自身、エンジニアのいないチームでこの仕組みを作ってきました。専門知識がなくても担当者が扱える形に仕上げるノウハウがあります。</p>
+          </div>
+          <div class="wcc-illust" aria-hidden="true">
+            <div class="wcc-people">
+              <span class="wcc-people-badge">✓</span>
+              <span class="wcc-person"></span>
+              <span class="wcc-person wcc-person--alt"></span>
+            </div>
+            <div class="wcc-people-label">NO ENGINEERS<br>REQUIRED</div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ===== 4. 実例4本(クリーム帯・罫線ジグザグ) ===== -->
-<section id="cases" data-screen-label="実例4本" style="position:relative;overflow:hidden;background:linear-gradient(180deg,#F6F1E8,#F2EADC)">
-  <div style="position:relative;max-width:840px;margin:0 auto;padding:72px 24px">
-    <div style="max-width:640px;margin-bottom:24px">
-      <div style="display:flex;align-items:baseline;gap:16px;margin-bottom:18px">
-        <span aria-hidden="true" style="font-weight:900;font-size:64px;line-height:1;color:transparent;-webkit-text-stroke:1.5px rgba(228,105,31,.55)">03</span>
-        <span style="font-size:13px;font-weight:700;letter-spacing:.18em;color:#E4691F">CASES</span>
+<!-- ===== 4. 業種・職種別の活用ガイド(03 USE CASES) ===== -->
+<section id="industries" data-screen-label="業種職種別活用" style="position:relative;overflow:hidden;background:#EEF2F8;border-top:1px solid rgba(28,43,75,.08)">
+  <div style="position:relative;max-width:1080px;margin:0 auto;padding:68px 24px">
+    <div style="display:flex;flex-direction:column;gap:14px;align-items:center;text-align:center;margin-bottom:40px">
+      <div class="sec-badge">
+        <span class="sec-badge-num" aria-hidden="true">03</span>
+        <span class="sec-badge-label">USE CASES</span>
       </div>
-      <h2 style="margin:0 0 20px;font-size:clamp(24px,5vw,32px);font-weight:900;line-height:1.5;color:#1C2B4B">私たちが実践してきた4つの仕組み</h2>
-      <p style="margin:0;font-size:16px;line-height:2;color:#5A6172;text-wrap:pretty">自社の採用・人材紹介の実務で使い、育ててきた仕組みです。そのままではなく、貴社に合わせて組み立て直します。</p>
+      <h2 style="margin:0;font-size:clamp(24px,5vw,32px);font-weight:900;line-height:1.5;color:#1C2B4B">貴社の業種・職種では、こんな活用ができます</h2>
+      <p style="margin:0;max-width:520px;font-size:16px;line-height:2;color:#5A6172;text-wrap:pretty">カードを選ぶと、お困りごとと解決アプローチをご覧いただけます。</p>
     </div>
-    <!-- 1 -->
-    <div style="display:flex;flex-wrap:wrap;gap:28px;align-items:center;padding:44px 0;border-top:1.5px solid rgba(28,43,75,.15);margin-top:24px">
-      <div style="flex:1 1 340px;min-width:0;display:flex;gap:20px">
-        <span aria-hidden="true" style="flex:none;font-weight:900;font-size:56px;line-height:1;color:transparent;-webkit-text-stroke:1.5px rgba(28,43,75,.35)">1</span>
-        <div>
-          <h3 style="margin:2px 0 14px;font-size:20px;font-weight:900;color:#1C2B4B">スカウト自動化</h3>
-          <p style="margin:0 0 8px;font-size:16px;line-height:1.9;color:#5A6172"><span style="font-weight:700;color:#8A8F9C;font-size:13px;letter-spacing:.1em;margin-right:8px">BEFORE</span>候補者ごとにスカウト文面をゼロから考えていた</p>
-          <p style="margin:0;font-size:16px;line-height:1.9;color:#1C2B4B;font-weight:500"><span style="font-weight:700;color:#E4691F;font-size:13px;letter-spacing:.1em;margin-right:8px">AFTER</span>経歴に合わせた下書きを自動生成、担当者は言葉選びに集中</p>
-          <p style="margin:10px 0 0;font-size:13.5px;line-height:1.8;color:#8A8F9C"><span style="font-weight:700;font-size:12px;letter-spacing:.1em;margin-right:8px;border:1px solid rgba(28,43,75,.22);border-radius:999px;padding:2px 9px;white-space:nowrap">効果</span>文面づくりに追われず、候補者一人ひとりに向き合う余裕が生まれました。</p>
-        </div>
-      </div>
-      <div aria-hidden="true" style="flex:0 1 220px;min-width:180px;display:flex;justify-content:center">
-        <div style="width:170px;background:#fff;border-radius:12px;box-shadow:0 12px 28px rgba(28,43,75,.12);padding:14px;display:flex;flex-direction:column;gap:8px">
-          <div style="display:flex;align-items:center;gap:8px"><span style="width:22px;height:22px;border-radius:50%;background:#1C2B4B"></span><span style="height:8px;flex:1;border-radius:4px;background:rgba(28,43,75,.18)"></span></div>
-          <span style="height:8px;width:92%;border-radius:4px;background:rgba(28,43,75,.12)"></span>
-          <span style="height:8px;width:80%;border-radius:4px;background:rgba(28,43,75,.12)"></span>
-          <span style="height:20px;width:64%;border-radius:6px;background:#E4691F;margin-top:2px"></span>
-        </div>
-      </div>
+
+    <div class="uc-group">
+      <div class="uc-group-head"><h3>業種別の活用</h3><span class="uc-group-head-line" aria-hidden="true"></span><span class="uc-group-head-sub">BY INDUSTRY</span></div>
+      <div class="uc-grid" id="uc-grid-industry"></div>
     </div>
-    <!-- 2 -->
-    <div style="display:flex;flex-wrap:wrap-reverse;gap:28px;align-items:center;padding:44px 0;border-top:1.5px solid rgba(28,43,75,.15)">
-      <div aria-hidden="true" style="flex:0 1 220px;min-width:180px;display:flex;justify-content:center">
-        <div style="display:flex;gap:-10px">
-          <div style="width:110px;background:#fff;border-radius:12px;box-shadow:0 12px 28px rgba(28,43,75,.12);padding:12px;display:flex;flex-direction:column;gap:7px;transform:rotate(-4deg)"><span style="height:8px;width:60%;border-radius:4px;background:#1C2B4B"></span><span style="height:7px;width:90%;border-radius:4px;background:rgba(28,43,75,.12)"></span><span style="height:7px;width:75%;border-radius:4px;background:rgba(28,43,75,.12)"></span><span style="height:7px;width:82%;border-radius:4px;background:rgba(28,43,75,.12)"></span></div>
-          <div style="width:110px;background:#fff;border-radius:12px;box-shadow:0 12px 28px rgba(28,43,75,.16);padding:12px;display:flex;flex-direction:column;gap:7px;transform:rotate(4deg) translateY(10px);margin-left:-24px"><span style="height:8px;width:55%;border-radius:4px;background:#E4691F"></span><span style="height:7px;width:88%;border-radius:4px;background:rgba(28,43,75,.12)"></span><span style="height:7px;width:70%;border-radius:4px;background:rgba(28,43,75,.12)"></span><span style="height:7px;width:85%;border-radius:4px;background:rgba(28,43,75,.12)"></span></div>
-        </div>
-      </div>
-      <div style="flex:1 1 340px;min-width:0;display:flex;gap:20px">
-        <span aria-hidden="true" style="flex:none;font-weight:900;font-size:56px;line-height:1;color:transparent;-webkit-text-stroke:1.5px rgba(28,43,75,.35)">2</span>
-        <div>
-          <h3 style="margin:2px 0 14px;font-size:20px;font-weight:900;color:#1C2B4B">求職者提案資料の自動化</h3>
-          <p style="margin:0 0 8px;font-size:16px;line-height:1.9;color:#5A6172"><span style="font-weight:700;color:#8A8F9C;font-size:13px;letter-spacing:.1em;margin-right:8px">BEFORE</span>提案資料を毎回ゼロから作成していた</p>
-          <p style="margin:0;font-size:16px;line-height:1.9;color:#1C2B4B;font-weight:500"><span style="font-weight:700;color:#E4691F;font-size:13px;letter-spacing:.1em;margin-right:8px">AFTER</span>情報を入力すれば構成・下書きが自動でできる</p>
-          <p style="margin:10px 0 0;font-size:13.5px;line-height:1.8;color:#8A8F9C"><span style="font-weight:700;font-size:12px;letter-spacing:.1em;margin-right:8px;border:1px solid rgba(28,43,75,.22);border-radius:999px;padding:2px 9px;white-space:nowrap">効果</span>資料づくりの負担が減り、面談や提案の中身に時間を使えるようになりました。</p>
-        </div>
-      </div>
-    </div>
-    <!-- 3 -->
-    <div style="display:flex;flex-wrap:wrap;gap:28px;align-items:center;padding:44px 0;border-top:1.5px solid rgba(28,43,75,.15)">
-      <div style="flex:1 1 340px;min-width:0;display:flex;gap:20px">
-        <span aria-hidden="true" style="flex:none;font-weight:900;font-size:56px;line-height:1;color:transparent;-webkit-text-stroke:1.5px rgba(28,43,75,.35)">3</span>
-        <div>
-          <h3 style="margin:2px 0 14px;font-size:20px;font-weight:900;color:#1C2B4B">求人作成の自動化</h3>
-          <p style="margin:0 0 8px;font-size:16px;line-height:1.9;color:#5A6172"><span style="font-weight:700;color:#8A8F9C;font-size:13px;letter-spacing:.1em;margin-right:8px">BEFORE</span>ヒアリング内容を求人票に落とし込むのに時間がかかっていた</p>
-          <p style="margin:0;font-size:16px;line-height:1.9;color:#1C2B4B;font-weight:500"><span style="font-weight:700;color:#E4691F;font-size:13px;letter-spacing:.1em;margin-right:8px">AFTER</span>メモから求人票の下書きを自動生成できる</p>
-          <p style="margin:10px 0 0;font-size:13.5px;line-height:1.8;color:#8A8F9C"><span style="font-weight:700;font-size:12px;letter-spacing:.1em;margin-right:8px;border:1px solid rgba(28,43,75,.22);border-radius:999px;padding:2px 9px;white-space:nowrap">効果</span>ゼロから書き起こす負担がなくなり、内容の磨き込みや確認に集中できるようになりました。</p>
-        </div>
-      </div>
-      <div aria-hidden="true" style="flex:0 1 220px;min-width:180px;display:flex;justify-content:center;align-items:center;gap:10px">
-        <div style="width:76px;background:#fff;border:1.5px dashed rgba(28,43,75,.3);border-radius:10px;padding:10px;display:flex;flex-direction:column;gap:6px"><span style="height:6px;width:80%;border-radius:3px;background:rgba(28,43,75,.2)"></span><span style="height:6px;width:60%;border-radius:3px;background:rgba(28,43,75,.2)"></span><span style="height:6px;width:88%;border-radius:3px;background:rgba(28,43,75,.2)"></span></div>
-        <span style="color:#E4691F;font-weight:900;font-size:20px">→</span>
-        <div style="width:104px;background:#fff;border-radius:10px;box-shadow:0 12px 28px rgba(28,43,75,.14);padding:12px;display:flex;flex-direction:column;gap:6px"><span style="height:8px;width:55%;border-radius:4px;background:#1C2B4B"></span><span style="height:7px;width:90%;border-radius:4px;background:rgba(28,43,75,.12)"></span><span style="height:7px;width:78%;border-radius:4px;background:rgba(28,43,75,.12)"></span><span style="height:16px;width:56%;border-radius:5px;background:#E4691F;margin-top:2px"></span></div>
-      </div>
-    </div>
-    <!-- 4 -->
-    <div style="display:flex;flex-wrap:wrap-reverse;gap:28px;align-items:center;padding:44px 0 8px;border-top:1.5px solid rgba(28,43,75,.15)">
-      <div aria-hidden="true" style="flex:0 1 220px;min-width:180px;display:flex;justify-content:center">
-        <div style="width:180px;background:#1C2B4B;border-radius:12px;box-shadow:0 14px 32px rgba(28,43,75,.28);padding:14px;display:flex;flex-direction:column;gap:8px">
-          <div style="display:flex;gap:5px"><span style="width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.3)"></span><span style="width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.3)"></span><span style="width:7px;height:7px;border-radius:50%;background:#E4691F"></span></div>
-          <span style="height:8px;width:70%;border-radius:4px;background:rgba(255,255,255,.55)"></span>
-          <span style="height:7px;width:92%;border-radius:4px;background:rgba(255,255,255,.2)"></span>
-          <span style="height:7px;width:64%;border-radius:4px;background:#F0904F"></span>
-          <span style="height:7px;width:84%;border-radius:4px;background:rgba(255,255,255,.2)"></span>
-        </div>
-      </div>
-      <div style="flex:1 1 340px;min-width:0;display:flex;gap:20px">
-        <span aria-hidden="true" style="flex:none;font-weight:900;font-size:56px;line-height:1;color:transparent;-webkit-text-stroke:1.5px rgba(28,43,75,.35)">4</span>
-        <div>
-          <h3 style="margin:2px 0 14px;font-size:20px;font-weight:900;color:#1C2B4B">採用資料の自動化・カスタマイズ</h3>
-          <p style="margin:0 0 8px;font-size:16px;line-height:1.9;color:#5A6172"><span style="font-weight:700;color:#8A8F9C;font-size:13px;letter-spacing:.1em;margin-right:8px">BEFORE</span>資料の作り直しや外部委託に時間がかかっていた</p>
-          <p style="margin:0;font-size:16px;line-height:1.9;color:#1C2B4B;font-weight:500"><span style="font-weight:700;color:#E4691F;font-size:13px;letter-spacing:.1em;margin-right:8px">AFTER</span>Claude Codeで自社の手でフォーマットを保守できる</p>
-          <p style="margin:10px 0 0;font-size:13.5px;line-height:1.8;color:#8A8F9C"><span style="font-weight:700;font-size:12px;letter-spacing:.1em;margin-right:8px;border:1px solid rgba(28,43,75,.22);border-radius:999px;padding:2px 9px;white-space:nowrap">効果</span>外部への依頼を待たず、必要なタイミングで自分たちの手で資料を直せるようになりました。</p>
-        </div>
-      </div>
+
+    <div class="uc-group">
+      <div class="uc-group-head"><h3>職種別の活用</h3><span class="uc-group-head-line" aria-hidden="true"></span><span class="uc-group-head-sub">BY ROLE</span></div>
+      <div class="uc-grid" id="uc-grid-role"></div>
     </div>
   </div>
-</section>
 
-<!-- ===== 4.5 資料請求バンド ===== -->
-<section style="background:linear-gradient(180deg,#F2EADC,#F6F1E8)">
-  <div style="max-width:840px;margin:0 auto;padding:clamp(28px,5vw,40px) 24px;text-align:center">
-    <a href="#download" class="btn-cases-cta" style="display:inline-flex;align-items:center;justify-content:center;background:#fff;color:#C0501A;border:2px solid #C0501A;text-decoration:none;font-weight:700;font-size:16px;padding:16px 32px;border-radius:999px;box-shadow:0 8px 24px rgba(228,105,31,.32)">もっと詳しく知りたい方は資料ダウンロード</a>
+  <div id="uc-overlay" class="uc-overlay" hidden>
+    <div class="uc-dialog" role="dialog" aria-modal="true" aria-labelledby="uc-modal-title" tabindex="-1">
+      <button type="button" id="uc-close" class="uc-close" aria-label="閉じる">×</button>
+      <div id="uc-modal-body"></div>
+    </div>
   </div>
+  <script>
+  (function(){
+    var industryGrid=document.getElementById('uc-grid-industry');
+    var roleGrid=document.getElementById('uc-grid-role');
+    var overlay=document.getElementById('uc-overlay');
+    var dialog=overlay?overlay.querySelector('.uc-dialog'):null;
+    var body=document.getElementById('uc-modal-body');
+    var closeBtn=document.getElementById('uc-close');
+    if(!industryGrid||!roleGrid||!overlay||!dialog||!body||!closeBtn)return;
+
+    var ICON_WARN='<svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M8 2l7 12H1z" fill="none" stroke="#fff" stroke-width="1.3" stroke-linejoin="round"/><path d="M8 6.4v3.2" stroke="#fff" stroke-width="1.3" stroke-linecap="round"/><circle cx="8" cy="11.7" r=".9" fill="#fff"/></svg>';
+    var ICON_BULB='<svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M8 2a4.5 4.5 0 00-2.6 8.2c.4.3.6.8.6 1.3v.3h4v-.3c0-.5.2-1 .6-1.3A4.5 4.5 0 008 2z" fill="none" stroke="#fff" stroke-width="1.3" stroke-linejoin="round"/><path d="M6.5 14h3" stroke="#fff" stroke-width="1.3" stroke-linecap="round"/></svg>';
+    var ICON_ARROW='<svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M2 8h10M8 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    var ICON_GRAPH='<svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><rect x="2" y="9" width="3" height="5" rx=".5" fill="currentColor"/><rect x="6.5" y="6" width="3" height="8" rx=".5" fill="currentColor"/><rect x="11" y="2" width="3" height="12" rx=".5" fill="currentColor"/></svg>';
+
+    var ICONS={
+      'hr-agency':'<path d="M6 50c8-8 22-12 30-12s22 4 30 12z" fill="#FCEEE3"/><circle cx="26" cy="22" r="9" fill="#F2B08A"/><path d="M13 48c0-8 6-13 13-13s13 5 13 13z" fill="#1C2B4B"/><circle cx="49" cy="26" r="7" fill="#EEF2F8"/><path d="M38 48c0-6.5 5-10.5 11-10.5S60 41.5 60 48z" fill="#EEF2F8"/><path d="M34 14h10l-2.5-4z" fill="#E4691F"/>',
+      'professional-services':'<path d="M6 50c8-8 22-12 30-12s22 4 30 12z" fill="#EEF2F8"/><rect x="20" y="8" width="32" height="40" rx="4" fill="#fff" stroke="#EEF2F8" stroke-width="2"/><rect x="27" y="17" width="18" height="3" rx="1.5" fill="#E7EDF6"/><rect x="27" y="24" width="14" height="3" rx="1.5" fill="#E7EDF6"/><rect x="27" y="31" width="18" height="3" rx="1.5" fill="#EEF2F8"/><circle cx="45" cy="40" r="8" fill="#E4691F" opacity="0.9"/><path d="M41 40l3 3 5-5.5" stroke="#fff" stroke-width="2.4" stroke-linecap="round" fill="none"/>',
+      'real-estate':'<path d="M6 50c8-8 22-12 30-12s22 4 30 12z" fill="#FCEEE3"/><path d="M14 26L36 10l22 16z" fill="#E4691F"/><rect x="20" y="26" width="32" height="22" fill="#fff" stroke="#F2EADC" stroke-width="2"/><rect x="26" y="31" width="9" height="9" rx="1.5" fill="#E7EDF6"/><rect x="39" y="31" width="8" height="17" rx="1.5" fill="#1C2B4B"/>',
+      'retail-ec':'<path d="M6 50c8-8 22-12 30-12s22 4 30 12z" fill="#EEF2F8"/><path d="M16 20h40l-4 28H20z" fill="#fff" stroke="#EEF2F8" stroke-width="2"/><path d="M16 20h10l-2 6a5 5 0 0 1-9-3z" fill="#E4691F"/><path d="M26 20h10l-1 6a4.5 4.5 0 0 1-9 0z" fill="#F2B08A"/><path d="M36 20h10l1 6a4.5 4.5 0 0 1-9 0z" fill="#E4691F"/><path d="M46 20h10l1 3a5 5 0 0 1-9 3z" fill="#F2B08A"/><rect x="30" y="34" width="12" height="14" rx="2" fill="#1C2B4B"/>',
+      'local-government':'<path d="M6 50c8-8 22-12 30-12s22 4 30 12z" fill="#FCEEE3"/><path d="M36 8l6 5H36z" fill="#E4691F"/><rect x="35" y="6" width="2" height="10" fill="#C0501A"/><path d="M14 24L36 16l22 8z" fill="#1C2B4B"/><rect x="18" y="24" width="36" height="24" fill="#fff" stroke="#EEF2F8" stroke-width="2"/><rect x="23" y="29" width="5" height="19" fill="#E7EDF6"/><rect x="33" y="29" width="5" height="19" fill="#E7EDF6"/><rect x="43" y="29" width="5" height="19" fill="#E7EDF6"/>',
+      'hr-recruiting':'<path d="M6 50c8-8 22-12 30-12s22 4 30 12z" fill="#EEF2F8"/><circle cx="30" cy="21" r="9" fill="#F2B08A"/><path d="M17 48c0-8 6-13 13-13s13 5 13 13z" fill="#1C2B4B"/><circle cx="51" cy="38" r="10" fill="#E4691F"/><path d="M46.5 38l3.5 3.5 6-6.5" stroke="#fff" stroke-width="2.6" stroke-linecap="round" fill="none"/>',
+      'sales':'<path d="M6 50c8-8 22-12 30-12s22 4 30 12z" fill="#FCEEE3"/><rect x="16" y="32" width="10" height="16" rx="3" fill="#EEF2F8"/><rect x="31" y="24" width="10" height="24" rx="3" fill="#E7EDF6"/><rect x="46" y="14" width="10" height="34" rx="3" fill="#1C2B4B"/><path d="M18 26l14-8 10 6 14-12" stroke="#E4691F" stroke-width="3" stroke-linecap="round" fill="none"/><circle cx="56" cy="12" r="4" fill="#E4691F"/>',
+      'marketing':'<path d="M6 50c8-8 22-12 30-12s22 4 30 12z" fill="#EEF2F8"/><path d="M18 24l26-12v28L18 32z" fill="#E4691F"/><path d="M18 24h6v10h-6z" fill="#C0501A"/><path d="M22 34h6l2 12h-6z" fill="#F2B08A"/><path d="M50 20a10 10 0 0 1 0 16M55 14a17 17 0 0 1 0 28" stroke="#1C2B4B" stroke-width="3" stroke-linecap="round" fill="none"/>',
+      'customer-support':'<path d="M6 50c8-8 22-12 30-12s22 4 30 12z" fill="#FCEEE3"/><circle cx="36" cy="24" r="10" fill="#F2B08A"/><path d="M22 48c0-8 6.5-13 14-13s14 5 14 13z" fill="#1C2B4B"/><path d="M20 26a16 16 0 0 1 32 0" stroke="#E4691F" stroke-width="3.4" stroke-linecap="round" fill="none"/><rect x="15" y="24" width="7" height="12" rx="3.5" fill="#E4691F"/><rect x="50" y="24" width="7" height="12" rx="3.5" fill="#E4691F"/>',
+      'back-office':'<path d="M6 50c8-8 22-12 30-12s22 4 30 12z" fill="#EEF2F8"/><rect x="18" y="14" width="32" height="34" rx="4" fill="#fff" stroke="#EEF2F8" stroke-width="2" transform="rotate(-6 34 31)"/><rect x="22" y="18" width="32" height="34" rx="4" fill="#1C2B4B"/><rect x="28" y="26" width="20" height="3" rx="1.5" fill="#E7EDF6"/><rect x="28" y="33" width="14" height="3" rx="1.5" fill="#E7EDF6"/><rect x="28" y="40" width="17" height="3" rx="1.5" fill="#41527A"/><circle cx="52" cy="16" r="6" fill="#E4691F"/>'
+    };
+    function personIcon(id){
+      return '<svg viewBox="0 0 72 60" aria-hidden="true" focusable="false">'+(ICONS[id]||'')+'</svg>';
+    }
+
+    var CTA_TEXT='',CARDS=[],lastFocus=null,prevOverflow='';
+
+    function escapeHtml(s){
+      return String(s==null?'':s).replace(/[&<>"']/g,function(m){
+        return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m];
+      });
+    }
+    function detailItem(label,text){
+      return '<div class="uc-detail-item"><h4>'+escapeHtml(label)+'</h4><p>'+escapeHtml(text)+'</p></div>';
+    }
+    function iconDetailHead(label,icon){
+      return '<h4 class="uc-detail-head-icon"><span class="uc-detail-icon" aria-hidden="true">'+icon+'</span>'+escapeHtml(label)+'</h4>';
+    }
+    function usageStepsHtml(steps){
+      var items=(steps||[]).map(function(s,i){
+        return '<div class="uc-step"><span class="uc-step-badge" aria-hidden="true">'+(i+1)+'</span><p class="uc-step-card">'+escapeHtml(s)+'</p></div>';
+      }).join('');
+      return '<div class="uc-steps">'+items+'</div>';
+    }
+    function effectFlowHtml(beforeShort,afterShort){
+      return '<div class="uc-effect-flow">'+
+        '<div class="uc-effect-box uc-effect-before"><span class="uc-effect-tag">BEFORE</span><p>'+escapeHtml(beforeShort)+'</p></div>'+
+        '<div class="uc-effect-arrow" aria-hidden="true">→</div>'+
+        '<div class="uc-effect-box uc-effect-after"><span class="uc-effect-tag">AFTER</span><p>'+escapeHtml(afterShort)+'</p></div>'+
+        '</div>';
+    }
+    function ctaHtml(){
+      return '<a href="https://calendar.app.google/F6qpCXCqKXQDYe5D8" target="_blank" rel="noopener" class="uc-cta">'+escapeHtml(CTA_TEXT)+'<span aria-hidden="true">→</span></a>';
+    }
+    function groupLabel(c){return c.category==='industry'?'業種別の活用':'職種別の活用';}
+
+    function buildHypothesisBody(c){
+      var html='';
+      html+='<p class="uc-kicker">'+escapeHtml(groupLabel(c))+'</p>';
+      html+='<h3 class="uc-modal-title" id="uc-modal-title">'+escapeHtml(c.title)+'</h3>';
+      html+='<div class="uc-block uc-block-problem"><p class="uc-block-head"><span class="uc-block-icon">'+ICON_WARN+'</span>よくあるお困りごと</p><ul class="uc-problem-list">'+
+        c.problems.map(function(p){return '<li>'+escapeHtml(p)+'</li>';}).join('')+'</ul></div>';
+      html+='<div class="uc-arrow" aria-hidden="true">↓</div>';
+      html+='<div class="uc-block uc-block-approach"><p class="uc-block-head"><span class="uc-block-icon">'+ICON_BULB+'</span>AIでの解決アプローチ</p><ul class="uc-approach-list">'+
+        (c.approach||[]).map(function(a){return '<li>'+escapeHtml(a)+'</li>';}).join('')+'</ul></div>';
+      html+='<button type="button" class="uc-more-btn" id="uc-more-toggle" aria-expanded="false" aria-controls="uc-detail-panel"><span class="uc-more-label">もっと詳しく見る</span><span class="uc-chevron" aria-hidden="true">▾</span></button>';
+      html+='<div class="uc-detail" id="uc-detail-panel" hidden>';
+      html+='<div class="uc-detail-item">'+iconDetailHead('具体的な活用シーン',ICON_ARROW)+usageStepsHtml(c.usageSteps)+'</div>';
+      html+='<div class="uc-detail-item">'+iconDetailHead('想定される効果',ICON_GRAPH)+effectFlowHtml(c.beforeShort,c.afterShort)+'</div>';
+      html+=detailItem('導入時の注意点',c.caution);
+      html+=detailItem('こんな会社に向いています',c.fitFor);
+      html+='</div>';
+      html+=ctaHtml();
+      return html;
+    }
+    function renderGrid(cards,container){
+      cards.forEach(function(c){
+        var btn=document.createElement('button');
+        btn.type='button';
+        btn.className='uc-card';
+        btn.setAttribute('data-id',c.id);
+        btn.innerHTML=personIcon(c.icon)+'<span class="uc-card-label">'+escapeHtml(c.title)+'</span>';
+        btn.addEventListener('click',function(){openModal(c);});
+        container.appendChild(btn);
+      });
+    }
+
+    function openModal(c){
+      body.innerHTML=buildHypothesisBody(c);
+      var moreBtn=body.querySelector('#uc-more-toggle');
+      if(moreBtn){
+        moreBtn.addEventListener('click',function(){
+          var panel=body.querySelector('#uc-detail-panel');
+          var expanded=moreBtn.getAttribute('aria-expanded')==='true';
+          moreBtn.setAttribute('aria-expanded',String(!expanded));
+          panel.hidden=expanded;
+          moreBtn.querySelector('.uc-more-label').textContent=expanded?'もっと詳しく見る':'閉じる';
+        });
+      }
+      lastFocus=document.activeElement;
+      prevOverflow=document.body.style.overflow;
+      document.body.style.overflow='hidden';
+      overlay.hidden=false;
+      dialog.scrollTop=0;
+      closeBtn.focus();
+    }
+    function closeModal(){
+      overlay.hidden=true;
+      document.body.style.overflow=prevOverflow;
+      if(lastFocus&&lastFocus.focus)lastFocus.focus();
+    }
+
+    closeBtn.addEventListener('click',closeModal);
+    overlay.addEventListener('click',function(e){if(e.target===overlay)closeModal();});
+    document.addEventListener('keydown',function(e){
+      if(overlay.hidden)return;
+      var k=e.key;
+      if(k==='Escape'||k==='Esc'){e.preventDefault();closeModal();return;}
+      if(k==='Tab'){
+        var focusables=Array.prototype.slice.call(dialog.querySelectorAll('button,a[href]')).filter(function(el){return el.offsetParent!==null&&!el.hidden;});
+        if(!focusables.length)return;
+        var first=focusables[0],last=focusables[focusables.length-1],a=document.activeElement;
+        if(e.shiftKey&&(a===first||a===dialog)){e.preventDefault();last.focus();}
+        else if(!e.shiftKey&&a===last){e.preventDefault();first.focus();}
+      }
+    });
+
+    fetch('data/use-cases.json').then(function(r){return r.json();}).then(function(data){
+      CTA_TEXT=data.cta||'';
+      CARDS=data.cards||[];
+      renderGrid(CARDS.filter(function(c){return c.category==='industry';}),industryGrid);
+      renderGrid(CARDS.filter(function(c){return c.category==='role';}),roleGrid);
+    }).catch(function(){/* データ取得に失敗した場合、カード自体を表示しない(空のグリッドのまま) */});
+  })();
+  </script>
 </section>
 
-<!-- ===== 5. 支援パッケージ(白・罫線カラム) ===== -->
+<!-- ===== 5. 支援パッケージ(比較表) ===== -->
 <section id="pricing" data-screen-label="支援パッケージ" style="position:relative;overflow:hidden;background:#FDFCFA">
-  <div style="position:relative;max-width:960px;margin:0 auto;padding:72px 24px">
-    <div style="max-width:640px;margin-bottom:48px">
-      <div style="display:flex;align-items:baseline;gap:16px;margin-bottom:18px">
-        <span aria-hidden="true" style="font-weight:900;font-size:64px;line-height:1;color:transparent;-webkit-text-stroke:1.5px rgba(228,105,31,.55)">04</span>
-        <span style="font-size:13px;font-weight:700;letter-spacing:.18em;color:#E4691F">PACKAGES</span>
+  <svg aria-hidden="true" focusable="false" style="position:absolute;width:0;height:0;overflow:hidden">
+    <defs>
+      <symbol id="pkg-ico-calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3 9h18" stroke="currentColor" stroke-width="1.8"/><path d="M8 3v4M16 3v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+      <symbol id="pkg-ico-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4.3" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="1.3" fill="currentColor"/></symbol>
+      <symbol id="pkg-ico-person" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.6" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M5 20c0-4.2 3.1-6.8 7-6.8s7 2.6 7 6.8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+      <symbol id="pkg-ico-list" viewBox="0 0 24 24"><path d="M9 6h11M9 12h11M9 18h11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="4.2" cy="6" r="1.1" fill="currentColor"/><circle cx="4.2" cy="12" r="1.1" fill="currentColor"/><circle cx="4.2" cy="18" r="1.1" fill="currentColor"/></symbol>
+    </defs>
+  </svg>
+  <div style="position:relative;max-width:960px;margin:0 auto;padding:clamp(48px,8vw,72px) 24px">
+    <div style="display:flex;flex-direction:column;gap:14px;align-items:center;text-align:center;margin-bottom:24px">
+      <div class="sec-badge">
+        <span class="sec-badge-num" aria-hidden="true">04</span>
+        <span class="sec-badge-label">PACKAGES</span>
       </div>
-      <h2 style="margin:0 0 20px;font-size:clamp(24px,5vw,32px);font-weight:900;line-height:1.5;color:#1C2B4B">支援パッケージ(2つの関わり方)</h2>
-      <p style="margin:0;font-size:16px;line-height:2;color:#5A6172;text-wrap:pretty">関わり方は、1つの業務を単発で仕組み化する「単発型」と、業務選びから自走化まで寄り添う「継続伴走型」の2つ。中身は貴社に合わせて組み立てます(料金は無料相談でご案内します)。</p>
+      <h2 style="margin:0;font-size:clamp(24px,5vw,32px);font-weight:900;line-height:1.5;color:#1C2B4B">支援パッケージ(2つの関わり方)</h2>
+      <p style="margin:0;max-width:560px;font-size:16px;line-height:2;color:#5A6172;text-wrap:pretty">まずは1つの業務から試すか、複数の業務をまとめて仕組み化するか。<br>貴社の状況に合わせてお選びいただけます。</p>
     </div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:0;border-top:1.5px solid rgba(28,43,75,.15)">
-      <div style="padding:36px 28px 36px 4px;border-bottom:1.5px solid rgba(28,43,75,.15)">
-        <div style="display:flex;align-items:flex-start;gap:14px;margin-bottom:20px">
-          <span aria-hidden="true" style="font-weight:900;font-size:72px;line-height:.9;color:transparent;-webkit-text-stroke:1.5px rgba(228,105,31,.6)">A</span>
-          <h3 style="margin:6px 0 0;font-size:20px;font-weight:900;color:#1C2B4B;line-height:1.5">単発型</h3>
-        </div>
-        <div style="margin-bottom:14px"><div style="font-size:13px;font-weight:700;color:#E4691F;margin-bottom:4px">やること</div><p style="margin:0;font-size:16px;line-height:1.8;color:#232733">スカウト文面・求人票など、選んだ1業務を単発で仕組み化</p></div>
-        <div><div style="font-size:13px;font-weight:700;color:#E4691F;margin-bottom:4px">向いている方</div><p style="margin:0;font-size:16px;line-height:1.8;color:#232733">まず1つの業務で、AI化の効果を試したい方</p></div>
+
+    <!-- 比較表(768px以上) -->
+    <div class="pkg-table">
+      <div class="pkg-row-head" aria-hidden="true"></div>
+      <div class="pkg-row-head pkg-row-head-a">
+        <h3 class="pkg-plan-name"><span class="pkg-plan-letter pkg-plan-letter-a">A</span> 単発型</h3>
+        <span class="pkg-tag pkg-tag-a">まずはお試しの方に</span>
       </div>
-      <div style="padding:36px 28px 36px 4px;border-bottom:1.5px solid rgba(28,43,75,.15)">
-        <div style="display:flex;align-items:flex-start;gap:14px;margin-bottom:20px">
-          <span aria-hidden="true" style="font-weight:900;font-size:72px;line-height:.9;color:transparent;-webkit-text-stroke:1.5px rgba(228,105,31,.6)">B</span>
-          <h3 style="margin:6px 0 0;font-size:20px;font-weight:900;color:#1C2B4B;line-height:1.5">継続伴走型</h3>
-        </div>
-        <div style="margin-bottom:14px"><div style="font-size:13px;font-weight:700;color:#E4691F;margin-bottom:4px">やること</div><p style="margin:0;font-size:16px;line-height:1.8;color:#232733">どの業務から着手するかの選定から、仕組みづくり・定着、自走できるようになるまで継続的に伴走</p></div>
-        <div><div style="font-size:13px;font-weight:700;color:#E4691F;margin-bottom:4px">向いている方</div><p style="margin:0;font-size:16px;line-height:1.8;color:#232733">採用業務をまとめて仕組み化したい方、相談相手を持ちながら進めたい方</p></div>
+      <div class="pkg-row-head pkg-row-head-b">
+        <h3 class="pkg-plan-name"><span class="pkg-plan-letter pkg-plan-letter-b">B</span> 継続伴走型</h3>
+        <span class="pkg-tag pkg-tag-b">しっかり伴走してほしい方に</span>
       </div>
-    </div>
-    <!-- やらないこと: ネイビー帯 -->
-    <div style="position:relative;overflow:hidden;margin-top:48px;background:#1C2B4B;border-radius:20px;padding:36px 32px;display:flex;flex-wrap:wrap;gap:28px;align-items:center">
-      <div aria-hidden="true" style="flex:none;display:flex;align-items:center;justify-content:center">
-        <span style="width:36px;height:36px;background:#F0904F;-webkit-mask:url('assets/icon-megaphone.svg') center/contain no-repeat;mask:url('assets/icon-megaphone.svg') center/contain no-repeat"></span>
+
+      <div class="pkg-label"><svg class="pkg-label-icon" aria-hidden="true"><use href="#pkg-ico-calendar"></use></svg>想定期間</div>
+      <div class="pkg-cell-a">
+        <p class="pkg-period-text">1〜2ヶ月</p>
+        <div class="pkg-bar-track"><div class="pkg-bar pkg-bar-a"></div></div>
       </div>
-      <div style="flex:1;min-width:240px;position:relative">
-        <div style="font-size:16px;font-weight:900;color:#F0904F;letter-spacing:.06em;margin-bottom:14px">やらないこと(共通)</div>
-        <ul style="list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:10px 28px">
-          <li style="display:flex;align-items:center;gap:10px;font-size:16px;font-weight:500;color:#fff"><span aria-hidden="true" style="flex:none;width:22px;height:22px;border-radius:50%;border:1.5px solid rgba(255,255,255,.5);display:inline-flex;align-items:center;justify-content:center;font-size:11px">✕</span>貴社のツールは操作しません</li>
-          <li style="display:flex;align-items:center;gap:10px;font-size:16px;font-weight:500;color:#fff"><span aria-hidden="true" style="flex:none;width:22px;height:22px;border-radius:50%;border:1.5px solid rgba(255,255,255,.5);display:inline-flex;align-items:center;justify-content:center;font-size:11px">✕</span>システムに直接アクセスしません</li>
+      <div class="pkg-cell-b">
+        <p class="pkg-period-text">6ヶ月〜</p>
+        <div class="pkg-bar-track"><div class="pkg-bar pkg-bar-b"></div></div>
+      </div>
+
+      <div class="pkg-label"><svg class="pkg-label-icon" aria-hidden="true"><use href="#pkg-ico-target"></use></svg>やること</div>
+      <div class="pkg-cell-a"><p class="pkg-p">提案資料・報告書など、選んだ1業務を単発で仕組み化</p></div>
+      <div class="pkg-cell-b"><p class="pkg-p">どの業務から着手するかの選定から、仕組みづくり・定着、自走化まで継続的に伴走</p></div>
+
+      <div class="pkg-label"><svg class="pkg-label-icon" aria-hidden="true"><use href="#pkg-ico-person"></use></svg>向いている方</div>
+      <div class="pkg-cell-a pkg-cell-vcenter"><p class="pkg-p">まず1つの業務で、AI化の効果を試したい方</p></div>
+      <div class="pkg-cell-b"><p class="pkg-p">自社の業務をまとめて仕組み化したい方、相談相手を持ちながら進めたい方</p></div>
+
+      <div class="pkg-label"><svg class="pkg-label-icon" aria-hidden="true"><use href="#pkg-ico-list"></use></svg>含まれるもの</div>
+      <div class="pkg-cell-a">
+        <ul class="pkg-checklist">
+          <li><span class="pkg-check pkg-check-a" aria-hidden="true">✓</span>業務ヒアリング</li>
+          <li><span class="pkg-check pkg-check-a" aria-hidden="true">✓</span>仕組み設計・構築</li>
+          <li><span class="pkg-check pkg-check-a" aria-hidden="true">✓</span>運用マニュアルの作成</li>
+          <li><span class="pkg-check pkg-check-a" aria-hidden="true">✓</span>成果物一式のお渡し</li>
         </ul>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===== 6. 選ばれる理由(薄ネイビー帯・左イラスト) ===== -->
-<section data-screen-label="選ばれる理由" style="position:relative;overflow:hidden;background:linear-gradient(180deg,#EEF2F8,#E7EDF6)">
-  <div aria-hidden="true" style="position:absolute;inset:0;background:linear-gradient(115deg,transparent 60%,rgba(255,255,255,.35) 60%)"></div>
-  <div style="position:relative;max-width:960px;margin:0 auto;padding:72px 24px;display:flex;flex-wrap:wrap-reverse;gap:56px;align-items:center;justify-content:center">
-    <!-- イラスト: 握手(ユーザー指定素材) -->
-    <div style="flex:0 1 420px;min-width:300px;display:flex;justify-content:center">
-      <img src="assets/handshake.png" alt="nausの担当者と採用担当者が握手を交わすビジネスシーンのイラスト" loading="lazy" style="display:block;width:400px;max-width:100%;height:auto">
-    </div>
-    <div style="flex:1 1 400px;max-width:540px;min-width:0">
-      <div style="display:flex;align-items:baseline;gap:16px;margin-bottom:18px">
-        <span aria-hidden="true" style="font-weight:900;font-size:64px;line-height:1;color:transparent;-webkit-text-stroke:1.5px rgba(228,105,31,.55)">05</span>
-        <span style="font-size:13px;font-weight:700;letter-spacing:.18em;color:#E4691F">WHY US</span>
+      <div class="pkg-cell-b">
+        <ul class="pkg-checklist">
+          <li><span class="pkg-check pkg-check-b" aria-hidden="true">✓</span>複数業務にまたがる仕組み化</li>
+          <li><span class="pkg-check pkg-check-b" aria-hidden="true">✓</span>定例MTGでの伴走</li>
+          <li><span class="pkg-check pkg-check-b" aria-hidden="true">✓</span>チャットでの相談対応</li>
+          <li><span class="pkg-check pkg-check-b" aria-hidden="true">✓</span>仕組みのアップデート・追加開発</li>
+          <li><span class="pkg-check pkg-check-b" aria-hidden="true">✓</span>社内への展開・浸透サポート</li>
+        </ul>
       </div>
-      <h2 style="margin:0 0 28px;font-size:clamp(24px,5vw,32px);font-weight:900;line-height:1.5;color:#1C2B4B">選ばれる理由</h2>
-      <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column">
-        <li style="display:flex;align-items:flex-start;gap:14px;padding:18px 4px;border-top:1px solid rgba(28,43,75,.14)"><span aria-hidden="true" style="flex:none;width:26px;height:26px;border-radius:50%;background:#E4691F;color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:14px;margin-top:2px">✓</span><div><div style="font-size:17px;font-weight:900;color:#1C2B4B;margin-bottom:4px">自社の実務で使っている仕組み</div><p style="margin:0;font-size:16px;line-height:1.8;color:#5A6172">ご紹介する4つの仕組みは、すべて自分たちの採用・人材紹介の現場で毎日使い、育てているものです</p></div></li>
-        <li style="display:flex;align-items:flex-start;gap:14px;padding:18px 4px;border-top:1px solid rgba(28,43,75,.14)"><span aria-hidden="true" style="flex:none;width:26px;height:26px;border-radius:50%;background:#E4691F;color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:14px;margin-top:2px">✓</span><div><div style="font-size:17px;font-weight:900;color:#1C2B4B;margin-bottom:4px">中身は一社ごとに設計</div><p style="margin:0;font-size:16px;line-height:1.8;color:#5A6172">テンプレ配布では終わらせない</p></div></li>
-        <li style="display:flex;align-items:flex-start;gap:14px;padding:18px 4px;border-top:1px solid rgba(28,43,75,.14);border-bottom:1px solid rgba(28,43,75,.14)"><span aria-hidden="true" style="flex:none;width:26px;height:26px;border-radius:50%;background:#E4691F;color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:14px;margin-top:2px">✓</span><div><div style="font-size:17px;font-weight:900;color:#1C2B4B;margin-bottom:4px">スキルと仕組みが、社内の資産になる</div><p style="margin:0;font-size:16px;line-height:1.8;color:#5A6172">丸ごと外注では社内に何も残りません。担当者が使いこなせる形でお渡しします</p></div></li>
-      </ul>
+
+      <div class="pkg-foot">
+        <a href="https://calendar.app.google/F6qpCXCqKXQDYe5D8" target="_blank" rel="noopener">無料相談で聞く<span aria-hidden="true">→</span></a>
+        <p>どちらのプランも、料金は無料相談でご案内します</p>
+      </div>
+    </div>
+
+    <!-- カード版(768px未満) -->
+    <div class="pkg-cards">
+      <div class="pkg-card pkg-card-a">
+        <div class="pkg-card-head">
+          <h3 class="pkg-plan-name"><span class="pkg-plan-letter pkg-plan-letter-a">A</span> 単発型</h3>
+          <span class="pkg-tag pkg-tag-a">まずはお試しの方に</span>
+        </div>
+        <div class="pkg-card-body">
+          <div class="pkg-card-row">
+            <div class="pkg-card-row-label"><svg class="pkg-label-icon" aria-hidden="true"><use href="#pkg-ico-calendar"></use></svg>想定期間</div>
+            <p class="pkg-period-text">1〜2ヶ月</p>
+            <div class="pkg-bar-track"><div class="pkg-bar pkg-bar-a"></div></div>
+          </div>
+          <div class="pkg-card-row">
+            <div class="pkg-card-row-label"><svg class="pkg-label-icon" aria-hidden="true"><use href="#pkg-ico-target"></use></svg>やること</div>
+            <p class="pkg-p">提案資料・報告書など、選んだ1業務を単発で仕組み化</p>
+          </div>
+          <div class="pkg-card-row">
+            <div class="pkg-card-row-label"><svg class="pkg-label-icon" aria-hidden="true"><use href="#pkg-ico-person"></use></svg>向いている方</div>
+            <p class="pkg-p">まず1つの業務で、AI化の効果を試したい方</p>
+          </div>
+          <div class="pkg-card-row">
+            <div class="pkg-card-row-label"><svg class="pkg-label-icon" aria-hidden="true"><use href="#pkg-ico-list"></use></svg>含まれるもの</div>
+            <ul class="pkg-checklist">
+              <li><span class="pkg-check pkg-check-a" aria-hidden="true">✓</span>業務ヒアリング</li>
+              <li><span class="pkg-check pkg-check-a" aria-hidden="true">✓</span>仕組み設計・構築</li>
+              <li><span class="pkg-check pkg-check-a" aria-hidden="true">✓</span>運用マニュアルの作成</li>
+              <li><span class="pkg-check pkg-check-a" aria-hidden="true">✓</span>成果物一式のお渡し</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="pkg-card pkg-card-b">
+        <div class="pkg-card-head">
+          <h3 class="pkg-plan-name"><span class="pkg-plan-letter pkg-plan-letter-b">B</span> 継続伴走型</h3>
+          <span class="pkg-tag pkg-tag-b">しっかり伴走してほしい方に</span>
+        </div>
+        <div class="pkg-card-body">
+          <div class="pkg-card-row">
+            <div class="pkg-card-row-label"><svg class="pkg-label-icon" aria-hidden="true"><use href="#pkg-ico-calendar"></use></svg>想定期間</div>
+            <p class="pkg-period-text">6ヶ月〜</p>
+            <div class="pkg-bar-track"><div class="pkg-bar pkg-bar-b"></div></div>
+          </div>
+          <div class="pkg-card-row">
+            <div class="pkg-card-row-label"><svg class="pkg-label-icon" aria-hidden="true"><use href="#pkg-ico-target"></use></svg>やること</div>
+            <p class="pkg-p">どの業務から着手するかの選定から、仕組みづくり・定着、自走化まで継続的に伴走</p>
+          </div>
+          <div class="pkg-card-row">
+            <div class="pkg-card-row-label"><svg class="pkg-label-icon" aria-hidden="true"><use href="#pkg-ico-person"></use></svg>向いている方</div>
+            <p class="pkg-p">自社の業務をまとめて仕組み化したい方、相談相手を持ちながら進めたい方</p>
+          </div>
+          <div class="pkg-card-row">
+            <div class="pkg-card-row-label"><svg class="pkg-label-icon" aria-hidden="true"><use href="#pkg-ico-list"></use></svg>含まれるもの</div>
+            <ul class="pkg-checklist">
+              <li><span class="pkg-check pkg-check-b" aria-hidden="true">✓</span>複数業務にまたがる仕組み化</li>
+              <li><span class="pkg-check pkg-check-b" aria-hidden="true">✓</span>定例MTGでの伴走</li>
+              <li><span class="pkg-check pkg-check-b" aria-hidden="true">✓</span>チャットでの相談対応</li>
+              <li><span class="pkg-check pkg-check-b" aria-hidden="true">✓</span>仕組みのアップデート・追加開発</li>
+              <li><span class="pkg-check pkg-check-b" aria-hidden="true">✓</span>社内への展開・浸透サポート</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="pkg-foot">
+        <a href="https://calendar.app.google/F6qpCXCqKXQDYe5D8" target="_blank" rel="noopener">無料相談で聞く<span aria-hidden="true">→</span></a>
+        <p>どちらのプランも、料金は無料相談でご案内します</p>
+      </div>
     </div>
   </div>
 </section>
@@ -709,37 +1265,37 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- ===== 7. ご支援の流れ(白・横ステップ) ===== -->
 <section data-screen-label="ご支援の流れ" style="position:relative;overflow:hidden;background:#FDFCFA">
   <div style="position:relative;max-width:960px;margin:0 auto;padding:72px 24px">
-    <div style="max-width:640px;margin-bottom:48px">
-      <div style="display:flex;align-items:baseline;gap:16px;margin-bottom:18px">
-        <span aria-hidden="true" style="font-weight:900;font-size:64px;line-height:1;color:transparent;-webkit-text-stroke:1.5px rgba(228,105,31,.55)">06</span>
-        <span style="font-size:13px;font-weight:700;letter-spacing:.18em;color:#E4691F">FLOW</span>
+    <div style="display:flex;flex-direction:column;gap:14px;align-items:center;text-align:center;margin-bottom:48px">
+      <div class="sec-badge">
+        <span class="sec-badge-num" aria-hidden="true">05</span>
+        <span class="sec-badge-label">FLOW</span>
       </div>
       <h2 style="margin:0;font-size:clamp(24px,5vw,32px);font-weight:900;line-height:1.5;color:#1C2B4B">ご支援の流れ</h2>
     </div>
     <ol style="list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:0;border-top:1.5px solid rgba(28,43,75,.15)">
-      <li style="position:relative;padding:40px 32px 8px 4px">
-        <span aria-hidden="true" style="position:absolute;top:-1px;left:4px;width:64px;height:3px;background:#E4691F"></span>
-        <div aria-hidden="true" style="position:relative;margin-bottom:22px;height:120px;display:flex;align-items:flex-end;overflow:hidden">
-          <span style="position:absolute;right:0;bottom:-14px;width:132px;height:132px;background:rgba(228,105,31,.13);-webkit-mask:url('assets/icon-talk.svg') center/contain no-repeat;mask:url('assets/icon-talk.svg') center/contain no-repeat"></span>
-          <span style="position:relative;font-weight:900;font-size:104px;line-height:1;color:#1C2B4B">1</span>
+      <li style="position:relative;padding:22px 24px 8px;text-align:center">
+        <span aria-hidden="true" style="position:absolute;top:-1px;left:50%;transform:translateX(-50%);width:64px;height:3px;background:#E4691F"></span>
+        <div aria-hidden="true" class="flow-num-icon">
+          <span style="font-weight:900;font-size:34px;line-height:1;color:#1C2B4B">1</span>
+          <span style="flex:none;width:30px;height:30px;background:rgba(228,105,31,.13);-webkit-mask:url('assets/icon-talk.svg') center/contain no-repeat;mask:url('assets/icon-talk.svg') center/contain no-repeat"></span>
         </div>
         <div style="font-size:18px;font-weight:900;color:#1C2B4B;margin-bottom:6px">無料相談(30分)</div>
         <p style="margin:0;font-size:16px;line-height:1.8;color:#5A6172">現状とお困りごとをヒアリング</p>
       </li>
-      <li style="position:relative;padding:40px 32px 8px 4px">
-        <span aria-hidden="true" style="position:absolute;top:-1px;left:4px;width:64px;height:3px;background:#E4691F"></span>
-        <div aria-hidden="true" style="position:relative;margin-bottom:22px;height:120px;display:flex;align-items:flex-end;overflow:hidden">
-          <span style="position:absolute;right:0;bottom:-14px;width:132px;height:132px;background:rgba(28,43,75,.1);-webkit-mask:url('assets/icon-glass.svg') center/contain no-repeat;mask:url('assets/icon-glass.svg') center/contain no-repeat"></span>
-          <span style="position:relative;font-weight:900;font-size:104px;line-height:1;color:#1C2B4B">2</span>
+      <li style="position:relative;padding:22px 24px 8px;text-align:center">
+        <span aria-hidden="true" style="position:absolute;top:-1px;left:50%;transform:translateX(-50%);width:64px;height:3px;background:#E4691F"></span>
+        <div aria-hidden="true" class="flow-num-icon">
+          <span style="font-weight:900;font-size:34px;line-height:1;color:#1C2B4B">2</span>
+          <span style="flex:none;width:30px;height:30px;background:rgba(28,43,75,.1);-webkit-mask:url('assets/icon-glass.svg') center/contain no-repeat;mask:url('assets/icon-glass.svg') center/contain no-repeat"></span>
         </div>
         <div style="font-size:18px;font-weight:900;color:#1C2B4B;margin-bottom:6px">現状診断</div>
         <p style="margin:0;font-size:16px;line-height:1.8;color:#5A6172">業務を棚卸し、仕組み化できる部分を整理</p>
       </li>
-      <li style="position:relative;padding:40px 32px 8px 4px">
-        <span aria-hidden="true" style="position:absolute;top:-1px;left:4px;width:64px;height:3px;background:#E4691F"></span>
-        <div aria-hidden="true" style="position:relative;margin-bottom:22px;height:120px;display:flex;align-items:flex-end;overflow:hidden">
-          <span style="position:absolute;right:0;bottom:-14px;width:132px;height:132px;background:rgba(228,105,31,.13);-webkit-mask:url('assets/icon-handshake.svg') center/contain no-repeat;mask:url('assets/icon-handshake.svg') center/contain no-repeat"></span>
-          <span style="position:relative;font-weight:900;font-size:104px;line-height:1;color:#E4691F">3</span>
+      <li style="position:relative;padding:22px 24px 8px;text-align:center">
+        <span aria-hidden="true" style="position:absolute;top:-1px;left:50%;transform:translateX(-50%);width:64px;height:3px;background:#E4691F"></span>
+        <div aria-hidden="true" class="flow-num-icon">
+          <span style="font-weight:900;font-size:34px;line-height:1;color:#E4691F">3</span>
+          <span style="flex:none;width:30px;height:30px;background:rgba(228,105,31,.13);-webkit-mask:url('assets/icon-handshake.svg') center/contain no-repeat;mask:url('assets/icon-handshake.svg') center/contain no-repeat"></span>
         </div>
         <div style="font-size:18px;font-weight:900;color:#1C2B4B;margin-bottom:6px">伴走開始</div>
         <p style="margin:0;font-size:16px;line-height:1.8;color:#5A6172">仕組みづくりと定着支援</p>
@@ -748,71 +1304,42 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </section>
 
-<!-- ===== 8. 資料ダウンロード(分割バンド) ===== -->
-<section id="download" data-screen-label="資料ダウンロード" style="background:linear-gradient(180deg,#F6F1E8,#F2EADC)">
-  <div style="max-width:840px;margin:0 auto;padding:64px 24px 36px">
-    <div style="display:flex;flex-wrap:wrap;background:#fff;border-radius:24px;overflow:hidden;box-shadow:0 20px 48px rgba(28,43,75,.12)">
-      <div style="flex:1 1 300px;min-width:260px;background:linear-gradient(150deg,#1C2B4B,#152039);padding:44px 32px;display:flex;flex-direction:column;justify-content:center;gap:28px">
-        <h2 style="margin:0;font-size:clamp(22px,4.6vw,28px);font-weight:900;line-height:1.5;color:#fff">「ゼロからAI Academy」<span style="display:inline-block">紹介資料</span></h2>
-        <div>
-          <div style="font-size:13px;font-weight:700;letter-spacing:.14em;color:#F0904F;margin-bottom:10px">この資料で分かること</div>
-          <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px">
-            <li style="display:flex;align-items:flex-start;gap:10px;font-size:15px;line-height:1.8;color:rgba(255,255,255,.92)"><span aria-hidden="true" style="flex:none;width:8px;height:8px;border-radius:50%;background:#F0904F;margin-top:9px"></span><span style="flex:1;min-width:0">スカウト文・提案資料・求人票・社外向け資料、4つの自動化のBefore→After</span></li>
-            <li style="display:flex;align-items:flex-start;gap:10px;font-size:15px;line-height:1.8;color:rgba(255,255,255,.92)"><span aria-hidden="true" style="flex:none;width:8px;height:8px;border-radius:50%;background:#F0904F;margin-top:9px"></span><span style="flex:1;min-width:0">AIの専門知識ゼロのメンバーが、つまずきながら業務に定着させるまでの実録</span></li>
-            <li style="display:flex;align-items:flex-start;gap:10px;font-size:15px;line-height:1.8;color:rgba(255,255,255,.92)"><span aria-hidden="true" style="flex:none;width:8px;height:8px;border-radius:50%;background:#F0904F;margin-top:9px"></span><span style="flex:1;min-width:0">支援パッケージ(単発型・継続伴走型)の違いと、ご契約後の流れ</span></li>
-          </ul>
-        </div>
-        <div aria-hidden="true" style="display:flex;justify-content:center">
-          <div style="position:relative;width:118px;background:#fff;border-radius:12px;box-shadow:0 16px 36px rgba(0,0,0,.35);padding:14px;display:flex;flex-direction:column;gap:7px;transform:rotate(-3deg)">
-            <span style="height:8px;width:58%;border-radius:4px;background:#1C2B4B"></span>
-            <span style="height:7px;width:92%;border-radius:4px;background:rgba(28,43,75,.14)"></span>
-            <span style="height:7px;width:80%;border-radius:4px;background:rgba(28,43,75,.14)"></span>
-            <span style="align-self:flex-start;padding:3px 9px;border-radius:999px;background:#E4691F;color:#fff;font-weight:900;font-size:11px;margin-top:2px">PDF</span>
-            <span style="position:absolute;right:-14px;bottom:-14px;width:36px;height:36px;border-radius:50%;background:#E4691F;color:#fff;display:inline-flex;align-items:center;justify-content:center;font-weight:900;font-size:16px">↓</span>
-          </div>
-        </div>
+<!-- ===== 7.5 セミナー・勉強会 ===== -->
+<section id="news" data-screen-label="セミナー・勉強会" style="border-top:1px solid rgba(28,43,75,.14);background:#F6F1E8">
+  <div style="max-width:1080px;margin:0 auto;padding:68px 24px">
+    <div style="display:flex;flex-direction:column;gap:14px;align-items:center;text-align:center;margin-bottom:48px">
+      <div class="sec-badge">
+        <span class="sec-badge-num" aria-hidden="true">06</span>
+        <span class="sec-badge-label">NEWS</span>
       </div>
-      <div style="flex:1.3 1 320px;min-width:0;padding:44px 36px">
-        <form name="document-download" method="POST" action="/thanks.html" data-netlify="true" netlify-honeypot="bot-field" style="display:flex;flex-direction:column;gap:14px;margin:0">
-          <input type="hidden" name="form-name" value="document-download">
-          <p style="display:none"><label>この欄は空欄のままにしてください: <input name="bot-field"></label></p>
-          <div>
-            <label for="dl-company" class="dl-label">会社名<span style="color:#E4691F;margin-left:4px">必須</span></label>
-            <input id="dl-company" name="company" type="text" required autocomplete="organization" class="dl-field">
-          </div>
-          <div>
-            <label for="dl-name" class="dl-label">氏名<span style="color:#E4691F;margin-left:4px">必須</span></label>
-            <input id="dl-name" name="name" type="text" required autocomplete="name" class="dl-field">
-          </div>
-          <div>
-            <label for="dl-email" class="dl-label">メールアドレス<span style="color:#E4691F;margin-left:4px">必須</span></label>
-            <input id="dl-email" name="email" type="email" required autocomplete="email" class="dl-field">
-          </div>
-          <div>
-            <label for="dl-tel" class="dl-label">電話番号<span style="color:#8A8F9C;font-size:12px;margin-left:4px">任意</span></label>
-            <input id="dl-tel" name="phone" type="tel" autocomplete="tel" class="dl-field">
-          </div>
-          <div>
-            <label for="dl-message" class="dl-label">自由記述(ご質問・ご要望など)<span style="color:#8A8F9C;font-size:12px;margin-left:4px">任意</span></label>
-            <textarea id="dl-message" name="message" rows="4" class="dl-field" style="resize:vertical"></textarea>
-          </div>
-          <button type="submit" class="btn-doc-submit"><span aria-hidden="true" style="width:22px;height:22px;background:#fff;-webkit-mask:url('assets/icon-mail.svg') center/contain no-repeat;mask:url('assets/icon-mail.svg') center/contain no-repeat"></span>送信して資料をダウンロード</button>
-          <p style="margin:0;font-size:12.5px;line-height:1.9;color:#8A8F9C">ご入力いただいた個人情報は、資料のご提供と、本サービスに関するご連絡のためにのみ利用します。詳細は<a href="https://www.naus.co.jp/2" target="_blank" rel="noopener" style="display:inline-block">プライバシーポリシー</a>をご確認ください。</p>
-        </form>
-      </div>
+      <h2 style="margin:0;font-size:clamp(24px,5vw,32px);font-weight:900;line-height:1.5;color:#1C2B4B">セミナー・勉強会</h2>
     </div>
-  </div>
-</section>
 
-<!-- ===== 9. 実践レポート(同帯内・罫線リンク行) ===== -->
-<section data-screen-label="実践レポート" style="background:#F2EADC">
-  <div style="max-width:840px;margin:0 auto;padding:0 24px 88px">
-    <div style="display:flex;flex-wrap:wrap;align-items:center;gap:16px 20px;padding:28px 8px;border-top:1.5px solid rgba(28,43,75,.2);border-bottom:1.5px solid rgba(28,43,75,.2)">
+    <div id="sem-upcoming-wrap" hidden>
+      <div class="sem-subhead">
+        <h3 class="sem-subhead-title">開催予定</h3>
+        <span class="sem-subhead-line" aria-hidden="true"></span>
+        <span class="sem-subhead-en">UPCOMING</span>
+      </div>
+      <div id="sem-upcoming-list" style="display:flex;flex-direction:column;gap:20px;margin-bottom:56px"></div>
+    </div>
+
+    <div>
+      <div class="sem-subhead">
+        <h3 class="sem-subhead-title">開催実績</h3>
+        <span class="sem-subhead-line" aria-hidden="true"></span>
+        <span class="sem-subhead-en">PAST EVENTS</span>
+      </div>
+      <div id="sem-past-list" class="sem-past-scroll"></div>
+    </div>
+
+    <!-- 実践レポート(セミナー・勉強会セクションに統合) -->
+    <div style="margin-top:40px;display:flex;flex-wrap:wrap;align-items:center;gap:16px 20px;padding:28px 8px;border-top:1.5px solid rgba(28,43,75,.2)">
       <div aria-hidden="true" style="flex:none;display:flex;align-items:center;justify-content:center">
         <span style="width:44px;height:44px;background:#1C2B4B;-webkit-mask:url('assets/icon-pen.svg') center/contain no-repeat;mask:url('assets/icon-pen.svg') center/contain no-repeat"></span>
       </div>
       <div style="flex:1;min-width:200px">
-        <h2 style="margin:0 0 6px;font-size:20px;font-weight:900;color:#1C2B4B">実践レポート</h2>
+        <h3 style="margin:0 0 6px;font-size:20px;font-weight:900;color:#1C2B4B">実践レポート</h3>
         <p style="margin:0;font-size:16px;line-height:1.9;color:#5A6172;text-wrap:pretty">スカウト自動化をどう組み立てたか、試行錯誤の記録をnoteで公開予定です。</p>
       </div>
       <span style="flex:none;padding:6px 14px;border-radius:999px;border:1.5px solid rgba(28,43,75,.3);color:#5A6172;font-weight:700;font-size:13px;white-space:nowrap">公開予定</span>
@@ -820,7 +1347,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </section>
 
-<!-- ===== 10. チーム・会社情報(白・アバター図) ===== -->
+<!-- ===== 10. チーム・会社情報(白・アバター図)※一時的に非表示。復元する場合はこのコメントブロックごと解除してください =====
 <section data-screen-label="チーム・会社情報" style="position:relative;overflow:hidden;background:#FDFCFA">
   <div style="position:relative;max-width:960px;margin:0 auto;padding:72px 24px;display:flex;flex-wrap:wrap;gap:56px;align-items:center;justify-content:center">
     <div style="flex:1 1 400px;max-width:540px;min-width:0">
@@ -838,7 +1365,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
       </dl>
     </div>
-    <!-- イラスト: 3つの経歴アバター -->
     <div aria-hidden="true" style="flex:0 1 300px;min-width:240px;display:flex;flex-direction:column;gap:16px">
       <div style="display:flex;align-items:center;gap:16px;background:#fff;border-radius:16px;padding:16px 20px;box-shadow:0 10px 26px rgba(28,43,75,.09);transform:rotate(-1.5deg)">
         <span style="flex:none;width:44px;height:44px;border-radius:50%;background:#1C2B4B;display:inline-flex;align-items:flex-end;justify-content:center;overflow:hidden"><span style="width:16px;height:16px;border-radius:50%;background:#F2B08A;margin-bottom:14px"></span></span>
@@ -855,20 +1381,26 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
   </div>
 </section>
+===== 10. チーム・会社情報 ここまで ===== -->
 
 <!-- ===== 11. FAQ(薄ネイビー帯・罫線アコーディオン) ===== -->
 <section id="faq" data-screen-label="FAQ" style="background:#EEF2F8">
   <div style="max-width:680px;margin:0 auto;padding:72px 24px">
-    <div style="font-size:13px;font-weight:700;letter-spacing:.18em;color:#E4691F;margin-bottom:16px">FAQ</div>
-    <h2 style="margin:0 0 28px;font-size:clamp(24px,5vw,32px);font-weight:900;line-height:1.5;color:#1C2B4B">よくあるご質問</h2>
+    <div style="display:flex;flex-direction:column;gap:14px;align-items:center;text-align:center;margin-bottom:28px">
+      <div class="sec-badge">
+        <span class="sec-badge-num" aria-hidden="true">07</span>
+        <span class="sec-badge-label">FAQ</span>
+      </div>
+      <h2 style="margin:0;font-size:clamp(24px,5vw,32px);font-weight:900;line-height:1.5;color:#1C2B4B">よくあるご質問</h2>
+    </div>
     <div style="display:flex;flex-direction:column;border-top:1.5px solid rgba(28,43,75,.18)">
-      <details style="border-bottom:1.5px solid rgba(28,43,75,.18)">
-        <summary style="display:flex;align-items:center;gap:14px;padding:20px 4px;cursor:pointer;list-style:none"><span aria-hidden="true" style="flex:none;font-weight:900;color:#E4691F;font-size:17px">Q</span><span style="flex:1;font-size:16px;font-weight:700;color:#1C2B4B;line-height:1.6">費用感を教えてください。</span><span aria-hidden="true" style="flex:none;width:28px;height:28px;border-radius:50%;border:1.5px solid rgba(28,43,75,.3);color:#1C2B4B;display:inline-flex;align-items:center;justify-content:center;font-size:15px">＋</span></summary>
-        <p style="margin:0;padding:0 4px 24px 34px;font-size:16px;line-height:2;color:#5A6172">1つの業務を単発で仕組み化する「単発型」と、業務選びから自走化まで寄り添う「継続伴走型」の2つの関わり方をご用意しています。業務の範囲や支援の深さによって内容が変わるため、具体的な費用感は無料相談の中でご案内します。</p>
-      </details>
       <details style="border-bottom:1.5px solid rgba(28,43,75,.18)">
         <summary style="display:flex;align-items:center;gap:14px;padding:20px 4px;cursor:pointer;list-style:none"><span aria-hidden="true" style="flex:none;font-weight:900;color:#E4691F;font-size:17px">Q</span><span style="flex:1;font-size:16px;font-weight:700;color:#1C2B4B;line-height:1.6">社内にエンジニアがいませんが、大丈夫ですか?</span><span aria-hidden="true" style="flex:none;width:28px;height:28px;border-radius:50%;border:1.5px solid rgba(28,43,75,.3);color:#1C2B4B;display:inline-flex;align-items:center;justify-content:center;font-size:15px">＋</span></summary>
         <p style="margin:0;padding:0 4px 24px 34px;font-size:16px;line-height:2;color:#5A6172">はい、問題ありません。プログラミングの知識がなくても、日々の業務の延長で使い続けられる形で仕組みを設計します。さらに伴走の中で使い方やノウハウが社内に蓄積されるので、担当者の方のスキルアップと、貴社の資産づくりにつながります。</p>
+      </details>
+      <details style="border-bottom:1.5px solid rgba(28,43,75,.18)">
+        <summary style="display:flex;align-items:center;gap:14px;padding:20px 4px;cursor:pointer;list-style:none"><span aria-hidden="true" style="flex:none;font-weight:900;color:#E4691F;font-size:17px">Q</span><span style="flex:1;font-size:16px;font-weight:700;color:#1C2B4B;line-height:1.6">費用感を教えてください。</span><span aria-hidden="true" style="flex:none;width:28px;height:28px;border-radius:50%;border:1.5px solid rgba(28,43,75,.3);color:#1C2B4B;display:inline-flex;align-items:center;justify-content:center;font-size:15px">＋</span></summary>
+        <p style="margin:0;padding:0 4px 24px 34px;font-size:16px;line-height:2;color:#5A6172">1つの業務を単発で仕組み化する「単発型」と、業務選びから自走化まで寄り添う「継続伴走型」の2つの関わり方をご用意しています。業務の範囲や支援の深さによって内容が変わるため、具体的な費用感は無料相談の中でご案内します。</p>
       </details>
       <details style="border-bottom:1.5px solid rgba(28,43,75,.18)">
         <summary style="display:flex;align-items:center;gap:14px;padding:20px 4px;cursor:pointer;list-style:none"><span aria-hidden="true" style="flex:none;font-weight:900;color:#E4691F;font-size:17px">Q</span><span style="flex:1;font-size:16px;font-weight:700;color:#1C2B4B;line-height:1.6">何から始まりますか?</span><span aria-hidden="true" style="flex:none;width:28px;height:28px;border-radius:50%;border:1.5px solid rgba(28,43,75,.3);color:#1C2B4B;display:inline-flex;align-items:center;justify-content:center;font-size:15px">＋</span></summary>
@@ -890,6 +1422,132 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </section>
 
+<!-- ===== 11.5 お問い合わせ(統合: 資料ダウンロード/問い合わせタブ切替) ===== -->
+<span id="download" aria-hidden="true" style="display:block;position:relative;scroll-margin-top:76px"></span>
+<section id="contact" data-screen-label="お問い合わせ" style="scroll-margin-top:76px;background:linear-gradient(180deg,#F6F1E8,#F2EADC)">
+  <div style="max-width:840px;margin:0 auto;padding:72px 24px 64px">
+    <div style="text-align:center;margin-bottom:32px">
+      <div class="sec-badge" style="margin-bottom:16px">
+        <span class="sec-badge-num" aria-hidden="true">08</span>
+        <span class="sec-badge-label">CONTACT</span>
+      </div>
+      <h2 style="margin:0 0 12px;font-size:clamp(24px,5vw,32px);font-weight:900;line-height:1.5;color:#1C2B4B">お問い合わせ</h2>
+      <p style="margin:0;font-size:16px;line-height:1.9;color:#5A6172">ご希望の内容に合わせて、タブをお選びください。</p>
+    </div>
+
+    <div class="uc-tabs" role="tablist" aria-label="お問い合わせの種類">
+      <button type="button" id="uc-tab-doc" class="uc-tab" data-uc-target="doc" role="tab" aria-selected="true" aria-controls="uc-panel-doc">資料ダウンロード</button>
+      <button type="button" id="uc-tab-inquiry" class="uc-tab" data-uc-target="inquiry" role="tab" aria-selected="false" aria-controls="uc-panel-inquiry" tabindex="-1">問い合わせ</button>
+    </div>
+
+    <div class="ucf-card">
+      <!-- 資料ダウンロード パネル -->
+      <div id="uc-panel-doc" class="uc-panel" role="tabpanel" aria-labelledby="uc-tab-doc">
+        <div class="uc-navy">
+          <h3 style="margin:0;font-size:clamp(20px,4.2vw,24px);font-weight:900;line-height:1.5;color:#fff">無料で資料ダウンロード</h3>
+          <div>
+            <div style="font-size:13px;font-weight:700;letter-spacing:.14em;color:#F0904F;margin-bottom:10px">この資料で分かること</div>
+            <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px">
+              <li style="display:flex;align-items:flex-start;gap:10px;font-size:15px;line-height:1.8;color:rgba(255,255,255,.92)"><span aria-hidden="true" style="flex:none;width:8px;height:8px;border-radius:50%;background:#F0904F;margin-top:9px"></span><span style="flex:1;min-width:0">スカウト文・提案資料・求人票・社外向け資料、4つの自動化のBefore→After</span></li>
+              <li style="display:flex;align-items:flex-start;gap:10px;font-size:15px;line-height:1.8;color:rgba(255,255,255,.92)"><span aria-hidden="true" style="flex:none;width:8px;height:8px;border-radius:50%;background:#F0904F;margin-top:9px"></span><span style="flex:1;min-width:0">AIの専門知識ゼロのメンバーが、つまずきながら業務に定着させるまでの実録</span></li>
+              <li style="display:flex;align-items:flex-start;gap:10px;font-size:15px;line-height:1.8;color:rgba(255,255,255,.92)"><span aria-hidden="true" style="flex:none;width:8px;height:8px;border-radius:50%;background:#F0904F;margin-top:9px"></span><span style="flex:1;min-width:0">支援パッケージ(単発型・継続伴走型)の違いと、ご契約後の流れ</span></li>
+            </ul>
+          </div>
+          <div aria-hidden="true" style="display:flex;justify-content:center">
+            <div style="position:relative;width:118px;background:#fff;border-radius:12px;box-shadow:0 16px 36px rgba(0,0,0,.35);padding:14px;display:flex;flex-direction:column;gap:7px;transform:rotate(-3deg)">
+              <span style="height:8px;width:58%;border-radius:4px;background:#1C2B4B"></span>
+              <span style="height:7px;width:92%;border-radius:4px;background:rgba(28,43,75,.14)"></span>
+              <span style="height:7px;width:80%;border-radius:4px;background:rgba(28,43,75,.14)"></span>
+              <span style="align-self:flex-start;padding:3px 9px;border-radius:999px;background:#E4691F;color:#fff;font-weight:900;font-size:11px;margin-top:2px">PDF</span>
+              <span style="position:absolute;right:-14px;bottom:-14px;width:36px;height:36px;border-radius:50%;background:#E4691F;color:#fff;display:inline-flex;align-items:center;justify-content:center;font-weight:900;font-size:16px">↓</span>
+            </div>
+          </div>
+        </div>
+        <div class="uc-form-side">
+          <form name="document-download" method="POST" action="/thanks.html" data-netlify="true" netlify-honeypot="bot-field" class="uc-form-grid">
+            <input type="hidden" name="form-name" value="document-download">
+            <p style="display:none" class="uc-full"><label>この欄は空欄のままにしてください: <input name="bot-field"></label></p>
+            <div>
+              <label for="dl-company" class="dl-label">会社名<span style="color:#E4691F;margin-left:4px">必須</span></label>
+              <input id="dl-company" name="company" type="text" required autocomplete="organization" class="dl-field">
+            </div>
+            <div>
+              <label for="dl-name" class="dl-label">氏名<span style="color:#E4691F;margin-left:4px">必須</span></label>
+              <input id="dl-name" name="name" type="text" required autocomplete="name" class="dl-field">
+            </div>
+            <div>
+              <label for="dl-email" class="dl-label">メールアドレス<span style="color:#E4691F;margin-left:4px">必須</span></label>
+              <input id="dl-email" name="email" type="email" required autocomplete="email" class="dl-field">
+            </div>
+            <div>
+              <label for="dl-tel" class="dl-label">電話番号<span style="color:#8A8F9C;font-size:12px;margin-left:4px">任意</span></label>
+              <input id="dl-tel" name="phone" type="tel" autocomplete="tel" class="dl-field">
+            </div>
+            <div class="uc-full">
+              <label for="dl-message" class="dl-label">自由記述(ご質問・ご要望など)<span style="color:#8A8F9C;font-size:12px;margin-left:4px">任意</span></label>
+              <textarea id="dl-message" name="message" rows="4" class="dl-field" style="resize:vertical"></textarea>
+            </div>
+            <button type="submit" class="btn-doc-submit uc-full"><span aria-hidden="true" style="width:22px;height:22px;background:#fff;-webkit-mask:url('assets/icon-mail.svg') center/contain no-repeat;mask:url('assets/icon-mail.svg') center/contain no-repeat"></span>送信して資料をダウンロード</button>
+            <p class="uc-full" style="margin:0;font-size:12.5px;line-height:1.9;color:#8A8F9C">ご入力いただいた個人情報は、資料のご提供と、本サービスに関するご連絡のためにのみ利用します。詳細は<a href="https://www.naus.co.jp/2" target="_blank" rel="noopener" style="display:inline-block">プライバシーポリシー</a>をご確認ください。</p>
+          </form>
+        </div>
+      </div>
+
+      <!-- 問い合わせ パネル -->
+      <div id="uc-panel-inquiry" class="uc-panel" role="tabpanel" aria-labelledby="uc-tab-inquiry" hidden>
+        <div class="uc-navy">
+          <h3 style="margin:0;font-size:clamp(20px,4.2vw,24px);font-weight:900;line-height:1.5;color:#fff">ご質問・ご相談を承ります</h3>
+          <div>
+            <div style="font-size:13px;font-weight:700;letter-spacing:.14em;color:#F0904F;margin-bottom:10px">こんなご相談をいただきます</div>
+            <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px">
+              <li style="display:flex;align-items:flex-start;gap:10px;font-size:15px;line-height:1.8;color:rgba(255,255,255,.92)"><span aria-hidden="true" style="flex:none;width:8px;height:8px;border-radius:50%;background:#F0904F;margin-top:9px"></span><span style="flex:1;min-width:0">自社のどの業務からAI化できそうか、当てはめて聞きたい</span></li>
+              <li style="display:flex;align-items:flex-start;gap:10px;font-size:15px;line-height:1.8;color:rgba(255,255,255,.92)"><span aria-hidden="true" style="flex:none;width:8px;height:8px;border-radius:50%;background:#F0904F;margin-top:9px"></span><span style="flex:1;min-width:0">研修やセミナーの登壇・取材のご依頼</span></li>
+              <li style="display:flex;align-items:flex-start;gap:10px;font-size:15px;line-height:1.8;color:rgba(255,255,255,.92)"><span aria-hidden="true" style="flex:none;width:8px;height:8px;border-radius:50%;background:#F0904F;margin-top:9px"></span><span style="flex:1;min-width:0">支援パッケージや進め方についてのご質問</span></li>
+            </ul>
+          </div>
+          <div aria-hidden="true" style="display:flex;justify-content:center">
+            <div style="position:relative;width:118px;height:82px;background:#fff;border-radius:12px 12px 12px 4px;box-shadow:0 16px 36px rgba(0,0,0,.35);padding:14px;display:flex;flex-direction:column;gap:7px;transform:rotate(-3deg)">
+              <span style="height:8px;width:70%;border-radius:4px;background:#1C2B4B"></span>
+              <span style="height:7px;width:92%;border-radius:4px;background:rgba(28,43,75,.14)"></span>
+              <span style="height:7px;width:55%;border-radius:4px;background:rgba(28,43,75,.14)"></span>
+              <span style="position:absolute;right:-14px;bottom:-14px;width:36px;height:36px;border-radius:50%;background:#E4691F;color:#fff;display:inline-flex;align-items:center;justify-content:center;font-weight:900;font-size:18px">!</span>
+            </div>
+          </div>
+        </div>
+        <div class="uc-form-side">
+          <p style="margin:0 0 14px;font-size:12.5px;line-height:1.9;color:#8A8F9C">※紹介資料をご希望の方は、<a href="#download" style="color:#C0501A;text-decoration:underline;text-underline-offset:2px">資料ダウンロード</a>のタブからお受け取りいただけます。</p>
+          <form name="contact" method="POST" action="/contact-thanks.html" data-netlify="true" netlify-honeypot="bot-field" class="uc-form-grid">
+            <input type="hidden" name="form-name" value="contact">
+            <p style="display:none" class="uc-full"><label>この欄は空欄のままにしてください: <input name="bot-field"></label></p>
+            <div>
+              <label for="ct-company" class="dl-label">会社名<span style="color:#E4691F;margin-left:4px">必須</span></label>
+              <input id="ct-company" name="company" type="text" required autocomplete="organization" class="dl-field">
+            </div>
+            <div>
+              <label for="ct-name" class="dl-label">氏名<span style="color:#E4691F;margin-left:4px">必須</span></label>
+              <input id="ct-name" name="name" type="text" required autocomplete="name" class="dl-field">
+            </div>
+            <div>
+              <label for="ct-email" class="dl-label">メールアドレス<span style="color:#E4691F;margin-left:4px">必須</span></label>
+              <input id="ct-email" name="email" type="email" required autocomplete="email" class="dl-field">
+            </div>
+            <div>
+              <label for="ct-tel" class="dl-label">電話番号<span style="color:#8A8F9C;font-size:12px;margin-left:4px">任意</span></label>
+              <input id="ct-tel" name="phone" type="tel" autocomplete="tel" class="dl-field">
+            </div>
+            <div class="uc-full">
+              <label for="ct-message" class="dl-label">ご相談内容(自由記入)<span style="color:#8A8F9C;font-size:12px;margin-left:4px">任意</span></label>
+              <textarea id="ct-message" name="message" rows="4" class="dl-field" style="resize:vertical"></textarea>
+            </div>
+            <button type="submit" class="btn-doc-submit uc-full"><span aria-hidden="true" style="width:22px;height:22px;background:#fff;-webkit-mask:url('assets/icon-mail.svg') center/contain no-repeat;mask:url('assets/icon-mail.svg') center/contain no-repeat"></span>この内容で問い合わせる</button>
+            <p class="uc-full" style="margin:0;font-size:12.5px;line-height:1.9;color:#8A8F9C">ご入力いただいた個人情報は、お問い合わせへのご回答と、本サービスに関するご連絡のためにのみ利用します。詳細は<a href="https://www.naus.co.jp/2" target="_blank" rel="noopener" style="display:inline-block">プライバシーポリシー</a>をご確認ください。</p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ===== 12. 締めのCTA ===== -->
 <section data-screen-label="締めのCTA" style="position:relative;overflow:hidden;background:linear-gradient(150deg,#1C2B4B,#152039)">
   <div aria-hidden="true" style="position:absolute;inset:0;background:linear-gradient(115deg,transparent 62%,rgba(255,255,255,.03) 62%)"></div>
@@ -897,42 +1555,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <h2 style="margin:0 0 18px;font-size:clamp(26px,5.6vw,36px);font-weight:900;line-height:1.5;color:#fff">まずは30分、お話ししませんか</h2>
     <p style="margin:0 0 36px;font-size:16px;line-height:2;color:rgba(255,255,255,.84);text-wrap:pretty">気になる業務が一つでもあれば、無料相談でお聞かせください。貴社に合った形をご一緒に考えます。</p>
     <a href="https://calendar.app.google/F6qpCXCqKXQDYe5D8" target="_blank" rel="noopener" class="btn-closing-cta" style="display:inline-flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(135deg,#F07B2E,#D95614);color:#fff;text-decoration:none;font-weight:700;font-size:17px;padding:18px 36px;border-radius:999px;box-shadow:0 8px 24px rgba(0,0,0,.3)">無料相談(30分・オンライン)を予約する<span aria-hidden="true">→</span></a>
-
-    <div style="margin-top:44px;padding-top:40px;border-top:1px solid rgba(255,255,255,.14);text-align:left">
-      <p style="margin:0 0 24px;font-size:16px;line-height:1.9;color:rgba(255,255,255,.72);text-align:center">日程調整がすぐに難しい場合は、下記フォームからもお問い合わせいただけます。</p>
-      <div id="contact-form" style="scroll-margin-top:76px;display:flex;flex-direction:column;gap:16px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:28px">
-        <div>
-          <h3 style="margin:0;font-size:20px;font-weight:900;line-height:1.6;color:#fff">お問合せフォーム</h3>
-          <p style="margin:10px 0 0;font-size:13px;line-height:1.8;color:rgba(255,255,255,.6)">※紹介資料をご希望の方は、<a href="#download" style="color:#F0904F;text-decoration:underline;text-underline-offset:2px">資料ダウンロード</a>のフォームからお受け取りいただけます。</p>
-        </div>
-        <form name="contact" method="POST" action="/contact-thanks.html" data-netlify="true" netlify-honeypot="bot-field" style="display:flex;flex-direction:column;gap:16px;margin:0">
-          <input type="hidden" name="form-name" value="contact">
-          <p style="display:none"><label>この欄は空欄のままにしてください: <input name="bot-field"></label></p>
-          <div>
-            <label for="ct-company" style="display:block;font-size:14px;font-weight:700;color:rgba(255,255,255,.85);margin-bottom:6px">会社名<span style="color:#F0904F;margin-left:4px">必須</span></label>
-            <input id="ct-company" name="company" type="text" required autocomplete="organization" class="form-field" style="width:100%;box-sizing:border-box;font-size:16px;font-family:inherit;padding:13px 16px;border-radius:10px;border:1.5px solid rgba(255,255,255,.25);background:rgba(255,255,255,.06);color:#fff;outline:none">
-          </div>
-          <div>
-            <label for="ct-name" style="display:block;font-size:14px;font-weight:700;color:rgba(255,255,255,.85);margin-bottom:6px">氏名<span style="color:#F0904F;margin-left:4px">必須</span></label>
-            <input id="ct-name" name="name" type="text" required autocomplete="name" class="form-field" style="width:100%;box-sizing:border-box;font-size:16px;font-family:inherit;padding:13px 16px;border-radius:10px;border:1.5px solid rgba(255,255,255,.25);background:rgba(255,255,255,.06);color:#fff;outline:none">
-          </div>
-          <div>
-            <label for="ct-email" style="display:block;font-size:14px;font-weight:700;color:rgba(255,255,255,.85);margin-bottom:6px">メールアドレス<span style="color:#F0904F;margin-left:4px">必須</span></label>
-            <input id="ct-email" name="email" type="email" required autocomplete="email" class="form-field" style="width:100%;box-sizing:border-box;font-size:16px;font-family:inherit;padding:13px 16px;border-radius:10px;border:1.5px solid rgba(255,255,255,.25);background:rgba(255,255,255,.06);color:#fff;outline:none">
-          </div>
-          <div>
-            <label for="ct-tel" style="display:block;font-size:14px;font-weight:700;color:rgba(255,255,255,.85);margin-bottom:6px">電話番号<span style="color:rgba(255,255,255,.5);font-size:12px;margin-left:4px">任意</span></label>
-            <input id="ct-tel" name="phone" type="tel" autocomplete="tel" class="form-field" style="width:100%;box-sizing:border-box;font-size:16px;font-family:inherit;padding:13px 16px;border-radius:10px;border:1.5px solid rgba(255,255,255,.25);background:rgba(255,255,255,.06);color:#fff;outline:none">
-          </div>
-          <div>
-            <label for="ct-message" style="display:block;font-size:14px;font-weight:700;color:rgba(255,255,255,.85);margin-bottom:6px">ご相談内容(自由記入)<span style="color:rgba(255,255,255,.5);font-size:12px;margin-left:4px">任意</span></label>
-            <textarea id="ct-message" name="message" rows="4" class="form-field" style="width:100%;box-sizing:border-box;font-size:16px;font-family:inherit;padding:13px 16px;border-radius:10px;border:1.5px solid rgba(255,255,255,.25);background:rgba(255,255,255,.06);color:#fff;outline:none;resize:vertical"></textarea>
-          </div>
-          <button type="submit" class="btn-form-submit" style="align-self:flex-start;display:inline-flex;align-items:center;justify-content:center;gap:8px;background:#fff;color:#1C2B4B;font-family:inherit;font-weight:700;font-size:16px;padding:14px 28px;border-radius:999px;border:0;cursor:pointer">この内容で問い合わせる</button>
-          <p style="margin:0;font-size:12.5px;line-height:1.9;color:rgba(255,255,255,.6)">ご入力いただいた個人情報は、お問い合わせへのご回答と、本サービスに関するご連絡のためにのみ利用します。詳細は<a href="https://www.naus.co.jp/2" target="_blank" rel="noopener" style="display:inline-block;color:#F0904F;text-decoration:underline;text-underline-offset:2px">プライバシーポリシー</a>をご確認ください。</p>
-        </form>
-      </div>
-    </div>
   </div>
 </section>
 
@@ -1163,6 +1785,152 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   });
   window.addEventListener('resize',function(){
     if(window.innerWidth>=768&&isOpen())close();
+  });
+})();
+</script>
+<script>
+(function(){
+  var upcomingWrap=document.getElementById('sem-upcoming-wrap');
+  var upcomingList=document.getElementById('sem-upcoming-list');
+  var pastList=document.getElementById('sem-past-list');
+  if(!upcomingWrap||!upcomingList||!pastList)return;
+
+  var WEEKDAYS=['日','月','火','水','木','金','土'];
+  function todayStr(){
+    var d=new Date();
+    var m=String(d.getMonth()+1).padStart(2,'0');
+    var day=String(d.getDate()).padStart(2,'0');
+    return d.getFullYear()+'-'+m+'-'+day;
+  }
+  function formatDate(dateStr){
+    var parts=dateStr.split('-').map(Number);
+    var d=new Date(parts[0],parts[1]-1,parts[2]);
+    return parts[0]+'/'+parts[1]+'/'+parts[2]+'('+WEEKDAYS[d.getDay()]+')';
+  }
+
+  function buildUpcomingCard(item){
+    var a=document.createElement('a');
+    a.className='sem-card-upcoming';
+    a.href=item.link;
+    a.target='_blank';
+    a.rel='noopener';
+
+    var thumb=document.createElement('div');
+    thumb.className='sem-card-upcoming-thumb';
+    var img=document.createElement('img');
+    img.src=item.thumbnail;
+    img.alt=item.title+'の告知画像';
+    img.loading='lazy';
+    thumb.appendChild(img);
+    a.appendChild(thumb);
+
+    var body=document.createElement('div');
+    body.className='sem-card-upcoming-body';
+
+    var top=document.createElement('div');
+    top.className='sem-card-upcoming-top';
+    var pill=document.createElement('span');
+    pill.className='sem-pill-upcoming';
+    pill.textContent='開催予定';
+    var meta=document.createElement('span');
+    meta.className='sem-meta';
+    meta.textContent='オンライン開催・'+formatDate(item.date);
+    top.appendChild(pill);
+    top.appendChild(meta);
+    body.appendChild(top);
+
+    var title=document.createElement('h4');
+    title.className='sem-card-upcoming-title';
+    title.textContent=item.title;
+    body.appendChild(title);
+
+    var summary=document.createElement('p');
+    summary.className='sem-card-upcoming-summary';
+    summary.textContent=item.summary;
+    body.appendChild(summary);
+
+    var foot=document.createElement('div');
+    foot.className='sem-card-upcoming-foot';
+    var btn=document.createElement('span');
+    btn.className='sem-btn-apply';
+    btn.innerHTML='申し込む<span aria-hidden="true">→</span>';
+    foot.appendChild(btn);
+    body.appendChild(foot);
+
+    a.appendChild(body);
+    return a;
+  }
+
+  function buildPastCard(item){
+    var a=document.createElement('a');
+    a.className='sem-past-card';
+    a.href=item.link;
+    a.target='_blank';
+    a.rel='noopener';
+
+    var thumb=document.createElement('div');
+    thumb.className='sem-past-thumb';
+    var img=document.createElement('img');
+    img.src=item.thumbnail;
+    img.alt=item.title+'の告知画像';
+    img.loading='lazy';
+    thumb.appendChild(img);
+    a.appendChild(thumb);
+
+    var body=document.createElement('div');
+    body.className='sem-past-body';
+    var label=document.createElement('span');
+    label.className='sem-past-label';
+    label.textContent='PAST EVENT';
+    var title=document.createElement('p');
+    title.className='sem-past-title';
+    title.textContent=item.title;
+    var date=document.createElement('p');
+    date.className='sem-past-date';
+    date.textContent=formatDate(item.date);
+    body.appendChild(label);
+    body.appendChild(title);
+    body.appendChild(date);
+    a.appendChild(body);
+    return a;
+  }
+
+  fetch('data/seminars.json')
+    .then(function(res){return res.json();})
+    .then(function(items){
+      var today=todayStr();
+      var upcoming=items.filter(function(i){return i.date>=today;}).sort(function(a,b){return a.date<b.date?-1:1;});
+      var past=items.filter(function(i){return i.date<today;}).sort(function(a,b){return a.date<b.date?1:-1;});
+
+      if(upcoming.length){
+        upcoming.forEach(function(item){upcomingList.appendChild(buildUpcomingCard(item));});
+        upcomingWrap.hidden=false;
+      }
+      past.forEach(function(item){pastList.appendChild(buildPastCard(item));});
+    })
+    .catch(function(){/* データ取得失敗時は静かに何も表示しない */});
+})();
+</script>
+<script>
+(function(){
+  var tabs=Array.prototype.slice.call(document.querySelectorAll('.uc-tab'));
+  var panels={doc:document.getElementById('uc-panel-doc'),inquiry:document.getElementById('uc-panel-inquiry')};
+  if(!tabs.length||!panels.doc||!panels.inquiry)return;
+
+  function activate(key){
+    tabs.forEach(function(t){
+      var on=t.getAttribute('data-uc-target')===key;
+      t.setAttribute('aria-selected',on?'true':'false');
+      t.tabIndex=on?0:-1;
+    });
+    Object.keys(panels).forEach(function(k){panels[k].hidden=(k!==key);});
+  }
+  tabs.forEach(function(t){
+    t.addEventListener('click',function(){activate(t.getAttribute('data-uc-target'));});
+  });
+  if(location.hash==='#contact')activate('inquiry');
+  window.addEventListener('hashchange',function(){
+    if(location.hash==='#contact')activate('inquiry');
   });
 })();
 </script>
