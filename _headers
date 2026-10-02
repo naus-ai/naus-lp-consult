@@ -7,6 +7,9 @@
 /assets/zerokara-ai-academy-intro.pdf
   Content-Disposition: attachment
 
+/shigyo/assets/zerokara-ai-academy-shigyo.pdf
+  Content-Disposition: attachment
+
 # 全ページ共通のセキュリティヘッダー。
 # 上の個別パス指定(PDFのダウンロード強制)を打ち消さないよう、全体指定(/*)は必ず最後に置く。
 /*
