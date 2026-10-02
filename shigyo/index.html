@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<!-- ===== 固定ヘッダー ===== -->
+<header class="site-header">
+  <div class="header-inner">
+    <a href="#" class="logo">
+      <span class="logo-main">ゼロからAI Academy <small>for 士業</small></span>
+      <span class="logo-by">by naus</span>
+    </a>
+    <nav class="nav-desktop">
+      <a href="#service">サービス</a>
+      <a href="#usecase">ユースケース</a>
+      <a href="#pricing">プラン</a>
+      <a href="#seminar">セミナー</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contact" data-tab="contact">問い合わせ</a>
+    </nav>
+    <button type="button" class="menu-btn" id="menu-btn" aria-label="メニュー"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#1E2A4A" stroke-width="2" stroke-linecap="round"><path d="M4 7h16"></path><path d="M4 12h16"></path><path d="M4 17h16"></path></svg></button>
+  </div>
+  <nav class="nav-mobile" id="nav-mobile" hidden>
+    <a href="#service">サービス</a>
+    <a href="#usecase">ユースケース</a>
+    <a href="#pricing">プラン</a>
+    <a href="#seminar">セミナー</a>
+    <a href="#faq">FAQ</a>
+    <a href="#contact" data-tab="contact">問い合わせ</a>
+  </nav>
+</header>
+
+<!-- ===== 1. ヒーロー ===== -->
+<section class="hero">
+  <div class="container hero-inner">
+    <div class="hero-top">
+      <div class="hero-badge"><span class="hero-badge-pill">AI初心者向け</span><span class="hero-badge-text"><span class="hero-ph">内製化</span><span class="hero-ph">支援サービス</span></span></div>
+      <span class="hero-target"><span class="hero-ph">社労士・税理士・行政書士の</span><span class="hero-ph">事務所さま向け</span></span>
+    </div>
+    <p class="hero-sub"><span class="hero-ph">AIを使いこなす人を、</span><span class="hero-ph">事務所の中に育てる。</span></p>
+    <h1 class="hero-title"><span class="hero-ph">給与計算も</span><span class="hero-ph">助成金申請も、</span><br>Claude Codeで「手作業」を減らす。</h1>
+    <div class="hero-cols">
+      <div class="hero-text">
+        <p class="hero-lead">Claude Code(クロードコード)は、<span class="hero-ph"><span class="hero-ph">ファイルやデータをそのまま扱える</span><span class="hero-ph">AIツールです。</span></span><br>導入のはじめかたから、<span class="hero-ph"><span class="hero-ph">事務所の実務で</span><span class="hero-ph">使いこなせるようになるまで</span><span class="hero-ph">伴走支援します。</span></span></p>
+        <div class="hero-btns">
+          <a href="#download" class="btn-outline" data-tab="download">まずは資料ダウンロード</a>
+          <a href="https://calendar.app.google/waQHq6Jvxr3rPzez9" target="_blank" rel="noopener" class="btn-grad">無料相談(30分/オンライン)</a>
+        </div>
+      </div>
+      <img class="hero-illust" src="assets/hero-illust.webp" width="800" height="468" alt="ノートPCでClaude Codeを使い、書類・スケジュール・データなどの業務がつながっていくイメージ">
+    </div>
+    <div class="stats">
+      <div class="card stat">
+        <div class="stat-num">2〜6<span class="u">ヶ月</span></div>
+        <div class="stat-text">導入から定着までの標準伴走期間</div>
+      </div>
+      <div class="card stat">
+        <div class="stat-num">0<span class="u">行</span></div>
+        <div class="stat-text"><span class="hero-ph">プログラミング未経験のまま</span><span class="hero-ph">始められます</span></div>
+      </div>
+      <div class="card stat">
+        <div class="stat-num"><span class="pre">最大</span>80<span class="u">%</span></div>
+        <div class="stat-text"><span class="hero-ph">ある業務では、</span><span class="hero-ph">作業時間がここまで短縮</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 2. ISSUE ===== -->
+<section id="problem" class="section section-alt">
+  <div class="container">
+    <div class="sec-head">
+      <div class="sec-label"><span class="sec-label-num">01</span><span class="sec-label-line"></span>ISSUE</div>
+      <h2 class="sec-title">人が足りないのではなく、<br>手作業が多すぎるのかもしれません</h2>
+      <p class="sec-lead">士業の業務は、確認と転記と書類作成の積み重ねです。<br>そこにこそAIが効きます。</p>
+    </div>
+    <div class="issue-grid">
+      <div class="card issue-card">
+        <p class="issue-card-title">毎月同じ確認作業に追われる</p>
+        <p class="issue-card-text">給与計算の突合、勤怠データの整形、顧問先ごとに違うフォーマットの読み替え。</p>
+      </div>
+      <div class="card issue-card">
+        <p class="issue-card-title">制度改正の調べ直しに時間がかかる</p>
+        <p class="issue-card-text">助成金の要件確認、必要書類の洗い出し、期限管理。担当者の記憶に頼りがちです。</p>
+      </div>
+      <div class="card issue-card">
+        <p class="issue-card-title">属人化して引き継げない</p>
+        <p class="issue-card-text">ベテランのやり方が手順書になっておらず、新人が育つまで時間がかかります。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 3. SERVICE ===== -->
+<section id="service" class="section">
+  <div class="container">
+    <div class="sec-head">
+      <div class="sec-label"><span class="sec-label-num">02</span><span class="sec-label-line"></span>SERVICE</div>
+      <h2 class="sec-title svc-title"><span class="svc-ph">ゼロからAI</span> <span class="svc-ph">Academyの</span><span class="svc-ph">強みは、</span><br><span class="svc-ph">AIを使いこなす</span><span class="svc-ph">人を育てる</span><span class="svc-ph">ことです</span></h2>
+      <p class="sec-lead svc-lead">仕組みを作って渡すだけでは、業務や制度が変わるたびに、外部に頼り直すことになります。<br>このサービスの中心は、貴事務所の職員の方をAI人材に育てることです。</p>
+    </div>
+    <div class="svc-steps">
+      <div class="card svc-card svc-card-1">
+        <div class="svc-card-head"><span class="svc-num">1</span><span class="svc-stage">はじめる</span></div>
+        <h3 class="svc-card-title">環境づくりと初期設定</h3>
+        <p class="svc-card-text">アカウント発行、パソコンへの導入、顧問先データの取り扱いルールまで一緒に整えます。専門用語は使わずに進めます。</p>
+      </div>
+      <div class="svc-arrow" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#E8672A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></div>
+      <div class="card svc-card svc-card-2">
+        <div class="svc-card-head"><span class="svc-num">2</span><span class="svc-stage">身につける</span></div>
+        <h3 class="svc-card-title">実務での使い方研修</h3>
+        <p class="svc-card-text">貴事務所の実際の業務を題材に、手を動かしながら学びます。よく使う指示は雛形として残します。</p>
+      </div>
+      <div class="svc-arrow" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#E8672A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></div>
+      <div class="card svc-card svc-card-3">
+        <div class="svc-card-head"><span class="svc-num">3</span><span class="svc-stage">使いこなす</span></div>
+        <h3 class="svc-card-title">定着までの伴走</h3>
+        <p class="svc-card-text">定例MTGとチャットでの質問対応。うまくいかない場面を一つずつ解消し、次の業務へ広げます。</p>
+      </div>
+    </div>
+    <div class="svc-after">
+      <div class="svc-after-label">育った後の貴事務所</div>
+      <div class="svc-after-grid">
+        <div class="svc-after-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E8672A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg><span>業務や制度が変わっても、自分たちで仕組みを直せる</span></div>
+        <div class="svc-after-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E8672A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg><span><span class="svc-ph">使い方を、</span><span class="svc-ph">事務所の中で教え合える</span></span></div>
+        <div class="svc-after-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E8672A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg><span>外部に頼り続けずに、AIを使う業務を増やしていける</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 4. USE CASES ===== -->
+<section id="usecase" class="section section-alt">
+  <div class="container">
+    <div class="sec-head">
+      <div class="sec-label"><span class="sec-label-num">03</span><span class="sec-label-line"></span>USE CASES</div>
+      <h2 class="sec-title">Claude Codeで軽くなる業務の例</h2>
+      <p class="sec-lead">お手元のExcelやPDF、CSVをそのまま渡して、確認・整形・下書きまで任せられます。</p>
+    </div>
+    <div class="uc-grid">
+      <div class="card uc-card">
+        <span class="uc-tag">給与計算</span>
+        <h3 class="uc-title">給与計算のチェックと突合</h3>
+        <p class="uc-text">勤怠データと給与データを読み込み、前月との差異や計算の不整合を一覧にします。手当や控除の例外パターンも指摘します。</p>
+        <div class="uc-effect">確認作業を目視から一覧チェックへ</div>
+      </div>
+      <div class="card uc-card">
+        <span class="uc-tag">助成金</span>
+        <h3 class="uc-title">助成金の要件整理と申請書ドラフト</h3>
+        <p class="uc-text">要件と顧問先の状況を突き合わせ、該当しそうな制度と必要書類を整理。申請書の下書きまで作成します。</p>
+        <div class="uc-effect">調べ直しと下書きの時間を短縮</div>
+      </div>
+      <div class="card uc-card">
+        <span class="uc-tag">書類整形</span>
+        <h3 class="uc-title">書式の異なる資料の整形</h3>
+        <p class="uc-text">顧問先ごとにフォーマットが違うExcelやCSVを、事務所の様式に揃えて出力します。毎月同じ手順を繰り返せます。</p>
+        <div class="uc-effect">転記ミスの起きにくい流れに</div>
+      </div>
+      <div class="card uc-card">
+        <span class="uc-tag">規程点検</span>
+        <h3 class="uc-title">就業規則・契約書の点検</h3>
+        <p class="uc-text">改正内容や社内基準と照らし合わせ、修正が必要な条項と理由を洗い出します。最終判断は有資格者が行います。</p>
+        <div class="uc-effect">見落としの防止と根拠の明示</div>
+      </div>
+      <div class="card uc-card">
+        <span class="uc-tag">報告資料</span>
+        <h3 class="uc-title">顧問先向けレポートの作成</h3>
+        <p class="uc-text">数値データから、顧問先に説明しやすい要約と資料を作成。毎月の定型報告を型にできます。</p>
+        <div class="uc-effect">報告資料づくりを型化</div>
+      </div>
+      <div class="card uc-card">
+        <span class="uc-tag">手順書</span>
+        <h3 class="uc-title">業務手順の見える化</h3>
+        <p class="uc-text">ベテランのやり方を聞き取り、手順書とチェックリストに整えます。新任の立ち上がりが早くなります。</p>
+        <div class="uc-effect">属人化の解消と引き継ぎ</div>
+      </div>
+    </div>
+    <p class="uc-note">※ 最終的な判断と責任は有資格者が担う前提で、確認・作成の下ごしらえを任せる設計にします。</p>
+  </div>
+</section>
+
+<!-- ===== 5. PACKAGES ===== -->
+<section id="pricing" class="section">
+  <div class="container container-pkg">
+    <div class="sec-head">
+      <div class="sec-label"><span class="sec-label-num">04</span><span class="sec-label-line"></span>PACKAGES</div>
+      <h2 class="sec-title">支援パッケージ(2つの関わり方)</h2>
+      <p class="sec-lead">まずは1つの業務から試すか、複数の業務をまとめて仕組み化するか。<br>貴社の状況に合わせてお選びいただけます。</p>
+    </div>
+    <div class="pkg-grid">
+      <div class="pkg-card">
+        <div class="pkg-head">
+          <div class="pkg-head-row"><span class="pkg-key">A</span><span class="pkg-name">単発型</span></div>
+          <span class="pkg-sub">まずはお試しの方に</span>
+        </div>
+        <div class="pkg-row first"><span class="pkg-label">想定期間</span><span class="pkg-period">1〜2ヶ月</span></div>
+        <div class="pkg-row"><span class="pkg-label">やること</span><span class="pkg-value">提案資料・報告書など、選んだ1業務を単発で仕組み化</span></div>
+        <div class="pkg-row"><span class="pkg-label">向いている方</span><span class="pkg-value">まず1つの業務で、AI化の効果を試したい方</span></div>
+        <div class="pkg-items">
+          <span class="pkg-label">含まれるもの</span>
+          <div class="check-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#E8672A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg>業務ヒアリング</div>
+          <div class="check-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#E8672A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg>仕組み設計・構築</div>
+          <div class="check-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#E8672A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg>運用マニュアルの作成</div>
+          <div class="check-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#E8672A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg>成果物一式のお渡し</div>
+        </div>
+      </div>
+      <div class="pkg-card">
+        <div class="pkg-head">
+          <div class="pkg-head-row"><span class="pkg-key">B</span><span class="pkg-name">継続伴走型</span></div>
+          <span class="pkg-sub">しっかり伴走してほしい方に</span>
+        </div>
+        <div class="pkg-row first"><span class="pkg-label">想定期間</span><span class="pkg-period">6ヶ月〜</span></div>
+        <div class="pkg-row"><span class="pkg-label">やること</span><span class="pkg-value">どの業務から着手するかの選定から、仕組みづくり・定着、自走化まで継続的に伴走</span></div>
+        <div class="pkg-row"><span class="pkg-label">向いている方</span><span class="pkg-value">自社の業務をまとめて仕組み化したい方、相談相手を持ちながら進めたい方</span></div>
+        <div class="pkg-items">
+          <span class="pkg-label">含まれるもの</span>
+          <div class="check-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#E8672A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg>複数業務にまたがる仕組み化</div>
+          <div class="check-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#E8672A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg>定例MTGでの伴走</div>
+          <div class="check-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#E8672A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg>チャットでの相談対応</div>
+          <div class="check-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#E8672A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg>仕組みのアップデート・追加開発</div>
+          <div class="check-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#E8672A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg>社内への展開・浸透サポート</div>
+        </div>
+      </div>
+    </div>
+    <div class="pkg-cta">
+      <a href="https://calendar.app.google/waQHq6Jvxr3rPzez9" target="_blank" rel="noopener" class="btn-grad">無料相談で聞く→</a>
+      <p>どちらのプランも、料金は無料相談でご案内します</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 6. FLOW ===== -->
+<section id="flow" class="section section-alt">
+  <div class="container flow-inner">
+    <div class="flow-head">
+      <div class="sec-label"><span class="sec-label-num">05</span><span class="sec-label-line"></span>FLOW</div>
+      <h2 class="sec-title">導入の流れ</h2>
+      <p class="sec-lead">まずは効果の出やすい1業務から始めます。</p>
+    </div>
+    <div>
+      <div class="flow-step">
+        <div class="flow-rail"><span class="flow-num">1</span><span class="flow-line"></span></div>
+        <div class="flow-body">
+          <h3 class="flow-title">無料相談(30分)</h3>
+          <p class="flow-text"><span class="flow-ph">事務所の体制と、</span><span class="flow-ph">いま手間の</span><span class="flow-ph">かかっている業務を</span><span class="flow-ph">お聞きします。</span></p>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-rail"><span class="flow-num">2</span><span class="flow-line"></span></div>
+        <div class="flow-body">
+          <h3 class="flow-title">業務の棚卸しと対象選定</h3>
+          <p class="flow-text"><span class="flow-ph">業務を工程に分解し、</span><span class="flow-ph">Claude Codeで</span><span class="flow-ph">置き換えやすい</span><span class="flow-ph">1業務を</span><span class="flow-ph">一緒に決めます。</span></p>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-rail"><span class="flow-num">3</span><span class="flow-line"></span></div>
+        <div class="flow-body">
+          <h3 class="flow-title">導入・ハンズオン研修</h3>
+          <p class="flow-text"><span class="flow-ph">パソコンへの導入と</span><span class="flow-ph">初期設定を行い、</span><span class="flow-ph">実際の業務を</span><span class="flow-ph">題材に</span><span class="flow-ph">操作を習得します。</span></p>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-rail"><span class="flow-num">4</span></div>
+        <div class="flow-body">
+          <h3 class="flow-title">定着支援と横展開</h3>
+          <p class="flow-text"><span class="flow-ph">定例MTGで</span><span class="flow-ph">運用を振り返り、</span><span class="flow-ph">次の業務へ</span><span class="flow-ph">広げます。</span><span class="flow-ph">指示の雛形は</span><span class="flow-ph">事務所の</span><span class="flow-ph">資産として</span><span class="flow-ph">残します。</span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 7. SEMINAR ===== -->
+<section id="seminar" class="section">
+  <div class="container">
+    <div class="sec-head">
+      <div class="sec-label"><span class="sec-label-num">06</span><span class="sec-label-line"></span>SEMINAR</div>
+      <h2 class="sec-title">セミナー・勉強会</h2>
+    </div>
+    <div id="sem-upcoming-wrap" class="sem-upcoming-wrap" hidden>
+      <div class="sem-subhead">
+        <h3 class="sem-subhead-title">開催予定</h3>
+        <span class="sem-subhead-line" aria-hidden="true"></span>
+        <span class="sem-subhead-en">UPCOMING</span>
+      </div>
+      <div id="sem-upcoming-list" class="sem-upcoming-list"></div>
+    </div>
+    <div>
+      <div class="sem-subhead">
+        <h3 class="sem-subhead-title">開催実績</h3>
+        <span class="sem-subhead-line" aria-hidden="true"></span>
+        <span class="sem-subhead-en">PAST EVENTS</span>
+      </div>
+      <div id="sem-past-list" class="sem-past-scroll"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 8. FAQ ===== -->
+<section id="faq" class="section">
+  <div class="container container-faq">
+    <div class="sec-head">
+      <div class="sec-label"><span class="sec-label-num">07</span><span class="sec-label-line"></span>FAQ</div>
+      <h2 class="sec-title">よくあるご質問</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-q"><span>Q</span>パソコンやプログラミングに詳しくなくても使えますか?</div>
+        <div class="faq-a"><span>A</span><p>はい。日本語で指示を出す形で使えます。導入と設定はこちらで並走し、専門用語を使わない手順書をお渡しします。</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q"><span>Q</span>顧問先の個人情報を扱っても問題ありませんか?</div>
+        <div class="faq-a"><span>A</span><p>私たちは貴事務所のシステムへの直接アクセスや、個人情報の受け取りを行いません。データを扱う操作は、すべて貴事務所の担当者の手元で行っていただく設計です。</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q"><span>Q</span>最終的な判断まで任せてよいのですか?</div>
+        <div class="faq-a"><span>A</span><p>いいえ。確認・整形・下書きまでを任せ、最終判断と責任は有資格者が担う前提で設計します。</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q"><span>Q</span>事務所が少人数でも導入できますか?</div>
+        <div class="faq-a"><span>A</span><p>はい。少人数の事務所でも、まず1業務から小さく始められます。</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q"><span>Q</span>費用感を教えてください。</div>
+        <div class="faq-a"><span>A</span><p>「単発型」と「継続伴走型」の2つの関わり方をご用意しています。業務の範囲や支援の深さによって内容が変わるため、具体的な費用感は無料相談の中でご案内します。</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 9. CONTACT ===== -->
+<section id="contact" class="section section-alt">
+  <div id="download" class="container container-contact">
+    <div class="sec-head contact-head">
+      <div class="sec-label"><span class="sec-label-num">08</span><span class="sec-label-line"></span>CONTACT</div>
+      <h2 class="sec-title">お問い合わせ</h2>
+      <p class="sec-lead">ご希望の内容に合わせて、タブをお選びください。</p>
+    </div>
+    <div class="tabs">
+      <button type="button" class="tab is-active" data-tab="download">資料ダウンロード</button>
+      <button type="button" class="tab" data-tab="contact">問い合わせ</button>
+    </div>
+    <div class="contact-panel">
+
+      <form name="shigyo-download" method="POST" action="/shigyo/thanks/" data-netlify="true" netlify-honeypot="bot-field" class="contact-form" data-panel="download">
+        <input type="hidden" name="form-name" value="shigyo-download">
+        <p class="hp"><label><input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
+        <div class="form-intro">
+          <h3>無料で資料ダウンロード</h3>
+          <div class="points">
+            <span class="points-label">この資料で分かること</span>
+            <div class="point"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#E8672A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg>給与計算チェック・助成金申請ドラフトなど、士業業務の自動化のBefore→After</div>
+            <div class="point"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#E8672A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg>AIの専門知識ゼロのメンバーが、つまずきながら業務に定着させるまでの実録</div>
+            <div class="point"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#E8672A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg>支援パッケージ(単発型・継続伴走型)の違いと、ご契約後の流れ</div>
+          </div>
+        </div>
+        <div class="fields">
+          <label class="field"><span class="field-label">事務所名<span class="req">必須</span></span><input type="text" name="office" required></label>
+          <label class="field"><span class="field-label">氏名<span class="req">必須</span></span><input type="text" name="name" required></label>
+          <label class="field"><span class="field-label">メールアドレス<span class="req">必須</span></span><input type="email" name="email" required></label>
+          <label class="field"><span class="field-label">電話番号<span class="opt">任意</span></span><input type="tel" name="tel"></label>
+        </div>
+        <label class="field"><span class="field-label">自由記述(ご質問・ご要望など)<span class="opt">任意</span></span><textarea name="message" rows="4"></textarea></label>
+        <div class="form-submit">
+          <button type="submit" class="submit-btn">送信して資料をダウンロード</button>
+          <p class="privacy">ご入力いただいた個人情報は、資料のご提供と、本サービスに関するご連絡のためにのみ利用します。詳細は<a href="https://www.naus.co.jp/2" target="_blank" rel="noopener">プライバシーポリシー</a>をご確認ください。</p>
+        </div>
+      </form>
+
+      <form name="shigyo-contact" method="POST" action="/shigyo/contact-thanks/" data-netlify="true" netlify-honeypot="bot-field" class="contact-form" data-panel="contact" hidden>
+        <input type="hidden" name="form-name" value="shigyo-contact">
+        <p class="hp"><label><input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
+        <div class="form-intro">
+          <h3>お問い合わせ</h3>
+          <div class="points">
+            <div class="point"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#E8672A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg>自社のどの業務からAI化できそうか、当てはめて聞きたい</div>
+            <div class="point"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#E8672A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg>研修やセミナーの登壇・取材のご依頼</div>
+            <div class="point"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#E8672A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg>支援パッケージや進め方についてのご質問</div>
+          </div>
+          <p class="form-note">※紹介資料をご希望の方は、資料ダウンロードのタブからお受け取りいただけます。</p>
+        </div>
+        <div class="fields">
+          <label class="field"><span class="field-label">事務所名<span class="req">必須</span></span><input type="text" name="office" required></label>
+          <label class="field"><span class="field-label">氏名<span class="req">必須</span></span><input type="text" name="name" required></label>
+          <label class="field"><span class="field-label">メールアドレス<span class="req">必須</span></span><input type="email" name="email" required></label>
+          <label class="field"><span class="field-label">電話番号<span class="opt">任意</span></span><input type="tel" name="tel"></label>
+        </div>
+        <label class="field"><span class="field-label">ご相談内容(自由記入)<span class="opt">任意</span></span><textarea name="message" rows="4"></textarea></label>
+        <div class="form-submit">
+          <button type="submit" class="submit-btn">この内容で問い合わせる</button>
+          <p class="privacy">ご入力いただいた個人情報は、お問い合わせへのご回答と、本サービスに関するご連絡のためにのみ利用します。詳細は<a href="https://www.naus.co.jp/2" target="_blank" rel="noopener">プライバシーポリシー</a>をご確認ください。</p>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== 10. 最終CTA ===== -->
+<section class="cta-section">
+  <div class="container">
+    <div class="cta-box">
+      <h2>まずは30分、お話ししませんか</h2>
+      <p>給与計算でも助成金申請でも、気になる業務が一つでもあれば無料相談でお聞かせください。貴事務所に合った形をご一緒に考えます。</p>
+      <a href="https://calendar.app.google/waQHq6Jvxr3rPzez9" target="_blank" rel="noopener" class="btn-grad">無料相談(30分・オンライン)を予約する→</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 11. フッター ===== -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="footer-name">ゼロからAI Academy for 士業</div>
+      <div class="footer-op">運営:株式会社naus</div>
+    </div>
+    <nav class="footer-nav">
+      <a href="https://www.naus.co.jp/2" target="_blank" rel="noopener">プライバシーポリシー</a>
+      <a href="mailto:info@naus.co.jp">お問い合わせ: info@naus.co.jp</a>
+      <a href="https://www.naus.co.jp/" target="_blank" rel="noopener">運営会社</a>
+    </nav>
+  </div>
+</footer>
+
+<!-- ===== 12. 下部固定CTAバー ===== -->
+<div class="fixed-cta">
+  <div class="fixed-cta-inner">
+    <a href="#download" class="btn-outline" data-tab="download">資料ダウンロード</a>
+    <a href="https://calendar.app.google/waQHq6Jvxr3rPzez9" target="_blank" rel="noopener" class="btn-grad">無料相談予約</a>
+  </div>
+</div>
+
+<script src="assets/main.js"></script>
+</body>
+</html>
