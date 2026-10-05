@@ -206,7 +206,7 @@ p, h1, h2, h3 { margin: 0; }
 /* ===== responsive ===== */
 @media (max-width: 759.98px) {
   .hero-cols { grid-template-columns: minmax(0, 1fr); }
-  .hero-btns { flex-wrap: wrap; }
+  .hero-btns { flex-wrap: wrap; align-self: center; justify-content: center; }
 }
 @media (max-width: 859.98px) {
   .nav-desktop { display: none; }
