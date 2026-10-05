@@ -37,6 +37,7 @@ p, h1, h2, h3 { margin: 0; }
 .sec-label-num { font-size: 15px; font-weight: 900; color: #E8672A; }
 .sec-label-line { width: 24px; height: 1px; background: #1E2A4A; }
 .sec-title { font-size: 34px; line-height: 1.5; letter-spacing: 0.04em; color: #1E2A4A; margin: 0; font-weight: 900; }
+.sec-ph { display: inline-block; }
 .sec-lead { font-size: 17px; line-height: 1.9; color: #4A5468; margin: 0; max-width: 660px; }
 .card { background: #fff; border-radius: 12px; box-shadow: 0 2px 12px rgba(30,42,74,0.06); }
 
@@ -206,7 +207,15 @@ p, h1, h2, h3 { margin: 0; }
 /* ===== responsive ===== */
 @media (max-width: 759.98px) {
   .hero-cols { grid-template-columns: minmax(0, 1fr); }
-  .hero-btns { flex-wrap: wrap; }
+  .hero-btns { flex-wrap: wrap; align-self: center; justify-content: center; display: grid; grid-template-columns: 1fr 1fr; }
+  .hero-target { text-align: center; }
+  .stat { align-items: center; text-align: center; }
+  .sec-title { font-size: clamp(21px, 6.4vw, 28px); }
+  .uc-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(12px, 3vw, 24px); }
+  .uc-card { padding: clamp(14px, 4vw, 28px); gap: 10px; }
+  .uc-title { font-size: clamp(15px, 4.2vw, 20px); }
+  .uc-text { font-size: clamp(13px, 3.6vw, 15.5px); line-height: 1.75; }
+  .uc-effect { font-size: clamp(12.5px, 3.4vw, 14.5px); padding-top: 10px; }
 }
 @media (max-width: 859.98px) {
   .nav-desktop { display: none; }
@@ -219,11 +228,11 @@ p, h1, h2, h3 { margin: 0; }
 }
 @media (max-width: 599.98px) {
   .fields { grid-template-columns: minmax(0, 1fr); }
+  .hero-btns { grid-template-columns: 1fr; }
 }
 @media (max-width: 374.98px) {
   .logo-main { font-size: 13px; white-space: nowrap; }
   .logo-main small { font-size: 11px; }
-  .uc-grid { grid-template-columns: minmax(0, 1fr); }
   .pkg-grid { grid-template-columns: minmax(0, 1fr); }
   .flow-inner { grid-template-columns: minmax(0, 1fr); }
   .hero-badge-pill { white-space: nowrap; }
