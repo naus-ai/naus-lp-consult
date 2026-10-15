@@ -34,7 +34,20 @@
 .dv-float.is-in{animation:dvFloatIn .45s ease-out both,dvFloatNudge .7s ease-in-out .5s 1;}
 @keyframes dvFloatIn{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:none;}}
 @keyframes dvFloatNudge{0%,100%{transform:rotate(0);}20%{transform:rotate(-2.5deg);}40%{transform:rotate(2.5deg);}60%{transform:rotate(-1.5deg);}80%{transform:rotate(1deg);}}
-@media (prefers-reduced-motion:reduce){.dv-float.is-in{animation:dvFloatIn .2s ease-out both;}}
+.dv-float-panel{position:relative;width:360px;box-sizing:border-box;background:#fff;border-radius:20px;padding:22px 22px 20px;box-shadow:0 18px 44px rgba(28,43,75,.24);}
+.dv-float-panel-title{margin:0 32px 12px 0;font-size:16px;font-weight:900;line-height:1.6;color:#1C2B4B;}
+.dv-float-panel-note{margin:0 0 6px;font-size:12px;font-weight:700;color:#8A8F9C;}
+.dv-float-panel-info{margin:0 0 16px;padding:10px 14px;background:#F6F1E8;border-radius:12px;display:grid;grid-template-columns:auto 1fr;gap:6px 14px;align-items:baseline;}
+.dv-float-panel-row{display:contents;}
+.dv-float-panel-row dt{margin:0;font-size:12px;color:#5A6172;white-space:nowrap;}
+.dv-float-panel-row dd{margin:0;font-size:13.5px;font-weight:700;color:#1C2B4B;overflow-wrap:anywhere;}
+.dv-float-panel-btn{display:flex;align-items:center;justify-content:center;width:100%;box-sizing:border-box;background:linear-gradient(135deg,#F07B2E,#D95614);color:#fff;text-decoration:none;font-weight:700;font-size:15px;padding:14px 16px;border-radius:999px;box-shadow:0 8px 20px rgba(228,105,31,.3);}
+.dv-float-panel-btn:hover{color:#fff;filter:brightness(1.05);}
+.dv-float-panel .dv-float-close{top:12px;right:12px;width:30px;height:30px;background:rgba(28,43,75,.08);color:#1C2B4B;box-shadow:none;}
+.dv-float-panel .dv-float-close:hover{background:rgba(28,43,75,.14);}
+.dv-float.is-grow .dv-float-panel{transform-origin:bottom right;animation:dvFloatGrow .35s ease-out both;}
+@keyframes dvFloatGrow{from{opacity:0;transform:scale(.7);}to{opacity:1;transform:none;}}
+@media (prefers-reduced-motion:reduce){.dv-float.is-in{animation:dvFloatIn .2s ease-out both;}.dv-float.is-grow .dv-float-panel{animation:none;}}
 
 /* スマホ: 資料は横幅いっぱい */
 @media (max-width:640px){
@@ -53,4 +66,10 @@
   .dv-float-close:hover{background:rgba(28,43,75,.14);}
   .dv-float.is-in:not(.is-mini){animation:dvFloatIn .45s ease-out both;}
   .dv-float.is-in:not(.is-mini) .dv-float-btn{animation:dvFloatNudge .7s ease-in-out .5s 1;}
+  .dv-float-panel{width:100%;border-radius:20px 20px 0 0;padding:16px 16px calc(14px + env(safe-area-inset-bottom));max-height:60vh;overflow-y:auto;box-shadow:0 -10px 30px rgba(28,43,75,.18);border-top:1px solid rgba(28,43,75,.08);}
+  .dv-float-panel-title{font-size:15px;margin:2px 44px 10px 0;}
+  .dv-float-panel-info{margin-bottom:12px;padding:8px 12px;gap:4px 12px;}
+  .dv-float-panel-row dd{font-size:13px;}
+  .dv-float-panel .dv-float-close{top:10px;right:10px;width:36px;height:36px;transform:none;margin-top:0;}
+  .dv-float.is-grow .dv-float-panel{transform-origin:bottom center;animation:dvFloatIn .3s ease-out both;}
 }
