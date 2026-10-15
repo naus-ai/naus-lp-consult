@@ -33,7 +33,7 @@
  * 無料相談ボタン: 資料を読み進めた人に、右下(スマホは画面下部)へ予約ボタンを出す。
  *  1. 表示から delaySeconds 秒 または 資料の scrollRatio まで読んだら(早い方)、小さな予約ボタンを出す
  *  2. LPごとに指定したページ(expandAfterPages)をすべて過ぎたら、ボタンが広がってカードになる
- *     カードにはフォームで入力済みの氏名・会社名・メールアドレスを表示する(このタブ内の保存値。無ければ出さない)
+ *     カードには氏名・会社名・メールアドレスの入力欄を置き、フォームで入力済みの値を最初から入れておく(直した値は保存し直す)
  * ×で閉じるとアイコンとして残り、アイコンを押すと閉じる前の形に戻る。
  * 予約ボタンの行き先は、ページ内の相談パネルのボタン(.dv-cta-btn)と同じものを使う。
  */
@@ -92,29 +92,92 @@
   var title=el('p','dv-float-panel-title',titleSrc?titleSrc.textContent:'');
   title.id='dv-float-panel-title';
   panel.appendChild(title);
-  var lead=null;
-  try{lead=JSON.parse(sessionStorage.getItem('naus_lead')||'null');}catch(err){lead=null;}
-  var rows=[];
-  if(lead){
-    if(lead.name)rows.push(['氏名',lead.name]);
-    if(lead.company)rows.push([LP?LP.companyLabel:'会社名',lead.company]);
-    if(lead.email)rows.push(['メールアドレス',lead.email]);
+  // 入力欄(氏名・会社名・メールアドレス)。資料DLフォームで保存した値を最初から入れておき、その場で直せる。
+  // Netlify Formsには送らない(画面上の入力欄だけ。値はこのタブ内の保存領域に書き戻す)
+  var STORE_KEY='naus_lead';
+  function readLead(){
+    try{return JSON.parse(sessionStorage.getItem(STORE_KEY)||'null')||{};}catch(err){return {};}
   }
-  if(rows.length){
-    panel.appendChild(el('p','dv-float-panel-note','ご入力いただいた内容'));
-    var dl=el('dl','dv-float-panel-info');
-    rows.forEach(function(r){
-      var row=el('div','dv-float-panel-row');
-      row.appendChild(el('dt',null,r[0]));
-      row.appendChild(el('dd',null,r[1]));
-      dl.appendChild(row);
+  function writeLead(patch){
+    try{
+      var cur=readLead();
+      for(var k in patch)cur[k]=patch[k];
+      if(!cur.source)cur.source=root.getAttribute('data-viewer')||'';
+      sessionStorage.setItem(STORE_KEY,JSON.stringify(cur));
+    }catch(err){}
+  }
+  var lead=readLead();
+  var FIELDS=[
+    {key:'name',label:'氏名',type:'text',autocomplete:'name'},
+    {key:'company',label:LP?LP.companyLabel:'会社名',type:'text',autocomplete:'organization'},
+    {key:'email',label:'メールアドレス',type:'email',autocomplete:'email'}
+  ];
+  var fieldsBox=el('div','dv-float-fields');
+  FIELDS.forEach(function(f){
+    var id='dv-float-'+f.key;
+    var box=el('div','dv-float-field');
+    var label=el('label','dv-float-label',f.label);
+    label.setAttribute('for',id);
+    var input=el('input','dv-float-input');
+    input.id=id;
+    input.type=f.type;
+    input.autocomplete=f.autocomplete;
+    input.value=lead[f.key]?String(lead[f.key]):'';
+    var err=el('p','dv-float-error');
+    err.id=id+'-error';
+    err.hidden=true;
+    input.addEventListener('input',function(){
+      var patch={};patch[f.key]=input.value.trim();
+      writeLead(patch);
+      if(!err.hidden){setError(f,'');updateSpace();}
     });
-    panel.appendChild(dl);
+    input.addEventListener('keydown',function(e){
+      if(e.key==='Enter'){e.preventDefault();pick.click();}
+    });
+    f.input=input;f.err=err;
+    box.appendChild(label);
+    box.appendChild(input);
+    box.appendChild(err);
+    fieldsBox.appendChild(box);
+  });
+  panel.appendChild(fieldsBox);
+
+  function setError(f,msg){
+    f.err.textContent=msg;
+    f.err.hidden=!msg;
+    if(msg){
+      f.input.setAttribute('aria-invalid','true');
+      f.input.setAttribute('aria-describedby',f.err.id);
+    }else{
+      f.input.removeAttribute('aria-invalid');
+      f.input.removeAttribute('aria-describedby');
+    }
   }
+  // 空欄と、明らかに形式がおかしいメールアドレスだけを止める
+  function validate(){
+    var first=null;
+    FIELDS.forEach(function(f){
+      var v=f.input.value.trim();
+      var msg='';
+      if(!v)msg='入力してください';
+      else if(f.key==='email'&&!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v))msg='メールアドレスの形式をご確認ください';
+      setError(f,msg);
+      if(msg&&!first)first=f.input;
+    });
+    if(first)first.focus();
+    return !first;
+  }
+
   var pick=el('a','dv-float-panel-btn','日程を選ぶ(30秒で完了)');
   pick.href=source.getAttribute('href');
   pick.target='_blank';
   pick.rel='noopener';
+  pick.addEventListener('click',function(e){
+    if(!validate()){e.preventDefault();updateSpace();return;}
+    var patch={};
+    FIELDS.forEach(function(f){patch[f.key]=f.input.value.trim();});
+    writeLead(patch);
+  });
   panel.appendChild(pick);
   var closePanel=closeButton();
   panel.appendChild(closePanel);
@@ -138,7 +201,7 @@
     if(!tail)return;
     if(!shown||!MOBILE.matches){tail.style.paddingBottom='';return;}
     // 出現アニメーション中でもずれないよう、位置ではなく高さ+下端からの距離で測る
-    var h=wrap.offsetHeight+(parseFloat(getComputedStyle(wrap).bottom)||0);
+    var h=wrap.offsetHeight+(parseFloat(getComputedStyle(wrap).bottom)||0)-kbOffset;
     tail.style.paddingBottom=(basePad+h+8)+'px';
   }
 
@@ -200,6 +263,21 @@
     render();
     (expanded?pick:btn).focus();
   });
+  // スマホで入力欄を使うとき、画面キーボードにカードが隠れないよう、見えている範囲の下端に合わせて持ち上げる
+  var kbOffset=0;
+  var vv=window.visualViewport;
+  function fitKeyboard(){
+    if(!vv)return;
+    var off=MOBILE.matches&&expanded&&!minimized?Math.max(0,Math.round(window.innerHeight-vv.height-vv.offsetTop)):0;
+    if(off===kbOffset)return;
+    kbOffset=off;
+    wrap.style.bottom=off?off+'px':'';
+    panel.style.maxHeight=off?Math.max(160,Math.floor(vv.height-12))+'px':'';
+  }
+  if(vv){
+    vv.addEventListener('resize',fitKeyboard);
+    vv.addEventListener('scroll',fitKeyboard);
+  }
   window.addEventListener('resize',updateSpace);
   if(MOBILE.addEventListener)MOBILE.addEventListener('change',updateSpace);
 
