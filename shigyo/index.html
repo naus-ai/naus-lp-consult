@@ -455,5 +455,20 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div>
 
 <script src="assets/main.js"></script>
+<script>
+(function () {
+  // 資料DLの入力内容を、送信後の予約画面で使うためにこのタブ内だけに保存する(URLには載せない)
+  var form = document.querySelector('form[name="shigyo-download"]');
+  if (!form) return;
+  form.addEventListener('submit', function () {
+    try {
+      var v = function (n) { var x = form.elements.namedItem(n); return x && x.value ? String(x.value).trim() : ''; };
+      sessionStorage.setItem('naus_lead', JSON.stringify({
+        source: 'shigyo', company: v('office'), name: v('name'), email: v('email'), phone: v('tel'), message: v('message')
+      }));
+    } catch (err) {}
+  });
+})();
+</script>
 </body>
 </html>
