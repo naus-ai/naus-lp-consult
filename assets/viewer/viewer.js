@@ -1,3 +1,14 @@
+// 計測: GTMへ送るイベント(dataLayer)。個人情報は載せない
+function nausTrack(event,params){
+  try{
+    var p=location.pathname;
+    var d={event:event,lp_type:p.indexOf('/shigyo')===0?'shigyo':'consult',
+      page_type:/contact-thanks/.test(p)?'contact_thanks':/\/thanks/.test(p)?'thanks':/\/document/.test(p)?'document':'lp'};
+    if(params)for(var k in params)d[k]=params[k];
+    (window.dataLayer=window.dataLayer||[]).push(d);
+  }catch(e){}
+}
+
 /*
  * 資料ビューア: 資料の各ページ画像を縦に並べて表示する。
  * 表示する画像は、[data-viewer] 要素の属性で指定する。
@@ -50,6 +61,19 @@
     list.appendChild(li);
   }
   root.appendChild(list);
+  nausTrack('viewer_open',{page_count:pages});
+
+  // 読み進み: 資料の50%(画面の下端が資料全体の半分に届いた)/最後のページの下端まで表示
+  var sent50=false,sentEnd=false;
+  function onRead(){
+    var r=list.getBoundingClientRect();
+    if(r.height<=0)return;
+    if(!sent50&&(window.innerHeight-r.top)/r.height>=0.5){sent50=true;nausTrack('viewer_50percent');}
+    var last=list.lastElementChild;
+    if(!sentEnd&&last&&last.getBoundingClientRect().bottom<=window.innerHeight){sentEnd=true;nausTrack('viewer_complete');}
+    if(sent50&&sentEnd)window.removeEventListener('scroll',onRead);
+  }
+  window.addEventListener('scroll',onRead,{passive:true});
 })();
 
 /*
@@ -238,18 +262,25 @@
     updateSpace();
   }
 
-  function show(){
+  var cardTracked=false;
+  function show(viaExpand){
     if(shown)return;
     shown=true;
     if(timer)clearTimeout(timer);
     wrap.hidden=false;
     wrap.classList.add('is-in');
     render();
+    if(!viaExpand)nausTrack('cta_shown',{cta_variant:'button'});
+  }
+  function trackCard(){
+    if(cardTracked||minimized)return;
+    cardTracked=true;
+    nausTrack('cta_shown',{cta_variant:'card'});
   }
 
   function expand(){
     if(expanded)return;
-    show();
+    show(true);
     expanded=true;
     // 閉じてアイコンにしている人には、勝手に広げない(アイコンから戻したときにカードで出る)
     if(!minimized){
@@ -257,6 +288,7 @@
       wrap.classList.add('is-grow');
     }
     render();
+    trackCard();
   }
 
   // 指定ページの下端が画面の上端を越えたら「過ぎた」とみなす
@@ -284,6 +316,7 @@
   mini.addEventListener('click',function(){
     minimized=false;
     render();
+    if(expanded)trackCard();
     (expanded?pick:btn).focus();
   });
   // スマホで入力欄を使うとき、画面キーボードにカードが隠れないよう、見えている範囲の下端に合わせて持ち上げる

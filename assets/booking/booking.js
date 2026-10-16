@@ -50,6 +50,18 @@
     }catch(e){}
   }
 
+  // 計測: GTMへ送るイベント(dataLayer)。個人情報(氏名・メール・電話・会社名・相談内容)は載せない
+  function track(event,params){
+    try{
+      var p=location.pathname;
+      var d={event:event,lp_type:SOURCE,
+        page_type:/contact-thanks/.test(p)?'contact_thanks':/\/thanks/.test(p)?'thanks':/\/document/.test(p)?'document':'lp'};
+      if(st.mock)d.is_mock=true;
+      if(params)for(var k in params)d[k]=params[k];
+      (window.dataLayer=window.dataLayer||[]).push(d);
+    }catch(e){}
+  }
+
   function el(tag,cls,text){var e=document.createElement(tag);if(cls)e.className=cls;if(text!=null)e.textContent=text;return e;}
   function clear(node){while(node.firstChild)node.removeChild(node.firstChild);}
 
@@ -103,6 +115,7 @@
     overlay.hidden=false;
     st.open=true;
     dialog.focus();
+    track('booking_ui_open');
     loadSlots();
   }
   function close(){
@@ -129,7 +142,7 @@
         st.day=dayKey(st.slots[0].start);
         renderSelect();
       })
-      .catch(function(){if(st.open)renderFallback();});
+      .catch(function(){if(st.open)renderFallback('slots_unavailable');});
   }
 
   function mockBanner(){
@@ -140,7 +153,8 @@
   }
 
   // 予約APIが使えないとき: 押されたリンクの外部予約ページを案内する
-  function renderFallback(){
+  function renderFallback(reason){
+    track('booking_error',{error_type:reason||'unavailable'});
     clear(body);
     var box=el('div','bk-done');
     box.appendChild(el('p','bk-text','現在、この画面から予約を受け付けられません。お手数ですが、下のボタンから予約ページを開いてお申し込みください。'));
@@ -152,6 +166,7 @@
     body.appendChild(box);
   }
   function renderEmpty(){
+    track('booking_error',{error_type:'no_slots'});
     clear(body);
     mockBanner();
     var box=el('div','bk-done');
@@ -166,6 +181,7 @@
 
   // ---- 日時を選ぶ ----
   function pick(slot,from){
+    track('slot_select',{slot_source:from,calendar_view:MOBILE.matches?'chips':'week'});
     st.selected=slot;
     st.from=from;
     renderConfirm();
@@ -411,14 +427,16 @@
       .then(function(res){
         st.sending=false;
         if(!st.open)return;
-        if(res.status===200&&res.body.ok){renderDone(res.body,data.email);return;}
+        if(res.status===200&&res.body.ok){track('booking_complete',{slot_source:st.from});renderDone(res.body,data.email);return;}
         if(res.status===409||(res.status===400&&res.body.fields&&res.body.fields.start)){
+          track('booking_error',{error_type:'slot_unavailable'});
           st.notice='この枠は選択できなくなりました。お手数ですが、別の日時をお選びください。';
           st.selected=null;
           loadSlotsKeepNotice();
           return;
         }
         if(res.status===400&&res.body.fields){
+          track('booking_error',{error_type:'validation'});
           // 入力の不備: 該当欄を編集できる状態にして知らせる
           st.editing=true;
           renderConfirm();
@@ -431,6 +449,7 @@
           return;
         }
         if(res.status===429){
+          track('booking_error',{error_type:'rate_limited'});
           go.disabled=false;back.disabled=false;go.textContent='この日時で予約する';
           st.notice='短時間に操作が続いたため、受け付けられませんでした。少し時間をおいて、もう一度お試しください。';
           var n=el('p','bk-notice',st.notice);st.notice='';
@@ -440,7 +459,7 @@
         }
         renderFallback();
       })
-      .catch(function(){st.sending=false;if(st.open)renderFallback();});
+      .catch(function(){st.sending=false;if(st.open)renderFallback('network');});
   }
 
   function loadSlotsKeepNotice(){
@@ -458,7 +477,7 @@
         st.notice=keep;
         renderSelect();
       })
-      .catch(function(){if(st.open)renderFallback();});
+      .catch(function(){if(st.open)renderFallback('slots_unavailable');});
   }
 
   function renderDone(res,email){
@@ -501,6 +520,8 @@
     if(!a||!EXTERNAL.test(a.href))return;
     if(overlay&&overlay.contains(a))return; // 予約画面の中の「予約ページを開く」は外部ページをそのまま開く
     e.preventDefault();
+    var c=a.classList;
+    track('cta_click',{cta_location:c.contains('dv-float-btn')?'float_button':c.contains('dv-float-panel-btn')?'card':c.contains('dv-cta-btn')?'end_panel':c.contains('dv-hotspot')?'pdf_link':'page_link'});
     open(a.href);
   });
 
