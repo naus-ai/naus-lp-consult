@@ -468,19 +468,20 @@
     box.appendChild(el('span','bk-check','✓'));
     box.appendChild(el('h3','bk-done-title','ご予約が完了しました'));
     var when=el('p','bk-when');
-    when.appendChild(el('small',null,'ご予約日時'));
+    when.appendChild(el('small',null,'ご予約詳細'));
     when.appendChild(document.createTextNode(slotLabel({start:Date.parse(res.start),end:Date.parse(res.end)})));
-    box.appendChild(when);
+    // 日時の下(紺色の枠の中)に、Google Meetの案内を出す
     if(res.meetUrl){
-      var mp=el('p','bk-meet');
+      var mp=el('span','bk-meet');
       mp.appendChild(document.createTextNode('Google Meet: '));
       var a=el('a',null,res.meetUrl);
       a.href=res.meetUrl;a.target='_blank';a.rel='noopener';
       mp.appendChild(a);
-      box.appendChild(mp);
+      when.appendChild(mp);
     }else{
-      box.appendChild(el('p','bk-meet','Google MeetのURLは、招待メールでお知らせします。'));
+      when.appendChild(el('span','bk-meet','Google MeetのURLは、招待メールでお知らせします。'));
     }
+    box.appendChild(when);
     var msg=el('p','bk-text',email+' 宛てに、Googleカレンダーの招待メールをお送りしました。');
     msg.appendChild(document.createElement('br'));
     msg.appendChild(document.createTextNode('当日は招待メールのGoogle Meetからご参加ください。'));

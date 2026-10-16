@@ -19,7 +19,7 @@
 .bk-status{margin:0;padding:32px 0;text-align:center;font-size:15px;line-height:1.9;color:#5A6172;}
 
 /* 最短の候補 */
-.bk-earliest{display:grid;grid-template-columns:1fr;gap:10px;}
+.bk-earliest{display:grid;grid-template-columns:minmax(0,420px);justify-content:center;gap:10px;} /* PC: ボタンの横幅は最大420px、並び全体を中央寄せ */
 .bk-early-btn{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;padding:14px 18px;border-radius:12px;border:1.5px solid rgba(28,43,75,.16);background:#fff;color:#1C2B4B;font-family:inherit;font-size:16px;font-weight:700;cursor:pointer;text-align:left;transition:border-color .15s,box-shadow .15s;}
 .bk-early-btn:hover{border-color:#E4691F;box-shadow:0 4px 14px rgba(228,105,31,.15);}
 .bk-early-btn span:last-child{color:#E4691F;}
@@ -78,8 +78,9 @@ textarea.bk-input{resize:vertical;min-height:96px;line-height:1.7;}
 .bk-check{display:inline-flex;width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#F07B2E,#D95614);color:#fff;align-items:center;justify-content:center;font-size:26px;font-weight:900;margin-bottom:14px;}
 .bk-done-title{margin:0 0 16px;font-size:22px;font-weight:900;color:#1C2B4B;}
 .bk-done .bk-when{display:inline-block;text-align:left;}
-.bk-meet{margin:0 0 14px;font-size:15px;line-height:1.8;}
-.bk-meet a{color:#1C2B4B;font-weight:700;overflow-wrap:anywhere;}
+.bk-meet{display:block;margin:10px 0 0;padding-top:10px;border-top:1px solid rgba(255,255,255,.2);font-size:14px;font-weight:700;line-height:1.8;color:rgba(255,255,255,.92);}
+.bk-meet a{color:#fff;text-decoration:underline;text-underline-offset:3px;overflow-wrap:anywhere;}
+.bk-meet a:hover{color:#F0904F;}
 .bk-text{margin:0 0 22px;font-size:14.5px;line-height:1.9;color:#5A6172;}
 
 @media (max-width:640px){
