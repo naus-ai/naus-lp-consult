@@ -101,8 +101,17 @@ export async function getBusy(e, startMs, endMs) {
   return (cal.busy || []).map((b) => ({ start: Date.parse(b.start), end: Date.parse(b.end) }));
 }
 
+// Googleの「日本の祝日」カレンダーの予定が、国民の祝日(振替休日を含む)かどうか
+// 説明欄の1行目が「祝日」なら祝日、「祭日」なら記念日(七五三・クリスマス・節分など)。
+// 記念日の説明欄の2行目には「…[日本の祝日] に移動してください」と「祝日」の文字が入るため、1行目だけで判定する。
+// 説明欄が無い場合は、予約を誤って受けないよう祝日として扱う
+export function isPublicHoliday(ev) {
+  const d = (ev && ev.description) || '';
+  if (!d.trim()) return true;
+  return d.split(/\r?\n|\\n/)[0].trim() === '祝日';
+}
+
 // 期間内の祝日('YYYY-MM-DD'の集合)
-// Googleの祝日カレンダーには祝日以外の記念日が入ることがあるため、説明欄が「祝日」のものだけを使う
 export async function getHolidays(e, startMs, endMs) {
   const data = await call(e, `/calendars/${encodeURIComponent(BOOKING.holidayCalendarId)}/events`, {
     query: {
@@ -114,8 +123,7 @@ export async function getHolidays(e, startMs, endMs) {
   });
   const set = new Set();
   for (const ev of data.items || []) {
-    const isHoliday = !ev.description || ev.description.includes('祝日');
-    if (isHoliday && ev.start && ev.start.date) set.add(ev.start.date);
+    if (isPublicHoliday(ev) && ev.start && ev.start.date) set.add(ev.start.date);
   }
   return set;
 }
