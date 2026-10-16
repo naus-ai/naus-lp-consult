@@ -19,7 +19,7 @@
 .bk-status{margin:0;padding:32px 0;text-align:center;font-size:15px;line-height:1.9;color:#5A6172;}
 
 /* 最短の候補 */
-.bk-earliest{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.bk-earliest{display:grid;grid-template-columns:1fr;gap:10px;}
 .bk-early-btn{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;padding:14px 18px;border-radius:12px;border:1.5px solid rgba(28,43,75,.16);background:#fff;color:#1C2B4B;font-family:inherit;font-size:16px;font-weight:700;cursor:pointer;text-align:left;transition:border-color .15s,box-shadow .15s;}
 .bk-early-btn:hover{border-color:#E4691F;box-shadow:0 4px 14px rgba(228,105,31,.15);}
 .bk-early-btn span:last-child{color:#E4691F;}

@@ -9,6 +9,7 @@
 (function(){
   var API_SLOTS='/api/booking/slots';
   var API_CREATE='/api/booking/create';
+  var EARLIEST_COUNT=3; // 上部「最短の候補」に出す件数
   var STORE_KEY='naus_lead';
   var EXTERNAL=/^https:\/\/calendar\.app\.google\//;
   var SOURCE=location.pathname.indexOf('/shigyo')===0?'shigyo':'consult';
@@ -174,11 +175,11 @@
     clear(body);
     mockBanner();
     noticeBox();
-    // 上部: 最短の候補(4件)
+    // 上部: 最短の候補(EARLIEST_COUNT件)
     var sec1=el('section','bk-sec');
     sec1.appendChild(el('h3','bk-sec-title','最短の候補'));
     var list=el('div','bk-earliest');
-    st.slots.slice(0,4).forEach(function(s){
+    st.slots.slice(0,EARLIEST_COUNT).forEach(function(s){
       var b=el('button','bk-early-btn');
       b.type='button';
       b.appendChild(el('span',null,slotLabel(s)));
