@@ -496,6 +496,7 @@ summary::-webkit-details-marker{display:none;}
   .flow-num-icon{flex-direction:column;gap:4px;}
 }
 </style>
+<link rel="stylesheet" href="/assets/booking/booking.css">
 </head>
 <body id="page-top">
 <!-- Google Tag Manager (noscript) -->
@@ -1631,6 +1632,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     btnSubmit.disabled=true;
     btnSubmit.textContent='送信しています…';
     btnCancel.disabled=true;
+    // 資料DLの入力内容を、送信後の予約画面で使うためにこのタブ内だけに保存する(URLには載せない)
+    if(current.getAttribute('name')==='document-download'){
+      try{
+        var f=current;
+        var v=function(n){var x=f.elements.namedItem(n);return x&&x.value?String(x.value).trim():'';};
+        sessionStorage.setItem('naus_lead',JSON.stringify({
+          source:'consult',company:v('company'),name:v('name'),email:v('email'),phone:v('phone'),message:v('message')
+        }));
+      }catch(err){}
+    }
     HTMLFormElement.prototype.submit.call(current);
   });
 
@@ -1850,5 +1861,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   });
 })();
 </script>
+<script src="/assets/booking/booking.js" defer></script>
 </body>
 </html>
