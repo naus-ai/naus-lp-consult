@@ -19,7 +19,7 @@ export default async (req, context) => {
     });
   } catch (err) {
     // 個人情報は記録しない(エラーの種類だけ)
-    console.error('booking-slots failed:', err && err.message, err && err.status);
+    console.error('booking-slots failed:', err && err.message, err && err.status, (err && err.reason) || '');
     return json(503, { error: 'unavailable' });
   }
 };

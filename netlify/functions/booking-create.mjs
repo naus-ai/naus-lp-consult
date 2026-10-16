@@ -95,7 +95,7 @@ export default async (req, context) => {
     }
     return json(200, { ok: true, start: toIso(slot.start), end: toIso(slot.end), meetUrl: url });
   } catch (err) {
-    console.error('booking-create failed:', err && err.message, err && err.status);
+    console.error('booking-create failed:', err && err.message, err && err.status, (err && err.reason) || '');
     return json(503, { error: 'unavailable' });
   }
 };

@@ -6,9 +6,28 @@ const TOKEN_URL = 'https://oauth2.googleapis.com/token';
 const API = 'https://www.googleapis.com/calendar/v3';
 
 export class GoogleError extends Error {
-  constructor(message, status) {
+  constructor(message, status, reason = '') {
     super(message);
     this.status = status;
+    this.reason = reason; // Googleが返したエラー名(invalid_grant / notFound など。秘密の値は含まない)
+  }
+}
+
+// エラー名だけを取り出す。英字と記号の短い名前だけを通し、それ以外(説明文・IDなど)はログに出さない
+function safeName(v) {
+  return typeof v === 'string' && /^[A-Za-z_.]{1,60}$/.test(v) ? v : '';
+}
+
+// Googleのエラー応答から、エラー名と理由だけを取り出す
+async function errorReason(res) {
+  try {
+    const b = await res.json();
+    if (typeof b.error === 'string') return safeName(b.error); // 合鍵の確認: invalid_grant / invalid_client など
+    const e = b.error || {};
+    const reasons = (e.errors || []).map((x) => safeName(x.reason)).filter(Boolean);
+    return [safeName(e.status)].concat(reasons).filter(Boolean).join(',') || 'unknown';
+  } catch {
+    return 'unknown';
   }
 }
 
@@ -40,7 +59,7 @@ async function accessToken(e) {
       grant_type: 'refresh_token',
     }),
   });
-  if (!res.ok) throw new GoogleError('token', res.status);
+  if (!res.ok) throw new GoogleError('token', res.status, await errorReason(res));
   const data = await res.json();
   cached = { token: data.access_token, exp: Date.now() + (data.expires_in || 3600) * 1000 };
   return cached.token;
@@ -59,7 +78,7 @@ async function call(e, path, { method = 'GET', query, body } = {}) {
     body: body ? JSON.stringify(body) : undefined,
   });
   if (res.status === 204) return null;
-  if (!res.ok) throw new GoogleError(`${method} ${path.split('/')[1]}`, res.status);
+  if (!res.ok) throw new GoogleError(`${method} ${path.split('/')[1]}`, res.status, await errorReason(res));
   return res.json();
 }
 
@@ -75,7 +94,10 @@ export async function getBusy(e, startMs, endMs) {
     },
   });
   const cal = data.calendars && data.calendars[e.calendarId];
-  if (!cal || (cal.errors && cal.errors.length)) throw new GoogleError('freeBusy calendar', 502);
+  if (!cal) throw new GoogleError('freeBusy calendar', 502, 'calendar_missing_in_response');
+  if (cal.errors && cal.errors.length) {
+    throw new GoogleError('freeBusy calendar', 502, cal.errors.map((x) => safeName(x.reason)).filter(Boolean).join(',') || 'unknown');
+  }
   return (cal.busy || []).map((b) => ({ start: Date.parse(b.start), end: Date.parse(b.end) }));
 }
 
