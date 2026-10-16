@@ -17,8 +17,8 @@ export const BOOKING = {
 
 // LPごとの予定タイトル。{company}{name} に入力値が入る
 export const TITLES = {
-  consult: '【無料相談】{company} {name}様',
-  shigyo: '【無料相談・士業】{company} {name}様',
+  consult: '【ゼロからAI Academy無料相談】{company} {name}様',
+  shigyo: '【ゼロからAI Academy無料相談】{company} {name}様',
 };
 
 // 予定の説明欄で、会社名の項目名
