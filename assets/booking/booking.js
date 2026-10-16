@@ -480,7 +480,10 @@
     }else{
       box.appendChild(el('p','bk-meet','Google MeetのURLは、招待メールでお知らせします。'));
     }
-    box.appendChild(el('p','bk-text',email+' 宛てに、Googleカレンダーの招待メールをお送りしました。当日は招待メールのGoogle Meetからご参加ください。'));
+    var msg=el('p','bk-text',email+' 宛てに、Googleカレンダーの招待メールをお送りしました。');
+    msg.appendChild(document.createElement('br'));
+    msg.appendChild(document.createTextNode('当日は招待メールのGoogle Meetからご参加ください。'));
+    box.appendChild(msg);
     var c=el('button','bk-primary','閉じる');
     c.type='button';
     c.addEventListener('click',close);
