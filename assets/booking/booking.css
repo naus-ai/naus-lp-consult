@@ -77,8 +77,8 @@ textarea.bk-input{resize:vertical;min-height:96px;line-height:1.7;}
 .bk-done{text-align:center;padding:12px 0 4px;}
 .bk-check{display:inline-flex;width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#F07B2E,#D95614);color:#fff;align-items:center;justify-content:center;font-size:26px;font-weight:900;margin-bottom:14px;}
 .bk-done-title{margin:0 0 16px;font-size:22px;font-weight:900;color:#1C2B4B;}
-.bk-done .bk-when{display:inline-block;text-align:left;}
-.bk-meet{display:block;margin:10px 0 0;padding-top:10px;border-top:1px solid rgba(255,255,255,.2);font-size:14px;font-weight:700;line-height:1.8;color:rgba(255,255,255,.92);}
+.bk-done .bk-when{display:block;width:100%;max-width:560px;margin:0 auto 22px;padding:22px 28px;text-align:left;} /* 完了画面の枠: PCは最大560px、内側の余白22px 28px */
+.bk-meet{display:block;margin:14px 0 0;padding-top:14px;border-top:1px solid rgba(255,255,255,.2);font-size:17px;font-weight:700;line-height:1.7;color:rgba(255,255,255,.92);overflow-wrap:anywhere;} /* Meetの行: PCは17px(日時は18px) */
 .bk-meet a{color:#fff;text-decoration:underline;text-underline-offset:3px;overflow-wrap:anywhere;}
 .bk-meet a:hover{color:#F0904F;}
 .bk-text{margin:0 0 22px;font-size:14.5px;line-height:1.9;color:#5A6172;}
@@ -95,5 +95,7 @@ textarea.bk-input{resize:vertical;min-height:96px;line-height:1.7;}
   .bk-input{font-size:16px;}
   .bk-primary{width:100%;min-width:0;}
   .bk-when{font-size:16px;}
+  .bk-done .bk-when{padding:18px 18px;}
+  .bk-meet{font-size:15.5px;} /* スマホ: Meetの行は15.5px(日時は16px) */
 }
 @media (prefers-reduced-motion:reduce){.bk-dialog{animation:none;}}
