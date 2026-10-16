@@ -4,10 +4,19 @@
  *   data-src   … 画像のフォルダ(末尾に / を付ける)。中身は p01.webp, p02.webp … の連番
  *   data-pages … ページ数
  *   data-alt   … 画像の代替テキストの先頭(例: 「紹介資料」→「紹介資料 1ページ目」)
+ * 資料の中の予約リンク(PDFではリンクになっている部分)は、画像の上に押せる範囲を重ねて再現する。
  */
 (function(){
+  // 画像の上に重ねる「押せる範囲」。位置はPDFのリンクの座標から計算した、ページに対する割合(%)
+  // 押すと、ページ内の相談パネルのボタンと同じ行き先(=ページ内の予約画面)を開く
+  var LINKS={
+    consult:[{page:22,left:50.52,top:68.84,width:31.51,height:6.39,label:'無料相談の予約画面を開く'}],
+    shigyo:[{page:24,left:50.52,top:68.84,width:31.51,height:6.39,label:'無料相談の予約画面を開く'}]
+  };
   var root=document.querySelector('[data-viewer]');
   if(!root)return;
+  var links=LINKS[root.getAttribute('data-viewer')]||[];
+  var ctaSrc=document.querySelector('.dv-cta-btn');
   var src=root.getAttribute('data-src')||'';
   var pages=parseInt(root.getAttribute('data-pages'),10)||0;
   var alt=root.getAttribute('data-alt')||'資料';
@@ -24,6 +33,20 @@
     img.decoding='async';
     if(i>2)img.loading='lazy';
     li.appendChild(img);
+    links.forEach(function(l){
+      if(l.page!==i||!ctaSrc)return;
+      var a=document.createElement('a');
+      a.className='dv-hotspot';
+      a.href=ctaSrc.getAttribute('href');
+      a.target='_blank';
+      a.rel='noopener';
+      a.setAttribute('aria-label',l.label);
+      a.style.left=l.left+'%';
+      a.style.top=l.top+'%';
+      a.style.width=l.width+'%';
+      a.style.height=l.height+'%';
+      li.appendChild(a);
+    });
     list.appendChild(li);
   }
   root.appendChild(list);
