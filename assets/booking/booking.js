@@ -105,7 +105,7 @@
     }
   }
 
-  function open(fallback){
+  function open(fallback,source){
     if(!overlay)build();
     st.fallback=fallback||'';
     st.selected=null;st.from='';st.editing=false;st.notice='';st.sending=false;
@@ -115,7 +115,7 @@
     overlay.hidden=false;
     st.open=true;
     dialog.focus();
-    track('booking_ui_open');
+    track('booking_ui_open',{open_source:source==='hash'?'hash':'click'});
     loadSlots();
   }
   function close(){
@@ -123,6 +123,10 @@
     st.open=false;
     overlay.hidden=true;
     document.body.style.overflow=prevOverflow;
+    // #booking で開いた場合は、閉じたらURLから #booking を外す(再読み込みで再び開かないように)
+    if(location.hash==='#booking'&&history.replaceState){
+      try{history.replaceState(null,'',location.pathname+location.search);}catch(e){}
+    }
     if(lastFocus&&lastFocus.focus)lastFocus.focus();
   }
 
@@ -526,4 +530,11 @@
   });
 
   window.nausBooking={open:open,close:close};
+
+  // 資料ページ(/document/、/shigyo/document/)だけ: URLの末尾が #booking なら、読み込み後に予約画面を開く
+  // (#booking 以外のURLの値は読まない)
+  if(location.hash==='#booking'&&/^\/(shigyo\/)?document\/?$/.test(location.pathname)){
+    var src=document.querySelector('.dv-cta-btn')||document.querySelector('a[href^="https://calendar.app.google/"]');
+    open(src?src.getAttribute('href'):'','hash');
+  }
 })();

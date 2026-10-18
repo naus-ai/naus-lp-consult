@@ -9,6 +9,8 @@
 .dv-pages{display:flex;flex-direction:column;gap:20px;margin:0;padding:0;list-style:none;}
 .dv-page{position:relative;margin:0;background:#fff;border-radius:14px;box-shadow:0 12px 32px rgba(28,43,75,.10);overflow:hidden;}
 .dv-hotspot{position:absolute;display:block;background:transparent;}
+/* 押せる範囲の拡張: 見た目はそのまま、リンクの縦中央(やや上寄り)に高さ44pxの帯を足して指で押しやすくする */
+.dv-hotspot::after{content:"";position:absolute;left:0;right:0;top:50%;height:44px;transform:translateY(-58%);}
 .dv-page img{display:block;width:100%;height:auto;aspect-ratio:16/9;background:#F2EEE6;}
 .dv-noscript{text-align:center;font-size:14px;line-height:1.9;color:#5A6172;}
 .dv-cta{margin:32px auto 0;max-width:720px;background:linear-gradient(135deg,#1C2B4B,#2A3F6B);border-radius:20px;padding:clamp(28px,6vw,44px) clamp(20px,5vw,40px);text-align:center;box-shadow:0 20px 48px rgba(28,43,75,.18);}
