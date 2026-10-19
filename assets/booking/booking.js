@@ -13,8 +13,8 @@
   var STORE_KEY='naus_lead';
   var EXTERNAL=/^https:\/\/calendar\.app\.google\//;
   var SOURCE=location.pathname.indexOf('/shigyo')===0?'shigyo':'consult';
-  // 予約の経路: フォーム営業用の資料ページ(/shigyo/material/)からの予約だけ 'form_sales' を送る(サーバー側で許可した値以外は無視)
-  var ROUTE=/^\/shigyo\/material\/?$/.test(location.pathname)?'form_sales':'';
+  // フォーム営業用の資料ページ(/shigyo/material/)。計測のpage_typeで区別するだけで、予約の内容は他のページと同じ
+  var IS_MATERIAL=/^\/shigyo\/material\/?$/.test(location.pathname);
   var COMPANY_LABEL=SOURCE==='shigyo'?'事務所名':'会社名';
   var WD=['日','月','火','水','木','金','土'];
   var JST=9*60*60*1000;
@@ -414,7 +414,6 @@
     if(st.sending)return;
     var lead=readLead();
     var data={source:SOURCE,start:st.selected.iso,message:ta.value.trim(),website:hpi.value};
-    if(ROUTE)data.route=ROUTE;
     var first=null;
     FIELDS.forEach(function(f){
       var inp=inputs[f.key];
@@ -536,7 +535,7 @@
 
   // 資料ページ(/document/、/shigyo/document/、/shigyo/material/)だけ: URLの末尾が #booking なら、読み込み後に予約画面を開く
   // (#booking 以外のURLの値は読まない)
-  if(location.hash==='#booking'&&(/^\/(shigyo\/)?document\/?$/.test(location.pathname)||ROUTE)){
+  if(location.hash==='#booking'&&(/^\/(shigyo\/)?document\/?$/.test(location.pathname)||IS_MATERIAL)){
     var src=document.querySelector('.dv-cta-btn')||document.querySelector('a[href^="https://calendar.app.google/"]');
     open(src?src.getAttribute('href'):'','hash');
   }

@@ -5,7 +5,7 @@ import { randomUUID } from 'node:crypto';
 import {
   decideMode, json, sameOrigin, rateLimited, validateBooking, availableSlots, mockBook, BOOKING,
 } from '../booking/common.mjs';
-import { TITLES, COMPANY_LABELS, ROUTES } from '../booking/config.mjs';
+import { TITLES, COMPANY_LABELS } from '../booking/config.mjs';
 import { toIso } from '../booking/slots.mjs';
 import { insertEvent, listEvents, deleteEvent, getEvent, meetUrl } from '../booking/google.mjs';
 
@@ -14,7 +14,6 @@ const MIN = 60 * 1000;
 function buildEvent(v, start, end) {
   const title = TITLES[v.source].replace('{company}', v.company).replace('{name}', v.name);
   const description = [
-    ...(v.route ? [ROUTES[v.route]] : []),
     `氏名: ${v.name}`,
     `${COMPANY_LABELS[v.source]}: ${v.company}`,
     `メールアドレス: ${v.email}`,
