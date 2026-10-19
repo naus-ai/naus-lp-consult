@@ -36,7 +36,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .hero p { color: var(--navy); font-size: 16px; }
   .cta { display: inline-block; margin-top: 20px; background: var(--orange); color: #fff; font-weight: 700; font-size: 17px; text-decoration: none; padding: 14px 28px; border-radius: 999px; }
   .cta:hover { opacity: .9; }
-  .sub-link { display: inline-block; margin: 20px 0 0 16px; color: var(--slate); font-weight: 700; font-size: 15px; }
+  .sub-link { display: inline-block; margin: 20px 0 0; color: var(--slate); font-weight: 700; font-size: 15px; }
   .slides { padding: 16px 0 8px; display: grid; gap: 20px; }
   .slides img { display: block; width: 100%; height: auto; border-radius: 12px; border: 1px solid #e6ebf0; background: var(--gray); }
   .bottom { background: var(--orange-soft); border-radius: 16px; padding: 28px 20px; margin: 24px 0 40px; text-align: center; }
@@ -72,7 +72,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <a class="sub-link" id="pdf-download" href="naus-crm-review.pdf" download>資料をPDFで保存する</a>
   </section>
 
-  <!-- ボタンの id（cta-top / cta-bottom / pdf-download）は、GA4でどのボタンが押されたかを見分けるために使います。消さないでください -->
   <!-- 資料の各ページ（slides フォルダの画像を順番に表示） -->
   <section class="slides" aria-label="資料" data-viewer="crm_doc">
     <img src="slides/slide-01.png" alt="表紙：CRMのコストを下げて、営業管理はAIで自動化する（無料診断のご案内）" width="1920" height="1080">
