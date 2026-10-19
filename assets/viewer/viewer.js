@@ -97,9 +97,10 @@ function trackReading(list,count){
     showAfterPage:5,   // 資料のこのページ番号を過ぎたら(ページの下端が画面の上端より上に出たら)出す。全LP共通
     // LPごとの設定(キーは各サンクスページの data-viewer の値)
     // expandAfterPages: このページ番号をすべて過ぎたら(ページの下端が画面の上端より上に出たら)カードに広げる
+    // slideUp: カードを画面の下からせり上がる動きで出す(指定のないLPは、ボタンが広がる動き)
     lp:{
-      consult:{expandAfterPages:[19,21],companyLabel:'会社名',noteTitle:'お気軽にご相談ください',noteItems:['・少しでも手作業をなくしたい方','・少人数で業務を回しているチーム','・AI活用を進めていきたい方','・料金が気になる方']},  // 19=支援パッケージの違い / 21=よくある質問
-      shigyo:{expandAfterPages:[20,23],companyLabel:'事務所名',noteTitle:'お気軽にご相談ください',noteItems:['・少しでも手作業をなくしたい方','・少人数で業務を回している事務所','・AI活用を進めていきたい方','・料金が気になる方']},  // 20=支援パッケージの違い / 23=よくある質問
+      consult:{expandAfterPages:[20],slideUp:true,companyLabel:'会社名',noteTitle:'お気軽にご相談ください',noteItems:['・少しでも手作業をなくしたい方','・少人数で業務を回しているチーム','・AI活用を進めていきたい方','・料金が気になる方']},  // 20=ご契約後の流れイメージ
+      shigyo:{expandAfterPages:[22],slideUp:true,companyLabel:'事務所名',noteTitle:'お気軽にご相談ください',noteItems:['・少しでも手作業をなくしたい方','・少人数で業務を回している事務所','・AI活用を進めていきたい方','・料金が気になる方']},  // 22=ご契約後の流れイメージ
       // 営業資料ページ(/crm-doc/): 資料の最後(最後のスライドの下端が画面に入った)でカードに広げる。
       // ページ内に相談パネルが無いため、ボタンの文言・カードの見出しはページ内の既存の文言を使い、予約画面はここで指定した予約ページを行き先にする
       crm_doc:{expandAtEnd:true,companyLabel:'会社名',ctaLabel:'無料診断を予約する（30分・オンライン）',cardTitle:'まずは30分の無料診断から',ctaHref:'https://calendar.app.google/F6qpCXCqKXQDYe5D8'}
@@ -313,6 +314,7 @@ function trackReading(list,count){
     if(!minimized){
       wrap.classList.remove('is-in');
       wrap.classList.add('is-grow');
+      if(LP&&LP.slideUp)wrap.classList.add('is-rise');
     }
     render();
     trackCard();
