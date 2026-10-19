@@ -39,6 +39,9 @@
 @keyframes dvFloatNudge{0%,100%{transform:rotate(0);}20%{transform:rotate(-2.5deg);}40%{transform:rotate(2.5deg);}60%{transform:rotate(-1.5deg);}80%{transform:rotate(1deg);}}
 .dv-float-panel{position:relative;width:360px;box-sizing:border-box;background:#fff;border-radius:20px;padding:22px 22px 20px;box-shadow:0 18px 44px rgba(28,43,75,.24);}
 .dv-float-panel-title{margin:0 32px 12px 0;font-size:16px;font-weight:900;line-height:1.6;color:#1C2B4B;}
+.dv-float-note{margin:0 0 14px;}
+.dv-float-note-title{margin:0 0 4px;font-size:12px;font-weight:700;color:#5A6172;}
+.dv-float-note-list{margin:0;padding:0;list-style:none;font-size:12px;line-height:1.7;color:#5A6172;}
 .dv-float-fields{display:flex;flex-direction:column;gap:10px;margin:0 0 16px;}
 .dv-float-label{display:block;margin:0 0 4px;font-size:12px;font-weight:700;color:#5A6172;}
 .dv-float-input{display:block;width:100%;box-sizing:border-box;font-family:inherit;font-size:14px;color:#232733;background:#fff;border:1px solid rgba(28,43,75,.2);border-radius:10px;padding:9px 12px;}
@@ -51,7 +54,9 @@
 .dv-float-panel .dv-float-close:hover{background:rgba(28,43,75,.14);}
 .dv-float.is-grow .dv-float-panel{transform-origin:bottom right;animation:dvFloatGrow .35s ease-out both;}
 @keyframes dvFloatGrow{from{opacity:0;transform:scale(.7);}to{opacity:1;transform:none;}}
-@media (prefers-reduced-motion:reduce){.dv-float.is-in{animation:dvFloatIn .2s ease-out both;}.dv-float.is-grow .dv-float-panel{animation:none;}}
+.dv-float.is-grow.is-rise .dv-float-panel{animation:dvFloatRise .45s cubic-bezier(.22,.61,.36,1) both;}
+@keyframes dvFloatRise{from{opacity:0;transform:translateY(calc(100% + 24px));}to{opacity:1;transform:none;}}
+@media (prefers-reduced-motion:reduce){.dv-float.is-in{animation:dvFloatIn .2s ease-out both;}.dv-float.is-grow .dv-float-panel,.dv-float.is-grow.is-rise .dv-float-panel{animation:none;}}
 
 /* スマホ: 資料は横幅いっぱい */
 @media (max-width:640px){

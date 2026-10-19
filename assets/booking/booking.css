@@ -88,6 +88,7 @@ textarea.bk-input{resize:vertical;min-height:96px;line-height:1.7;}
 .bk-meet a{color:#fff;text-decoration:underline;text-underline-offset:3px;overflow-wrap:anywhere;}
 .bk-meet a:hover{color:#F0904F;}
 .bk-text{margin:0 0 22px;font-size:14.5px;line-height:1.9;color:#5A6172;}
+.bk-list{margin:0;padding:0;list-style:none;font-size:14.5px;line-height:1.9;color:#5A6172;}
 
 @media (max-width:640px){
   .bk-overlay{padding:0;align-items:flex-end;}

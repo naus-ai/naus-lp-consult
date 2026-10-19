@@ -86,7 +86,7 @@ function trackReading(list,count){
 
 /*
  * 無料相談ボタン: 資料を読み進めた人に、右下(スマホは画面下部)へ予約ボタンを出す。
- *  1. 表示から delaySeconds 秒 または 資料の scrollRatio まで読んだら(早い方)、小さな予約ボタンを出す
+ *  1. 資料の showAfterPage ページ目を過ぎたら(ページの下端が画面の上端より上に出たら)、小さな予約ボタンを出す
  *  2. LPごとに指定したページ(expandAfterPages)をすべて過ぎたら、ボタンが広がってカードになる
  *     カードには氏名・会社名・メールアドレスの入力欄を置き、フォームで入力済みの値を最初から入れておく(直した値は保存し直す)
  * ×で閉じるとアイコンとして残り、アイコンを押すと閉じる前の形に戻る。
@@ -94,13 +94,13 @@ function trackReading(list,count){
  */
 (function(){
   var CONFIG={
-    delaySeconds:30,   // ビューアを表示してから、この秒数が経ったら出す
-    scrollRatio:0.5,   // 資料のこの割合(0.5=50%)まで読み進めたら出す
+    showAfterPage:5,   // 資料のこのページ番号を過ぎたら(ページの下端が画面の上端より上に出たら)出す。全LP共通
     // LPごとの設定(キーは各サンクスページの data-viewer の値)
     // expandAfterPages: このページ番号をすべて過ぎたら(ページの下端が画面の上端より上に出たら)カードに広げる
+    // slideUp: カードを画面の下からせり上がる動きで出す(指定のないLPは、ボタンが広がる動き)
     lp:{
-      consult:{expandAfterPages:[19,21],companyLabel:'会社名'},  // 19=支援パッケージの違い / 21=よくある質問
-      shigyo:{expandAfterPages:[20,23],companyLabel:'事務所名'},  // 20=支援パッケージの違い / 23=よくある質問
+      consult:{expandAfterPages:[20],slideUp:true,companyLabel:'会社名',noteTitle:'お気軽にご相談ください',noteItems:['・少しでも手作業をなくしたい方','・少人数で業務を回しているチーム','・AI活用を進めていきたい方','・料金が気になる方']},  // 20=ご契約後の流れイメージ
+      shigyo:{expandAfterPages:[22],slideUp:true,companyLabel:'事務所名',noteTitle:'お気軽にご相談ください',noteItems:['・少しでも手作業をなくしたい方','・少人数で業務を回している事務所','・AI活用を進めていきたい方','・料金が気になる方']},  // 22=ご契約後の流れイメージ
       // 営業資料ページ(/crm-doc/): 資料の最後(最後のスライドの下端が画面に入った)でカードに広げる。
       // ページ内に相談パネルが無いため、ボタンの文言・カードの見出しはページ内の既存の文言を使い、予約画面はここで指定した予約ページを行き先にする
       crm_doc:{expandAtEnd:true,companyLabel:'会社名',ctaLabel:'無料診断を予約する（30分・オンライン）',cardTitle:'まずは30分の無料診断から',ctaHref:'https://calendar.app.google/F6qpCXCqKXQDYe5D8'}
@@ -123,7 +123,7 @@ function trackReading(list,count){
   if(!pages||!source)return;
 
   var MOBILE=window.matchMedia('(max-width:640px)');
-  var shown=false,expanded=false,minimized=false,timer=null;
+  var shown=false,expanded=false,minimized=false;
 
   function el(tag,cls,text){
     var e=document.createElement(tag);
@@ -159,6 +159,15 @@ function trackReading(list,count){
   var title=el('p','dv-float-panel-title',titleSrc?titleSrc.textContent:((LP&&LP.cardTitle)||''));
   title.id='dv-float-panel-title';
   panel.appendChild(title);
+  // 見出しの下の説明(LPごとの設定 noteTitle / noteItems がある場合だけ出す)
+  if(LP&&LP.noteItems){
+    var note=el('div','dv-float-note');
+    note.appendChild(el('p','dv-float-note-title',LP.noteTitle||''));
+    var noteList=el('ul','dv-float-note-list');
+    LP.noteItems.forEach(function(t){noteList.appendChild(el('li',null,t));});
+    note.appendChild(noteList);
+    panel.appendChild(note);
+  }
   // 入力欄(氏名・会社名・メールアドレス)。資料DLフォームで保存した値を最初から入れておき、その場で直せる。
   // Netlify Formsには送らない(画面上の入力欄だけ。値はこのタブ内の保存領域に書き戻す)
   var STORE_KEY='naus_lead';
@@ -286,7 +295,6 @@ function trackReading(list,count){
   function show(viaExpand){
     if(shown)return;
     shown=true;
-    if(timer)clearTimeout(timer);
     wrap.hidden=false;
     wrap.classList.add('is-in');
     render();
@@ -306,6 +314,7 @@ function trackReading(list,count){
     if(!minimized){
       wrap.classList.remove('is-in');
       wrap.classList.add('is-grow');
+      if(LP&&LP.slideUp)wrap.classList.add('is-rise');
     }
     render();
     trackCard();
@@ -328,10 +337,16 @@ function trackReading(list,count){
     return true;
   }
 
+  // 小さな予約ボタンを出すページ(showAfterPage)の下端が画面の上端を越えたら「過ぎた」とみなす
+  function passedShowPage(){
+    var page=pages.children[CONFIG.showAfterPage-1];
+    return !!page&&page.getBoundingClientRect().bottom<=0;
+  }
+
   function onScroll(){
     var r=pages.getBoundingClientRect();
     if(r.height<=0)return;
-    if(!shown&&(window.innerHeight-r.top)/r.height>=CONFIG.scrollRatio)show();
+    if(!shown&&passedShowPage())show();
     if(!expanded&&passedAll())expand();
     if(shown&&expanded)window.removeEventListener('scroll',onScroll);
   }
@@ -362,7 +377,6 @@ function trackReading(list,count){
   window.addEventListener('resize',updateSpace);
   if(MOBILE.addEventListener)MOBILE.addEventListener('change',updateSpace);
 
-  timer=setTimeout(show,CONFIG.delaySeconds*1000);
   window.addEventListener('scroll',onScroll,{passive:true});
   onScroll();
 })();

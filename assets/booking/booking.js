@@ -16,6 +16,13 @@
   // フォーム営業用の資料ページ(/shigyo/material/)。計測のpage_typeで区別するだけで、予約の内容は他のページと同じ
   var IS_MATERIAL=/^\/shigyo\/material\/?$/.test(location.pathname);
   var COMPANY_LABEL=SOURCE==='shigyo'?'事務所名':'会社名';
+  // 日時を選ぶ画面の上に出す「無料相談の内容」。営業資料ページ(/crm-doc/)には出さない
+  var CONSULT_ITEMS=/^\/crm-doc\/?$/.test(location.pathname)?null:[
+    SOURCE==='shigyo'?'・今の事務所の仕事の流れを伺い、業務の棚卸しの進め方をご相談。（AI活用の土台になる大切な工程です）':'・今の仕事の流れを伺い、業務の棚卸しの進め方をご相談。（AI活用の土台になる大切な工程です）',
+    '・AIに任せられそうな作業の見立て。',
+    '・実際のAI活用に向けた、弊社の関わり方と支援内容のご説明。',
+    '・具体的な費用感をご案内。'
+  ];
   var WD=['日','月','火','水','木','金','土'];
   var JST=9*60*60*1000;
   var DAY=24*60*60*1000;
@@ -230,6 +237,15 @@
     clear(body);
     mockBanner();
     noticeBox();
+    // 無料相談の内容
+    if(CONSULT_ITEMS){
+      var sec0=el('section','bk-sec');
+      sec0.appendChild(el('h3','bk-sec-title','無料相談の内容'));
+      var ul=el('ul','bk-list');
+      CONSULT_ITEMS.forEach(function(t){ul.appendChild(el('li',null,t));});
+      sec0.appendChild(ul);
+      body.appendChild(sec0);
+    }
     // 上部: 最短の候補(EARLIEST_COUNT件)
     var sec1=el('section','bk-sec');
     sec1.appendChild(el('h3','bk-sec-title','最短の候補'));
