@@ -20,6 +20,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap">
 <link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="/assets/booking/booking.css">
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -455,5 +456,35 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div>
 
 <script src="assets/main.js"></script>
+<script>
+(function () {
+  // 資料DLの入力内容を、送信後の予約画面で使うためにこのタブ内だけに保存する(URLには載せない)
+  var form = document.querySelector('form[name="shigyo-download"]');
+  if (!form) return;
+  form.addEventListener('submit', function () {
+    try {
+      var v = function (n) { var x = form.elements.namedItem(n); return x && x.value ? String(x.value).trim() : ''; };
+      sessionStorage.setItem('naus_lead', JSON.stringify({
+        source: 'shigyo', company: v('office'), name: v('name'), email: v('email'), phone: v('tel'), message: v('message')
+      }));
+    } catch (err) {}
+  });
+})();
+(function () {
+  // 問い合わせの入力内容(氏名・事務所名・メール・電話)も同じく保存する。問い合わせ内容は保存しない。必須欄が空なら保存しない
+  var form = document.querySelector('form[name="shigyo-contact"]');
+  if (!form) return;
+  form.addEventListener('submit', function () {
+    try {
+      var v = function (n) { var x = form.elements.namedItem(n); return x && x.value ? String(x.value).trim() : ''; };
+      if (!(v('office') && v('name') && v('email') && v('tel'))) return;
+      sessionStorage.setItem('naus_lead', JSON.stringify({
+        source: 'shigyo', company: v('office'), name: v('name'), email: v('email'), phone: v('tel')
+      }));
+    } catch (err) {}
+  });
+})();
+</script>
+<script src="/assets/booking/booking.js" defer></script>
 </body>
 </html>

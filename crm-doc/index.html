@@ -36,7 +36,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .hero p { color: var(--navy); font-size: 16px; }
   .cta { display: inline-block; margin-top: 20px; background: var(--orange); color: #fff; font-weight: 700; font-size: 17px; text-decoration: none; padding: 14px 28px; border-radius: 999px; }
   .cta:hover { opacity: .9; }
-  .sub-link { display: inline-block; margin: 20px 0 0 16px; color: var(--slate); font-weight: 700; font-size: 15px; }
+  .sub-link { display: inline-block; margin: 20px 0 0; color: var(--slate); font-weight: 700; font-size: 15px; }
   .slides { padding: 16px 0 8px; display: grid; gap: 20px; }
   .slides img { display: block; width: 100%; height: auto; border-radius: 12px; border: 1px solid #e6ebf0; background: var(--gray); }
   .bottom { background: var(--orange-soft); border-radius: 16px; padding: 28px 20px; margin: 24px 0 40px; text-align: center; }
@@ -49,6 +49,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   footer { border-top: 1px solid #e6ebf0; padding: 20px 0 32px; font-size: 13px; color: var(--slate); }
   footer a { color: var(--slate); }
 </style>
+<link rel="stylesheet" href="/assets/viewer/viewer.css">
+<link rel="stylesheet" href="/assets/booking/booking.css">
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -67,13 +69,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="label">CRM/SFA 運用見直しのご案内</div>
     <h1>CRMの運用を、AI前提で見直しませんか</h1>
     <p>今の使い方に合った構成と費用を、30分の無料診断でお伝えします。下の資料（約8分）をご覧ください。</p>
-    <a class="cta" id="cta-top" href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ2FCMP26l34yvFdIwiov532owKYRaTuEmHc-7GgkEqMfO3du8oIoi9ucnL1s0hs4mh5goStqFaB" target="_blank" rel="noopener">無料診断を予約する（30分・オンライン）</a>
     <a class="sub-link" id="pdf-download" href="naus-crm-review.pdf" download>資料をPDFで保存する</a>
   </section>
 
-  <!-- ボタンの id（cta-top / cta-bottom / pdf-download）は、GA4でどのボタンが押されたかを見分けるために使います。消さないでください -->
   <!-- 資料の各ページ（slides フォルダの画像を順番に表示） -->
-  <section class="slides" aria-label="資料">
+  <section class="slides" aria-label="資料" data-viewer="crm_doc">
     <img src="slides/slide-01.png" alt="表紙：CRMのコストを下げて、営業管理はAIで自動化する（無料診断のご案内）" width="1920" height="1080">
     <img src="slides/slide-02.png" alt="この資料のポイント" width="1920" height="1080" loading="lazy">
     <img src="slides/slide-03.png" alt="01 なぜ今、CRMを見直すのか" width="1920" height="1080" loading="lazy">
@@ -110,7 +110,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <section class="bottom">
     <h2>まずは30分の無料診断から</h2>
     <p>「見直しが必要かどうか」を知るだけでもかまいません。</p>
-    <a class="cta" id="cta-bottom" href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ2FCMP26l34yvFdIwiov532owKYRaTuEmHc-7GgkEqMfO3du8oIoi9ucnL1s0hs4mh5goStqFaB" target="_blank" rel="noopener">無料診断を予約する</a>
     <div class="qr">
       <img src="booking-qr.png" alt="無料診断の予約ページのQRコード" width="160" height="160" loading="lazy">
       <p>スマホで読み取って予約</p>
@@ -123,5 +122,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     株式会社naus ｜ お問い合わせ：info@naus.co.jp ｜ <a href="https://www.naus.co.jp/2" target="_blank" rel="noopener">プライバシーポリシー</a>
   </div>
 </footer>
+<script src="/assets/viewer/viewer.js"></script>
+<script src="/assets/booking/booking.js" defer></script>
 </body>
 </html>
