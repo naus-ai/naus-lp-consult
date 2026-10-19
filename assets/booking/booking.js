@@ -61,7 +61,7 @@
     try{
       var p=location.pathname;
       var d={event:event,lp_type:SOURCE,
-        page_type:/\/shigyo\/material/.test(p)?'form_sales':/contact-thanks/.test(p)?'contact_thanks':/\/thanks/.test(p)?'thanks':/\/document/.test(p)?'document':'lp'};
+        page_type:/\/crm-doc/.test(p)?'crm_doc':/\/shigyo\/material/.test(p)?'form_sales':/contact-thanks/.test(p)?'contact_thanks':/\/thanks/.test(p)?'thanks':/\/document/.test(p)?'document':'lp'};
       if(st.mock)d.is_mock=true;
       if(params)for(var k in params)d[k]=params[k];
       (window.dataLayer=window.dataLayer||[]).push(d);
@@ -575,8 +575,8 @@
 
   // 資料ページ(/document/、/shigyo/document/、/shigyo/material/)だけ: URLの末尾が #booking なら、読み込み後に予約画面を開く
   // (#booking 以外のURLの値は読まない)
-  if(location.hash==='#booking'&&(/^\/(shigyo\/)?document\/?$/.test(location.pathname)||IS_MATERIAL)){
-    var src=document.querySelector('.dv-cta-btn')||document.querySelector('a[href^="https://calendar.app.google/"]');
+  if(location.hash==='#booking'&&(/^\/(shigyo\/)?document\/?$/.test(location.pathname)||IS_MATERIAL||/^\/crm-doc\/?$/.test(location.pathname))){
+    var src=document.querySelector('.dv-cta-btn')||document.querySelector('.dv-float-btn')||document.querySelector('a[href^="https://calendar.app.google/"]');
     modal.open(src?src.getAttribute('href'):'','hash');
   }
 

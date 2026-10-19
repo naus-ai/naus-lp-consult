@@ -3,7 +3,7 @@ function nausTrack(event,params){
   try{
     var p=location.pathname;
     var d={event:event,lp_type:p.indexOf('/shigyo')===0?'shigyo':'consult',
-      page_type:/\/shigyo\/material/.test(p)?'form_sales':/contact-thanks/.test(p)?'contact_thanks':/\/thanks/.test(p)?'thanks':/\/document/.test(p)?'document':'lp'};
+      page_type:/\/crm-doc/.test(p)?'crm_doc':/\/shigyo\/material/.test(p)?'form_sales':/contact-thanks/.test(p)?'contact_thanks':/\/thanks/.test(p)?'thanks':/\/document/.test(p)?'document':'lp'};
     if(params)for(var k in params)d[k]=params[k];
     (window.dataLayer=window.dataLayer||[]).push(d);
   }catch(e){}
@@ -26,6 +26,11 @@ function nausTrack(event,params){
   };
   var root=document.querySelector('[data-viewer]');
   if(!root)return;
+  // data-pages が無い場合(営業資料ページ /crm-doc/)は、ページに並んでいる画像をそのまま資料として扱い、計測だけを行う
+  if(!root.hasAttribute('data-pages')){
+    trackReading(root,root.children.length);
+    return;
+  }
   var links=LINKS[root.getAttribute('data-viewer')]||[];
   var ctaSrc=document.querySelector('.dv-cta-btn');
   var src=root.getAttribute('data-src')||'';
@@ -61,9 +66,12 @@ function nausTrack(event,params){
     list.appendChild(li);
   }
   root.appendChild(list);
-  nausTrack('viewer_open',{page_count:pages});
+  trackReading(list,pages);
+})();
 
-  // 読み進み: 資料の50%(画面の下端が資料全体の半分に届いた)/最後のページの下端まで表示
+// 読み進みの計測: 表示/資料の50%(画面の下端が資料全体の半分に届いた)/最後のページの下端まで表示
+function trackReading(list,count){
+  nausTrack('viewer_open',{page_count:count});
   var sent50=false,sentEnd=false;
   function onRead(){
     var r=list.getBoundingClientRect();
@@ -74,7 +82,7 @@ function nausTrack(event,params){
     if(sent50&&sentEnd)window.removeEventListener('scroll',onRead);
   }
   window.addEventListener('scroll',onRead,{passive:true});
-})();
+}
 
 /*
  * 無料相談ボタン: 資料を読み進めた人に、右下(スマホは画面下部)へ予約ボタンを出す。
@@ -92,15 +100,27 @@ function nausTrack(event,params){
     // expandAfterPages: このページ番号をすべて過ぎたら(ページの下端が画面の上端より上に出たら)カードに広げる
     lp:{
       consult:{expandAfterPages:[19,21],companyLabel:'会社名'},  // 19=支援パッケージの違い / 21=よくある質問
-      shigyo:{expandAfterPages:[20,23],companyLabel:'事務所名'}   // 20=支援パッケージの違い / 23=よくある質問
+      shigyo:{expandAfterPages:[20,23],companyLabel:'事務所名'},  // 20=支援パッケージの違い / 23=よくある質問
+      // 営業資料ページ(/crm-doc/): 資料の最後(最後のスライドの下端が画面に入った)でカードに広げる。
+      // ページ内に相談パネルが無いため、ボタンの文言・カードの見出しはページ内の既存の文言を使い、予約画面はここで指定した予約ページを行き先にする
+      crm_doc:{expandAtEnd:true,companyLabel:'会社名',ctaLabel:'無料診断を予約する（30分・オンライン）',cardTitle:'まずは30分の無料診断から',ctaHref:'https://calendar.app.google/F6qpCXCqKXQDYe5D8'}
     }
   };
 
   var root=document.querySelector('[data-viewer]');
-  var pages=document.querySelector('.dv-pages');
-  var source=document.querySelector('.dv-cta-btn');
-  if(!root||!pages||!source)return;
+  if(!root)return;
   var LP=CONFIG.lp[root.getAttribute('data-viewer')]||null;
+  var pages=root.hasAttribute('data-pages')?document.querySelector('.dv-pages'):root;
+  var source=document.querySelector('.dv-cta-btn');
+  if(!source&&LP&&LP.ctaHref){
+    // ページ内に相談パネルのボタンが無い場合は、設定値から予約ボタンを作る(画面には出さず、複製の元にだけ使う)
+    source=document.createElement('a');
+    source.href=LP.ctaHref;
+    source.target='_blank';
+    source.rel='noopener';
+    source.textContent=LP.ctaLabel||'';
+  }
+  if(!pages||!source)return;
 
   var MOBILE=window.matchMedia('(max-width:640px)');
   var shown=false,expanded=false,minimized=false,timer=null;
@@ -136,7 +156,7 @@ function nausTrack(event,params){
   panel.setAttribute('role','region');
   panel.setAttribute('aria-labelledby','dv-float-panel-title');
   var titleSrc=document.getElementById('dv-cta-title');
-  var title=el('p','dv-float-panel-title',titleSrc?titleSrc.textContent:'');
+  var title=el('p','dv-float-panel-title',titleSrc?titleSrc.textContent:((LP&&LP.cardTitle)||''));
   title.id='dv-float-panel-title';
   panel.appendChild(title);
   // 入力欄(氏名・会社名・メールアドレス)。資料DLフォームで保存した値を最初から入れておき、その場で直せる。
@@ -293,7 +313,12 @@ function nausTrack(event,params){
 
   // 指定ページの下端が画面の上端を越えたら「過ぎた」とみなす
   function passedAll(){
-    if(!LP||!LP.expandAfterPages.length)return false;
+    if(LP&&LP.expandAtEnd){
+      // 資料の最後: 最後のページ(スライド)の下端が画面の中に入ったら
+      var last=pages.lastElementChild;
+      return !!last&&last.getBoundingClientRect().bottom<=window.innerHeight;
+    }
+    if(!LP||!LP.expandAfterPages||!LP.expandAfterPages.length)return false;
     var items=pages.children;
     for(var i=0;i<LP.expandAfterPages.length;i++){
       var page=items[LP.expandAfterPages[i]-1];
