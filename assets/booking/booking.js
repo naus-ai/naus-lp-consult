@@ -13,6 +13,8 @@
   var STORE_KEY='naus_lead';
   var EXTERNAL=/^https:\/\/calendar\.app\.google\//;
   var SOURCE=location.pathname.indexOf('/shigyo')===0?'shigyo':'consult';
+  // 予約の経路: フォーム営業用の資料ページ(/shigyo/material/)からの予約だけ 'form_sales' を送る(サーバー側で許可した値以外は無視)
+  var ROUTE=/^\/shigyo\/material\/?$/.test(location.pathname)?'form_sales':'';
   var COMPANY_LABEL=SOURCE==='shigyo'?'事務所名':'会社名';
   var WD=['日','月','火','水','木','金','土'];
   var JST=9*60*60*1000;
@@ -55,7 +57,7 @@
     try{
       var p=location.pathname;
       var d={event:event,lp_type:SOURCE,
-        page_type:/contact-thanks/.test(p)?'contact_thanks':/\/thanks/.test(p)?'thanks':/\/document/.test(p)?'document':'lp'};
+        page_type:/\/shigyo\/material/.test(p)?'form_sales':/contact-thanks/.test(p)?'contact_thanks':/\/thanks/.test(p)?'thanks':/\/document/.test(p)?'document':'lp'};
       if(st.mock)d.is_mock=true;
       if(params)for(var k in params)d[k]=params[k];
       (window.dataLayer=window.dataLayer||[]).push(d);
@@ -412,6 +414,7 @@
     if(st.sending)return;
     var lead=readLead();
     var data={source:SOURCE,start:st.selected.iso,message:ta.value.trim(),website:hpi.value};
+    if(ROUTE)data.route=ROUTE;
     var first=null;
     FIELDS.forEach(function(f){
       var inp=inputs[f.key];
@@ -531,9 +534,9 @@
 
   window.nausBooking={open:open,close:close};
 
-  // 資料ページ(/document/、/shigyo/document/)だけ: URLの末尾が #booking なら、読み込み後に予約画面を開く
+  // 資料ページ(/document/、/shigyo/document/、/shigyo/material/)だけ: URLの末尾が #booking なら、読み込み後に予約画面を開く
   // (#booking 以外のURLの値は読まない)
-  if(location.hash==='#booking'&&/^\/(shigyo\/)?document\/?$/.test(location.pathname)){
+  if(location.hash==='#booking'&&(/^\/(shigyo\/)?document\/?$/.test(location.pathname)||ROUTE)){
     var src=document.querySelector('.dv-cta-btn')||document.querySelector('a[href^="https://calendar.app.google/"]');
     open(src?src.getAttribute('href'):'','hash');
   }

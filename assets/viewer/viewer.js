@@ -3,7 +3,7 @@ function nausTrack(event,params){
   try{
     var p=location.pathname;
     var d={event:event,lp_type:p.indexOf('/shigyo')===0?'shigyo':'consult',
-      page_type:/contact-thanks/.test(p)?'contact_thanks':/\/thanks/.test(p)?'thanks':/\/document/.test(p)?'document':'lp'};
+      page_type:/\/shigyo\/material/.test(p)?'form_sales':/contact-thanks/.test(p)?'contact_thanks':/\/thanks/.test(p)?'thanks':/\/document/.test(p)?'document':'lp'};
     if(params)for(var k in params)d[k]=params[k];
     (window.dataLayer=window.dataLayer||[]).push(d);
   }catch(e){}

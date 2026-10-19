@@ -26,3 +26,9 @@ export const COMPANY_LABELS = {
   consult: '会社名',
   shigyo: '事務所名',
 };
+
+// 予約の経路。ページから送られた値がここにある場合だけ、予定の説明欄の先頭に1行入れる
+// (フォーム営業用の資料ページ /shigyo/material/ から来た予約を、LP経由と分けて数えるため)
+export const ROUTES = {
+  form_sales: '経路: フォーム営業',
+};

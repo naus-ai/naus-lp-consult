@@ -1,5 +1,5 @@
 // 予約APIの共通部品(動作モードの判定・入力チェック・連続送信の制限・仮データ)
-import { BOOKING } from './config.mjs';
+import { BOOKING, ROUTES } from './config.mjs';
 import { readEnv, hasCredentials } from './google.mjs';
 import { jstDate, queryRange } from './slots.mjs';
 
@@ -67,6 +67,8 @@ export function validateBooking(body) {
   const b = body && typeof body === 'object' ? body : {};
 
   out.source = b.source === 'shigyo' ? 'shigyo' : 'consult';
+  // 予約の経路: 許可した値だけを受け付け、それ以外(未指定・想定外の値)は経路なしとして扱う
+  out.route = Object.prototype.hasOwnProperty.call(ROUTES, b.route) ? b.route : '';
 
   const fields = [
     ['name', 50],
