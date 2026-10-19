@@ -10,7 +10,7 @@ export const BOOKING = {
   weekdays: [1, 2, 3, 4, 5], // 受付する曜日(0=日 1=月 … 6=土)。祝日は別途除外
   bufferMinutes: 15,        // 既存の予定の前後に空ける時間(分)
   minLeadHours: 12,         // 枠の開始時刻の何時間前で締め切るか
-  maxDaysAhead: 14,         // 今日から何日後の日付まで予約できるか
+  maxDaysAhead: 28,         // 今日から何日後の日付まで予約できるか
   // 祝日の判定に使う、Google公開の「日本の祝日」カレンダー
   holidayCalendarId: 'ja.japanese#holiday@group.v.calendar.google.com',
 };
