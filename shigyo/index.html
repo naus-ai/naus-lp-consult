@@ -470,6 +470,20 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     } catch (err) {}
   });
 })();
+(function () {
+  // 問い合わせの入力内容(氏名・事務所名・メール・電話)も同じく保存する。問い合わせ内容は保存しない。必須欄が空なら保存しない
+  var form = document.querySelector('form[name="shigyo-contact"]');
+  if (!form) return;
+  form.addEventListener('submit', function () {
+    try {
+      var v = function (n) { var x = form.elements.namedItem(n); return x && x.value ? String(x.value).trim() : ''; };
+      if (!(v('office') && v('name') && v('email') && v('tel'))) return;
+      sessionStorage.setItem('naus_lead', JSON.stringify({
+        source: 'shigyo', company: v('office'), name: v('name'), email: v('email'), phone: v('tel')
+      }));
+    } catch (err) {}
+  });
+})();
 </script>
 <script src="/assets/booking/booking.js" defer></script>
 </body>

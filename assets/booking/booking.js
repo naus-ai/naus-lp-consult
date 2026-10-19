@@ -28,6 +28,10 @@
     {key:'phone',label:'電話番号',type:'tel',ac:'tel'}
   ];
 
+  // 予約画面を1つ作る。mount を渡すとページの中に埋め込み(問い合わせ後のページ用)、渡さなければモーダル
+  function createUI(mount){
+  var INLINE=!!mount;
+  var IDP=INLINE?'bki-':'bk-'; // 入力欄などのidの頭。モーダルと埋め込みが同じページにあっても重ならないように分ける
   var st={open:false,fallback:'',slots:[],mock:false,selected:null,from:'',weekStart:0,day:'',editing:false,notice:'',sending:false};
   var overlay,dialog,body,lastFocus=null,prevOverflow='';
 
@@ -69,16 +73,31 @@
 
   // ---- 画面の骨組み ----
   function build(){
+    if(INLINE){
+      // ページ埋め込み: 枠・見出し・本文だけ(閉じるボタン・背景の暗転なし)
+      dialog=el('section','bk-inline');
+      dialog.setAttribute('aria-labelledby',IDP+'title');
+      var ih=el('div','bk-head');
+      var it=el('h2','bk-title','無料相談(30分・オンライン)のご予約');
+      it.id=IDP+'title';
+      ih.appendChild(it);
+      body=el('div','bk-body');
+      dialog.appendChild(ih);
+      dialog.appendChild(body);
+      mount.appendChild(dialog);
+      MOBILE.addEventListener&&MOBILE.addEventListener('change',function(){if(st.open&&!st.selected&&st.slots.length)renderSelect();});
+      return;
+    }
     overlay=el('div','bk-overlay');
     overlay.hidden=true;
     dialog=el('div','bk-dialog');
     dialog.setAttribute('role','dialog');
     dialog.setAttribute('aria-modal','true');
-    dialog.setAttribute('aria-labelledby','bk-title');
+    dialog.setAttribute('aria-labelledby',IDP+'title');
     dialog.tabIndex=-1;
     var head=el('div','bk-head');
     var title=el('h2','bk-title','無料相談(30分・オンライン)のご予約');
-    title.id='bk-title';
+    title.id=IDP+'title';
     var x=el('button','bk-close','×');
     x.type='button';
     x.setAttribute('aria-label','閉じる');
@@ -120,7 +139,21 @@
     track('booking_ui_open',{open_source:source==='hash'?'hash':'click'});
     loadSlots();
   }
+  // ページ埋め込み: 読み込み時にそのまま表示する
+  function startInline(fallback){
+    if(!dialog)build();
+    st.fallback=fallback||'';
+    st.open=true;
+    track('booking_ui_open',{open_source:'inline'});
+    loadSlots();
+  }
+  // 画面が切り替わったら先頭に戻す(埋め込みは、枠の上端が画面外なら枠の先頭までスクロール)
+  function toTop(){
+    if(!INLINE){body.scrollTop=0;return;}
+    if(dialog.getBoundingClientRect().top<0)dialog.scrollIntoView({block:'start'});
+  }
   function close(){
+    if(INLINE)return;
     if(!st.open||st.sending)return; // 予約の送信中は閉じない(結果を必ず表示する)
     st.open=false;
     overlay.hidden=true;
@@ -217,7 +250,7 @@
     sec2.appendChild(el('h3','bk-sec-title','カレンダーから選ぶ'));
     if(MOBILE.matches)renderChips(sec2);else renderWeek(sec2);
     body.appendChild(sec2);
-    body.scrollTop=0;
+    toTop();
   }
 
   function slotsOfDay(key){return st.slots.filter(function(s){return dayKey(s.start)===key;});}
@@ -357,7 +390,7 @@
     FIELDS.forEach(function(f){
       if(complete&&!st.editing)return;
       var wrap=el('div');
-      var id='bk-f-'+f.key;
+      var id=IDP+'f-'+f.key;
       var lab=el('label','bk-label',f.label);
       lab.setAttribute('for',id);
       lab.appendChild(el('em',null,'必須'));
@@ -373,12 +406,12 @@
     // 相談内容(任意)
     var mw=el('div','bk-field-full');
     var mlab=el('label','bk-label','相談したい内容');
-    mlab.setAttribute('for','bk-f-message');
+    mlab.setAttribute('for',IDP+'f-message');
     var opt=el('em','is-opt','任意');
     mlab.appendChild(opt);
     var ta=el('textarea','bk-input');
-    ta.id='bk-f-message';ta.rows=4;ta.maxLength=1000;
-    var merr=el('p','bk-err');merr.id='bk-f-message-err';merr.hidden=true;
+    ta.id=IDP+'f-message';ta.rows=4;ta.maxLength=1000;
+    var merr=el('p','bk-err');merr.id=IDP+'f-message-err';merr.hidden=true;
     mw.appendChild(mlab);mw.appendChild(ta);mw.appendChild(merr);
     box.appendChild(mw);
     // スパム対策の隠し欄(人には見えない)
@@ -398,7 +431,7 @@
     go.addEventListener('click',function(){submit(inputs,ta,hpi,go,back);});
     act.appendChild(go);act.appendChild(back);
     body.appendChild(act);
-    body.scrollTop=0;
+    toTop();
   }
 
   function setErr(inp,code){
@@ -448,7 +481,7 @@
           renderConfirm();
           Object.keys(res.body.fields).forEach(function(k){
             var code=res.body.fields[k];
-            var inp=document.getElementById('bk-f-'+k);
+            var inp=document.getElementById(IDP+'f-'+k);
             if(!inp)return;
             setErr(inp,code==='invalid'?(k==='email'?'invalid_email':k==='phone'?'invalid_phone':'required'):code);
           });
@@ -460,7 +493,7 @@
           st.notice='短時間に操作が続いたため、受け付けられませんでした。少し時間をおいて、もう一度お試しください。';
           var n=el('p','bk-notice',st.notice);st.notice='';
           body.insertBefore(n,body.firstChild);
-          body.scrollTop=0;
+          toTop();
           return;
         }
         renderFallback();
@@ -511,32 +544,46 @@
     msg.appendChild(document.createElement('br'));
     msg.appendChild(document.createTextNode('当日は招待メールのGoogle Meetからご参加ください。'));
     box.appendChild(msg);
-    var c=el('button','bk-primary','閉じる');
-    c.type='button';
-    c.addEventListener('click',close);
-    box.appendChild(c);
+    if(!INLINE){
+      var c=el('button','bk-primary','閉じる');
+      c.type='button';
+      c.addEventListener('click',close);
+      box.appendChild(c);
+    }
     body.appendChild(box);
-    body.scrollTop=0;
+    toTop();
   }
+
+  return {open:open,close:close,startInline:startInline,track:track};
+  }
+
+  var modal=createUI(null);
 
   // ---- 外部予約リンクを、この予約画面を開く動作に切り替える ----
   document.addEventListener('click',function(e){
     if(e.defaultPrevented||e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;
     var a=e.target&&e.target.closest?e.target.closest('a[href]'):null;
     if(!a||!EXTERNAL.test(a.href))return;
-    if(overlay&&overlay.contains(a))return; // 予約画面の中の「予約ページを開く」は外部ページをそのまま開く
+    if(a.closest('.bk-overlay,.bk-inline'))return; // 予約画面の中の「予約ページを開く」は外部ページをそのまま開く
     e.preventDefault();
     var c=a.classList;
-    track('cta_click',{cta_location:c.contains('dv-float-btn')?'float_button':c.contains('dv-float-panel-btn')?'card':c.contains('dv-cta-btn')?'end_panel':c.contains('dv-hotspot')?'pdf_link':'page_link'});
-    open(a.href);
+    modal.track('cta_click',{cta_location:c.contains('dv-float-btn')?'float_button':c.contains('dv-float-panel-btn')?'card':c.contains('dv-cta-btn')?'end_panel':c.contains('dv-hotspot')?'pdf_link':'page_link'});
+    modal.open(a.href);
   });
 
-  window.nausBooking={open:open,close:close};
+  window.nausBooking={open:modal.open,close:modal.close};
 
   // 資料ページ(/document/、/shigyo/document/、/shigyo/material/)だけ: URLの末尾が #booking なら、読み込み後に予約画面を開く
   // (#booking 以外のURLの値は読まない)
   if(location.hash==='#booking'&&(/^\/(shigyo\/)?document\/?$/.test(location.pathname)||IS_MATERIAL)){
     var src=document.querySelector('.dv-cta-btn')||document.querySelector('a[href^="https://calendar.app.google/"]');
-    open(src?src.getAttribute('href'):'','hash');
+    modal.open(src?src.getAttribute('href'):'','hash');
+  }
+
+  // 問い合わせ後のページ: [data-booking-inline] の場所に、予約画面を最初から表示する
+  var mountEl=document.querySelector('[data-booking-inline]');
+  if(mountEl){
+    var link=document.querySelector('a[href^="https://calendar.app.google/"]');
+    createUI(mountEl).startInline(link?link.getAttribute('href'):'');
   }
 })();

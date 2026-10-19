@@ -4,6 +4,12 @@
 .bk-overlay *,.bk-overlay *::before,.bk-overlay *::after{box-sizing:border-box;}
 .bk-dialog{position:relative;width:100%;max-width:920px;max-height:calc(100vh - 48px);max-height:calc(100dvh - 48px);display:flex;flex-direction:column;background:#FDFCFA;border-radius:20px;box-shadow:0 24px 64px rgba(16,26,48,.35);overflow:hidden;color:#232733;animation:bkIn .2s ease-out;}
 .bk-dialog:focus{outline:none;}
+/* 問い合わせ後のページに埋め込む予約画面(モーダルと同じ中身を、ページの中にそのまま表示する) */
+.bk-inline{width:100%;margin:32px 0 0;background:#FDFCFA;border-radius:20px;box-shadow:0 20px 48px rgba(28,43,75,.12);overflow:hidden;color:#232733;font-family:'Noto Sans JP',sans-serif;letter-spacing:normal;font-feature-settings:normal;text-align:left;}
+.bk-inline *,.bk-inline *::before,.bk-inline *::after{box-sizing:border-box;}
+.bk-inline .bk-body{overflow:visible;}
+.bk-inline-mount{width:100%;max-width:640px;}
+.bk-inline-mount .bk-inline{margin-top:0;}
 @keyframes bkIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
 .bk-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px 24px;background:#fff;border-bottom:1px solid rgba(28,43,75,.1);}
 .bk-title{margin:0;font-size:18px;font-weight:900;line-height:1.5;color:#1C2B4B;}
@@ -86,6 +92,8 @@ textarea.bk-input{resize:vertical;min-height:96px;line-height:1.7;}
 @media (max-width:640px){
   .bk-overlay{padding:0;align-items:flex-end;}
   .bk-dialog{max-width:none;height:100%;max-height:100%;border-radius:0;}
+  .bk-inline{margin-top:24px;border-radius:16px;}
+  .bk-inline .bk-head{padding-top:14px;}
   .bk-head{padding:14px 16px;padding-top:calc(14px + env(safe-area-inset-top));}
   .bk-title{font-size:16px;}
   .bk-body{padding:18px 16px calc(28px + env(safe-area-inset-bottom));}

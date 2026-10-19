@@ -1642,6 +1642,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         }));
       }catch(err){}
     }
+    // 問い合わせの入力内容(氏名・会社名・メール・電話)も同じく保存する。問い合わせ内容は保存しない。必須欄が空なら保存しない
+    if(current.getAttribute('name')==='contact'){
+      try{
+        var cf=current;
+        var cv=function(n){var x=cf.elements.namedItem(n);return x&&x.value?String(x.value).trim():'';};
+        if(cv('company')&&cv('name')&&cv('email')&&cv('phone')){
+          sessionStorage.setItem('naus_lead',JSON.stringify({
+            source:'consult',company:cv('company'),name:cv('name'),email:cv('email'),phone:cv('phone')
+          }));
+        }
+      }catch(err){}
+    }
     HTMLFormElement.prototype.submit.call(current);
   });
 
