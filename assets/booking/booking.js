@@ -571,6 +571,12 @@
     modal.open(a.href);
   });
 
+  // ページ内のボタンのうち data-cta-id を付けたもの(例: 問い合わせ完了ページの「資料を見る」)は、押されたら cta_click を送る
+  document.addEventListener('click',function(e){
+    var b=e.target&&e.target.closest?e.target.closest('[data-cta-id]'):null;
+    if(b)modal.track('cta_click',{cta_id:b.getAttribute('data-cta-id')});
+  });
+
   window.nausBooking={open:modal.open,close:modal.close};
 
   // 資料ページ(/document/、/shigyo/document/、/shigyo/material/)だけ: URLの末尾が #booking なら、読み込み後に予約画面を開く
