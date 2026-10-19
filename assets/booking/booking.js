@@ -583,7 +583,8 @@
   // 問い合わせ後のページ: [data-booking-inline] の場所に、予約画面を最初から表示する
   var mountEl=document.querySelector('[data-booking-inline]');
   if(mountEl){
+    // 予約画面が使えないときに案内する外部予約ページ: 埋め込み場所の data-fallback-href(無ければページ内の予約リンク)
     var link=document.querySelector('a[href^="https://calendar.app.google/"]');
-    createUI(mountEl).startInline(link?link.getAttribute('href'):'');
+    createUI(mountEl).startInline(mountEl.getAttribute('data-fallback-href')||(link?link.getAttribute('href'):''));
   }
 })();
