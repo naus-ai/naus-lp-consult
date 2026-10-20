@@ -149,10 +149,10 @@
       box.appendChild(wrap);
       inputs[f.key]=inp;
     });
-    // スパム対策の隠し欄(人には見えない)
+    // スパム対策の隠し欄(人には見えない)。ブラウザの自動入力が電話番号などを入れないように、name・id・ラベルを付けない
     var hp=el('div','bk-hp');
     hp.setAttribute('aria-hidden','true');
-    var hpi=el('input');hpi.type='text';hpi.name='hp';hpi.tabIndex=-1;hpi.autocomplete='off';
+    var hpi=el('input');hpi.type='text';hpi.tabIndex=-1;hpi.autocomplete='off';
     hp.appendChild(hpi);
     box.appendChild(hp);
     form.appendChild(box);
