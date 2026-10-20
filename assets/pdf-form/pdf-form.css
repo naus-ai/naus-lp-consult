@@ -1,0 +1,6 @@
+/* 資料ページ(/crm-doc/)の「資料をPDFで保存する」の入力画面。枠や入力欄は予約画面(/assets/booking/booking.css)の部品を使い、ここでは違うところだけ決める */
+.pf-dialog{max-width:560px;}
+.bk-fields.pf-fields{grid-template-columns:1fr;}
+.pf-privacy{margin:18px 0 0;font-size:12.5px;line-height:1.9;color:#8A8F9C;}
+.pf-privacy a{color:#5A6172;text-underline-offset:2px;}
+.pf-again{display:inline-block;margin:0 0 22px;font-size:13.5px;font-weight:700;color:#C0501A;text-decoration:underline;text-underline-offset:2px;}
