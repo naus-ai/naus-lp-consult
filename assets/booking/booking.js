@@ -288,12 +288,19 @@
     grid.setAttribute('role','group');
     grid.setAttribute('aria-label',md(st.weekStart)+'〜'+md(fri)+'の空き時間');
     var cols=[],times={};
+    var corner=el('div','bk-gh bk-gt-head');
+    corner.setAttribute('aria-hidden','true');
+    grid.appendChild(corner);
     for(var i=0;i<5;i++){
       var dms=st.weekStart+i*DAY;
       var ds=slotsOfDay(dayKey(dms));
       cols.push({ms:dms,slots:ds});
       ds.forEach(function(s){times[hm(s.start)]=jst(s.start).h*60+jst(s.start).mi;});
-      var h=el('div','bk-gh'+(ds.length?'':' is-off'),md(dms));
+      // 見出し: 日付と曜日を分けて置く(幅が狭いときは曜日の前で折り返す)
+      var h=el('div','bk-gh'+(ds.length?'':' is-off'));
+      var label=md(dms),cut=label.indexOf('(');
+      h.appendChild(el('span',null,label.slice(0,cut)));
+      h.appendChild(el('span',null,label.slice(cut)));
       grid.appendChild(h);
     }
     // 行: この週に1つでも空きがある時刻(無い週は「空きがありません」)
@@ -303,19 +310,24 @@
       none.style.gridColumn='1/-1';
       grid.appendChild(none);
     }
+    // 行: 左端に時刻、各日のマスは ○(予約できる)/×(予約できない)
     rows.forEach(function(t){
+      grid.appendChild(el('div','bk-gt',t));
       cols.forEach(function(c){
         var s=null;
         c.slots.forEach(function(x){if(hm(x.start)===t)s=x;});
         if(s){
-          var b=el('button','bk-slot',t);
+          var b=el('button','bk-slot','○');
           b.type='button';
           b.setAttribute('aria-label',slotLabel(s)+'を選ぶ');
           b.addEventListener('click',function(){pick(s,'calendar');});
           grid.appendChild(b);
         }else{
-          var c2=el('div','bk-cell','—');
-          c2.setAttribute('aria-hidden','true');
+          var c2=el('div','bk-cell');
+          var mark=el('span',null,'×');
+          mark.setAttribute('aria-hidden','true');
+          c2.appendChild(mark);
+          c2.appendChild(el('span','bk-sr',md(c.ms)+' '+t+' 予約できません'));
           grid.appendChild(c2);
         }
       });
