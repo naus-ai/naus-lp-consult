@@ -24,9 +24,9 @@
     '・具体的な費用感をご案内。'
   ];
   var WD=['日','月','火','水','木','金','土'];
+  var NARROW=window.matchMedia('(max-width:640px)'); // 週表示のマス: 640px以下は○×、それより広いと時刻
   var JST=9*60*60*1000;
   var DAY=24*60*60*1000;
-  var MOBILE=window.matchMedia('(max-width:640px)');
 
   var FIELDS=[
     {key:'name',label:'氏名',type:'text',ac:'name'},
@@ -92,7 +92,7 @@
       dialog.appendChild(ih);
       dialog.appendChild(body);
       mount.appendChild(dialog);
-      MOBILE.addEventListener&&MOBILE.addEventListener('change',function(){if(st.open&&!st.selected&&st.slots.length)renderSelect();});
+      NARROW.addEventListener&&NARROW.addEventListener('change',function(){if(st.open&&!st.selected&&st.slots.length)renderSelect();});
       return;
     }
     overlay=el('div','bk-overlay');
@@ -118,7 +118,7 @@
     overlay.addEventListener('click',function(e){if(e.target===overlay&&!st.sending)close();});
     document.body.appendChild(overlay);
     document.addEventListener('keydown',onKey);
-    MOBILE.addEventListener&&MOBILE.addEventListener('change',function(){if(st.open&&!st.selected&&st.slots.length)renderSelect();});
+    NARROW.addEventListener&&NARROW.addEventListener('change',function(){if(st.open&&!st.selected&&st.slots.length)renderSelect();});
   }
 
   function onKey(e){
@@ -227,7 +227,7 @@
 
   // ---- 日時を選ぶ ----
   function pick(slot,from){
-    track('slot_select',{slot_source:from,calendar_view:MOBILE.matches?'chips':'week'});
+    track('slot_select',{slot_source:from,calendar_view:'week'});
     st.selected=slot;
     st.from=from;
     renderConfirm();
@@ -264,14 +264,14 @@
     // 下部: カレンダー
     var sec2=el('section','bk-sec');
     sec2.appendChild(el('h3','bk-sec-title','カレンダーから選ぶ'));
-    if(MOBILE.matches)renderChips(sec2);else renderWeek(sec2);
+    renderWeek(sec2);
     body.appendChild(sec2);
     toTop();
   }
 
   function slotsOfDay(key){return st.slots.filter(function(s){return dayKey(s.start)===key;});}
 
-  // PC: 5日分(月〜金)の週表示
+  // 5日分(月〜金)の週表示(PC・スマホ共通)
   function renderWeek(sec){
     var firstWeek=monday(Date.now());
     var lastWeek=monday(st.slots[st.slots.length-1].start);
@@ -287,16 +287,26 @@
     nav.appendChild(prev);nav.appendChild(label);nav.appendChild(next);
     sec.appendChild(nav);
 
-    var grid=el('div','bk-grid');
+    var mark=NARROW.matches;
+    var grid=el('div','bk-grid'+(mark?' is-mark':''));
     grid.setAttribute('role','group');
     grid.setAttribute('aria-label',md(st.weekStart)+'〜'+md(fri)+'の空き時間');
     var cols=[],times={};
+    if(mark){
+      var corner=el('div','bk-gh bk-gt-head');
+      corner.setAttribute('aria-hidden','true');
+      grid.appendChild(corner);
+    }
     for(var i=0;i<5;i++){
       var dms=st.weekStart+i*DAY;
       var ds=slotsOfDay(dayKey(dms));
       cols.push({ms:dms,slots:ds});
       ds.forEach(function(s){times[hm(s.start)]=jst(s.start).h*60+jst(s.start).mi;});
-      var h=el('div','bk-gh'+(ds.length?'':' is-off'),md(dms));
+      // 見出し: 日付と曜日を分けて置く(幅が狭いときは曜日の前で折り返す)
+      var h=el('div','bk-gh'+(ds.length?'':' is-off'));
+      var label=md(dms),cut=label.indexOf('(');
+      h.appendChild(el('span',null,label.slice(0,cut)));
+      h.appendChild(el('span',null,label.slice(cut)));
       grid.appendChild(h);
     }
     // 行: この週に1つでも空きがある時刻(無い週は「空きがありません」)
@@ -306,62 +316,34 @@
       none.style.gridColumn='1/-1';
       grid.appendChild(none);
     }
+    // 行: 640px以下は左端に時刻、各日のマスは ○(予約できる)/×(予約できない)。広い画面は各マスに時刻
     rows.forEach(function(t){
+      if(mark)grid.appendChild(el('div','bk-gt',t));
       cols.forEach(function(c){
         var s=null;
         c.slots.forEach(function(x){if(hm(x.start)===t)s=x;});
         if(s){
-          var b=el('button','bk-slot',t);
+          var b=el('button','bk-slot',mark?'○':t);
           b.type='button';
           b.setAttribute('aria-label',slotLabel(s)+'を選ぶ');
           b.addEventListener('click',function(){pick(s,'calendar');});
           grid.appendChild(b);
         }else{
-          var c2=el('div','bk-cell','—');
-          c2.setAttribute('aria-hidden','true');
+          var c2=el('div','bk-cell');
+          if(mark){
+            var x=el('span',null,'×');
+            x.setAttribute('aria-hidden','true');
+            c2.appendChild(x);
+            c2.appendChild(el('span','bk-sr',md(c.ms)+' '+t+' 予約できません'));
+          }else{
+            c2.textContent='—';
+            c2.setAttribute('aria-hidden','true');
+          }
           grid.appendChild(c2);
         }
       });
     });
     sec.appendChild(grid);
-  }
-
-  // スマホ: 日付を横スクロールのチップで選び、その日の空き時間を縦に並べる
-  function renderChips(sec){
-    var chips=el('div','bk-chips');
-    chips.setAttribute('role','tablist');
-    var start=midnight(Date.now());
-    var last=st.slots[st.slots.length-1].start;
-    var active=null;
-    for(var ms=start;ms<=last;ms+=DAY){
-      var w=jst(ms).w;
-      if(w===0||w===6)continue;
-      (function(ms){
-        var key=dayKey(ms);
-        var n=slotsOfDay(key).length;
-        var c=el('button','bk-chip'+(key===st.day?' is-active':''));
-        c.type='button';
-        c.setAttribute('role','tab');
-        c.setAttribute('aria-selected',key===st.day?'true':'false');
-        c.appendChild(document.createTextNode(md(ms)));
-        c.appendChild(el('small',null,n?'空きあり':'×'));
-        c.disabled=!n;
-        c.addEventListener('click',function(){st.day=key;renderSelect();});
-        if(key===st.day)active=c;
-        chips.appendChild(c);
-      })(ms);
-    }
-    sec.appendChild(chips);
-    var times=el('div','bk-times');
-    slotsOfDay(st.day).forEach(function(s){
-      var b=el('button','bk-time',hm(s.start)+'〜'+hm(s.end));
-      b.type='button';
-      b.setAttribute('aria-label',slotLabel(s)+'を選ぶ');
-      b.addEventListener('click',function(){pick(s,'calendar');});
-      times.appendChild(b);
-    });
-    sec.appendChild(times);
-    if(active)setTimeout(function(){active.scrollIntoView({block:'nearest',inline:'center'});},0);
   }
 
   // ---- 確認と予約 ----
@@ -560,6 +542,8 @@
     msg.appendChild(document.createElement('br'));
     msg.appendChild(document.createTextNode('当日は招待メールのGoogle Meetからご参加ください。'));
     box.appendChild(msg);
+    // 招待メールの表示についての補足(受け取る側の設定で「差出人不明」と出ることがある)
+    box.appendChild(el('p','bk-text','招待メールに「差出人不明」と表示される場合があります。メール内の「はい」を押すと、カレンダーに追加されます。'));
     if(!INLINE){
       var c=el('button','bk-primary','閉じる');
       c.type='button';
