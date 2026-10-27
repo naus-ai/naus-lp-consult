@@ -1,6 +1,7 @@
 // 予約作成API: POST /api/booking/create
 // 登録の直前に「枠がまだ空いているか」「締め切りを過ぎていないか」をサーバー側で確認し直してから、
 // Googleカレンダーに予定を作る(Google Meetを自動発行し、申込者に招待メールを送る)
+// 予約が確定したら、Slack の #new-leads にも知らせる(社内向け。カレンダーの予定には入れない)
 import { randomUUID } from 'node:crypto';
 import {
   decideMode, json, sameOrigin, rateLimited, validateBooking, availableSlots, mockBook, BOOKING,
@@ -8,8 +9,20 @@ import {
 import { TITLES, COMPANY_LABELS } from '../booking/config.mjs';
 import { toIso } from '../booking/slots.mjs';
 import { insertEvent, listEvents, deleteEvent, getEvent, meetUrl } from '../booking/google.mjs';
+import { buildBookingMessage } from '../notify/new-lead-message.mjs';
+import { postToSlack } from '../notify/slack.mjs';
 
 const MIN = 60 * 1000;
+
+// 予約が入ったことを Slack に知らせる。何経由か・予約したページは、要求の Referer(この LP のページのときだけ)から決める。
+// 知らせに失敗しても、お客様への返事(予約の結果)は変えない。記録に個人の情報は残さない
+async function notifySlack(v, slot, referrer, receivedAt) {
+  try {
+    await postToSlack(buildBookingMessage({ ...v, start: slot.start, end: slot.end, referrer }, receivedAt));
+  } catch {
+    console.error('予約の知らせを Slack に送れませんでした');
+  }
+}
 
 function buildEvent(v, start, end) {
   const title = TITLES[v.source].replace('{company}', v.company).replace('{name}', v.name);
@@ -86,6 +99,10 @@ export default async (req, context) => {
       await deleteEvent(m.env, created.id);
       return json(409, { error: 'slot_unavailable' });
     }
+
+    // 予約が確定した(本物の予定ができ、ほかの予約とも重ならなかった)ので、Slack に知らせる。
+    // 仮の予約・入力の不備・枠が埋まっていたときは、ここまで来ないので知らせない
+    await notifySlack(v, slot, req.headers.get('referer'), now);
 
     // Meetの発行が少し遅れることがあるため、無ければ一度だけ取り直す
     let url = meetUrl(created);
