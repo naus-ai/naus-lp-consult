@@ -63,6 +63,20 @@
     }catch(e){}
   }
 
+  // ---- 流入元(UTM など) ----
+  // assets/source-fields/source-fields.js がこのブラウザの localStorage(naus_source)に30日間覚えた7項目を、予約と一緒に送る。
+  // 読むだけで、書き換え・消去はしない(保存の決まりは source-fields.js のとおり。30日を過ぎたものは無いものとして扱う)
+  var SOURCE_STORE='naus_source';
+  var SOURCE_TTL=30*DAY;
+  var SOURCE_FIELDS=['utm_source','utm_medium','utm_campaign','utm_content','utm_term','landing_page','referrer_host'];
+  function readSource(){
+    try{
+      var o=JSON.parse(localStorage.getItem(SOURCE_STORE)||'null');
+      if(!o||typeof o.t!=='number'||!o.d||Date.now()-o.t>SOURCE_TTL)return {};
+      return o.d;
+    }catch(e){return {};}
+  }
+
   // 計測: GTMへ送るイベント(dataLayer)。個人情報(氏名・メール・電話・会社名・相談内容)は載せない
   function track(event,params){
     try{
@@ -453,6 +467,8 @@
       if(inp){var c=checkValue(f.key,v);setErr(inp,c);if(c&&!first)first=inp;}
     });
     if(first){first.focus();return;}
+    var from=readSource();
+    SOURCE_FIELDS.forEach(function(k){data[k]=typeof from[k]==='string'?from[k]:'';});
     var patch={};FIELDS.forEach(function(f){patch[f.key]=data[f.key];});
     writeLead(patch);
 

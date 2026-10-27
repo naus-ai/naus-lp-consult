@@ -1,6 +1,6 @@
 // フォームの送信（資料請求・問い合わせ）と、無料相談の予約を Slack に知らせる文を作る。
 // 載せるのは、フォーム・予約の画面で受け取った項目すべて（取引先・取引先責任者・メール・電話・内容と、そのほかの項目）、受け付けた日時、
-// 送信・予約したページ（この LP のページのときだけ）。予約は、何経由かと予約の日時も載せる。
+// 送信・予約したページ（この LP のページのときだけ）。予約は、何経由かと予約の日時も載せる。流入元（UTM など）は、そのほかの項目として載る。
 // IP アドレスとブラウザの種類は載せない（IS の対応には使わない個人の手がかりのため）
 
 // どのフォームか（form-name）→ 見出しと、取引先（会社名・事務所名）と電話の欄の名前
@@ -160,7 +160,7 @@ function route(booking, lp) {
 }
 
 // 無料相談の予約から、Slack に送る文を作る。
-// booking：予約の API で確かめた値（source・name・company・email・phone・message）と、予約の枠の始まりと終わり
+// booking：予約の API で確かめた値（source・name・company・email・phone・message と、流入元の7項目）と、予約の枠の始まりと終わり
 //   （start・end。ミリ秒か ISO の文字列）、予約したページ（referrer。要求の Referer）
 // receivedAt：受け付けた日時（ミリ秒か ISO の文字列）
 export function buildBookingMessage(booking, receivedAt) {

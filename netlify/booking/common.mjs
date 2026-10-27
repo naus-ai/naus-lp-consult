@@ -59,6 +59,18 @@ function text(v, max, { multiline = false } = {}) {
   return s.length > max ? null : s;
 }
 
+// 流入元の7項目（フォームの隠し項目と同じ名前と順番。値は assets/source-fields/source-fields.js が覚えたもの）と、その形。
+// landing_page はこのサイトのパス、referrer_host はホスト名だけ
+const SOURCE_FIELDS = [
+  ['utm_source', /^/],
+  ['utm_medium', /^/],
+  ['utm_campaign', /^/],
+  ['utm_content', /^/],
+  ['utm_term', /^/],
+  ['landing_page', /^\/(?!\/)\S*$/],
+  ['referrer_host', /^[A-Za-z0-9.-]+$/],
+];
+
 const EMAIL = /^[^\s@<>()"',;:\\]+@[^\s@<>()"',;:\\]+\.[^\s@<>()"',;:\\]{2,}$/;
 
 export function validateBooking(body) {
@@ -90,6 +102,12 @@ export function validateBooking(body) {
   const message = text(b.message, 1000, { multiline: true });
   if (message === null) errors.message = 'too_long';
   else out.message = message;
+
+  // 流入元（UTM など）：形や長さが合わないものは空にする（予約そのものは止めない）
+  for (const [key, pattern] of SOURCE_FIELDS) {
+    const v = text(b[key], 200);
+    out[key] = v && pattern.test(v) ? v : '';
+  }
 
   const start = typeof b.start === 'string' ? Date.parse(b.start) : NaN;
   if (!Number.isFinite(start)) errors.start = 'invalid';

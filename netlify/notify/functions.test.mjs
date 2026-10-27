@@ -147,6 +147,10 @@ function farSlot(busy = []) {
   return slots[slots.length - 1];
 }
 
+// 流入元の7項目（フォームの隠し項目・assets/source-fields/source-fields.js と同じ名前と順番）
+const SOURCE_FIELDS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'landing_page', 'referrer_host'];
+const NO_SOURCE = SOURCE_FIELDS.map((key) => `${key}：（未記入）`);
+
 const lead = (slot, extra = {}) => ({
   source: 'consult',
   start: toIso(slot.start),
@@ -194,7 +198,91 @@ test('予約：本物の予定ができたら、Slack に1回だけ知らせる�
     `予約の日時：${formatJst(slot.start)}〜${formatJst(slot.end).split(' ')[1]}`,
   ]);
   assert.match(lines[7], /^受付：\d{4}\/\d{2}\/\d{2} \d{2}:\d{2}$/);
-  assert.deepEqual(lines.slice(8), ['内容：相談したいです。', `ページ：${SITE}/thanks.html?utm_source=test`]);
+  // 流入元（UTM など）が届いていなければ、フォームの知らせと同じく、7つとも（未記入）で載せる
+  assert.deepEqual(lines.slice(8), [
+    '内容：相談したいです。',
+    ...NO_SOURCE,
+    `ページ：${SITE}/thanks.html?utm_source=test`,
+  ]);
+});
+
+test('予約：資料ページに目印付きで来て予約したら、流入元の7項目を「項目名：値」で知らせる。カレンダーの予定には入れない', async (t) => {
+  setEnv(t, { ...GOOGLE, SLACK_WEBHOOK_URL: SLACK });
+  const log = fakeServices(t);
+  const source = {
+    utm_source: 'note',
+    utm_medium: 'social',
+    utm_campaign: 'note_crm',
+    utm_content: '',
+    utm_term: '',
+    landing_page: '/crm-doc/',
+    referrer_host: 'note.com',
+  };
+  const res = await bookingCall(lead(farSlot(), source), { referer: `${SITE}/crm-doc/?utm_source=note&utm_medium=social&utm_campaign=note_crm` });
+  assert.equal(res.status, 200);
+  assert.equal(log.slack.length, 1);
+  const lines = log.slack[0].text.split('\n');
+  assert.equal(lines[1], '経由：CRM 運用見直しの資料ページ');
+  assert.deepEqual(lines.slice(8), [
+    '内容：相談したいです。',
+    'utm_source：note',
+    'utm_medium：social',
+    'utm_campaign：note_crm',
+    'utm_content：（未記入）',
+    'utm_term：（未記入）',
+    'landing_page：/crm-doc/',
+    'referrer_host：note.com',
+    // & は Slack の書き方で &amp; にする（Slack では & と表示される）
+    `ページ：${SITE}/crm-doc/?utm_source=note&amp;utm_medium=social&amp;utm_campaign=note_crm`,
+  ]);
+  assert.equal(log.events.length, 1);
+  const event = JSON.stringify(log.events[0]);
+  for (const value of ['note_crm', 'note.com', 'utm_', 'landing_page', 'referrer_host']) assert.ok(!event.includes(value), value);
+});
+
+test('予約：流入元の項目は形と長さを確かめ、合わないものは載せない（予約は受け付ける）', async (t) => {
+  setEnv(t, { ...GOOGLE, SLACK_WEBHOOK_URL: SLACK });
+  const log = fakeServices(t);
+  const res = await bookingCall(
+    lead(farSlot(), {
+      utm_source: 'x'.repeat(201), // 長すぎる
+      utm_medium: { nested: 'object' }, // 文字でない
+      utm_campaign: '  note\ncrm\u0007 ', // 改行・制御文字は、ほかの1行の欄と同じくならす
+      utm_content: 42, // 文字でない
+      utm_term: 'x'.repeat(200), // ちょうど200文字は載せる
+      landing_page: 'https://evil.example/', // パスでない
+      referrer_host: 'note.com/<!channel>', // ホスト名でない
+      ip: '203.0.113.9',
+      user_agent: 'Mozilla/5.0 test',
+      extra: 'not-allowed', // 決まった項目のほかは受け取らない
+    }),
+  );
+  assert.equal(res.status, 200);
+  assert.equal(log.slack.length, 1);
+  const lines = log.slack[0].text.split('\n');
+  assert.deepEqual(lines.slice(8), [
+    '内容：相談したいです。',
+    'utm_source：（未記入）',
+    'utm_medium：（未記入）',
+    'utm_campaign：note crm',
+    'utm_content：（未記入）',
+    `utm_term：${'x'.repeat(200)}`,
+    'landing_page：（未記入）',
+    'referrer_host：（未記入）',
+  ]);
+});
+
+test('予約：流入元のパスが // で始まる（ほかのサイトの形）なら載せない。値の < > & は逃がす', async (t) => {
+  setEnv(t, { ...GOOGLE, SLACK_WEBHOOK_URL: SLACK });
+  const log = fakeServices(t);
+  const res = await bookingCall(
+    lead(farSlot(), { utm_source: '<!channel>&', landing_page: '//evil.example/x', referrer_host: 'NOTE.com' }),
+  );
+  assert.equal(res.status, 200);
+  const { text } = log.slack[0];
+  assert.match(text, /\nutm_source：&lt;!channel&gt;&amp;\n/);
+  assert.match(text, /\nlanding_page：（未記入）\n/);
+  assert.match(text, /\nreferrer_host：NOTE\.com$/);
 });
 
 test('予約：予約したページ（Referer）がなければ、ページの行を出さない（経由は LP の呼び名）', async (t) => {
