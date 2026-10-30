@@ -16,14 +16,31 @@
     tabs[i].addEventListener('click', function () { setTab(this.getAttribute('data-tab')); });
   }
 
+  // ---- スマホのメニュー ----
+  var menuBtn = document.getElementById('menu-btn');
+  var spNav = document.getElementById('sp-nav');
+  function setMenu(open) {
+    if (!menuBtn || !spNav) return;
+    spNav.hidden = !open;
+    menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    menuBtn.classList.toggle('is-open', open);
+  }
+  if (menuBtn && spNav) {
+    menuBtn.addEventListener('click', function () { setMenu(spNav.hidden); });
+    var spLinks = spNav.querySelectorAll('a');
+    for (var m = 0; m < spLinks.length; m++) spLinks[m].addEventListener('click', function () { setMenu(false); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') setMenu(false); });
+  }
+
   // ---- 「資料を見る」「問い合わせ」: お問い合わせ欄へスクロールしてタブを選ぶ ----
   var contact = document.getElementById('contact');
+  var headerInner = document.querySelector('.header-inner');
   var gos = document.querySelectorAll('[data-go]');
   for (var k = 0; k < gos.length; k++) {
     gos[k].addEventListener('click', function (e) {
       e.preventDefault();
       setTab(this.getAttribute('data-go'));
-      if (contact) window.scrollTo({ top: contact.getBoundingClientRect().top + window.scrollY - 72, behavior: 'smooth' });
+      if (contact) window.scrollTo({ top: contact.getBoundingClientRect().top + window.scrollY - (headerInner ? headerInner.offsetHeight : 72), behavior: 'smooth' });
     });
   }
 
