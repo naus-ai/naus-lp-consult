@@ -1,0 +1,25 @@
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; background: #F7F4EE; font-family: 'Noto Sans JP', sans-serif; color: #1E2A4A; font-feature-settings: 'palt'; letter-spacing: 0.03em; }
+a { color: #1E2A4A; }
+a:hover { color: #0F1830; }
+p, h1 { margin: 0; }
+
+.t-header { background: rgba(251,250,248,0.94); border-bottom: 1px solid #E6E3DD; }
+.t-header-inner { max-width: 1160px; margin: 0 auto; padding: 0 24px; height: 64px; display: flex; align-items: center; }
+.logo { display: flex; align-items: baseline; gap: 12px; text-decoration: none; flex-wrap: wrap; }
+.logo-main { font-size: 17px; font-weight: 700; color: #1E2A4A; letter-spacing: 0.01em; }
+.logo-main small { font-size: 14px; }
+.logo-by { font-size: 12px; font-weight: 700; color: #8E939C; }
+
+.t-main { min-height: calc(100vh - 65px); background: linear-gradient(180deg, #FBFAF8 0%, #F4EEE4 100%); padding: 88px 20px 96px; display: flex; flex-direction: column; align-items: center; gap: 40px; }
+.t-card { width: 100%; max-width: 640px; background: #fff; border-radius: 24px; box-shadow: 0 20px 48px rgba(30,42,74,0.08); padding: 56px 48px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 24px; }
+.t-icon { width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(135deg, #EE7B30, #D9571B); display: inline-flex; align-items: center; justify-content: center; }
+.t-title { margin: 0; font-size: clamp(24px, 5vw, 32px); font-weight: 900; line-height: 1.5; color: #1E2A4A; }
+.t-desc { margin: 0; font-size: 16px; line-height: 1.9; color: #4A5468; }
+.t-dl { display: inline-flex; align-items: center; gap: 12px; font-weight: 700; font-size: 17px; color: #fff; background: linear-gradient(90deg, #EE7B30, #D9571B); padding: 18px 40px; border-radius: 999px; text-decoration: none; box-shadow: 0 8px 24px rgba(232,100,40,0.30); }
+.t-dl:hover { background: linear-gradient(90deg, #D9651F, #C04A12); color: #fff; }
+.t-note { margin: -8px 0 0; font-size: 12.5px; line-height: 1.8; color: #8E939C; }
+.t-divider { width: 100%; height: 1px; background: #E6E3DD; margin: 8px 0; }
+.t-consult { margin: 0; font-size: 15.5px; line-height: 1.9; color: #4A5468; }
+.t-cal { font-size: 16px; font-weight: 700; color: #1E2A4A; text-underline-offset: 4px; }
+.t-back { font-size: 15px; font-weight: 700; color: #4A5468; text-decoration: none; }

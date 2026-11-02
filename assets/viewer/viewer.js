@@ -2,7 +2,7 @@
 function nausTrack(event,params){
   try{
     var p=location.pathname;
-    var d={event:event,lp_type:p.indexOf('/shigyo')===0?'shigyo':'consult',
+    var d={event:event,lp_type:p.indexOf('/shigyo')===0?'shigyo':p.indexOf('/crm/')===0?'crm':'consult',
       page_type:/\/crm-doc/.test(p)?'crm_doc':/\/shigyo\/material/.test(p)?'form_sales':/contact-thanks/.test(p)?'contact_thanks':/\/thanks/.test(p)?'thanks':/\/document/.test(p)?'document':'lp'};
     if(params)for(var k in params)d[k]=params[k];
     (window.dataLayer=window.dataLayer||[]).push(d);
@@ -22,7 +22,8 @@ function nausTrack(event,params){
   // 押すと、ページ内の相談パネルのボタンと同じ行き先(=ページ内の予約画面)を開く
   var LINKS={
     consult:[{page:22,left:50.52,top:68.84,width:31.51,height:6.39,label:'無料相談の予約画面を開く'}],
-    shigyo:[{page:24,left:50.52,top:68.84,width:31.51,height:6.39,label:'無料相談の予約画面を開く'}]
+    shigyo:[{page:24,left:50.52,top:68.84,width:31.51,height:6.39,label:'無料相談の予約画面を開く'}],
+    crm:[{page:30,left:69.53,top:45.28,width:18.75,height:4.07,label:'無料診断の予約画面を開く'}]
   };
   var root=document.querySelector('[data-viewer]');
   if(!root)return;
@@ -101,6 +102,7 @@ function trackReading(list,count){
     lp:{
       consult:{expandAfterPages:[20],slideUp:true,companyLabel:'会社名',noteTitle:'お気軽にご相談ください',noteItems:['・少しでも手作業をなくしたい方','・少人数で業務を回しているチーム','・AI活用を進めていきたい方','・料金が気になる方']},  // 20=ご契約後の流れイメージ
       shigyo:{expandAfterPages:[22],slideUp:true,companyLabel:'事務所名',noteTitle:'お気軽にご相談ください',noteItems:['・少しでも手作業をなくしたい方','・少人数で業務を回している事務所','・AI活用を進めていきたい方','・料金が気になる方']},  // 22=ご契約後の流れイメージ
+      crm:{expandAfterPages:[5],slideUp:true,companyLabel:'会社名'},
       // 営業資料ページ(/crm-doc/): 資料の最後(最後のスライドの下端が画面に入った)でカードに広げる。
       // ページ内に相談パネルが無いため、ボタンの文言・カードの見出しはページ内の既存の文言を使い、予約画面はここで指定した予約ページを行き先にする
       crm_doc:{expandAtEnd:true,companyLabel:'会社名',ctaLabel:'無料診断を予約する（30分・オンライン）',cardTitle:'まずは30分の無料診断から',ctaHref:'https://calendar.app.google/F6qpCXCqKXQDYe5D8'}
@@ -262,7 +264,7 @@ function trackReading(list,count){
   var mini=el('button','dv-float-mini');
   mini.type='button';
   mini.hidden=true;
-  mini.setAttribute('aria-label','無料相談の予約ボタンを表示する');
+  mini.setAttribute('aria-label',root.getAttribute('data-viewer')==='crm'?'無料診断の予約ボタンを表示する':'無料相談の予約ボタンを表示する');
   mini.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4.5" width="18" height="16" rx="2.5"></rect><path d="M3 9.5h18M8 2.5v4M16 2.5v4"></path></svg>';
 
   wrap.appendChild(card);

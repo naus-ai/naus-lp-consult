@@ -46,6 +46,20 @@ test('士業 LP の問い合わせ：事務所名（office）と電話（tel）�
   assert.match(text, /電話：06-0000-0000/);
 });
 
+test('CRM構築 LP の資料請求・問い合わせ：事務所名ではなく会社名（office）と電話（tel）の欄を使う', () => {
+  const dl = buildNewLeadMessage({
+    form_name: 'crm-download',
+    created_at: at,
+    data: { office: '架空商事', name: '架空 次郎', email: 'j@example.test', tel: '03-1111-1111', message: '資料希望' },
+  });
+  assert.match(dl.text, /^\*新しい資料請求（CRM構築 LP）\*/);
+  assert.match(dl.text, /取引先：架空商事/);
+  assert.match(dl.text, /取引先責任者：架空 次郎さん/);
+  assert.match(dl.text, /電話：03-1111-1111/);
+  const ct = buildNewLeadMessage({ created_at: at, data: { 'form-name': 'crm-contact', office: '架空商事', name: 'x' } });
+  assert.match(ct.text, /^\*新しい問い合わせ（CRM構築 LP）\*/);
+});
+
 test('内容の改行は残し、長すぎるときは1000文字で切る', () => {
   const multi = buildNewLeadMessage({ form_name: 'contact', created_at: at, data: { message: '1行目\r\n2行目' } });
   assert.match(multi.text, /内容：1行目\n2行目$/);
@@ -209,6 +223,30 @@ test('経由は、予約したページから決める（予約の画面の計�
   for (const [referrer, route] of shigyo) {
     assert.equal(routeLine({ source: 'shigyo', referrer }), `経由：${route}`, referrer);
   }
+});
+
+test('予約（CRM構築 LP）：/crm/ 以下のページから予約したら、見出しと経由が CRM構築 LP（source は通常のまま）', () => {
+  const { text } = buildBookingMessage(
+    booking({ source: 'consult', referrer: 'https://ai.naus.co.jp/crm/?utm_source=google' }),
+    at,
+  );
+  assert.match(text, /^\*新しい無料相談の予約（CRM構築 LP）\*\n経由：CRM構築 LP\n取引先：/);
+  const pages = [
+    ['https://ai.naus.co.jp/crm/thanks/', '資料請求のあと'],
+    ['https://ai.naus.co.jp/crm/contact-thanks/', '問い合わせのあと'],
+    ['https://ai.naus.co.jp/crm/document/', '資料ページ'],
+  ];
+  for (const [referrer, route] of pages) {
+    const m = buildBookingMessage(booking({ source: 'consult', referrer }), at).text;
+    assert.match(m, /^\*新しい無料相談の予約（CRM構築 LP）\*/, referrer);
+    assert.equal(m.split('\n')[1], `経由：${route}`, referrer);
+  }
+  // /crm-doc/ は従来どおり（通常 LP の見出し・CRM 運用見直しの資料ページ）
+  const doc = buildBookingMessage(booking({ referrer: 'https://ai.naus.co.jp/crm-doc/' }), at).text;
+  assert.match(doc, /^\*新しい無料相談の予約（通常 LP）\*\n経由：CRM 運用見直しの資料ページ\n/);
+  // 別のサイトの /crm/ は CRM構築 LP とみなさない
+  const other = buildBookingMessage(booking({ referrer: 'https://evil.example/crm/' }), at).text;
+  assert.match(other, /^\*新しい無料相談の予約（通常 LP）\*/);
 });
 
 test('予約したページ（Referer）がない・ほかのサイトなら、ページの行は出さず、経由は LP の呼び名にする', () => {
