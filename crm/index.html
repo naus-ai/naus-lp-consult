@@ -20,6 +20,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;700&family=Noto+Sans+JP:wght@400;500;700&family=Manrope:wght@500;600;700;800&display=swap">
 <link rel="stylesheet" href="assets/crm.css">
+<link rel="stylesheet" href="/assets/booking/booking.css">
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -60,7 +61,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <h1 class="hero-h1">顧客管理ツール(CRM)の<br>コストを下げて、<br><span class="nw">営業管理は<span class="accent">AIで自動化</span>する</span></h1>
       <p class="hero-lead">入力・集計・追客メール。顧客管理ツール(CRM)でやっている仕事は、AIに任せられます。私たちがClaude Codeを使い、貴社の業務に合わせたAIエージェントを構築します。CRMは「データの置き場」で十分になるので、ツール代を大きく下げられます。</p>
       <div class="hero-btns">
-        <a href="#" data-booking="calendar" class="btn-primary">いくら安くなるか、無料診断を予約する</a>
+        <a href="https://calendar.app.google/F6qpCXCqKXQDYe5D8" target="_blank" rel="noopener" data-booking="calendar" class="btn-primary">いくら安くなるか、無料診断を予約する</a>
         <a href="#contact" class="btn-secondary" data-go="download">詳しい資料を見る</a>
       </div>
       <p class="hero-note">※ 削減額は一例です。実際の金額はプラン・人数・契約内容によって異なります。<br>※ 本ページでは、顧客管理ツールを「CRM」と表記しています。</p>
@@ -462,7 +463,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <h2 class="h2 on-dark">まずは<span>30分の無料診断</span>から</h2>
       <p class="cta-lead">「見直しが必要かどうか」を知るだけでもかまいません。画面共有は契約やライセンスの画面だけ。顧客データは拝見しません。</p>
       <div class="cta-btns">
-        <a href="#" data-booking="calendar" class="btn-primary">無料診断を予約する</a>
+        <a href="https://calendar.app.google/F6qpCXCqKXQDYe5D8" target="_blank" rel="noopener" data-booking="calendar" class="btn-primary">無料診断を予約する</a>
         <a href="#contact" class="btn-secondary" data-go="download">資料をダウンロードする</a>
       </div>
       <p class="cta-mail">メール:<a href="mailto:info@naus.co.jp">info@naus.co.jp</a></p>
@@ -554,7 +555,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="fbar" id="fbar">
   <div class="fbar-inner">
     <a href="#contact" class="btn-secondary" data-go="download">資料ダウンロード</a>
-    <a href="#" data-booking="calendar" class="btn-primary">無料診断を予約</a>
+    <a href="https://calendar.app.google/F6qpCXCqKXQDYe5D8" target="_blank" rel="noopener" data-booking="calendar" class="btn-primary">無料診断を予約</a>
   </div>
 </div>
 
@@ -575,6 +576,36 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </footer>
 
 <script src="assets/crm.js"></script>
-<script src="assets/source-fields.js" defer></script>
+<script>
+(function () {
+  // 資料DLの入力内容を、送信後の予約画面で使うためにこのタブ内だけに保存する(URLには載せない)
+  var form = document.querySelector('form[name="crm-download"]');
+  if (!form) return;
+  form.addEventListener('submit', function () {
+    try {
+      var v = function (n) { var x = form.elements.namedItem(n); return x && x.value ? String(x.value).trim() : ''; };
+      sessionStorage.setItem('naus_lead', JSON.stringify({
+        source: 'crm', company: v('office'), name: v('name'), email: v('email'), phone: v('tel'), message: v('message')
+      }));
+    } catch (err) {}
+  });
+})();
+(function () {
+  // 問い合わせの入力内容(氏名・会社名・メール・電話)も同じく保存する。問い合わせ内容は保存しない。必須欄が空なら保存しない
+  var form = document.querySelector('form[name="crm-contact"]');
+  if (!form) return;
+  form.addEventListener('submit', function () {
+    try {
+      var v = function (n) { var x = form.elements.namedItem(n); return x && x.value ? String(x.value).trim() : ''; };
+      if (!(v('office') && v('name') && v('email') && v('tel'))) return;
+      sessionStorage.setItem('naus_lead', JSON.stringify({
+        source: 'crm', company: v('office'), name: v('name'), email: v('email'), phone: v('tel')
+      }));
+    } catch (err) {}
+  });
+})();
+</script>
+<script src="/assets/source-fields/source-fields.js" defer></script>
+<script src="/assets/booking/booking.js" defer></script>
 </body>
 </html>

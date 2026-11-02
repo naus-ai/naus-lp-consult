@@ -15,9 +15,11 @@
   var SOURCE=location.pathname.indexOf('/shigyo')===0?'shigyo':'consult';
   // フォーム営業用の資料ページ(/shigyo/material/)。計測のpage_typeで区別するだけで、予約の内容は他のページと同じ
   var IS_MATERIAL=/^\/shigyo\/material\/?$/.test(location.pathname);
+  // CRM構築LP(/crm/ 以下)。予約の内容は通常LPと同じ(source は consult)で、計測の lp_type だけ crm にして区別する
+  var IS_CRM=/^\/crm\//.test(location.pathname);
   var COMPANY_LABEL=SOURCE==='shigyo'?'事務所名':'会社名';
   // 日時を選ぶ画面の上に出す「無料相談の内容」。営業資料ページ(/crm-doc/)には出さない
-  var CONSULT_ITEMS=/^\/crm-doc\/?$/.test(location.pathname)?null:[
+  var CONSULT_ITEMS=(/^\/crm-doc\/?$/.test(location.pathname)||IS_CRM)?null:[
     SOURCE==='shigyo'?'・今の事務所の仕事の流れを伺い、業務の棚卸しの進め方をご相談。（AI活用の土台になる大切な工程です）':'・今の仕事の流れを伺い、業務の棚卸しの進め方をご相談。（AI活用の土台になる大切な工程です）',
     '・AIに任せられそうな作業の見立て。',
     '・実際のAI活用に向けた、弊社の関わり方と支援内容のご説明。',
@@ -81,7 +83,7 @@
   function track(event,params){
     try{
       var p=location.pathname;
-      var d={event:event,lp_type:SOURCE,
+      var d={event:event,lp_type:IS_CRM?'crm':SOURCE,
         page_type:/\/crm-doc/.test(p)?'crm_doc':/\/shigyo\/material/.test(p)?'form_sales':/contact-thanks/.test(p)?'contact_thanks':/\/thanks/.test(p)?'thanks':/\/document/.test(p)?'document':'lp'};
       if(st.mock)d.is_mock=true;
       if(params)for(var k in params)d[k]=params[k];
@@ -597,7 +599,7 @@
 
   // 資料ページ(/document/、/shigyo/document/、/shigyo/material/)だけ: URLの末尾が #booking なら、読み込み後に予約画面を開く
   // (#booking 以外のURLの値は読まない)
-  if(location.hash==='#booking'&&(/^\/(shigyo\/)?document\/?$/.test(location.pathname)||IS_MATERIAL||/^\/crm-doc\/?$/.test(location.pathname))){
+  if(location.hash==='#booking'&&(/^\/(shigyo\/|crm\/)?document\/?$/.test(location.pathname)||IS_MATERIAL||/^\/crm-doc\/?$/.test(location.pathname))){
     var src=document.querySelector('.dv-cta-btn')||document.querySelector('.dv-float-btn')||document.querySelector('a[href^="https://calendar.app.google/"]');
     modal.open(src?src.getAttribute('href'):'','hash');
   }

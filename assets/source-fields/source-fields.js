@@ -14,7 +14,7 @@
   var TTL = 30 * 24 * 60 * 60 * 1000;
   var UTM = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
   var FIELDS = UTM.concat(['landing_page', 'referrer_host']);
-  var FORMS = ['document-download', 'contact', 'shigyo-download', 'shigyo-contact'];
+  var FORMS = ['document-download', 'contact', 'shigyo-download', 'shigyo-contact', 'crm-download', 'crm-contact'];
 
   function read() {
     try {
