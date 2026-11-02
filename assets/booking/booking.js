@@ -17,6 +17,8 @@
   var IS_MATERIAL=/^\/shigyo\/material\/?$/.test(location.pathname);
   // CRM構築LP(/crm/ 以下)。予約の内容は通常LPと同じ(source は consult)で、計測の lp_type だけ crm にして区別する
   var IS_CRM=/^\/crm\//.test(location.pathname);
+  // 予約画面の見出し。CRM構築LP(/crm/ 以下)だけ「無料診断」
+  var TITLE_TEXT=IS_CRM?'無料診断(30分・オンライン)のご予約':'無料相談(30分・オンライン)のご予約';
   var COMPANY_LABEL=SOURCE==='shigyo'?'事務所名':'会社名';
   // 日時を選ぶ画面の上に出す「無料相談の内容」。営業資料ページ(/crm-doc/)には出さない
   var CONSULT_ITEMS=(/^\/crm-doc\/?$/.test(location.pathname)||IS_CRM)?null:[
@@ -101,7 +103,7 @@
       dialog=el('section','bk-inline');
       dialog.setAttribute('aria-labelledby',IDP+'title');
       var ih=el('div','bk-head');
-      var it=el('h2','bk-title','無料相談(30分・オンライン)のご予約');
+      var it=el('h2','bk-title',TITLE_TEXT);
       it.id=IDP+'title';
       ih.appendChild(it);
       body=el('div','bk-body');
@@ -119,7 +121,7 @@
     dialog.setAttribute('aria-labelledby',IDP+'title');
     dialog.tabIndex=-1;
     var head=el('div','bk-head');
-    var title=el('h2','bk-title','無料相談(30分・オンライン)のご予約');
+    var title=el('h2','bk-title',TITLE_TEXT);
     title.id=IDP+'title';
     var x=el('button','bk-close','×');
     x.type='button';

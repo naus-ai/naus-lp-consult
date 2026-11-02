@@ -9,6 +9,8 @@ export const FORMS = {
   contact: { title: '新しい問い合わせ（通常 LP）', company: 'company', phone: 'phone' },
   'shigyo-download': { title: '新しい資料請求（士業 LP）', company: 'office', phone: 'tel' },
   'shigyo-contact': { title: '新しい問い合わせ（士業 LP）', company: 'office', phone: 'tel' },
+  'crm-download': { title: '新しい資料請求（CRM構築 LP）', company: 'office', phone: 'tel' },
+  'crm-contact': { title: '新しい問い合わせ（CRM構築 LP）', company: 'office', phone: 'tel' },
 };
 
 const MAX_FIELD = 200;
@@ -120,6 +122,19 @@ const ROUTES = [
 ];
 const UNKNOWN = '（不明）';
 
+// CRM構築 LP（/crm/ 以下のページ）は、予約の API の source では通常 LP と同じ（consult）になるため、
+// 予約したページ（Referer）のパスで見分けて、LP の呼び名を CRM構築 LP にする。/crm-doc/ は含まない（別の資料ページ）
+const CRM_LP = 'CRM構築 LP';
+function isCrmPage(referrer) {
+  const page = ourPage(referrer);
+  if (!page) return false;
+  try {
+    return new URL(page).pathname.startsWith('/crm/');
+  } catch {
+    return false;
+  }
+}
+
 // 予約の「そのほかの項目」に出さないもの（決まった行に出す項目と、迷惑対策の隠し欄、IP とブラウザの種類）
 const BOOKING_KNOWN = new Set([
   'source', 'start', 'end', 'name', 'company', 'email', 'phone', 'message', 'referrer', 'website', 'ip', 'user_agent',
@@ -165,7 +180,7 @@ function route(booking, lp) {
 // receivedAt：受け付けた日時（ミリ秒か ISO の文字列）
 export function buildBookingMessage(booking, receivedAt) {
   const data = booking && typeof booking === 'object' ? booking : {};
-  const lp = Object.hasOwn(LPS, data.source) ? LPS[data.source] : '';
+  const lp = isCrmPage(data.referrer) ? CRM_LP : Object.hasOwn(LPS, data.source) ? LPS[data.source] : '';
   const name = line(data, 'name');
   const lines = [
     `*新しい無料相談の予約${lp ? `（${lp}）` : ''}*`,
