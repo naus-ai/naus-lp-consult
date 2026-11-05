@@ -86,7 +86,7 @@
     try{
       var p=location.pathname;
       var d={event:event,lp_type:IS_CRM?'crm':SOURCE,
-        page_type:/\/crm-doc/.test(p)?'crm_doc':/\/shigyo\/material/.test(p)?'form_sales':/contact-thanks/.test(p)?'contact_thanks':/\/thanks/.test(p)?'thanks':/\/document/.test(p)?'document':'lp'};
+        page_type:/\/crm\/seminar/.test(p)?'crm_seminar':/\/crm-doc/.test(p)?'crm_doc':/\/shigyo\/material/.test(p)?'form_sales':/contact-thanks/.test(p)?'contact_thanks':/\/thanks/.test(p)?'thanks':/\/document/.test(p)?'document':'lp'};
       if(st.mock)d.is_mock=true;
       if(params)for(var k in params)d[k]=params[k];
       (window.dataLayer=window.dataLayer||[]).push(d);
