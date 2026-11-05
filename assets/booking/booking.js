@@ -17,6 +17,8 @@
   var IS_MATERIAL=/^\/shigyo\/material\/?$/.test(location.pathname);
   // CRM構築LP(/crm/ 以下)。予約の内容は通常LPと同じ(source は consult)で、計測の lp_type だけ crm にして区別する
   var IS_CRM=/^\/crm\//.test(location.pathname);
+  // セミナー参加者向けの予約ページ(/crm/seminar/)。予約の内容は /crm/ と同じで、予定の説明欄の末尾に目印が付く(文言は受付処理側で決める)
+  var IS_CRM_SEMINAR=/^\/crm\/seminar(\/|$)/.test(location.pathname);
   // 予約画面の見出し。CRM構築LP(/crm/ 以下)だけ「無料診断」
   var TITLE_TEXT=IS_CRM?'無料診断(30分・オンライン)のご予約':'無料相談(30分・オンライン)のご予約';
   var COMPANY_LABEL=SOURCE==='shigyo'?'事務所名':'会社名';
@@ -463,6 +465,7 @@
     if(st.sending)return;
     var lead=readLead();
     var data={source:SOURCE,start:st.selected.iso,message:ta.value.trim(),website:hpi.value};
+    if(IS_CRM_SEMINAR)data.route='crm_seminar';
     var first=null;
     FIELDS.forEach(function(f){
       var inp=inputs[f.key];

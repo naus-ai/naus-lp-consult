@@ -6,7 +6,7 @@ import { randomUUID } from 'node:crypto';
 import {
   decideMode, json, sameOrigin, rateLimited, validateBooking, availableSlots, mockBook, BOOKING,
 } from '../booking/common.mjs';
-import { TITLES, COMPANY_LABELS } from '../booking/config.mjs';
+import { TITLES, COMPANY_LABELS, ROUTE_MEMOS } from '../booking/config.mjs';
 import { toIso } from '../booking/slots.mjs';
 import { insertEvent, listEvents, deleteEvent, getEvent, meetUrl } from '../booking/google.mjs';
 import { buildBookingMessage } from '../notify/new-lead-message.mjs';
@@ -24,9 +24,9 @@ async function notifySlack(v, slot, referrer, receivedAt) {
   }
 }
 
-function buildEvent(v, start, end) {
+function buildEvent(v, start, end, memo) {
   const title = TITLES[v.source].replace('{company}', v.company).replace('{name}', v.name);
-  const description = [
+  const lines = [
     `氏名: ${v.name}`,
     `${COMPANY_LABELS[v.source]}: ${v.company}`,
     `メールアドレス: ${v.email}`,
@@ -34,7 +34,9 @@ function buildEvent(v, start, end) {
     '',
     '相談内容:',
     v.message || '(記入なし)',
-  ].join('\n');
+  ];
+  if (memo) lines.push('', memo);
+  const description = lines.join('\n');
   return {
     summary: title,
     description,
@@ -66,6 +68,8 @@ export default async (req, context) => {
   const check = validateBooking(body);
   if (!check.ok) return json(400, { error: 'validation', fields: check.errors });
   const v = check.value;
+  // 予約したページの目印: 決まった値のときだけ、決まった文言にする(それ以外の値は無視する)
+  const memo = typeof body.route === 'string' && Object.hasOwn(ROUTE_MEMOS, body.route) ? ROUTE_MEMOS[body.route] : '';
 
   const m = decideMode(context);
   if (m.mode === 'unavailable') return json(503, { error: 'unavailable' });
@@ -82,7 +86,7 @@ export default async (req, context) => {
       return json(200, { ok: true, mock: true, start: toIso(slot.start), end: toIso(slot.end), meetUrl: '' });
     }
 
-    const created = await insertEvent(m.env, buildEvent(v, slot.start, slot.end));
+    const created = await insertEvent(m.env, buildEvent(v, slot.start, slot.end, memo));
 
     // ほぼ同時に同じ枠へ別の予約が入った場合に備え、登録後にもう一度重なりを確認する。
     // 自分より先に作られた予定と重なっていたら、自分の予定を取り消してエラーを返す

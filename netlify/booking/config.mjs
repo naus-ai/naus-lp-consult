@@ -26,3 +26,8 @@ export const COMPANY_LABELS = {
   consult: '会社名',
   shigyo: '事務所名',
 };
+
+// 予約したページの区別。予定の説明欄の末尾に付ける目印(ここにある値だけを受け付ける。無ければ付けない)
+export const ROUTE_MEMOS = {
+  crm_seminar: '※メモ：CRMセミナー',
+};
