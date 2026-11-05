@@ -604,3 +604,65 @@ input[type=range] { accent-color: #E8721F; cursor: pointer; }
   .footer-nav { gap: 12px 20px; }
   .footer-nav a { font-size: 13px; }
 }
+
+/* ===== セミナー ===== */
+.sem-subhead { display: flex; align-items: center; gap: 16px; max-width: 820px; margin: 0 auto 24px; }
+.sem-subhead-title { margin: 0; font-size: 19px; color: #1B2430; white-space: nowrap; }
+.sem-subhead-line { flex: 1 1 auto; height: 1px; background: #C9D2DE; }
+.sem-subhead-en { flex: none; font-family: var(--font-latin); font-size: 12px; font-weight: 700; letter-spacing: 0.14em; color: #C95E12; }
+.sem-card { display: grid; grid-template-columns: 320px minmax(0, 1fr); max-width: 820px; margin: 0 auto; background: #fff; border: 2px solid #E8721F; border-radius: 12px; overflow: hidden; color: inherit; text-decoration: none; transition: box-shadow 200ms var(--ease), transform 200ms var(--ease); }
+.sem-card:hover { color: inherit; box-shadow: 0 10px 28px rgba(16,27,45,0.12); transform: translateY(-2px); }
+.sem-card-thumb { background: #0D1B33; display: flex; align-items: center; }
+.sem-card-thumb img { display: block; width: 100%; height: auto; aspect-ratio: 960 / 470; object-fit: cover; }
+.sem-card-body { padding: 20px 24px; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.sem-card-top { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 10px; }
+.sem-pill { flex: none; display: inline-flex; align-items: center; background: #E8721F; color: #fff; font-size: 12px; font-weight: 700; letter-spacing: 0.06em; line-height: 1.6; padding: 3px 12px; border-radius: 999px; }
+.sem-meta { font-size: 13px; font-weight: 700; color: #3B4656; line-height: 1.6; }
+.sem-card-title { margin: 0; font-size: 17px; line-height: 1.6; color: #1B2430; }
+.sem-card-date { margin: 0; font-size: 14.5px; font-weight: 700; line-height: 1.7; color: #24477C; }
+.sem-card-foot { margin-top: 4px; display: flex; justify-content: flex-end; }
+.sem-btn { display: inline-flex; align-items: center; gap: 8px; font-weight: 700; font-size: 14px; letter-spacing: 0.04em; color: #fff; background: #E8721F; padding: 11px 24px; border-radius: 999px; box-shadow: 0 4px 16px rgba(232,114,31,0.35); }
+.sem-card:hover .sem-btn { background: #C95E12; }
+
+/* ===== セミナー告知 ===== */
+.sem-pop { position: fixed; right: 20px; bottom: 20px; z-index: 89; width: 216px; box-sizing: border-box; padding: 16px 18px 16px; background: #fff; border-radius: 14px; border-top: 4px solid #E8721F; box-shadow: 0 12px 32px rgba(16,27,45,0.22); display: flex; flex-direction: column; gap: 4px; transition: bottom 250ms var(--ease), opacity 200ms ease, visibility 200ms ease; }
+.sem-pop[hidden] { display: none; }
+.sem-pop.is-lift { bottom: calc(var(--fbar-h, 80px) + 12px); }
+.sem-pop.is-off { opacity: 0; visibility: hidden; pointer-events: none; }
+.sem-pop-close { position: absolute; top: 4px; right: 4px; width: 32px; height: 32px; padding: 0; border: 0; background: none; color: #626E80; font-size: 20px; line-height: 1; cursor: pointer; border-radius: 999px; }
+.sem-pop-close:hover { background: #EFF4FA; color: #1B2430; }
+.sem-pop-head { padding-right: 24px; font-family: var(--font-display); font-size: 13px; font-weight: 700; letter-spacing: 0.04em; line-height: 1.5; color: #C95E12; }
+.sem-pop-date { font-family: var(--font-display); font-size: 17px; font-weight: 700; line-height: 1.5; color: #1B2430; }
+.sem-pop-link { margin-top: 8px; display: flex; justify-content: center; align-items: center; gap: 6px; font-weight: 700; font-size: 14px; letter-spacing: 0.04em; color: #fff; background: #E8721F; padding: 10px 16px; border-radius: 999px; text-decoration: none; }
+.sem-pop-link:hover { background: #C95E12; color: #fff; }
+@keyframes semPopSway {
+  0%, 82%, 100% { transform: rotate(0deg); }
+  85% { transform: rotate(-3deg); }
+  88% { transform: rotate(3deg); }
+  91% { transform: rotate(-2deg); }
+  94% { transform: rotate(1deg); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .sem-pop { transform-origin: 50% 100%; animation: semPopSway 4.5s ease-in-out 1.5s infinite; }
+  .sem-pop:hover, .sem-pop:focus-within { animation-play-state: paused; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sem-pop { transition: none; }
+}
+
+@media (max-width: 720px) {
+  .sem-card { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 600px) {
+  .sem-subhead { gap: 12px; margin-bottom: 20px; }
+  .sem-subhead-title { font-size: 17px; }
+  .sem-card-body { padding: 18px 18px 20px; }
+  .sem-card-title { font-size: 15.5px; }
+  .sem-card-date { font-size: 14px; }
+  .sem-card-foot { justify-content: stretch; }
+  .sem-card-foot .sem-btn { flex: 1; justify-content: center; }
+  .sem-pop { right: 12px; bottom: 12px; width: 188px; padding: 12px 14px 14px; }
+  .sem-pop.is-lift { bottom: calc(var(--fbar-h, 70px) + 10px); }
+  .sem-pop-date { font-size: 16px; }
+  .sem-pop-link { padding: 9px 14px; font-size: 13.5px; }
+}
