@@ -360,6 +360,9 @@ input[type=range] { accent-color: #E8721F; cursor: pointer; }
   .logo { gap: 10px; }
   .logo-naus { font-size: 20px; }
   .logo-name { font-size: 12px; letter-spacing: 0.04em; line-height: 1.4; }
+}
+
+@media (max-width: 960px) {
   .gnav { display: none; }
   .menu-btn { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; margin-right: -10px; padding: 0; border: 0; background: none; cursor: pointer; flex-shrink: 0; }
   .menu-btn path { transition: transform 200ms var(--ease), opacity 200ms var(--ease); transform-origin: 12px 12px; }
