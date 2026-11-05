@@ -640,6 +640,12 @@ input[type=range] { accent-color: #E8721F; cursor: pointer; }
 .sem-pop-date { font-family: var(--font-display); font-size: 17px; font-weight: 700; line-height: 1.5; color: #1B2430; }
 .sem-pop-link { margin-top: 8px; display: flex; justify-content: center; align-items: center; gap: 6px; font-weight: 700; font-size: 14px; letter-spacing: 0.04em; color: #fff; background: #E8721F; padding: 10px 16px; border-radius: 999px; text-decoration: none; }
 .sem-pop-link:hover { background: #C95E12; color: #fff; }
+.sem-pop-img { display: none; }
+@media (min-width: 961px) {
+  .sem-pop { padding-top: 40px; }
+  .sem-pop-img { display: block; margin-bottom: 8px; border-radius: 6px; overflow: hidden; }
+  .sem-pop-img img { display: block; width: 100%; height: auto; aspect-ratio: 960 / 470; }
+}
 @keyframes semPopSway {
   0%, 82%, 100% { transform: rotate(0deg); }
   85% { transform: rotate(-3deg); }
