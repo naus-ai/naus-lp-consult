@@ -94,16 +94,18 @@
   var closeBtn = document.getElementById('sem-pop-close');
 
   function update() {
+    var barShown = !!bar && bar.classList.contains('is-show');
     if (bar) {
       pop.style.setProperty('--fbar-h', bar.offsetHeight + 'px');
-      pop.classList.toggle('is-lift', bar.classList.contains('is-show'));
+      pop.classList.toggle('is-lift', barShown);
     }
     var inSeminar = false;
     if (seminar) {
       var r = seminar.getBoundingClientRect();
       inSeminar = r.top < window.innerHeight && r.bottom > 0;
     }
-    pop.classList.toggle('is-off', inSeminar);
+    // 下部固定バーと同じ条件で表示する(ヒーローを過ぎたら表示・お問い合わせ欄が見えている間は隠す)
+    pop.classList.toggle('is-off', !barShown || inSeminar);
   }
 
   if (closeBtn) {
