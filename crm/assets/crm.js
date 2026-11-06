@@ -81,3 +81,45 @@
   if (price) price.addEventListener('input', calc);
   calc();
 })();
+
+(function () {
+  // ---- セミナー告知: 開催日の翌日0:00(日本時間)以降は表示しない ----
+  var pop = document.getElementById('sem-pop');
+  if (!pop) return;
+  var END = Date.UTC(2026, 10, 13, 15, 0, 0);
+  if (Date.now() >= END) { pop.parentNode.removeChild(pop); return; }
+
+  var bar = document.getElementById('fbar');
+  var seminar = document.getElementById('seminar');
+  var closeBtn = document.getElementById('sem-pop-close');
+
+  function update() {
+    var barShown = !!bar && bar.classList.contains('is-show');
+    if (bar) {
+      pop.style.setProperty('--fbar-h', bar.offsetHeight + 'px');
+      pop.classList.toggle('is-lift', barShown);
+    }
+    var inSeminar = false;
+    if (seminar) {
+      var r = seminar.getBoundingClientRect();
+      inSeminar = r.top < window.innerHeight && r.bottom > 0;
+    }
+    // 下部固定バーと同じ条件で表示する(ヒーローを過ぎたら表示・お問い合わせ欄が見えている間は隠す)
+    pop.classList.toggle('is-off', !barShown || inSeminar);
+  }
+
+  if (closeBtn) {
+    closeBtn.addEventListener('click', function () {
+      pop.hidden = true;
+      window.removeEventListener('scroll', update);
+      window.removeEventListener('resize', update);
+    });
+  }
+  window.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', update);
+  if (bar && window.MutationObserver) {
+    new MutationObserver(update).observe(bar, { attributes: true, attributeFilter: ['class'] });
+  }
+  pop.hidden = false;
+  update();
+})();
