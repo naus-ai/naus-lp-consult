@@ -148,6 +148,131 @@ test('送信したページは、この LP のページのときだけ載せる'
   assert.ok(!other.text.includes('evil.example'));
 });
 
+// ---- 流入元の7項目が空のとき、送信したページの URL から埋める ----
+// スマホのアプリの中のブラウザ（Instagram・Facebook）では、ページの URL に utm があっても、隠し項目が空のまま届くことがある（2026-11-05 から）
+
+const SOURCE_EMPTY = {
+  utm_source: '',
+  utm_medium: '',
+  utm_campaign: '',
+  utm_content: '',
+  utm_term: '',
+  landing_page: '',
+  referrer_host: '',
+};
+
+// 流入元の7行だけを取り出す
+function sourceLines(data) {
+  const { text } = buildNewLeadMessage({ form_name: 'shigyo-download', created_at: at, data: { name: 'x', ...data } });
+  return text.split('\n').filter((l) => /^(utm_|landing_page|referrer_host)/.test(l));
+}
+
+test('流入元の7項目がすべて空で、ページの URL に utm があれば、URL から埋めて印を付ける', () => {
+  const referrer =
+    'https://ai.naus.co.jp/shigyo/?utm_source=facebook&utm_medium=cpc&utm_campaign=test_campaign' +
+    '&utm_content=%E8%B3%87%E6%96%99_%E3%83%86%E3%82%B9%E3%83%88&fbclid=TESTCLICKID';
+  assert.deepEqual(sourceLines({ ...SOURCE_EMPTY, referrer }), [
+    'utm_source：facebook（ページの URL から）',
+    'utm_medium：cpc（ページの URL から）',
+    'utm_campaign：test_campaign（ページの URL から）',
+    'utm_content：資料_テスト（ページの URL から）',
+    'utm_term：（未記入）',
+    'landing_page：/shigyo/（ページの URL から）',
+    'referrer_host：（未記入）',
+  ]);
+});
+
+test('隠し項目に値があれば、URL とちがっていても、そのまま（印も付けない）', () => {
+  const lines = sourceLines({
+    ...SOURCE_EMPTY,
+    utm_source: 'instagram',
+    landing_page: '/shigyo/',
+    referrer: 'https://ai.naus.co.jp/shigyo/?utm_source=facebook&utm_medium=cpc',
+  });
+  assert.equal(lines[0], 'utm_source：instagram');
+  assert.equal(lines[1], 'utm_medium：（未記入）');
+  assert.equal(lines[5], 'landing_page：/shigyo/');
+  assert.ok(!lines.join('\n').includes('ページの URL から'));
+});
+
+test('7項目のうち1つでも値があれば、URL からは埋めない', () => {
+  const lines = sourceLines({
+    ...SOURCE_EMPTY,
+    referrer_host: 'instagram.com',
+    referrer: 'https://ai.naus.co.jp/shigyo/?utm_source=facebook',
+  });
+  assert.equal(lines[0], 'utm_source：（未記入）');
+  assert.equal(lines[6], 'referrer_host：instagram.com');
+});
+
+test('ページの URL に utm がない・空・先頭が空の重複・ほかのサイト（似せたホスト名を含む）なら、埋めない', () => {
+  for (const referrer of [
+    'https://ai.naus.co.jp/shigyo/',
+    'https://ai.naus.co.jp/shigyo/?fbclid=TESTCLICKID',
+    'https://ai.naus.co.jp/shigyo/?utm_source=',
+    'https://ai.naus.co.jp/shigyo/?utm_source=%20%E3%80%80',
+    'https://ai.naus.co.jp/shigyo/?utm_source=&utm_source=facebook',
+    'https://evil.example/shigyo/?utm_source=facebook',
+    'https://ai.naus.co.jp.evil.example/?utm_source=facebook',
+    'https://ai.naus.co.jp@evil.example/?utm_source=facebook',
+    'https://ai.naus.co.jp:x/?utm_source=facebook',
+    '',
+    undefined,
+  ]) {
+    const lines = sourceLines({ ...SOURCE_EMPTY, referrer });
+    assert.ok(lines.every((l) => l.endsWith('（未記入）')), String(referrer));
+  }
+});
+
+test('空白だけの隠し項目は空と見なし、URL から埋める', () => {
+  const lines = sourceLines({
+    ...SOURCE_EMPTY,
+    utm_source: '  ',
+    landing_page: ' ',
+    referrer: 'https://ai.naus.co.jp/shigyo/?utm_source=facebook',
+  });
+  assert.equal(lines[0], 'utm_source：facebook（ページの URL から）');
+  assert.equal(lines[5], 'landing_page：/shigyo/（ページの URL から）');
+});
+
+test('隠し項目のない形の送信（流入元の項目がない）には、行を足さない', () => {
+  const lines = sourceLines({ referrer: 'https://ai.naus.co.jp/shigyo/?utm_source=facebook' });
+  assert.deepEqual(lines, []);
+});
+
+test('URL から埋める値も、< > & を逃がし、空白をならし、200文字で切る', () => {
+  const referrer =
+    'https://ai.naus.co.jp/shigyo/?utm_source=%3C!channel%3E%26x&utm_medium=a%20%20%0Ab' +
+    `&utm_campaign=${'c'.repeat(300)}`;
+  const lines = sourceLines({ ...SOURCE_EMPTY, referrer });
+  assert.equal(lines[0], 'utm_source：&lt;!channel&gt;&amp;x（ページの URL から）');
+  assert.equal(lines[1], 'utm_medium：a b（ページの URL から）');
+  assert.equal(lines[2], `utm_campaign：${'c'.repeat(200)}…（ページの URL から）`);
+});
+
+test('予約の知らせは、URL から埋めない（今までどおり）', () => {
+  const { text } = buildBookingMessage(
+    {
+      source: 'shigyo',
+      name: '架空 太郎',
+      ...SOURCE_EMPTY,
+      referrer: 'https://ai.naus.co.jp/shigyo/thanks/?utm_source=facebook&utm_medium=cpc',
+    },
+    at,
+  );
+  assert.match(text, /\nutm_source：（未記入）/);
+  assert.ok(!text.includes('ページの URL から'));
+});
+
+test('ページの行は、今までどおり URL をそのまま載せる', () => {
+  const referrer = 'https://ai.naus.co.jp/shigyo/?utm_source=facebook';
+  const { text } = buildNewLeadMessage({
+    form_name: 'shigyo-download',
+    created_at: at,
+    data: { ...SOURCE_EMPTY, referrer },
+  });
+  assert.match(text, /\nページ：https:\/\/ai\.naus\.co\.jp\/shigyo\/\?utm_source=facebook$/);
+});
 
 // ---- 無料相談の予約 ----
 // 予約の枠：日本時間 2026/10/27 10:00〜10:30（予約の API はミリ秒で渡す）

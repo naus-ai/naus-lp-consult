@@ -1,6 +1,7 @@
 // フォームの送信（資料請求・問い合わせ）と、無料相談の予約を Slack に知らせる文を作る。
 // 載せるのは、フォーム・予約の画面で受け取った項目すべて（取引先・取引先責任者・メール・電話・内容と、そのほかの項目）、受け付けた日時、
 // 送信・予約したページ（この LP のページのときだけ）。予約は、何経由かと予約の日時も載せる。流入元（UTM など）は、そのほかの項目として載る。
+// フォームの送信で流入元の7項目がすべて空なら、送信したページの URL から utm と landing_page を埋め、「（ページの URL から）」と印を付ける。
 // IP アドレスとブラウザの種類は載せない（IS の対応には使わない個人の手がかりのため）
 
 // どのフォームか（form-name）→ 見出しと、取引先（会社名・事務所名）と電話の欄の名前
@@ -41,14 +42,52 @@ function body(data) {
   return value ? escapeSlack(clip(value, MAX_MESSAGE)) : EMPTY;
 }
 
-// そのほかの項目の行（あとでフォーム・予約の画面に足した項目も、ここに出る）
-function otherLines(data, known) {
+// そのほかの項目の行（あとでフォーム・予約の画面に足した項目も、ここに出る）。
+// recovered：送信したページの URL から埋めた流入元（項目名 → 値）。その項目は値に印を付けて出す
+function otherLines(data, known, recovered = {}) {
   const lines = [];
   for (const key of Object.keys(data)) {
     if (known.has(key) || typeof data[key] !== 'string') continue;
-    lines.push(`${escapeSlack(clip(key, 50))}：${line(data, key)}`);
+    const value = Object.hasOwn(recovered, key) ? `${line(recovered, key)}${FROM_PAGE}` : line(data, key);
+    lines.push(`${escapeSlack(clip(key, 50))}：${value}`);
   }
   return lines;
+}
+
+// ---- 流入元をページの URL から埋める ----
+// スマホのアプリの中のブラウザ（Instagram・Facebook）では、ページの URL に utm があっても、
+// 流入元の隠し項目（assets/source-fields/source-fields.js が入れる）が空のまま届くことがある（2026-11-05 から）。
+// そのときだけ、送信したページ（Referer）の URL から utm の5項目と landing_page（パス）を読み取る。
+// referrer_host は URL からは分からないので埋めない。値は誰でも作れる URL から来るので、ほかの欄と同じく逃がして切る
+
+const SOURCE_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'landing_page', 'referrer_host'];
+const UTM_KEYS = SOURCE_KEYS.slice(0, 5);
+const FROM_PAGE = '（ページの URL から）';
+
+function isBlank(value) {
+  return typeof value !== 'string' || value.trim() === '';
+}
+
+// 埋める値（項目名 → 値）。埋めないときは {}
+function sourceFromPage(data) {
+  if (!SOURCE_KEYS.every((key) => isBlank(data[key]))) return {};
+  const page = ourPage(data.referrer);
+  if (!page) return {};
+  let url;
+  try {
+    url = new URL(page);
+  } catch {
+    return {};
+  }
+  const found = {};
+  for (const key of UTM_KEYS) {
+    const value = url.searchParams.get(key);
+    if (!isBlank(value)) found[key] = value;
+  }
+  if (Object.keys(found).length === 0) return {};
+  found.landing_page = url.pathname;
+  // 隠し項目のある形の送信（項目名が届いているもの）だけを埋める
+  return Object.fromEntries(Object.entries(found).filter(([key]) => Object.hasOwn(data, key)));
 }
 
 // この LP のページの URL（? のあとも残す）。ほかのサイトのものや、ないときは ''
@@ -100,7 +139,7 @@ export function buildNewLeadMessage(payload) {
   const at = formatJst(payload.created_at);
   if (at) lines.push(`受付：${at}`);
   lines.push(`内容：${body(data)}`);
-  lines.push(...otherLines(data, KNOWN));
+  lines.push(...otherLines(data, KNOWN, sourceFromPage(data)));
   lines.push(...pageLines(data.referrer));
   // リンクの下見（プレビュー）は出さない
   return { text: lines.join('\n'), unfurl_links: false, unfurl_media: false };
