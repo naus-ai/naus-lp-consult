@@ -11,16 +11,34 @@ import { toIso } from '../booking/slots.mjs';
 import { insertEvent, listEvents, deleteEvent, getEvent, meetUrl } from '../booking/google.mjs';
 import { buildBookingMessage } from '../notify/new-lead-message.mjs';
 import { postToSlack } from '../notify/slack.mjs';
+import { sendToIntake } from '../notify/intake.mjs';
 
 const MIN = 60 * 1000;
 
-// 予約が入ったことを Slack に知らせる。何経由か・予約したページは、要求の Referer(この LP のページのときだけ)から決める。
+// 予約が入ったことを、CRM の受付窓口に送る。届かなかったときだけ、Slack の #new-leads に直接知らせる（先頭に「⚠」）。
+// 何経由か・予約したページは、要求の Referer(この LP のページのときだけ)から決める。
 // 知らせに失敗しても、お客様への返事(予約の結果)は変えない。記録に個人の情報は残さない
-async function notifySlack(v, slot, referrer, receivedAt) {
+const SOURCE_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'landing_page', 'referrer_host', 'doc_code'];
+
+async function notifyIntake(v, slot, route, created, referrer, receivedAt) {
   try {
-    await postToSlack(buildBookingMessage({ ...v, start: slot.start, end: slot.end, referrer }, receivedAt));
+    const fields = {
+      source: v.source,
+      start: toIso(slot.start),
+      end: toIso(slot.end),
+      route,
+      name: v.name,
+      company: v.company,
+      email: v.email,
+      phone: v.phone,
+      message: v.message,
+    };
+    for (const key of SOURCE_KEYS) fields[key] = v[key];
+    const delivered = await sendToIntake({ kind: 'booking', id: String(created.id), page: referrer || '', fields });
+    if (delivered) return;
+    await postToSlack(buildBookingMessage({ ...v, start: slot.start, end: slot.end, referrer }, receivedAt, { fallback: true }), 4000);
   } catch {
-    console.error('予約の知らせを Slack に送れませんでした');
+    console.error('予約の知らせを送れませんでした');
   }
 }
 
@@ -69,7 +87,8 @@ export default async (req, context) => {
   if (!check.ok) return json(400, { error: 'validation', fields: check.errors });
   const v = check.value;
   // 予約したページの目印: 決まった値のときだけ、決まった文言にする(それ以外の値は無視する)
-  const memo = typeof body.route === 'string' && Object.hasOwn(ROUTE_MEMOS, body.route) ? ROUTE_MEMOS[body.route] : '';
+  const route = typeof body.route === 'string' && Object.hasOwn(ROUTE_MEMOS, body.route) ? body.route : '';
+  const memo = route ? ROUTE_MEMOS[route] : '';
 
   const m = decideMode(context);
   if (m.mode === 'unavailable') return json(503, { error: 'unavailable' });
@@ -106,7 +125,7 @@ export default async (req, context) => {
 
     // 予約が確定した(本物の予定ができ、ほかの予約とも重ならなかった)ので、Slack に知らせる。
     // 仮の予約・入力の不備・枠が埋まっていたときは、ここまで来ないので知らせない
-    await notifySlack(v, slot, req.headers.get('referer'), now);
+    await notifyIntake(v, slot, route, created, req.headers.get('referer'), now);
 
     // Meetの発行が少し遅れることがあるため、無ければ一度だけ取り直す
     let url = meetUrl(created);

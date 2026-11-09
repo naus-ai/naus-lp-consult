@@ -18,6 +18,7 @@ const GOOGLE = {
   GOOGLE_REFRESH_TOKEN: 'test-refresh-token',
   BOOKING_CALENDAR_ID: 'calendar@example.test',
 };
+const INTAKE_ENV = { INTAKE_URL: 'https://intake.example.test', INTAKE_KEY: 'test-intake-key' }; // 架空の受付窓口
 const NO_GOOGLE = Object.fromEntries(Object.keys(GOOGLE).map((key) => [key, undefined]));
 
 // 環境変数を書き換える（undefined は消す）
@@ -47,35 +48,70 @@ const payload = {
 };
 const formRequest = (body) => new Request(`${SITE}/.netlify/functions/submission-created`, { method: 'POST', body });
 
-test('フォームの送信：Slack の URL に、作った文を JSON にして POST で送り、ok を返す', async (t) => {
-  setEnv(t, { SLACK_WEBHOOK_URL: SLACK });
-  const fetch = t.mock.method(globalThis, 'fetch', async () => new Response('ok'));
-  const res = await submissionCreated(formRequest(JSON.stringify({ payload })));
-  assert.equal(res.status, 200);
-  assert.equal(await res.text(), 'ok');
-  assert.equal(fetch.mock.callCount(), 1);
-  const [url, init] = fetch.mock.calls[0].arguments;
-  assert.equal(url, SLACK);
-  assert.equal(init.method, 'POST');
-  assert.deepEqual(init.headers, { 'content-type': 'application/json' });
-  assert.ok(init.signal instanceof AbortSignal);
-  assert.deepEqual(JSON.parse(init.body), buildNewLeadMessage(payload));
+const formPayload = { ...payload, id: 'sub-1', data: { ...payload.data, 'form-name': 'contact', referrer: `${SITE}/contact/`, ip: '203.0.113.9', user_agent: 'x', 'bot-field': '' } };
+
+// 受付窓口と Slack の偽物。受付窓口の返事は status（番号か 'down'）、Slack は常に 200
+function formServices(t, intake) {
+  setEnv(t, { SLACK_WEBHOOK_URL: SLACK, ...INTAKE_ENV });
+  const log = { intake: [], slack: [] };
+  const fetch = t.mock.method(globalThis, 'fetch', async (input, init) => {
+    const url = new URL(String(input));
+    if (url.origin === 'https://intake.example.test') {
+      log.intake.push({ url: String(input), init, body: JSON.parse(init.body) });
+      if (intake === 'down') throw new TypeError('fetch failed');
+      return new Response('{}', { status: intake });
+    }
+    log.slack.push({ url: String(input), init, body: JSON.parse(init.body) });
+    return new Response('ok');
+  });
+  return { log, fetch };
+}
+
+test('フォームの送信：受付窓口が 201（重複の 200 も）なら、Slack には送らず ok を返す。送る中身は id・page・form-name 付き', async (t) => {
+  for (const status of [201, 200]) {
+    const { log } = formServices(t, status);
+    const res = await submissionCreated(formRequest(JSON.stringify({ payload: formPayload })));
+    assert.equal(res.status, 200);
+    assert.equal(await res.text(), 'ok');
+    assert.equal(log.slack.length, 0);
+    const sent = log.intake.at(-1).body;
+    assert.equal(sent.kind, 'form');
+    assert.equal(sent.id, 'sub-1');
+    assert.equal(sent.page, `${SITE}/contact/`);
+    assert.equal(sent.fields['form-name'], 'contact');
+    assert.equal(sent.fields.company, 'test株式会社');
+    for (const dropped of ['ip', 'user_agent', 'bot-field', 'referrer']) assert.ok(!(dropped in sent.fields), dropped);
+    t.mock.restoreAll();
+  }
 });
 
-test('フォームの送信：送れなくても・送り先が Slack の URL でなくても ok を返し、記録に中身や URL を残さない', async (t) => {
-  setEnv(t, { SLACK_WEBHOOK_URL: SLACK });
+for (const [label, intake] of [['500 を返す', 500], ['つながらない', 'down']]) {
+  test(`フォームの送信：受付窓口が${label}なら、先頭に「⚠」を付けて Slack に1通だけ知らせる（4秒で諦める設定）`, async (t) => {
+    t.mock.method(console, 'error', () => {});
+    const { log } = formServices(t, intake);
+    const res = await submissionCreated(formRequest(JSON.stringify({ payload: formPayload })));
+    assert.equal(await res.text(), 'ok');
+    assert.equal(log.intake.length, 1);
+    assert.equal(log.slack.length, 1);
+    assert.equal(log.slack[0].url, SLACK);
+    assert.deepEqual(log.slack[0].body, buildNewLeadMessage(formPayload, { fallback: true }));
+    assert.ok(log.slack[0].body.text.startsWith('⚠ CRM に送れなかったため、LP から直接知らせています\n*新しい問い合わせ（通常 LP）*'));
+    assert.ok(log.slack[0].init.signal instanceof AbortSignal);
+  });
+}
+
+test('フォームの送信：受付窓口の設定がないときも、予備の Slack に送る。Slack も送れなくても ok を返し、記録に中身や URL を残さない', async (t) => {
+  setEnv(t, { SLACK_WEBHOOK_URL: SLACK, INTAKE_URL: undefined, INTAKE_KEY: undefined });
   const errors = t.mock.method(console, 'error', () => {});
   const fetch = t.mock.method(globalThis, 'fetch', async () => {
     throw new TypeError('fetch failed');
   });
-  assert.equal(await (await submissionCreated(formRequest(JSON.stringify({ payload })))).text(), 'ok');
+  assert.equal(await (await submissionCreated(formRequest(JSON.stringify({ payload: formPayload })))).text(), 'ok');
   applyEnv({ SLACK_WEBHOOK_URL: 'https://evil.example/' });
-  assert.equal(await (await submissionCreated(formRequest(JSON.stringify({ payload })))).text(), 'ok');
-  assert.equal(fetch.mock.callCount(), 1);
-  assert.deepEqual(
-    errors.mock.calls.map((call) => call.arguments),
-    [['Slack への通知に失敗しました', 'TypeError'], ['SLACK_WEBHOOK_URL が未設定か、Slack の URL ではありません']],
-  );
+  assert.equal(await (await submissionCreated(formRequest(JSON.stringify({ payload: formPayload })))).text(), 'ok');
+  assert.equal(fetch.mock.callCount(), 1); // 受付窓口は設定がなく送らない。Slack は1回目だけ送り、2回目は Slack の URL でないので送らない
+  const log = logged(errors);
+  for (const secret of ['test株式会社', 'evil.example', 'hooks.slack.com']) assert.ok(!log.includes(secret), secret);
 });
 
 test('フォームの送信：知らせないフォーム・読めない中身なら、送らずに ok を返す', async (t) => {
@@ -94,16 +130,26 @@ test('フォームの送信：知らせないフォーム・読めない中身�
 // 本物の Google カレンダーと Slack の代わり。作った予定・取り消した数・Slack に送った文を記録する
 //  busy：埋まっている時間帯 / earlier：ほぼ同時に別の予約が先に入った / insertFails：予定を作るときに Google がエラー
 //  slack：Slack の返事（200・500 などの番号か、'down' ＝つながらない）
-function fakeServices(t, { busy = [], earlier = false, insertFails = false, slack = 200 } = {}) {
-  const log = { events: [], deleted: 0, slack: [] };
+//  intake：CRM の受付窓口の返事（201・500 などの番号か、'down' ＝つながらない）。既定は 500（届かない）＝予備の Slack に出る
+//  log.slack は先頭の「⚠」の行を除いた知らせ、log.slackRaw は送った知らせそのまま、log.intake は受付窓口に送った中身
+function fakeServices(t, { busy = [], earlier = false, insertFails = false, slack = 200, intake = 500 } = {}) {
+  setEnv(t, INTAKE_ENV);
+  const log = { events: [], deleted: 0, slack: [], slackRaw: [], intake: [] };
   let created = null;
   t.mock.method(globalThis, 'fetch', async (input, init = {}) => {
     const url = new URL(String(input));
     const method = init.method ?? 'GET';
     if (url.origin === 'https://hooks.slack.com') {
-      log.slack.push(JSON.parse(init.body));
+      const sent = JSON.parse(init.body);
+      log.slackRaw.push(sent);
+      log.slack.push({ ...sent, text: sent.text.replace(/^⚠ [^\n]*\n/, '') });
       if (slack === 'down') throw new TypeError('fetch failed');
       return new Response('', { status: slack });
+    }
+    if (url.origin === 'https://intake.example.test') {
+      log.intake.push({ url: String(input), init, body: JSON.parse(init.body) });
+      if (intake === 'down') throw new TypeError('fetch failed');
+      return new Response('{}', { status: intake });
     }
     if (url.origin === 'https://oauth2.googleapis.com') return Response.json({ access_token: 'test-token', expires_in: 3600 });
     if (url.pathname.endsWith('/freeBusy')) {
@@ -147,8 +193,8 @@ function farSlot(busy = []) {
   return slots[slots.length - 1];
 }
 
-// 流入元の7項目（フォームの隠し項目・assets/source-fields/source-fields.js と同じ名前と順番）
-const SOURCE_FIELDS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'landing_page', 'referrer_host'];
+// 流入元の8項目（フォームの隠し項目・assets/source-fields/source-fields.js と同じ名前と順番）
+const SOURCE_FIELDS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'landing_page', 'referrer_host', 'doc_code'];
 const NO_SOURCE = SOURCE_FIELDS.map((key) => `${key}：（未記入）`);
 
 const lead = (slot, extra = {}) => ({
@@ -206,7 +252,7 @@ test('予約：本物の予定ができたら、Slack に1回だけ知らせる�
   ]);
 });
 
-test('予約：資料ページに目印付きで来て予約したら、流入元の7項目を「項目名：値」で知らせる。カレンダーの予定には入れない', async (t) => {
+test('予約：資料ページに目印付きで来て予約したら、流入元の項目を「項目名：値」で知らせる。カレンダーの予定には入れない', async (t) => {
   setEnv(t, { ...GOOGLE, SLACK_WEBHOOK_URL: SLACK });
   const log = fakeServices(t);
   const source = {
@@ -232,6 +278,7 @@ test('予約：資料ページに目印付きで来て予約したら、流入�
     'utm_term：（未記入）',
     'landing_page：/crm-doc/',
     'referrer_host：note.com',
+    'doc_code：（未記入）',
     // & は Slack の書き方で &amp; にする（Slack では & と表示される）
     `ページ：${SITE}/crm-doc/?utm_source=note&amp;utm_medium=social&amp;utm_campaign=note_crm`,
   ]);
@@ -252,7 +299,7 @@ test('予約：流入元の項目は形で空にせず、届いたとおりに�
       utm_term: 'x'.repeat(200), // ちょうど200文字は載せる
       landing_page: 'shigyo', // 形が違っても、届いたとおり
       referrer_host: 'note.com/<!channel>', // 形が違っても、届いたとおり（Slack には逃がして出る）
-      doc_code: 'C0012', // 資料リンクの記号。Slack の知らせには出さない
+      doc_code: 'C0012', // 資料リンクの記号（予備の Slack には、そのほかの項目として出る）
       ip: '203.0.113.9',
       user_agent: 'Mozilla/5.0 test',
       extra: 'not-allowed', // 決まった項目のほかは受け取らない
@@ -270,6 +317,7 @@ test('予約：流入元の項目は形で空にせず、届いたとおりに�
     `utm_term：${'x'.repeat(200)}`,
     'landing_page：shigyo',
     'referrer_host：note.com/&lt;!channel&gt;',
+    'doc_code：C0012',
   ]);
 });
 
@@ -283,7 +331,7 @@ test('予約：流入元のパスが // で始まっても、そのまま載せ�
   const { text } = log.slack[0];
   assert.match(text, /\nutm_source：&lt;!channel&gt;&amp;\n/);
   assert.match(text, /\nlanding_page：\/\/evil\.example\/x\n/);
-  assert.match(text, /\nreferrer_host：NOTE\.com$/);
+  assert.match(text, /\nreferrer_host：NOTE\.com\ndoc_code：（未記入）$/);
 });
 
 test('予約の検証：流入元の8項目は届いたとおりに残る（空白入り・/ なし・日本語のホスト）。201文字は空、制御文字は除く', () => {
@@ -307,6 +355,58 @@ test('予約の検証：流入元の8項目は届いたとおりに残る（空�
   assert.equal(validateBooking(base).value.doc_code, '');
 });
 
+test('予約：受付窓口が 201 なら Slack には送らず、中身（予定の番号・経由・確かめた値・8項目）を署名付きで送る。返事は変わらない', async (t) => {
+  setEnv(t, { ...GOOGLE, SLACK_WEBHOOK_URL: SLACK });
+  const log = fakeServices(t, { intake: 201 });
+  const slot = farSlot();
+  const res = await bookingCall(
+    lead(slot, { route: 'crm_seminar', utm_source: 'note', landing_page: '/crm-doc/', doc_code: 'C0012', ip: '203.0.113.9', website: '' }),
+    { referer: `${SITE}/crm/seminar/` },
+  );
+  assert.equal(res.status, 200);
+  assert.deepEqual(await res.json(), { ok: true, start: toIso(slot.start), end: toIso(slot.end), meetUrl: 'https://meet.google.com/test' });
+  assert.equal(log.slack.length, 0);
+  assert.equal(log.intake.length, 1);
+  const { url, init, body } = log.intake[0];
+  assert.equal(url, 'https://intake.example.test/v1/submit');
+  assert.equal(init.headers['X-Naus-Sender'], 'lp');
+  assert.match(init.headers['X-Naus-Signature'], /^v1=[0-9a-f]{64}$/);
+  assert.equal(body.kind, 'booking');
+  assert.equal(body.id, 'test-event');
+  assert.equal(body.page, `${SITE}/crm/seminar/`);
+  assert.deepEqual(body.fields, {
+    source: 'consult', start: toIso(slot.start), end: toIso(slot.end), route: 'crm_seminar',
+    name: '架空 太郎', company: '架空株式会社', email: 'taro@example.test', phone: '03-0000-0000', message: '相談したいです。',
+    utm_source: 'note', utm_medium: '', utm_campaign: '', utm_content: '', utm_term: '',
+    landing_page: '/crm-doc/', referrer_host: '', doc_code: 'C0012',
+  });
+});
+
+for (const [label, intake] of [['500 を返す', 500], ['つながらない', 'down']]) {
+  test(`予約：受付窓口が${label}なら、先頭に「⚠」を付けて Slack に1通だけ知らせる。予約の返事は変わらない`, async (t) => {
+    setEnv(t, { ...GOOGLE, SLACK_WEBHOOK_URL: SLACK });
+    t.mock.method(console, 'error', () => {});
+    const log = fakeServices(t, { intake });
+    const slot = farSlot();
+    const res = await bookingCall(lead(slot, { doc_code: 'C0012' }), { referer: `${SITE}/crm-doc/` });
+    assert.equal(res.status, 200);
+    assert.deepEqual(await res.json(), { ok: true, start: toIso(slot.start), end: toIso(slot.end), meetUrl: 'https://meet.google.com/test' });
+    assert.equal(log.slackRaw.length, 1);
+    assert.ok(log.slackRaw[0].text.startsWith('⚠ CRM に送れなかったため、LP から直接知らせています\n*新しい無料相談の予約'));
+    // 記号は、手で登録できるよう、そのほかの項目として出る
+    assert.match(log.slackRaw[0].text, /\ndoc_code：C0012\n/);
+  });
+}
+
+test('予約：受付窓口が 201 の予約でも、枠が埋まっていたら（409）受付窓口にも Slack にも送らない', async (t) => {
+  setEnv(t, { ...GOOGLE, SLACK_WEBHOOK_URL: SLACK });
+  const slot = farSlot();
+  const log = fakeServices(t, { intake: 201, busy: [{ start: toIso(slot.start), end: toIso(slot.end) }] });
+  assert.equal((await bookingCall(lead(slot))).status, 409);
+  assert.equal(log.intake.length, 0);
+  assert.equal(log.slackRaw.length, 0);
+});
+
 test('予約：予約したページ（Referer）がなければ、ページの行を出さない（経由は LP の呼び名）', async (t) => {
   setEnv(t, { ...GOOGLE, SLACK_WEBHOOK_URL: SLACK });
   const log = fakeServices(t);
@@ -319,10 +419,10 @@ test('予約：予約したページ（Referer）がなければ、ページの�
 });
 
 for (const [label, slack] of [['つながらない', 'down'], ['エラーが返る', 500]]) {
-  test(`予約：Slack に送れなくても（${label}）、予約の結果は変わらない。記録に個人の情報を残さない`, async (t) => {
+  test(`予約：受付窓口にも Slack にも送れなくても（${label}）、予約の結果は変わらない。記録に個人の情報を残さない`, async (t) => {
     setEnv(t, { ...GOOGLE, SLACK_WEBHOOK_URL: SLACK });
     const errors = t.mock.method(console, 'error', () => {});
-    const log = fakeServices(t, { slack });
+    const log = fakeServices(t, { slack, intake: 500 });
     const slot = farSlot();
     const res = await bookingCall(lead(slot));
     assert.equal(res.status, 200);
@@ -334,7 +434,7 @@ for (const [label, slack] of [['つながらない', 'down'], ['エラーが返�
     });
     assert.equal(log.slack.length, 1);
     assert.equal(log.deleted, 0);
-    assert.equal(errors.mock.callCount(), 1);
+    assert.equal(errors.mock.callCount(), 2); // 受付窓口と Slack の両方に送れなかった記録
     for (const personal of ['架空', 'taro@example.test', '03-0000-0000', '相談したいです']) {
       assert.ok(!logged(errors).includes(personal), personal);
     }

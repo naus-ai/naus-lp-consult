@@ -5,7 +5,7 @@
 const SLACK_PREFIX = 'https://hooks.slack.com/services/';
 
 // 送れたら true、送らなかった・送れなかったら false
-export async function postToSlack(message) {
+export async function postToSlack(message, timeoutMs = 5000) {
   // Slack の URL のときだけ送る（設定の間違いで、ほかの送り先に中身を送らないように）
   const url = process.env.SLACK_WEBHOOK_URL ?? '';
   if (!url.startsWith(SLACK_PREFIX)) {
@@ -17,7 +17,7 @@ export async function postToSlack(message) {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify(message),
-      signal: AbortSignal.timeout(5000),
+      signal: AbortSignal.timeout(timeoutMs),
     });
     if (!res.ok) console.error('Slack への通知に失敗しました', res.status);
     return res.ok;
