@@ -40,6 +40,13 @@ function reply(status, headers = {}) {
   return new Response(null, { status, headers: { 'Cache-Control': 'no-store', ...headers } });
 }
 
+// 読めない送信（形が違う・大きすぎる・知らないフォーム）には、白い画面ではなく、短い案内のページを返す。入力された値は載せない
+const CONTACT_ADDRESS = 'info@naus.co.jp';
+function failPage(status) {
+  const html = `<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>送信できませんでした</title></head><body style="font-family:sans-serif;max-width:32em;margin:3em auto;padding:0 1em;line-height:1.8"><h1 style="font-size:1.3em">送信できませんでした</h1><p>お手数ですが、前のページに戻ってもう一度お試しいただくか、${CONTACT_ADDRESS} までご連絡ください。</p></body></html>`;
+  return new Response(html, { status, headers: { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store' } });
+}
+
 // 上限を超えたら null（大きな本文を最後まで読まない）
 async function readLimited(req, max) {
   const declared = Number(req.headers.get('content-length'));
@@ -68,9 +75,13 @@ function ourPage(value) {
 }
 
 // Netlify のフォームに記録だけ残す（投げない）。via=form-submit は「ここで処理済み」の印で、submission-created が見て何もしない
-async function recordToNetlify(origin, fields) {
+// handled が false のとき（こちらの決まりで断った送信）は via を付けない＝前の作りと同じ道（Netlify の迷惑判定 → submission-created → 受付窓口／Slack）に乗せる
+async function recordToNetlify(origin, fields, handled = true) {
   try {
-    const body = new URLSearchParams({ ...fields, via: 'form-submit' });
+    const sent = { ...fields };
+    delete sent.via;
+    if (handled) sent.via = 'form-submit';
+    const body = new URLSearchParams(sent);
     const res = await fetch(`${origin}/`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -102,34 +113,55 @@ async function notify(id, formName, fields, page) {
 
 export default async (req, context) => {
   if (req.method !== 'POST') return reply(405, { Allow: 'POST' });
-  if (!sameOrigin(req)) return reply(403);
-  if (!(req.headers.get('content-type') || '').toLowerCase().startsWith('application/x-www-form-urlencoded')) return reply(415);
-  if (rateLimited('form:' + ((context && context.ip) || ''), FORM_RATE_LIMIT, FORM_RATE_WINDOW_MS)) return reply(429);
+  // 決まりに合わない送信（別のサイトの Origin・Origin がない・回数が多い）でも、捨てない。via なしで Netlify に送り、前の作りと同じ道に乗せる（受付窓口には直接送らない）
+  let refused = '';
+  if (!sameOrigin(req)) refused = 'origin';
+  if (!(req.headers.get('content-type') || '').toLowerCase().startsWith('application/x-www-form-urlencoded')) {
+    console.error('form-submit: 読めない形の送信です（形式）');
+    return failPage(415);
+  }
+  // 接続元が分からないときは、全員を1つに数えないよう、回数の制限をしない
+  if (context && context.ip && rateLimited('form:' + context.ip, FORM_RATE_LIMIT, FORM_RATE_WINDOW_MS) && !refused) refused = 'rate';
 
   let raw;
   try {
     raw = await readLimited(req, FORM_MAX_BODY_BYTES);
   } catch {
-    return reply(400);
+    raw = null;
   }
-  if (raw === null) return reply(413);
+  if (raw === null) {
+    console.error('form-submit: 読めない形の送信です（大きすぎる・読めない）');
+    return failPage(413);
+  }
 
   const fields = {};
+  let tooMany = false;
   for (const [key, value] of new URLSearchParams(raw)) {
     if (Object.hasOwn(fields, key)) continue; // 同じ名前が重なったら最初の値
-    if (Object.keys(fields).length >= FORM_MAX_FIELDS) return reply(400);
+    if (Object.keys(fields).length >= FORM_MAX_FIELDS) {
+      tooMany = true;
+      break;
+    }
     fields[key] = value;
   }
   const formName = fields['form-name'];
-  if (typeof formName !== 'string' || !Object.hasOwn(THANKS, formName)) return reply(400);
+  if (tooMany || typeof formName !== 'string' || !Object.hasOwn(THANKS, formName)) {
+    console.error('form-submit: 読めない形の送信です（フォーム名・項目数）');
+    return failPage(400);
+  }
 
   const robot = typeof fields['bot-field'] === 'string' && fields['bot-field'].trim() !== '';
   const origin = new URL(req.url).origin;
   const work = async () => {
-    const jobs = [recordToNetlify(origin, fields)];
-    if (robot) console.error('form-submit: 迷惑対策の欄に値があるため、受付窓口には送りません');
-    else jobs.push(notify(randomUUID(), formName, fields, ourPage(req.headers.get('referer'))));
-    await Promise.allSettled(jobs);
+    if (robot) {
+      console.error('form-submit: 迷惑対策の欄に値があるため、受付窓口には送りません');
+      await recordToNetlify(origin, fields, true);
+    } else if (refused) {
+      console.error('form-submit: 決まりに合わない送信を、Netlify に送り直します', refused);
+      await recordToNetlify(origin, fields, false);
+    } else {
+      await Promise.allSettled([recordToNetlify(origin, fields, true), notify(randomUUID(), formName, fields, ourPage(req.headers.get('referer')))]);
+    }
   };
 
   const thanks = THANKS[formName];

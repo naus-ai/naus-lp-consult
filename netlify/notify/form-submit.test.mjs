@@ -48,27 +48,89 @@ function setup(t, { intake = 201, delayMs = 0 } = {}) {
   return log;
 }
 
-test('受け口：POST 以外・別のサイトからの送信・urlencoded 以外・大きすぎる本文・知らないフォームは断る', async (t) => {
-  const log = setup(t);
+test('受け口：POST 以外は 405', async (t) => {
+  setup(t);
   assert.equal((await formSubmit(new Request(`${SITE}/api/form`), ctx())).status, 405);
-  assert.equal((await formSubmit(post(FIELDS, { headers: { Origin: 'https://evil.example' } }), ctx())).status, 403);
-  const noOrigin = new Request(`${SITE}/api/form`, { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: 'form-name=contact' });
-  assert.equal((await formSubmit(noOrigin, ctx())).status, 403);
-  assert.equal((await formSubmit(post(FIELDS, { headers: { 'Content-Type': 'application/json' }, body: '{}' }), ctx())).status, 415);
-  assert.equal((await formSubmit(post(FIELDS, { headers: { 'Content-Type': 'multipart/form-data; boundary=x' }, body: 'x' }), ctx())).status, 415);
-  assert.equal((await formSubmit(post(FIELDS, { body: 'form-name=contact&message=' + 'a'.repeat(70000) }), ctx())).status, 413);
-  assert.equal((await formSubmit(post({ ...FIELDS, 'form-name': 'newsletter' }), ctx())).status, 400);
-  assert.equal((await formSubmit(post(FIELDS, { body: 'message=x' }), ctx())).status, 400);
-  assert.equal((await formSubmit(post(FIELDS, { body: 'form-name=__proto__' }), ctx())).status, 400);
-  assert.equal(log.finished, 0); // 断ったものは、どこにも送らない
 });
 
-test('受け口：同じ接続元から決まった回数を超えたら 429', async (t) => {
-  setup(t);
+test('受け口：決まりに合わない送信（別のサイトの Origin・Origin がない・回数超え）は、捨てずに via なしで Netlify に送り直し、受付窓口・Slack には送らず、お客様には 303', async (t) => {
+  const log = setup(t);
+  const noOrigin = new Request(`${SITE}/api/form`, { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: new URLSearchParams(FIELDS).toString() });
+  const cases = [
+    post(FIELDS, { headers: { Origin: 'https://evil.example' } }),
+    noOrigin,
+  ];
+  for (const req of cases) {
+    const res = await formSubmit(req, ctx());
+    assert.equal(res.status, 303);
+    assert.equal(res.headers.get('location'), '/contact-thanks.html');
+  }
   const c = { ip: nextIp() };
-  for (let i = 0; i < FORM_RATE_LIMIT; i += 1) assert.equal((await formSubmit(post(), c)).status, 303);
-  assert.equal((await formSubmit(post(), c)).status, 429);
-  assert.equal((await formSubmit(post(), ctx())).status, 303); // 別の接続元は影響しない
+  for (let i = 0; i < FORM_RATE_LIMIT; i += 1) await formSubmit(post(), c);
+  const before = log.record.length;
+  const over = await formSubmit(post(), c);
+  assert.equal(over.status, 303);
+  assert.equal(over.headers.get('location'), '/contact-thanks.html');
+  assert.equal(log.record.length, before + 1);
+  assert.equal(log.intake.length, FORM_RATE_LIMIT); // 受付窓口へは、決まりに合った分だけ
+  assert.equal(log.slack.length, 0);
+  // 断った3件は via なし（送られてきた via=form-submit も消す）。email などはそのまま
+  for (const rec of [log.record[0], log.record[1], log.record.at(-1)]) {
+    assert.equal(rec.params.has('via'), false);
+    assert.equal(rec.params.get('email'), 'taro@example.test');
+  }
+  const spoof = await formSubmit(post({ ...FIELDS, via: 'form-submit' }, { headers: { Origin: 'https://evil.example' } }), ctx());
+  assert.equal(spoof.status, 303);
+  assert.equal(log.record.at(-1).params.has('via'), false);
+  assert.equal(log.intake.length, FORM_RATE_LIMIT);
+});
+
+test('受け口：crm-doc-pdf が決まりに合わず断られたときも、捨てずに via なしで Netlify に送り、204 を返す', async (t) => {
+  const log = setup(t);
+  const c = { ip: nextIp() };
+  for (let i = 0; i < FORM_RATE_LIMIT; i += 1) await formSubmit(post(), c);
+  const before = log.record.length;
+  const res = await formSubmit(post({ 'form-name': 'crm-doc-pdf', company: '架空株式会社', name: '架空 太郎', email: 'taro@example.test' }), c);
+  assert.equal(res.status, 204);
+  assert.equal(log.record.length, before + 1);
+  assert.equal(log.record.at(-1).params.has('via'), false);
+});
+
+test('受け口：読めない送信（urlencoded 以外・大きすぎる・知らない／ないフォーム名）は、短い日本語の案内のページ（HTML）を返す。入力値は載せない', async (t) => {
+  const log = setup(t);
+  const cases = [
+    [post(FIELDS, { headers: { 'Content-Type': 'application/json' }, body: '{}' }), 415],
+    [post(FIELDS, { headers: { 'Content-Type': 'multipart/form-data; boundary=x' }, body: 'x' }), 415],
+    [post(FIELDS, { body: 'form-name=contact&message=' + 'a'.repeat(70000) }), 413],
+    [post({ ...FIELDS, 'form-name': 'newsletter' }), 400],
+    [post(FIELDS, { body: 'message=x' }), 400],
+    [post(FIELDS, { body: 'form-name=__proto__' }), 400],
+  ];
+  for (const [req, status] of cases) {
+    const res = await formSubmit(req, ctx());
+    assert.equal(res.status, status);
+    assert.match(res.headers.get('content-type'), /^text\/html/);
+    const html = await res.text();
+    assert.ok(html.includes('送信できませんでした') && html.includes('info@naus.co.jp'));
+    assert.ok(!html.includes('架空'));
+  }
+  assert.equal(log.finished, 0);
+});
+
+test('受け口：接続元（context.ip）が分からないときは、全員を1つに数えず、回数の制限をしない', async (t) => {
+  const log = setup(t);
+  for (let i = 0; i < FORM_RATE_LIMIT + 5; i += 1) assert.equal((await formSubmit(post(), {})).status, 303);
+  assert.equal((await formSubmit(post(), undefined)).status, 303);
+  assert.equal(log.intake.length, FORM_RATE_LIMIT + 6); // 全部、受付窓口に届く
+});
+
+test('受け口：同じ接続元から決まった回数を超えたら、その送信は Netlify の道に回る（別の接続元は受付窓口に届く）', async (t) => {
+  const log = setup(t);
+  const c = { ip: nextIp() };
+  for (let i = 0; i < FORM_RATE_LIMIT + 1; i += 1) assert.equal((await formSubmit(post(), c)).status, 303);
+  assert.equal(log.intake.length, FORM_RATE_LIMIT);
+  await formSubmit(post(), ctx());
+  assert.equal(log.intake.length, FORM_RATE_LIMIT + 1);
 });
 
 test('受け口：迷惑対策の欄に値があれば、受付窓口にも Slack にも送らず、記録だけ Netlify に送って 303', async (t) => {
