@@ -12,6 +12,8 @@ export const FORMS = {
   'shigyo-contact': { title: '新しい問い合わせ（士業 LP）', company: 'office', phone: 'tel' },
   'crm-download': { title: '新しい資料請求（CRM構築 LP）', company: 'office', phone: 'tel' },
   'crm-contact': { title: '新しい問い合わせ（CRM構築 LP）', company: 'office', phone: 'tel' },
+  // 資料ページ(/crm-doc/)の「PDF で保存」。電話の欄はない
+  'crm-doc-pdf': { title: '新しい資料請求（CRM 見直しの資料ページ）', company: 'company', phone: 'phone' },
 };
 
 const MAX_FIELD = 200;

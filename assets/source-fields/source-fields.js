@@ -19,7 +19,7 @@
   var UTM = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
   var FIELDS = UTM.concat(['landing_page', 'referrer_host', 'doc_code']);
   var CODE_MAX = 50;
-  var FORMS = ['document-download', 'contact', 'shigyo-download', 'shigyo-contact', 'crm-download', 'crm-contact'];
+  var FORMS = ['document-download', 'contact', 'shigyo-download', 'shigyo-contact', 'crm-download', 'crm-contact', 'crm-doc-pdf'];
 
   function sourceKey(path) {
     if (/^\/shigyo(\/|$)/.test(path)) return 'naus_source_shigyo';

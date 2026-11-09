@@ -114,6 +114,22 @@ test('フォームの送信：受付窓口の設定がないときも、予備�
   for (const secret of ['test株式会社', 'evil.example', 'hooks.slack.com']) assert.ok(!log.includes(secret), secret);
 });
 
+test('フォームの送信：資料ページの PDF（crm-doc-pdf）も受付窓口に送る。届かなければ、見出し付きで Slack に出る', async (t) => {
+  t.mock.method(console, 'error', () => {});
+  const pdf = { id: 'sub-pdf', form_name: 'crm-doc-pdf', created_at: '2026-10-25T12:30:00.000Z', data: { 'form-name': 'crm-doc-pdf', company: '架空株式会社', name: '架空 太郎', email: 'taro@example.test', doc_code: 'C0012', referrer: `${SITE}/crm-doc/` } };
+  const ok = formServices(t, 201);
+  await submissionCreated(formRequest(JSON.stringify({ payload: pdf })));
+  assert.equal(ok.log.intake[0].body.fields['form-name'], 'crm-doc-pdf');
+  assert.equal(ok.log.slack.length, 0);
+  t.mock.restoreAll();
+  t.mock.method(console, 'error', () => {});
+  const ng = formServices(t, 500);
+  await submissionCreated(formRequest(JSON.stringify({ payload: pdf })));
+  const text = ng.log.slack[0].body.text;
+  assert.match(text, /^⚠ CRM に送れなかったため[^\n]*\n\*新しい資料請求（CRM 見直しの資料ページ）\*\n取引先：架空株式会社\n/);
+  assert.match(text, /\ndoc_code：C0012\n/);
+});
+
 test('フォームの送信：知らせないフォーム・読めない中身なら、送らずに ok を返す', async (t) => {
   setEnv(t, { SLACK_WEBHOOK_URL: SLACK });
   const errors = t.mock.method(console, 'error', () => {});

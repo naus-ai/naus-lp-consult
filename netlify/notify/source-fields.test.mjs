@@ -5,11 +5,14 @@ import { test } from 'node:test';
 import { readFileSync } from 'node:fs';
 import vm from 'node:vm';
 
+const PDF_JS = readFileSync(new URL('../../assets/pdf-form/pdf-form.js', import.meta.url), 'utf8');
+const CRM_DOC_HTML = readFileSync(new URL('../../crm-doc/index.html', import.meta.url), 'utf8');
+
 const SOURCE_JS = readFileSync(new URL('../../assets/source-fields/source-fields.js', import.meta.url), 'utf8');
 const BOOKING_JS = readFileSync(new URL('../../assets/booking/booking.js', import.meta.url), 'utf8');
 
 const FIELDS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'landing_page', 'referrer_host', 'doc_code'];
-const FORMS = ['document-download', 'contact', 'shigyo-download', 'shigyo-contact', 'crm-download', 'crm-contact'];
+const FORMS = ['document-download', 'contact', 'shigyo-download', 'shigyo-contact', 'crm-download', 'crm-contact', 'crm-doc-pdf'];
 const SITE = 'https://lp.example.test';
 
 // 保存領域の偽物。broken を true にすると、読み書きが投げる（プライベートのタブ・アプリの中のブラウザ）
@@ -232,4 +235,74 @@ test('予約画面は、ページのまとまりの記録を読んで doc_code �
 
 test('予約画面：localStorage が投げたら空を返す', () => {
   assert.deepEqual(loadBooking('/', fakeStorage({}, true)).read(), {});
+});
+
+// ---- 資料ページ(/crm-doc/)の「PDF で保存」：Netlify のフォーム crm-doc-pdf にも送る ----
+test('crm-doc-pdf：隠しフォームは Netlify 用の指定と、必要な項目をすべて持つ', () => {
+  const m = /<form name="crm-doc-pdf"[^>]*>([\s\S]*?)<\/form>/.exec(CRM_DOC_HTML);
+  assert.ok(m, '隠しフォームが無い');
+  assert.match(m[0], /data-netlify="true"/);
+  assert.match(m[0], /netlify-honeypot="bot-field"/);
+  assert.match(m[0], /\shidden>/);
+  const names = [...m[1].matchAll(/name="([^"]+)"/g)].map((x) => x[1]);
+  for (const n of ['form-name', 'company', 'name', 'email', ...FIELDS, 'bot-field']) assert.ok(names.includes(n), n);
+});
+
+test('crm-doc-pdf：流入元の8項目は、source-fields.js が隠しフォームに入れる（CRM のまとまりの記録）', () => {
+  const v = visit('/crm-doc/?utm_source=note&utm_campaign=crm_a&c=C0012');
+  assert.deepEqual(valuesOf(v.document.forms['crm-doc-pdf']), {
+    utm_source: 'note', utm_medium: '', utm_campaign: 'crm_a', utm_content: '', utm_term: '',
+    landing_page: '/crm-doc/', referrer_host: '', doc_code: 'C0012',
+  });
+});
+
+// pdf-form.js の「Netlify のフォーム」の部分（見出しの印の間）を、本物のファイルから取り出して動かす
+function loadPdfParams(search, formValues) {
+  const a = PDF_JS.indexOf('// ---- Netlify のフォーム(crm-doc-pdf)にも送る ----');
+  const b = PDF_JS.indexOf('// ---- /Netlify のフォーム ----');
+  assert.ok(a > 0 && b > a, 'pdf-form.js の Netlify の部分が見つからない');
+  const calls = [];
+  const formEl = formValues && { elements: { namedItem: (n) => (n in formValues ? { value: formValues[n] } : null) } };
+  const ctx = vm.createContext({
+    URLSearchParams, decodeURIComponent, location: { search },
+    document: { querySelector: () => formEl || null },
+    fetch: (url, init) => { calls.push({ url, init }); return Promise.resolve({}); },
+    out: {},
+    // 本物のファイルの companyCode（?c= を読む関数）
+  });
+  const code = /function companyCode\(\)\{[\s\S]*?\n  \}/.exec(PDF_JS)[0];
+  vm.runInContext(`${code}\n${PDF_JS.slice(a, b)}\nout.params = formParams; out.send = sendForm;`, ctx);
+  return { params: ctx.out.params, send: ctx.out.send, calls };
+}
+const PERSON = { company: '架空株式会社', name: '架空 太郎', email: 'taro@example.test' };
+
+test('crm-doc-pdf：Netlify に送る中身は form-name・入力3つ・流入元8項目・bot-field。記号は記録が無ければ ?c= を50文字まで', () => {
+  const stored = { utm_source: 'note', utm_medium: '', utm_campaign: 'crm_a', utm_content: '', utm_term: '', landing_page: '/crm-doc/', referrer_host: '', doc_code: 'C0012' };
+  const p = loadPdfParams('?c=ZZZ', stored).params(PERSON, '', { elements: { namedItem: (n) => ({ value: stored[n] }) } });
+  assert.equal(p.get('form-name'), 'crm-doc-pdf');
+  assert.equal(p.get('company'), '架空株式会社');
+  assert.equal(p.get('email'), 'taro@example.test');
+  assert.equal(p.get('doc_code'), 'C0012'); // 記録があればそれ
+  assert.equal(p.get('utm_campaign'), 'crm_a');
+  assert.equal(p.get('bot-field'), '');
+  const noStore = loadPdfParams(`?c=${'q'.repeat(80)}`).params(PERSON, 'bot', null);
+  assert.equal(noStore.get('doc_code'), 'q'.repeat(50));
+  assert.equal(noStore.get('utm_source'), '');
+  assert.equal(noStore.get('bot-field'), 'bot');
+});
+
+test('crm-doc-pdf：送信は POST / （form エンコード）。fetch が投げても例外にしない。Apps Script への送信は変えない', () => {
+  const { send, calls } = loadPdfParams('', { doc_code: 'C1' });
+  send(PERSON, '');
+  assert.equal(calls[0].url, '/');
+  assert.equal(calls[0].init.method, 'POST');
+  assert.equal(calls[0].init.headers['Content-Type'], 'application/x-www-form-urlencoded');
+  assert.equal(calls[0].init.body.get('form-name'), 'crm-doc-pdf');
+  const boom = loadPdfParams('', null);
+  assert.doesNotThrow(() => boom.send(PERSON, ''));
+  // 既存の Apps Script への送信の行はそのまま
+  assert.match(PDF_JS, /send\(\{company:data\.company,name:data\.name,email:data\.email,hp:hpi\.value,c:companyCode\(\),page:location\.origin\+location\.pathname\+location\.search\}\);\n    sendForm\(data,hpi\.value\);/);
+  assert.match(PDF_JS, /fetch\(ENDPOINT,\{method:'POST',mode:'no-cors',credentials:'omit',headers:\{'Content-Type':'text\/plain;charset=utf-8'\},body:JSON\.stringify\(payload\)\}\)/);
+  // PDF の保存は、Netlify への送信のあとで続く（待たない）
+  assert.ok(PDF_JS.indexOf('sendForm(data,hpi.value);') < PDF_JS.indexOf('download();\n    renderDone();'));
 });

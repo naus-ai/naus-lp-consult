@@ -124,6 +124,22 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     株式会社naus ｜ お問い合わせ：info@naus.co.jp ｜ <a href="https://www.naus.co.jp/2" target="_blank" rel="noopener">プライバシーポリシー</a>
   </div>
 </footer>
+<!-- 「資料をPDFで保存する」の入力を Netlify のフォームにも送るための定義（画面には出さない。送るのは assets/pdf-form/pdf-form.js。流入元の8項目は source-fields.js が入れる） -->
+<form name="crm-doc-pdf" method="POST" data-netlify="true" netlify-honeypot="bot-field" hidden>
+  <input type="hidden" name="form-name" value="crm-doc-pdf">
+  <input type="hidden" name="company" value="">
+  <input type="hidden" name="name" value="">
+  <input type="hidden" name="email" value="">
+  <input type="hidden" name="utm_source" value="">
+  <input type="hidden" name="utm_medium" value="">
+  <input type="hidden" name="utm_campaign" value="">
+  <input type="hidden" name="utm_content" value="">
+  <input type="hidden" name="utm_term" value="">
+  <input type="hidden" name="landing_page" value="">
+  <input type="hidden" name="referrer_host" value="">
+  <input type="hidden" name="doc_code" value="">
+  <input type="hidden" name="bot-field" value="">
+</form>
 <script src="/assets/viewer/viewer.js"></script>
 <script src="/assets/source-fields/source-fields.js" defer></script>
 <script src="/assets/booking/booking.js" defer></script>
