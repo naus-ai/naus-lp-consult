@@ -156,7 +156,7 @@ test('フォームの送信：知らせないフォーム・読めない中身�
 //  slack：Slack の返事（200・500 などの番号か、'down' ＝つながらない）
 //  intake：CRM の受付窓口の返事（201・500 などの番号か、'down' ＝つながらない）。既定は 500（届かない）＝予備の Slack に出る
 //  log.slack は先頭の「⚠」の行を除いた知らせ、log.slackRaw は送った知らせそのまま、log.intake は受付窓口に送った中身
-function fakeServices(t, { busy = [], earlier = false, insertFails = false, slack = 200, intake = 500, noMeet = false, getEventFails = false, delayMs = 0 } = {}) {
+function fakeServices(t, { busy = [], earlier = false, insertFails = false, slack = 200, intake = 500, noMeet = false, getEventFails = false, listFails = false, delayMs = 0 } = {}) {
   setEnv(t, INTAKE_ENV);
   const log = { events: [], deleted: 0, slack: [], slackRaw: [], intake: [] };
   let created = null;
@@ -198,6 +198,7 @@ function fakeServices(t, { busy = [], earlier = false, insertFails = false, slac
       return Response.json({ ...created, hangoutLink: 'https://meet.google.com/retried' });
     }
     // 予定を作ったあとの、前後の予定の確かめ
+    if (listFails && created) return Response.json({ error: { status: 'INTERNAL' } }, { status: 500 });
     const items = created ? [created] : [];
     if (earlier && created) items.push({ id: 'other-event', created: '2000-01-01T00:00:00Z', start: created.start, end: created.end });
     return Response.json({ items });
@@ -411,12 +412,28 @@ test('予約：知らせ（受付窓口→予備の Slack）と Meet の取り�
   assert.ok(elapsed < 2500, `同時に走っていない（${elapsed}ms）`);
 });
 
-test('予約：Meet の取り直しが失敗しても、知らせは必ず出る（返事は前と同じ 503）', async (t) => {
+test('予約：Meet の取り直しが失敗しても、知らせは必ず出て、お客様には予約できたと返す（Meet の住所は空。招待メールに入っている）', async (t) => {
   setEnv(t, { ...GOOGLE, SLACK_WEBHOOK_URL: SLACK });
   t.mock.method(console, 'error', () => {});
   const log = fakeServices(t, { intake: 201, noMeet: true, getEventFails: true });
   const res = await bookingCall(lead(farSlot()));
-  assert.equal(res.status, 503);
+  assert.equal(res.status, 200);
+  const body = await res.json();
+  assert.equal(body.ok, true);
+  assert.equal(body.meetUrl, '');
+  assert.equal(log.intake.length, 1);
+  assert.equal(log.deleted, 0);
+});
+
+test('予約：予定を作ったあとの重なりの確かめで Google がエラーを返しても、予約を活かし、知らせを出し、お客様には予約できたと返す', async (t) => {
+  setEnv(t, { ...GOOGLE, SLACK_WEBHOOK_URL: SLACK });
+  t.mock.method(console, 'error', () => {});
+  const log = fakeServices(t, { intake: 201, listFails: true });
+  const res = await bookingCall(lead(farSlot()));
+  assert.equal(res.status, 200);
+  assert.equal((await res.json()).ok, true);
+  assert.equal(log.events.length, 1);
+  assert.equal(log.deleted, 0);
   assert.equal(log.intake.length, 1);
 });
 

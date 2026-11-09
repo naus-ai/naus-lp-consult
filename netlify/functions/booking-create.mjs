@@ -114,7 +114,14 @@ export default async (req, context) => {
     // ほぼ同時に同じ枠へ別の予約が入った場合に備え、登録後にもう一度重なりを確認する。
     // 自分より先に作られた予定と重なっていたら、自分の予定を取り消してエラーを返す
     const buffer = BOOKING.bufferMinutes * MIN;
-    const around = await listEvents(m.env, slot.start - buffer, slot.end + buffer);
+    // この確かめで Google がエラーを返したら、予約を活かして先に進む（予定と招待メールはもうできている。
+    // ここで止めると、お客様には失敗と出るのに、だれにも知らせが届かない。まれな二重の予約より、見落としを避ける）
+    let around = [];
+    try {
+      around = await listEvents(m.env, slot.start - buffer, slot.end + buffer);
+    } catch (err) {
+      console.error('booking-create: 重なりの確かめに失敗（予約は活かす）:', err && err.status, (err && err.reason) || '');
+    }
     const earlier = around.some((ev) => {
       if (ev.id === created.id) return false;
       const s = Date.parse((ev.start && (ev.start.dateTime || ev.start.date)) || '');
@@ -143,8 +150,14 @@ export default async (req, context) => {
       notifyIntake(v, slot, route, created, req.headers.get('referer'), now),
       retryMeet(),
     ]);
-    if (meet.status === 'rejected') throw meet.reason;
-    const url = meet.value;
+    // Meet の住所が取れなくても、予約はできている（住所は招待メールにも入っている）。お客様には予約できたと返し、住所は空にする
+    let url = '';
+    if (meet.status === 'fulfilled') {
+      url = meet.value || '';
+    } else {
+      const reason = meet.reason;
+      console.error('booking-create: Meet の取り直しに失敗（予約はできている）:', reason && reason.status, (reason && reason.reason) || '');
+    }
     return json(200, { ok: true, start: toIso(slot.start), end: toIso(slot.end), meetUrl: url });
   } catch (err) {
     console.error('booking-create failed:', err && err.message, err && err.status, (err && err.reason) || '');
