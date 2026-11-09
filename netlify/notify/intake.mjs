@@ -10,6 +10,8 @@ export const INTAKE_TIMEOUT_MS = 4000;
 const SUFFIX = '…（長いため途中まで）';
 const MAX_LONG = 5000; // 内容（message・body）
 const MAX_VALUE = 500; // ほかの値
+const MAX_VALUE_SHRUNK = 200; // 本文が大きすぎるとき、内容以外の値をここまで縮める
+const MAX_BODY_BYTES = 65536; // 受付窓口が受け取る本文の上限（UTF-8 のバイト数）
 const MAX_PAGE = 2000; // ページの URL
 const MAX_ID = 100;
 const MAX_KEYS = 60;
@@ -32,13 +34,13 @@ export function clipValue(text, max) {
   return cut(text, max - SUFFIX.length) + SUFFIX;
 }
 
-function clean(fields) {
+function clean(fields, maxValue = MAX_VALUE) {
   const out = {};
   for (const [key, value] of Object.entries(fields ?? {})) {
     if (NEVER_SENT.has(key) || key.length < 1 || key.length > MAX_KEY_LENGTH) continue;
     if (typeof value !== 'string') continue;
     if (Object.keys(out).length >= MAX_KEYS) break;
-    out[key] = clipValue(value, LONG_KEYS.has(key) ? MAX_LONG : MAX_VALUE);
+    out[key] = clipValue(value, LONG_KEYS.has(key) ? MAX_LONG : maxValue);
   }
   return out;
 }
@@ -58,7 +60,10 @@ export async function sendToIntake(item, env = process.env, fetchImpl = fetch, n
       return false;
     }
     const page = typeof item.page === 'string' ? cut(item.page, MAX_PAGE) : '';
-    const body = JSON.stringify({ kind: item.kind, id, page, fields: clean(item.fields) });
+    const build = (maxValue) => JSON.stringify({ kind: item.kind, id, page, fields: clean(item.fields, maxValue) });
+    let body = build(MAX_VALUE);
+    // 制御文字・引用符は JSON にすると膨らむ。上限を超えたら、内容以外の値を縮めて作り直す（それでも超えたら、そのまま送って 413 → 予備の知らせに任せる）
+    if (Buffer.byteLength(body, 'utf8') > MAX_BODY_BYTES) body = build(MAX_VALUE_SHRUNK);
     const timestamp = String(Math.floor(now() / 1000));
     const signature = createHmac('sha256', key).update(`${timestamp}.${body}`).digest('hex');
     const res = await fetchImpl(`${base.replace(/\/+$/, '')}/v1/submit`, {
@@ -70,6 +75,7 @@ export async function sendToIntake(item, env = process.env, fetchImpl = fetch, n
         'X-Naus-Signature': `v1=${signature}`,
       },
       body,
+      redirect: 'error', // 転送（redirect）には、署名・本文ごとついて行かない。転送されたら失敗 → 予備の知らせ
       signal: AbortSignal.timeout(timeoutMs),
     });
     if (res.status === 200 || res.status === 201) return true;

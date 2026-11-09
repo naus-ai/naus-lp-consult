@@ -2,7 +2,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { createHmac } from 'node:crypto';
-import { sendToIntake, buildFormIntakeItem, clipValue } from './intake.mjs';
+import { sendToIntake, buildFormIntakeItem, clipValue, INTAKE_TIMEOUT_MS } from './intake.mjs';
 
 const ENV = { INTAKE_URL: 'https://intake.example.test', INTAKE_KEY: 'test-intake-key' };
 const NOW = () => 1_800_000_000_000;
@@ -100,12 +100,52 @@ test('結果：200・201 で true。500・つながらない・4秒（ここで�
   assert.ok(!log.includes('架空') && !log.includes('test-intake-key') && !log.includes('intake.example.test'));
 });
 
-test('結果：既定の待ち時間は4秒', async () => {
+test('結果：既定の待ち時間は4秒（INTAKE_TIMEOUT_MS）。signal はその値で作られる', async (t) => {
+  assert.equal(INTAKE_TIMEOUT_MS, 4000);
+  const timeout = t.mock.method(AbortSignal, 'timeout');
+  await sendToIntake(item(), ENV, fakeFetch(), NOW);
+  assert.deepEqual(timeout.mock.calls.map((c) => c.arguments), [[4000]]);
+});
+
+test('送る：転送（redirect）にはついて行かない。redirect: "error" を渡し、転送で投げられたら false', async (t) => {
+  const errors = quiet(t);
   const f = fakeFetch();
-  const before = Date.now();
   await sendToIntake(item(), ENV, f, NOW);
-  assert.ok(f.calls[0].init.signal instanceof AbortSignal);
-  assert.ok(Date.now() - before < 1000);
+  assert.equal(f.calls[0].init.redirect, 'error');
+  const redirected = async (url, init) => {
+    assert.equal(init.redirect, 'error');
+    throw new TypeError('fetch failed'); // redirect: "error" の fetch は、転送されるとこう投げる
+  };
+  assert.equal(await sendToIntake(item(), ENV, redirected, NOW), false);
+  assert.ok(errors.mock.callCount() >= 1);
+});
+
+test('切る：制御文字・引用符で JSON が膨らんで 64KB を超えるときは、内容以外の値を200文字に縮めて作り直す', async () => {
+  const f = fakeFetch();
+  const fields = { message: '\u0001'.repeat(5000) };
+  for (let i = 0; i < 20; i++) fields[`f${i}`] = '\u0001'.repeat(500);
+  await sendToIntake({ kind: 'form', id: 's', page: 'https://ai.naus.co.jp/', fields }, ENV, f, NOW);
+  const sent = f.calls[0].init.body;
+  assert.ok(Buffer.byteLength(sent, 'utf8') <= 65536);
+  assert.equal(f.calls[0].body.fields.f0.length, 200);
+  assert.ok(f.calls[0].body.fields.f0.endsWith(SUFFIX));
+  assert.equal(f.calls[0].body.fields.message.length, 5000); // 内容は縮めない
+});
+
+test('切る：64KB に収まるふつうの入力は、縮めない（500文字のまま）', async () => {
+  const f = fakeFetch();
+  await sendToIntake(item({ company: 'あ'.repeat(500) }), ENV, f, NOW);
+  assert.equal(f.calls[0].body.fields.company.length, 500);
+});
+
+test('切る：縮めても 64KB を超えるときは、そのまま送る（受付窓口の 413 で予備の知らせに回る）', async () => {
+  const f = fakeFetch(413);
+  const fields = { message: '\u0001'.repeat(5000), body: '\u0001'.repeat(5000) };
+  for (let i = 0; i < 30; i++) fields[`f${i}`] = '\u0001'.repeat(500);
+  await sendToIntake({ kind: 'form', id: 's', page: '', fields }, ENV, f, NOW);
+  assert.equal(f.calls.length, 1);
+  assert.ok(Buffer.byteLength(f.calls[0].init.body, 'utf8') > 65536);
+  assert.equal(await sendToIntake({ kind: 'form', id: 's', page: '', fields }, ENV, fakeFetch(413), NOW), false);
 });
 
 test('送らない：INTAKE_URL が http:// や未設定・INTAKE_KEY がないときは、送らず false', async (t) => {

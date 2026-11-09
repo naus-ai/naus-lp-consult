@@ -15,6 +15,10 @@ import { sendToIntake } from '../notify/intake.mjs';
 
 const MIN = 60 * 1000;
 
+// 予約はお客様が返事を待つので、受付窓口も予備の Slack も4秒で諦める（フォームより短い）
+const BOOKING_INTAKE_TIMEOUT_MS = 4000;
+const BOOKING_FALLBACK_SLACK_TIMEOUT_MS = 4000;
+
 // 予約が入ったことを、CRM の受付窓口に送る。届かなかったときだけ、Slack の #new-leads に直接知らせる（先頭に「⚠」）。
 // 何経由か・予約したページは、要求の Referer(この LP のページのときだけ)から決める。
 // 知らせに失敗しても、お客様への返事(予約の結果)は変えない。記録に個人の情報は残さない
@@ -34,9 +38,9 @@ async function notifyIntake(v, slot, route, created, referrer, receivedAt) {
       message: v.message,
     };
     for (const key of SOURCE_KEYS) fields[key] = v[key];
-    const delivered = await sendToIntake({ kind: 'booking', id: String(created.id), page: referrer || '', fields });
+    const delivered = await sendToIntake({ kind: 'booking', id: String(created.id), page: referrer || '', fields }, process.env, fetch, Date.now, BOOKING_INTAKE_TIMEOUT_MS);
     if (delivered) return;
-    await postToSlack(buildBookingMessage({ ...v, start: slot.start, end: slot.end, referrer }, receivedAt, { fallback: true }), 4000);
+    await postToSlack(buildBookingMessage({ ...v, start: slot.start, end: slot.end, referrer }, receivedAt, { fallback: true }), BOOKING_FALLBACK_SLACK_TIMEOUT_MS);
   } catch {
     console.error('予約の知らせを送れませんでした');
   }
@@ -123,16 +127,24 @@ export default async (req, context) => {
       return json(409, { error: 'slot_unavailable' });
     }
 
-    // 予約が確定した(本物の予定ができ、ほかの予約とも重ならなかった)ので、Slack に知らせる。
-    // 仮の予約・入力の不備・枠が埋まっていたときは、ここまで来ないので知らせない
-    await notifyIntake(v, slot, route, created, req.headers.get('referer'), now);
-
-    // Meetの発行が少し遅れることがあるため、無ければ一度だけ取り直す
-    let url = meetUrl(created);
-    if (!url) {
-      await new Promise((r) => setTimeout(r, 1500));
-      url = meetUrl(await getEvent(m.env, created.id));
-    }
+    // 予約が確定した(本物の予定ができ、ほかの予約とも重ならなかった)ので、CRM の受付窓口に送る(届かなければ Slack)。
+    // 仮の予約・入力の不備・枠が埋まっていたときは、ここまで来ないので知らせない。
+    // Meetの発行が少し遅れることがあるため、無ければ一度だけ取り直す。
+    // 知らせと取り直しは同時に走らせる(待ち時間が足し算にならない)。取り直しが失敗しても、知らせは必ず出る(notifyIntake は投げない)
+    const retryMeet = async () => {
+      let found = meetUrl(created);
+      if (!found) {
+        await new Promise((r) => setTimeout(r, 1500));
+        found = meetUrl(await getEvent(m.env, created.id));
+      }
+      return found;
+    };
+    const [, meet] = await Promise.allSettled([
+      notifyIntake(v, slot, route, created, req.headers.get('referer'), now),
+      retryMeet(),
+    ]);
+    if (meet.status === 'rejected') throw meet.reason;
+    const url = meet.value;
     return json(200, { ok: true, start: toIso(slot.start), end: toIso(slot.end), meetUrl: url });
   } catch (err) {
     console.error('booking-create failed:', err && err.message, err && err.status, (err && err.reason) || '');

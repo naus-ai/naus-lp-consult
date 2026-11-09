@@ -86,7 +86,7 @@ test('フォームの送信：受付窓口が 201（重複の 200 も）なら�
 });
 
 for (const [label, intake] of [['500 を返す', 500], ['つながらない', 'down']]) {
-  test(`フォームの送信：受付窓口が${label}なら、先頭に「⚠」を付けて Slack に1通だけ知らせる（4秒で諦める設定）`, async (t) => {
+  test(`フォームの送信：受付窓口が${label}なら、先頭に「⚠」を付けて Slack に1通だけ知らせる`, async (t) => {
     t.mock.method(console, 'error', () => {});
     const { log } = formServices(t, intake);
     const res = await submissionCreated(formRequest(JSON.stringify({ payload: formPayload })));
@@ -99,6 +99,14 @@ for (const [label, intake] of [['500 を返す', 500], ['つながらない', 'd
     assert.ok(log.slack[0].init.signal instanceof AbortSignal);
   });
 }
+
+test('フォームの送信：受付窓口は6秒・予備の Slack は3秒で諦める（フォームはお客様が待たないので、予約より長く待つ。6＋3＝9秒で上限10秒に収まる）', async (t) => {
+  t.mock.method(console, 'error', () => {});
+  const timeout = t.mock.method(AbortSignal, 'timeout');
+  formServices(t, 500);
+  await submissionCreated(formRequest(JSON.stringify({ payload: formPayload })));
+  assert.deepEqual(timeout.mock.calls.map((c) => c.arguments), [[6000], [3000]]);
+});
 
 test('フォームの送信：受付窓口の設定がないときも、予備の Slack に送る。Slack も送れなくても ok を返し、記録に中身や URL を残さない', async (t) => {
   setEnv(t, { SLACK_WEBHOOK_URL: SLACK, INTAKE_URL: undefined, INTAKE_KEY: undefined });
@@ -148,13 +156,14 @@ test('フォームの送信：知らせないフォーム・読めない中身�
 //  slack：Slack の返事（200・500 などの番号か、'down' ＝つながらない）
 //  intake：CRM の受付窓口の返事（201・500 などの番号か、'down' ＝つながらない）。既定は 500（届かない）＝予備の Slack に出る
 //  log.slack は先頭の「⚠」の行を除いた知らせ、log.slackRaw は送った知らせそのまま、log.intake は受付窓口に送った中身
-function fakeServices(t, { busy = [], earlier = false, insertFails = false, slack = 200, intake = 500 } = {}) {
+function fakeServices(t, { busy = [], earlier = false, insertFails = false, slack = 200, intake = 500, noMeet = false, getEventFails = false, delayMs = 0 } = {}) {
   setEnv(t, INTAKE_ENV);
   const log = { events: [], deleted: 0, slack: [], slackRaw: [], intake: [] };
   let created = null;
   t.mock.method(globalThis, 'fetch', async (input, init = {}) => {
     const url = new URL(String(input));
     const method = init.method ?? 'GET';
+    if (delayMs && (url.origin === 'https://hooks.slack.com' || url.origin === 'https://intake.example.test')) await new Promise((r) => setTimeout(r, delayMs));
     if (url.origin === 'https://hooks.slack.com') {
       const sent = JSON.parse(init.body);
       log.slackRaw.push(sent);
@@ -180,8 +189,13 @@ function fakeServices(t, { busy = [], earlier = false, insertFails = false, slac
       if (insertFails) return Response.json({ error: { status: 'INTERNAL' } }, { status: 500 });
       const event = JSON.parse(init.body);
       log.events.push(event);
-      created = { ...event, id: 'test-event', created: new Date().toISOString(), hangoutLink: 'https://meet.google.com/test' };
+      created = { ...event, id: 'test-event', created: new Date().toISOString(), ...(noMeet ? {} : { hangoutLink: 'https://meet.google.com/test' }) };
       return Response.json(created);
+    }
+    // Meet の取り直し（予定の番号を指定した取得）
+    if (/\/events\/test-event$/.test(url.pathname)) {
+      if (getEventFails) return Response.json({ error: { status: 'INTERNAL' } }, { status: 500 });
+      return Response.json({ ...created, hangoutLink: 'https://meet.google.com/retried' });
     }
     // 予定を作ったあとの、前後の予定の確かめ
     const items = created ? [created] : [];
@@ -369,6 +383,41 @@ test('予約の検証：流入元の8項目は届いたとおりに残る（空�
   assert.equal(value.doc_code, 'C0012');
   assert.equal(validateBooking({ ...base, doc_code: 'y'.repeat(201) }).value.doc_code, '');
   assert.equal(validateBooking(base).value.doc_code, '');
+});
+
+test('予約：受付窓口は4秒・予備の Slack も4秒で諦める（お客様が待つので、フォームより短い）', async (t) => {
+  setEnv(t, { ...GOOGLE, SLACK_WEBHOOK_URL: SLACK });
+  t.mock.method(console, 'error', () => {});
+  const timeout = t.mock.method(AbortSignal, 'timeout');
+  fakeServices(t, { intake: 500 });
+  const res = await bookingCall(lead(farSlot()));
+  assert.equal(res.status, 200);
+  assert.deepEqual(timeout.mock.calls.map((c) => c.arguments).filter(([ms]) => ms === 4000 || ms === 6000 || ms === 3000), [[4000], [4000]]);
+});
+
+test('予約：知らせ（受付窓口→予備の Slack）と Meet の取り直しは同時に走る。合計時間は長いほう（足し算にならない）。返事の中身は変わらない', async (t) => {
+  setEnv(t, { ...GOOGLE, SLACK_WEBHOOK_URL: SLACK });
+  t.mock.method(console, 'error', () => {});
+  // 知らせ：受付窓口 800ms（500）＋予備の Slack 800ms＝約1.6秒。Meet の取り直し：1.5秒待ち＋取得。足し算なら約3.1秒
+  const log = fakeServices(t, { intake: 500, noMeet: true, delayMs: 800 });
+  const slot = farSlot();
+  const before = Date.now();
+  const res = await bookingCall(lead(slot));
+  const elapsed = Date.now() - before;
+  assert.equal(res.status, 200);
+  assert.deepEqual(await res.json(), { ok: true, start: toIso(slot.start), end: toIso(slot.end), meetUrl: 'https://meet.google.com/retried' });
+  assert.equal(log.intake.length, 1);
+  assert.equal(log.slackRaw.length, 1);
+  assert.ok(elapsed < 2500, `同時に走っていない（${elapsed}ms）`);
+});
+
+test('予約：Meet の取り直しが失敗しても、知らせは必ず出る（返事は前と同じ 503）', async (t) => {
+  setEnv(t, { ...GOOGLE, SLACK_WEBHOOK_URL: SLACK });
+  t.mock.method(console, 'error', () => {});
+  const log = fakeServices(t, { intake: 201, noMeet: true, getEventFails: true });
+  const res = await bookingCall(lead(farSlot()));
+  assert.equal(res.status, 503);
+  assert.equal(log.intake.length, 1);
 });
 
 test('予約：受付窓口が 201 なら Slack には送らず、中身（予定の番号・経由・確かめた値・8項目）を署名付きで送る。返事は変わらない', async (t) => {
