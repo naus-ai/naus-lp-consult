@@ -21,6 +21,9 @@ export default async (req) => {
     console.error('フォームの送信の中身を読めませんでした');
     return new Response('ok');
   }
+  // /api/form（form-submit）が処理済みで、記録のために Netlify に送り直したもの（via=form-submit）は、もう知らせたので何もしない。
+  // 古いページから Netlify に直接届いた送信（via がないもの）だけ、これまでどおり知らせる
+  if (payload?.data?.via === 'form-submit') return new Response('ok');
   // 知らせるフォームだけ、CRM の受付窓口に送る。届かなかったときだけ、Slack に直接知らせる（先頭に「⚠」）
   if (!buildNewLeadMessage(payload)) return new Response('ok');
   const delivered = await sendToIntake(buildFormIntakeItem(payload), process.env, fetch, Date.now, FORM_INTAKE_TIMEOUT_MS);

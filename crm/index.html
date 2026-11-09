@@ -520,8 +520,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
     <div class="contact-panel">
 
-      <form name="crm-download" method="POST" action="/crm/thanks/" data-netlify="true" netlify-honeypot="bot-field" class="cform" data-panel="download">
+      <form name="crm-download" method="POST" action="/api/form" data-netlify="true" netlify-honeypot="bot-field" class="cform" data-panel="download">
         <input type="hidden" name="form-name" value="crm-download">
+        <input type="hidden" name="via" value="">
         <input type="hidden" name="utm_source" value="">
         <input type="hidden" name="utm_medium" value="">
         <input type="hidden" name="utm_campaign" value="">
@@ -544,13 +545,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <label class="field"><span class="field-label">メールアドレス<span class="req">必須</span></span><input type="email" name="email" required></label>
           <label class="field"><span class="field-label">電話番号<span class="req">必須</span></span><input type="tel" name="tel" required></label>
         </div>
-        <label class="field"><span class="field-label">自由記述(ご質問・ご要望など)<span class="opt">任意</span></span><textarea name="message" rows="4"></textarea></label>
+        <label class="field"><span class="field-label">自由記述(ご質問・ご要望など)<span class="opt">任意</span></span><textarea maxlength="5000" name="message" rows="4"></textarea></label>
         <div class="cform-submit"><button type="submit" class="submit-btn">送信して資料をダウンロード</button></div>
         <p class="privacy">ご入力いただいた個人情報は、資料のご提供と、本サービスに関するご連絡のためにのみ利用します。詳細は<a href="https://www.naus.co.jp/2" target="_blank" rel="noopener">プライバシーポリシー</a>をご確認ください。</p>
       </form>
 
-      <form name="crm-contact" method="POST" action="/crm/contact-thanks/" data-netlify="true" netlify-honeypot="bot-field" class="cform" data-panel="inquiry" hidden>
+      <form name="crm-contact" method="POST" action="/api/form" data-netlify="true" netlify-honeypot="bot-field" class="cform" data-panel="inquiry" hidden>
         <input type="hidden" name="form-name" value="crm-contact">
+        <input type="hidden" name="via" value="">
         <input type="hidden" name="utm_source" value="">
         <input type="hidden" name="utm_medium" value="">
         <input type="hidden" name="utm_campaign" value="">
@@ -573,7 +575,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <label class="field"><span class="field-label">メールアドレス<span class="req">必須</span></span><input type="email" name="email" required></label>
           <label class="field"><span class="field-label">電話番号<span class="req">必須</span></span><input type="tel" name="tel" required></label>
         </div>
-        <label class="field"><span class="field-label">お問い合わせ内容<span class="opt">任意</span></span><textarea name="message" rows="4"></textarea></label>
+        <label class="field"><span class="field-label">お問い合わせ内容<span class="opt">任意</span></span><textarea maxlength="5000" name="message" rows="4"></textarea></label>
         <div class="cform-submit"><button type="submit" class="submit-btn">送信する</button></div>
         <p class="privacy">ご入力いただいた個人情報は、資料のご提供と、本サービスに関するご連絡のためにのみ利用します。詳細は<a href="https://www.naus.co.jp/2" target="_blank" rel="noopener">プライバシーポリシー</a>をご確認ください。</p>
       </form>
