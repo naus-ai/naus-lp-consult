@@ -12,6 +12,8 @@ export const FORMS = {
   'shigyo-contact': { title: '新しい問い合わせ（士業 LP）', company: 'office', phone: 'tel' },
   'crm-download': { title: '新しい資料請求（CRM構築 LP）', company: 'office', phone: 'tel' },
   'crm-contact': { title: '新しい問い合わせ（CRM構築 LP）', company: 'office', phone: 'tel' },
+  // 資料ページ(/crm-doc/)の「PDF で保存」。電話の欄はない
+  'crm-doc-pdf': { title: '新しい資料請求（CRM 見直しの資料ページ）', company: 'company', phone: 'phone' },
 };
 
 const MAX_FIELD = 200;
@@ -122,14 +124,19 @@ export function formatJst(iso) {
   return `${parts.year}/${parts.month}/${parts.day} ${parts.hour}:${parts.minute}`;
 }
 
+// CRM の受付窓口に送れなかったときの予備の知らせの先頭の行（先頭に付けて、CRM からの知らせと見分ける）
+export const FALLBACK_NOTE = '⚠ CRM に送れなかったため、LP から直接知らせています';
+
 // Netlify の送信の中身（payload）から、Slack に送る文を作る。知らせないフォームなら null
-export function buildNewLeadMessage(payload) {
+// fallback: true のときは、先頭に予備の知らせの印を付ける
+export function buildNewLeadMessage(payload, { fallback = false } = {}) {
   const formName = payload?.form_name ?? payload?.data?.['form-name'];
   const form = FORMS[formName];
   if (!form) return null;
   const data = payload.data ?? {};
   const name = line(data, 'name');
   const lines = [
+    ...(fallback ? [FALLBACK_NOTE] : []),
     `*${form.title}*`,
     `取引先：${line(data, form.company)}`,
     `取引先責任者：${name === EMPTY ? EMPTY : `${name}さん`}`,
@@ -217,11 +224,12 @@ function route(booking, lp) {
 // booking：予約の API で確かめた値（source・name・company・email・phone・message と、流入元の7項目）と、予約の枠の始まりと終わり
 //   （start・end。ミリ秒か ISO の文字列）、予約したページ（referrer。要求の Referer）
 // receivedAt：受け付けた日時（ミリ秒か ISO の文字列）
-export function buildBookingMessage(booking, receivedAt) {
+export function buildBookingMessage(booking, receivedAt, { fallback = false } = {}) {
   const data = booking && typeof booking === 'object' ? booking : {};
   const lp = isCrmPage(data.referrer) ? CRM_LP : Object.hasOwn(LPS, data.source) ? LPS[data.source] : '';
   const name = line(data, 'name');
   const lines = [
+    ...(fallback ? [FALLBACK_NOTE] : []),
     `*新しい無料相談の予約${lp ? `（${lp}）` : ''}*`,
     `経由：${route(data, lp)}`,
     `取引先：${line(data, 'company')}`,

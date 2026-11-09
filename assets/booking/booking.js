@@ -70,11 +70,15 @@
   }
 
   // ---- 流入元(UTM など) ----
-  // assets/source-fields/source-fields.js がこのブラウザの localStorage(naus_source)に30日間覚えた7項目を、予約と一緒に送る。
-  // 読むだけで、書き換え・消去はしない(保存の決まりは source-fields.js のとおり。30日を過ぎたものは無いものとして扱う)
-  var SOURCE_STORE='naus_source';
+  // assets/source-fields/source-fields.js がこのブラウザの localStorage に30日間覚えた8項目(utm 5つ・landing_page・referrer_host・doc_code)を、予約と一緒に送る。
+  // 保存先は商品(ページのまとまり)ごと: /shigyo/ 以下は naus_source_shigyo、/crm/ 以下と /crm-doc/ は naus_source_crm、それ以外は naus_source_consult(source-fields.js と同じ決まり。読み込みの順が決まらないため、関数は共有せず両方に書く)
+  // 読むだけで、書き換え・消去はしない(保存の決まりは source-fields.js のとおり。30日を過ぎたものは無いものとして扱う)。古い naus_source は読まない
+  function sourceKey(p){
+    return /^\/shigyo(\/|$)/.test(p)?'naus_source_shigyo':/^\/(crm|crm-doc)(\/|$)/.test(p)?'naus_source_crm':'naus_source_consult';
+  }
+  var SOURCE_STORE=sourceKey(location.pathname);
   var SOURCE_TTL=30*DAY;
-  var SOURCE_FIELDS=['utm_source','utm_medium','utm_campaign','utm_content','utm_term','landing_page','referrer_host'];
+  var SOURCE_FIELDS=['utm_source','utm_medium','utm_campaign','utm_content','utm_term','landing_page','referrer_host','doc_code'];
   function readSource(){
     try{
       var o=JSON.parse(localStorage.getItem(SOURCE_STORE)||'null');

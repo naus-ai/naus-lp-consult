@@ -2,7 +2,7 @@
  * 資料ページ(/crm-doc/)の「資料をPDFで保存する」
  * - リンクを押すと、会社名・氏名・メールアドレスの入力画面を開く。送信すると PDF の保存が始まり、
  *   入力した人には PDF と資料ページのリンクを書いた自動メールが届く
- * - 入力は Google Apps Script のウェブアプリに送る(管理シートの「資料ダウンロード」タブに記録し、自動メールを送る)。Netlify Functions は使わない
+ * - 入力は Google Apps Script のウェブアプリに送る(管理シートの「資料ダウンロード」タブに記録し、自動メールを送る)。あわせて Netlify のフォーム(crm-doc-pdf)にも送る(CRM への登録と Slack の知らせのもと)
  * - このファイルが読み込めないときは、リンクのとおり PDF がそのまま保存される
  * - 入力値は、予約画面と同じく、このタブ内の保存領域(sessionStorage の naus_lead)から読み書きする。URLや計測(dataLayer)には載せない
  * - 見た目は予約画面(/assets/booking/booking.css)の部品を使う
@@ -198,6 +198,7 @@
     if(first){first.focus();return;}
     writeLead({company:data.company,name:data.name,email:data.email});
     send({company:data.company,name:data.name,email:data.email,hp:hpi.value,c:companyCode(),page:location.origin+location.pathname+location.search});
+    sendForm(data,hpi.value);
     track('pdf_form_submit');
     download();
     renderDone();
@@ -209,6 +210,32 @@
       fetch(ENDPOINT,{method:'POST',mode:'no-cors',credentials:'omit',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload)}).catch(function(){});
     }catch(e){}
   }
+
+  // ---- Netlify のフォーム(crm-doc-pdf)にも送る ----
+  // 資料ページの隠しフォーム(form[name=crm-doc-pdf]。流入元の8項目は source-fields.js が入れる)の値と入力を、Netlify に送る(CRM と Slack の知らせのもとになる)。
+  // 上の Apps Script への送信とは別で、返事は読まず、失敗しても何も変えない(PDFの保存を止めない)
+  var NF_SOURCE=['utm_source','utm_medium','utm_campaign','utm_content','utm_term','landing_page','referrer_host','doc_code'];
+  function formParams(data,hp,formEl){
+    var p=new URLSearchParams();
+    p.set('form-name','crm-doc-pdf');
+    p.set('bot-field',hp||'');
+    p.set('company',data.company);
+    p.set('name',data.name);
+    p.set('email',data.email);
+    NF_SOURCE.forEach(function(k){
+      var el=formEl&&formEl.elements?formEl.elements.namedItem(k):null;
+      p.set(k,el&&typeof el.value==='string'?el.value:'');
+    });
+    // 記号は、記録に無ければ URL の ?c= を50文字まで
+    if(!p.get('doc_code'))p.set('doc_code',companyCode().slice(0,50));
+    return p;
+  }
+  function sendForm(data,hp){
+    try{
+      fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:formParams(data,hp,document.querySelector('form[name="crm-doc-pdf"]'))}).catch(function(){});
+    }catch(e){}
+  }
+  // ---- /Netlify のフォーム ----
 
   function download(){
     var a=document.createElement('a');

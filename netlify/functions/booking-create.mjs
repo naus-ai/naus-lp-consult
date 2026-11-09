@@ -11,16 +11,38 @@ import { toIso } from '../booking/slots.mjs';
 import { insertEvent, listEvents, deleteEvent, getEvent, meetUrl } from '../booking/google.mjs';
 import { buildBookingMessage } from '../notify/new-lead-message.mjs';
 import { postToSlack } from '../notify/slack.mjs';
+import { sendToIntake } from '../notify/intake.mjs';
 
 const MIN = 60 * 1000;
 
-// 予約が入ったことを Slack に知らせる。何経由か・予約したページは、要求の Referer(この LP のページのときだけ)から決める。
+// 予約はお客様が返事を待つので、受付窓口も予備の Slack も4秒で諦める（フォームより短い）
+const BOOKING_INTAKE_TIMEOUT_MS = 4000;
+const BOOKING_FALLBACK_SLACK_TIMEOUT_MS = 4000;
+
+// 予約が入ったことを、CRM の受付窓口に送る。届かなかったときだけ、Slack の #new-leads に直接知らせる（先頭に「⚠」）。
+// 何経由か・予約したページは、要求の Referer(この LP のページのときだけ)から決める。
 // 知らせに失敗しても、お客様への返事(予約の結果)は変えない。記録に個人の情報は残さない
-async function notifySlack(v, slot, referrer, receivedAt) {
+const SOURCE_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'landing_page', 'referrer_host', 'doc_code'];
+
+async function notifyIntake(v, slot, route, created, referrer, receivedAt) {
   try {
-    await postToSlack(buildBookingMessage({ ...v, start: slot.start, end: slot.end, referrer }, receivedAt));
+    const fields = {
+      source: v.source,
+      start: toIso(slot.start),
+      end: toIso(slot.end),
+      route,
+      name: v.name,
+      company: v.company,
+      email: v.email,
+      phone: v.phone,
+      message: v.message,
+    };
+    for (const key of SOURCE_KEYS) fields[key] = v[key];
+    const delivered = await sendToIntake({ kind: 'booking', id: String(created.id), page: referrer || '', fields }, process.env, fetch, Date.now, BOOKING_INTAKE_TIMEOUT_MS);
+    if (delivered) return;
+    await postToSlack(buildBookingMessage({ ...v, start: slot.start, end: slot.end, referrer }, receivedAt, { fallback: true }), BOOKING_FALLBACK_SLACK_TIMEOUT_MS);
   } catch {
-    console.error('予約の知らせを Slack に送れませんでした');
+    console.error('予約の知らせを送れませんでした');
   }
 }
 
@@ -69,7 +91,8 @@ export default async (req, context) => {
   if (!check.ok) return json(400, { error: 'validation', fields: check.errors });
   const v = check.value;
   // 予約したページの目印: 決まった値のときだけ、決まった文言にする(それ以外の値は無視する)
-  const memo = typeof body.route === 'string' && Object.hasOwn(ROUTE_MEMOS, body.route) ? ROUTE_MEMOS[body.route] : '';
+  const route = typeof body.route === 'string' && Object.hasOwn(ROUTE_MEMOS, body.route) ? body.route : '';
+  const memo = route ? ROUTE_MEMOS[route] : '';
 
   const m = decideMode(context);
   if (m.mode === 'unavailable') return json(503, { error: 'unavailable' });
@@ -91,7 +114,14 @@ export default async (req, context) => {
     // ほぼ同時に同じ枠へ別の予約が入った場合に備え、登録後にもう一度重なりを確認する。
     // 自分より先に作られた予定と重なっていたら、自分の予定を取り消してエラーを返す
     const buffer = BOOKING.bufferMinutes * MIN;
-    const around = await listEvents(m.env, slot.start - buffer, slot.end + buffer);
+    // この確かめで Google がエラーを返したら、予約を活かして先に進む（予定と招待メールはもうできている。
+    // ここで止めると、お客様には失敗と出るのに、だれにも知らせが届かない。まれな二重の予約より、見落としを避ける）
+    let around = [];
+    try {
+      around = await listEvents(m.env, slot.start - buffer, slot.end + buffer);
+    } catch (err) {
+      console.error('booking-create: 重なりの確かめに失敗（予約は活かす）:', err && err.status, (err && err.reason) || '');
+    }
     const earlier = around.some((ev) => {
       if (ev.id === created.id) return false;
       const s = Date.parse((ev.start && (ev.start.dateTime || ev.start.date)) || '');
@@ -104,15 +134,29 @@ export default async (req, context) => {
       return json(409, { error: 'slot_unavailable' });
     }
 
-    // 予約が確定した(本物の予定ができ、ほかの予約とも重ならなかった)ので、Slack に知らせる。
-    // 仮の予約・入力の不備・枠が埋まっていたときは、ここまで来ないので知らせない
-    await notifySlack(v, slot, req.headers.get('referer'), now);
-
-    // Meetの発行が少し遅れることがあるため、無ければ一度だけ取り直す
-    let url = meetUrl(created);
-    if (!url) {
-      await new Promise((r) => setTimeout(r, 1500));
-      url = meetUrl(await getEvent(m.env, created.id));
+    // 予約が確定した(本物の予定ができ、ほかの予約とも重ならなかった)ので、CRM の受付窓口に送る(届かなければ Slack)。
+    // 仮の予約・入力の不備・枠が埋まっていたときは、ここまで来ないので知らせない。
+    // Meetの発行が少し遅れることがあるため、無ければ一度だけ取り直す。
+    // 知らせと取り直しは同時に走らせる(待ち時間が足し算にならない)。取り直しが失敗しても、知らせは必ず出る(notifyIntake は投げない)
+    const retryMeet = async () => {
+      let found = meetUrl(created);
+      if (!found) {
+        await new Promise((r) => setTimeout(r, 1500));
+        found = meetUrl(await getEvent(m.env, created.id));
+      }
+      return found;
+    };
+    const [, meet] = await Promise.allSettled([
+      notifyIntake(v, slot, route, created, req.headers.get('referer'), now),
+      retryMeet(),
+    ]);
+    // Meet の住所が取れなくても、予約はできている（住所は招待メールにも入っている）。お客様には予約できたと返し、住所は空にする
+    let url = '';
+    if (meet.status === 'fulfilled') {
+      url = meet.value || '';
+    } else {
+      const reason = meet.reason;
+      console.error('booking-create: Meet の取り直しに失敗（予約はできている）:', reason && reason.status, (reason && reason.reason) || '');
     }
     return json(200, { ok: true, start: toIso(slot.start), end: toIso(slot.end), meetUrl: url });
   } catch (err) {
