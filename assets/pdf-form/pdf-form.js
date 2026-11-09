@@ -213,7 +213,7 @@
 
   // ---- Netlify のフォーム(crm-doc-pdf)にも送る ----
   // 資料ページの隠しフォーム(form[name=crm-doc-pdf]。流入元の8項目は source-fields.js が入れる)の値と入力を、Netlify に送る(CRM と Slack の知らせのもとになる)。
-  // 上の Apps Script への送信とは別で、返事は読まず、失敗しても何も変えない(PDFの保存を止めない)
+  // 送り先は自前の受け口 /api/form（CRM・Slack への知らせと Netlify への記録を行う。迷惑判定で消えない）。上の Apps Script への送信とは別で、返事は読まず、失敗しても何も変えない(PDFの保存を止めない)
   var NF_SOURCE=['utm_source','utm_medium','utm_campaign','utm_content','utm_term','landing_page','referrer_host','doc_code'];
   function formParams(data,hp,formEl){
     var p=new URLSearchParams();
@@ -232,7 +232,7 @@
   }
   function sendForm(data,hp){
     try{
-      fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:formParams(data,hp,document.querySelector('form[name="crm-doc-pdf"]'))}).catch(function(){});
+      fetch('/api/form',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:formParams(data,hp,document.querySelector('form[name="crm-doc-pdf"]')),keepalive:true}).catch(function(){});
     }catch(e){}
   }
   // ---- /Netlify のフォーム ----

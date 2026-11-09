@@ -291,10 +291,11 @@ test('crm-doc-pdf：Netlify に送る中身は form-name・入力3つ・流入�
   assert.equal(noStore.get('bot-field'), 'bot');
 });
 
-test('crm-doc-pdf：送信は POST / （form エンコード）。fetch が投げても例外にしない。Apps Script への送信は変えない', () => {
+test('crm-doc-pdf：送信は POST /api/form （form エンコード・keepalive）。fetch が投げても例外にしない。Apps Script への送信は変えない', () => {
   const { send, calls } = loadPdfParams('', { doc_code: 'C1' });
   send(PERSON, '');
-  assert.equal(calls[0].url, '/');
+  assert.equal(calls[0].url, '/api/form');
+  assert.equal(calls[0].init.keepalive, true);
   assert.equal(calls[0].init.method, 'POST');
   assert.equal(calls[0].init.headers['Content-Type'], 'application/x-www-form-urlencoded');
   assert.equal(calls[0].init.body.get('form-name'), 'crm-doc-pdf');
