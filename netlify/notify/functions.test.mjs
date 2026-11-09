@@ -6,7 +6,7 @@ import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import submissionCreated from '../functions/submission-created.mjs';
 import bookingCreate from '../functions/booking-create.mjs';
-import { mockBusy } from '../booking/common.mjs';
+import { mockBusy, validateBooking } from '../booking/common.mjs';
 import { computeSlots, toIso } from '../booking/slots.mjs';
 import { buildNewLeadMessage, formatJst } from './new-lead-message.mjs';
 
@@ -240,7 +240,7 @@ test('予約：資料ページに目印付きで来て予約したら、流入�
   for (const value of ['note_crm', 'note.com', 'utm_', 'landing_page', 'referrer_host']) assert.ok(!event.includes(value), value);
 });
 
-test('予約：流入元の項目は形と長さを確かめ、合わないものは載せない（予約は受け付ける）', async (t) => {
+test('予約：流入元の項目は形で空にせず、届いたとおりに載せる。長すぎる・文字でないものだけ空にする', async (t) => {
   setEnv(t, { ...GOOGLE, SLACK_WEBHOOK_URL: SLACK });
   const log = fakeServices(t);
   const res = await bookingCall(
@@ -250,8 +250,9 @@ test('予約：流入元の項目は形と長さを確かめ、合わないも�
       utm_campaign: '  note\ncrm\u0007 ', // 改行・制御文字は、ほかの1行の欄と同じくならす
       utm_content: 42, // 文字でない
       utm_term: 'x'.repeat(200), // ちょうど200文字は載せる
-      landing_page: 'https://evil.example/', // パスでない
-      referrer_host: 'note.com/<!channel>', // ホスト名でない
+      landing_page: 'shigyo', // 形が違っても、届いたとおり
+      referrer_host: 'note.com/<!channel>', // 形が違っても、届いたとおり（Slack には逃がして出る）
+      doc_code: 'C0012', // 資料リンクの記号。Slack の知らせには出さない
       ip: '203.0.113.9',
       user_agent: 'Mozilla/5.0 test',
       extra: 'not-allowed', // 決まった項目のほかは受け取らない
@@ -267,12 +268,12 @@ test('予約：流入元の項目は形と長さを確かめ、合わないも�
     'utm_campaign：note crm',
     'utm_content：（未記入）',
     `utm_term：${'x'.repeat(200)}`,
-    'landing_page：（未記入）',
-    'referrer_host：（未記入）',
+    'landing_page：shigyo',
+    'referrer_host：note.com/&lt;!channel&gt;',
   ]);
 });
 
-test('予約：流入元のパスが // で始まる（ほかのサイトの形）なら載せない。値の < > & は逃がす', async (t) => {
+test('予約：流入元のパスが // で始まっても、そのまま載せる。値の < > & は逃がす', async (t) => {
   setEnv(t, { ...GOOGLE, SLACK_WEBHOOK_URL: SLACK });
   const log = fakeServices(t);
   const res = await bookingCall(
@@ -281,8 +282,29 @@ test('予約：流入元のパスが // で始まる（ほかのサイトの形�
   assert.equal(res.status, 200);
   const { text } = log.slack[0];
   assert.match(text, /\nutm_source：&lt;!channel&gt;&amp;\n/);
-  assert.match(text, /\nlanding_page：（未記入）\n/);
+  assert.match(text, /\nlanding_page：\/\/evil\.example\/x\n/);
   assert.match(text, /\nreferrer_host：NOTE\.com$/);
+});
+
+test('予約の検証：流入元の8項目は届いたとおりに残る（空白入り・/ なし・日本語のホスト）。201文字は空、制御文字は除く', () => {
+  const base = { source: 'consult', start: new Date(Date.now() + 5 * 86400000).toISOString(), name: '架空 太郎', company: '架空株式会社', email: 'taro@example.test', phone: '03-0000-0000', message: '' };
+  const { value } = validateBooking({
+    ...base,
+    utm_campaign: '士業 ネイビー',
+    landing_page: 'shigyo',
+    referrer_host: '例.jp',
+    utm_source: 'x'.repeat(201),
+    utm_medium: 'a\u0007b\u0000c',
+    doc_code: 'C0012',
+  });
+  assert.equal(value.utm_campaign, '士業 ネイビー');
+  assert.equal(value.landing_page, 'shigyo');
+  assert.equal(value.referrer_host, '例.jp');
+  assert.equal(value.utm_source, '');
+  assert.equal(value.utm_medium, 'abc');
+  assert.equal(value.doc_code, 'C0012');
+  assert.equal(validateBooking({ ...base, doc_code: 'y'.repeat(201) }).value.doc_code, '');
+  assert.equal(validateBooking(base).value.doc_code, '');
 });
 
 test('予約：予約したページ（Referer）がなければ、ページの行を出さない（経由は LP の呼び名）', async (t) => {

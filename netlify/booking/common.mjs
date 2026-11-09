@@ -59,17 +59,9 @@ function text(v, max, { multiline = false } = {}) {
   return s.length > max ? null : s;
 }
 
-// 流入元の7項目（フォームの隠し項目と同じ名前と順番。値は assets/source-fields/source-fields.js が覚えたもの）と、その形。
-// landing_page はこのサイトのパス、referrer_host はホスト名だけ
-const SOURCE_FIELDS = [
-  ['utm_source', /^/],
-  ['utm_medium', /^/],
-  ['utm_campaign', /^/],
-  ['utm_content', /^/],
-  ['utm_term', /^/],
-  ['landing_page', /^\/(?!\/)\S*$/],
-  ['referrer_host', /^[A-Za-z0-9.-]+$/],
-];
+// 流入元の項目（フォームの隠し項目と同じ名前と順番。値は assets/source-fields/source-fields.js が覚えたもの）。
+// 値の形の判断はここではしない（CRM の受付窓口が行う）。長さ（200文字）と制御文字だけをここで見る。doc_code は資料リンクの記号
+const SOURCE_FIELDS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'landing_page', 'referrer_host', 'doc_code'];
 
 const EMAIL = /^[^\s@<>()"',;:\\]+@[^\s@<>()"',;:\\]+\.[^\s@<>()"',;:\\]{2,}$/;
 
@@ -103,10 +95,10 @@ export function validateBooking(body) {
   if (message === null) errors.message = 'too_long';
   else out.message = message;
 
-  // 流入元（UTM など）：形や長さが合わないものは空にする（予約そのものは止めない）
-  for (const [key, pattern] of SOURCE_FIELDS) {
+  // 流入元（UTM など）：形では空にしない。200文字を超えるもの・文字でないものだけ空にする（予約そのものは止めない）
+  for (const key of SOURCE_FIELDS) {
     const v = text(b[key], 200);
-    out[key] = v && pattern.test(v) ? v : '';
+    out[key] = v || '';
   }
 
   const start = typeof b.start === 'string' ? Date.parse(b.start) : NaN;

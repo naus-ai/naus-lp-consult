@@ -174,9 +174,9 @@ function isCrmPage(referrer) {
   }
 }
 
-// 予約の「そのほかの項目」に出さないもの（決まった行に出す項目と、迷惑対策の隠し欄、IP とブラウザの種類）
+// 予約の「そのほかの項目」に出さないもの（決まった行に出す項目と、迷惑対策の隠し欄、IP とブラウザの種類、資料リンクの記号 doc_code。記号は CRM に渡すもので、Slack の知らせには出さない）
 const BOOKING_KNOWN = new Set([
-  'source', 'start', 'end', 'name', 'company', 'email', 'phone', 'message', 'referrer', 'website', 'ip', 'user_agent',
+  'source', 'start', 'end', 'name', 'company', 'email', 'phone', 'message', 'referrer', 'website', 'ip', 'user_agent', 'doc_code',
 ]);
 
 // 日時（ミリ秒か ISO の文字列）を、日本時間の「2026/10/25 21:30」にする（それ以外や、読めないときは null）
