@@ -147,33 +147,40 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </section>
 
-<!-- ===== 3. WHY NOW ===== -->
-<section class="sec bg-white">
+<!-- ===== 2.5 MOCK ===== -->
+<section id="mock" class="sec bg-white">
+  <link rel="stylesheet" href="assets/crm-mock.css">
   <div class="wrap">
     <div class="sec-head">
-      <div class="label">WHY NOW</div>
-      <h2 class="h2">高いCRMの機能、AIで代わりがききます</h2>
-      <p class="lead">CRMの費用の多くは、集計や自動化などの「機能」の分です。その機能をAIがこなせば、CRMはデータをためるだけで十分。上位プランに払い続ける必要はなくなります。</p>
+      <div class="label">LET'S TRY</div>
+      <h2 class="h2">自社に合った顧客管理づくりを、体験してみましょう</h2>
+      <p class="lead">使う項目も、確認したい数字も、会社ごとに異なります。AIに必要な機能を伝えると、顧客リストがどのようにツールへ変わっていくのか。下の画面で、ぜひ実際に操作してお確かめください。</p>
     </div>
-    <div class="why-grid">
-      <div class="why-card">
-        <div class="why-tag">これまで</div>
-        <div class="why-rows">
-          <div class="why-row">CRM:ためる</div>
-          <div class="why-row">CRM:見える化・自動化</div>
+    <div class="mk" id="mk">
+      <div class="mk-win" role="region" aria-label="操作できる画面の例">
+        <div class="mk-bar">
+          <span class="mk-dots" aria-hidden="true"><span></span><span></span><span></span></span>
+          <span class="mk-name">顧客リスト - スプレッドシート</span>
+          <button type="button" class="mk-reset-s" hidden>最初から</button>
         </div>
-        <p class="why-text">機能を足すほど、費用が上がります。</p>
+        <div class="mk-screen"></div>
       </div>
-      <div class="why-card is-dark">
-        <div class="why-tag">これから</div>
-        <div class="why-rows">
-          <div class="why-row is-dim">CRM:ためる(データの置き場)</div>
-          <div class="why-row is-ai">AI:見える化・自動化</div>
+      <div class="mk-chat" role="region" aria-label="AIとのやりとり">
+        <div class="mk-chat-head">
+          <span class="mk-ai" aria-hidden="true">AI</span>
+          <div><div class="mk-chat-title">AIアシスタント</div><div class="mk-chat-st">選択肢を押して話しかけてください</div></div>
         </div>
-        <p class="why-text">CRMはデータの置き場に絞れるので、費用を抑えられます。</p>
+        <div class="mk-log" aria-live="polite"></div>
+        <div class="mk-choices"></div>
+        <div class="mk-input" aria-hidden="true">
+          <span class="mk-input-t">メッセージを入力</span>
+          <span class="mk-send"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#24477C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></span>
+        </div>
       </div>
     </div>
+    <p class="mk-note">※ 動きをイメージしていただくための画面例です。表示している社名・担当者・金額は、すべて架空のデータです。</p>
   </div>
+  <script src="assets/crm-mock.js" defer></script>
 </section>
 
 <!-- ===== 4. AI AGENT ===== -->
