@@ -4,7 +4,7 @@
 .mk :focus-visible { outline: 3px solid #33619E; outline-offset: 2px; }
 
 /* 画面(左) */
-.mk-win { background: #fff; border-radius: 14px; box-shadow: 0 20px 48px rgba(18,36,66,0.12); overflow: hidden; display: flex; flex-direction: column; min-height: 520px; scroll-margin-top: 84px; }
+.mk-win { background: #fff; border-radius: 14px; box-shadow: 0 20px 48px rgba(18,36,66,0.12); overflow: hidden; display: flex; flex-direction: column; min-height: 560px; scroll-margin-top: 84px; }
 .mk-bar { display: flex; align-items: center; gap: 10px; padding: 10px 14px; background: #F7F8FA; border-bottom: 1px solid #E3E8EE; }
 .mk-dots { display: flex; gap: 6px; }
 .mk-dots span { width: 9px; height: 9px; border-radius: 50%; background: #C9D2DE; }
@@ -119,12 +119,12 @@ button.mk-kpi.is-on { border-color: #24477C; background: #fff; }
 .mk-notice-body li { margin: 2px 0; }
 
 /* チャット(右) */
-.mk-chat { background: #fff; border-radius: 14px; box-shadow: 0 20px 48px rgba(18,36,66,0.12); display: flex; flex-direction: column; overflow: hidden; height: 600px; }
+.mk-chat { background: #fff; border-radius: 14px; box-shadow: 0 20px 48px rgba(18,36,66,0.12); display: flex; flex-direction: column; overflow: hidden; height: auto; contain: size; }
 .mk-chat-head { display: flex; align-items: center; gap: 10px; padding: 12px 16px; border-bottom: 1px solid #E3E8EE; }
 .mk-ai { flex-shrink: 0; width: 30px; height: 30px; border-radius: 50%; background: #E8721F; color: #fff; display: inline-flex; align-items: center; justify-content: center; font-family: var(--font-latin); font-size: 11px; font-weight: 800; }
 .mk-chat-title { font-size: 13.5px; font-weight: 700; color: #1B2430; line-height: 1.4; }
 .mk-chat-st { font-size: 11px; color: #626E80; }
-.mk-log { flex: 1; overflow-y: auto; padding: 14px 14px 6px; display: flex; flex-direction: column; gap: 10px; overscroll-behavior: contain; }
+.mk-log { flex: 1 1 auto; min-height: 0; overflow-y: auto; padding: 14px 14px 6px; display: flex; flex-direction: column; gap: 10px; overscroll-behavior: contain; }
 .mk-msg { display: flex; gap: 8px; align-items: flex-start; animation: mkIn .35s cubic-bezier(0.22, 1, 0.36, 1) both; }
 .mk-msg .mk-ai { width: 26px; height: 26px; font-size: 10px; }
 .mk-msg-b { background: #F1F4F8; color: #1B2430; border-radius: 4px 12px 12px 12px; padding: 8px 12px; font-size: 13.5px; line-height: 1.75; }
@@ -155,8 +155,7 @@ button.mk-kpi.is-on { border-color: #24477C; background: #fff; }
 
 @media (max-width: 960px) {
   .mk { grid-template-columns: minmax(0, 1fr); gap: 16px; }
-  .mk-chat { height: auto; }
-  .mk-log { max-height: 300px; }
+  .mk-chat { contain: none; height: 520px; }
   .mk-win { min-height: 0; }
 }
 @media (max-width: 600px) {
