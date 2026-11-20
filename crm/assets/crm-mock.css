@@ -482,6 +482,11 @@ button.ap-tile.is-on { background: #FDF1E7; }
   .ap-tile { padding: 3px 3px 3px 4px; }
   .ap-tile-v { font-size: 13px; }
 }
+/* スプレッドシート: 見出し行・選択中のセル(A1)・その行番号と列記号を緑系にする */
+.mk-fx b { color: #188038; }
+.mk-sheet .mk-hd td { background: #E6F4EA; color: #0D652D; }
+.mk-sheet .mk-hd td:nth-child(2) { box-shadow: inset 0 0 0 2px #188038; }
+.mk-sheet .mk-hd .mk-rn, .mk-sheet .mk-col th:nth-child(2) { background: #CEEAD6; color: #137333; }
 @media (prefers-reduced-motion: reduce) {
   .mk-screen.is-in > *, .mk-msg, .mk-choice, .mk-b, .mk-rep-bar { animation: none; }
   .mk-think i { animation: none; opacity: .6; }
