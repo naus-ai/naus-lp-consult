@@ -679,8 +679,22 @@ input[type=range] { accent-color: #E8721F; cursor: pointer; }
 }
 
 /* ===== ヒーロー: 画面例へのリンク ===== */
-.hero-try { align-self: flex-start; font-size: 14px; font-weight: 700; letter-spacing: 0.04em; color: #DCE6F2; text-decoration: underline; text-decoration-color: rgba(220,230,242,0.45); text-underline-offset: 4px; }
-.hero-try:hover { color: #fff; text-decoration-color: currentColor; }
+.hero-try { display: flex; justify-content: center; width: 100%; max-width: 400px; margin-top: -6px; text-decoration: none; border-radius: 999px; }
+.hero-try-in { display: inline-flex; align-items: center; gap: 10px; padding: 6px 14px 6px 6px; border: 1px solid rgba(255,255,255,0.24); border-radius: 999px; background: rgba(255,255,255,0.06); color: #DCE6F2; font-size: 13.5px; font-weight: 700; letter-spacing: 0.04em; line-height: 1.5; white-space: nowrap; transition: background .2s, border-color .2s, color .2s; }
+.hero-try-tag { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; color: #C95E12; background: #FDF1E7; border-radius: 999px; padding: 2px 9px; }
+.hero-try-arrow { flex-shrink: 0; color: #F0832F; }
+.hero-try:hover .hero-try-in, .hero-try:focus-visible .hero-try-in { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.5); color: #fff; }
+.hero-try:focus-visible { outline: none; }
+.hero-try:focus-visible .hero-try-in { box-shadow: 0 0 0 3px rgba(157,181,214,0.6); }
+@media (prefers-reduced-motion: no-preference) {
+  .hero-try-arrow { animation: heroTryDown 1.8s ease-in-out infinite; }
+}
+@keyframes heroTryDown { 0%, 100% { transform: translateY(-1px); } 50% { transform: translateY(2px); } }
 @media (max-width: 600px) {
-  .hero-try { font-size: 13px; }
+  .hero-try { max-width: none; margin-top: -2px; }
+  .hero-try-in { font-size: 12.5px; gap: 8px; }
+}
+@media (max-width: 359px) {
+  .hero-try-tag { display: none; }
+  .hero-try-in { padding: 6px 14px; }
 }

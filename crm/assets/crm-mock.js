@@ -292,6 +292,10 @@
 
   // ---------- チャット ----------
   var chatBox = root.querySelector('.mk-chat');
+  // 選択肢欄に続きがあるとき、下端に「続きがある」表示を出す
+  function updMore() { choicesEl.classList.toggle('is-more', choicesEl.scrollHeight - choicesEl.scrollTop - choicesEl.clientHeight > 4); }
+  choicesEl.addEventListener('scroll', updMore, { passive: true });
+  window.addEventListener('resize', updMore);
   function scrollLog() { log.scrollTop = log.scrollHeight; chatBox.scrollTop = chatBox.scrollHeight; }
   function addMsg(html, me) {
     var d = document.createElement('div');
@@ -311,7 +315,10 @@
       return '<button type="button" class="mk-choice' + (c.cls ? ' ' + c.cls : '') + '" data-i="' + i + '" style="animation-delay:' + (i * 80) + 'ms">' + '<span>' + esc(c.label) + '</span>' + (c.cls ? '' : ARROW) + '</button>';
     }).join('');
     choicesEl._items = items;
+    choicesEl.scrollTop = 0;
     scrollLog();
+    updMore();
+    timers.push(setTimeout(updMore, 450));
     if (focus) { var f = choicesEl.querySelector('button'); if (f) f.focus({ preventScroll: true }); }
   }
   choicesEl.addEventListener('click', function (e) {
@@ -325,6 +332,7 @@
   function typeThen(text, fn) {
     busy = true;
     choicesEl.innerHTML = '';
+    updMore();
     inputT.classList.add('is-typing');
     var i = 0, step = reduce ? text.length : 2;
     (function tick() {
