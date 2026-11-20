@@ -16,7 +16,7 @@
   // 画面例へのリンク(ヒーロー・メニュー): 固定ヘッダーの高さを差し引いた位置へ移動
   var mockSec = document.getElementById('mock');
   var head = document.querySelector('.site-header');
-  var tryLinks = document.querySelectorAll('a.hero-try[href="#mock"], a.gnav-try[href="#mock"], a.sp-try[href="#mock"]');
+  var tryLinks = document.querySelectorAll('a.gnav-try[href="#mock"], a.sp-try[href="#mock"]');
   Array.prototype.forEach.call(tryLinks, function (a) {
     a.addEventListener('click', function (e) {
       if (!mockSec) return;
@@ -64,8 +64,50 @@
     tip.hidden = false;
     if (!placeTip()) { tip.hidden = true; return; }
     tipOpen = true;
+    tipSave();
     requestAnimationFrame(function () { requestAnimationFrame(function () { tip.classList.add('is-show'); }); });
     tipTimer = setTimeout(hideTip, 8000);
+  }
+
+  // 開いた直後だけ、ページを薄暗くして「構築体験」の項目を浮かび上がらせる
+  var openedWithHash = !!window.location.hash;
+  var dim = null, dimTimers = [];
+  var DIM_EVENTS = ['pointerdown', 'touchstart', 'wheel', 'keydown'];
+  function hideDim(quick) {
+    if (!dim) return;
+    var d = dim;
+    dim = null;
+    dimTimers.forEach(clearTimeout);
+    dimTimers = [];
+    DIM_EVENTS.forEach(function (ev) { window.removeEventListener(ev, onDimInput, true); });
+    window.removeEventListener('scroll', onDimInput);
+    if (quick) d.classList.add('is-quick');
+    d.classList.remove('is-show');
+    setTimeout(function () { if (d.parentNode) d.parentNode.removeChild(d); }, quick ? 200 : 450);
+  }
+  function onDimInput() { hideDim(true); }
+  function showDim() {
+    var t = tipTarget();
+    if (!t || !head || reduce || openedWithHash || window.scrollY > 2) return;
+    var hr = head.getBoundingClientRect(), tr = t.getBoundingClientRect(), pad = 6;
+    dim = document.createElement('div');
+    dim.className = 'try-dim';
+    dim.setAttribute('aria-hidden', 'true');
+    dim.style.left = (tr.left - hr.left - pad) + 'px';
+    dim.style.top = (tr.top - hr.top - pad) + 'px';
+    dim.style.width = (tr.width + pad * 2) + 'px';
+    dim.style.height = (tr.height + pad * 2) + 'px';
+    head.appendChild(dim);
+    DIM_EVENTS.forEach(function (ev) { window.addEventListener(ev, onDimInput, { capture: true, passive: true }); });
+    window.addEventListener('scroll', onDimInput, { passive: true });
+    var d = dim;
+    requestAnimationFrame(function () { requestAnimationFrame(function () { if (dim === d) d.classList.add('is-show'); }); });
+    dimTimers.push(setTimeout(function () { hideDim(false); }, 2600));
+  }
+  function showIntro() {
+    if (!tip || tipDone()) return;
+    if (!mockReached()) showDim();
+    showTip();
   }
   if (tip) {
     tip.querySelector('.try-tip-x').addEventListener('click', hideTip);
@@ -73,7 +115,8 @@
     if (menuBtn) menuBtn.addEventListener('click', hideTip);
     window.addEventListener('scroll', function () { if (tipOpen && mockReached()) hideTip(); }, { passive: true });
     window.addEventListener('resize', function () { if (tipOpen) placeTip(); });
-    if (!tipDone()) setTimeout(showTip, 1500);
+    window.addEventListener('resize', function () { hideDim(true); });
+    if (!tipDone()) setTimeout(showIntro, 1000);
   }
   var urlEl = root.querySelector('.mk-url-t');
   var URLS = { list: 'list', weekly: 'weekly', follow: 'follow-up', rep: 'members', notice: 'notices' };
