@@ -282,6 +282,24 @@ button.ap-tile.is-on { background: #FDF1E7; }
   .mk-sheet .c1 { width: 15.5%; } .mk-sheet .c2 { width: 11%; } .mk-sheet .c3 { width: 23.5%; } .mk-sheet .c4 { width: 25.5%; } .mk-sheet .c5 { width: 24.5%; }
   .ap-tile-v { font-size: 15px; }
 }
+/* スマホ: チャットを上、画面を下にし、両方が1画面に入る高さにする */
+@media (max-width: 960px) {
+  .mk { gap: 10px; scroll-margin-top: 72px; }
+  .mk-chat { order: -1; display: block; overflow-y: auto; overscroll-behavior: contain; height: clamp(170px, calc((100vh - 175px) * 0.42), 300px); height: clamp(170px, calc((100svh - 175px) * 0.42), 300px); }
+  .mk-chat-head { position: sticky; top: 0; z-index: 1; background: #fff; padding: 7px 14px; }
+  .mk-chat-head .mk-ai { width: 26px; height: 26px; font-size: 10px; }
+  .mk-chat-title { font-size: 13px; }
+  .mk-chat-st { font-size: 10.5px; line-height: 1.4; }
+  .mk-log { overflow: visible; padding: 10px 12px 4px; gap: 8px; }
+  .mk-choices { padding: 4px 12px 10px; }
+  .mk-input { position: sticky; bottom: 0; z-index: 1; margin: 0; border-width: 1px 0 0; border-radius: 0; background: #fff; padding: 6px 8px 6px 12px; }
+  .mk-send { width: 24px; height: 24px; }
+  .mk-win { height: clamp(240px, calc((100vh - 175px) * 0.58), 420px); height: clamp(240px, calc((100svh - 175px) * 0.58), 420px); }
+  .mk-bar { padding: 6px 12px; }
+}
+@media (max-width: 760px) {
+  .mk { scroll-margin-top: 64px; }
+}
 @media (prefers-reduced-motion: reduce) {
   .mk-screen.is-in > *, .mk-msg, .mk-choice, .mk-b, .mk-rep-bar { animation: none; }
   .mk-think i { animation: none; opacity: .6; }

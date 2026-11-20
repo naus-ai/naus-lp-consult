@@ -13,6 +13,17 @@
   var small = window.matchMedia ? window.matchMedia('(max-width: 600px)') : { matches: false };
   var PH = 'メッセージを入力';
   var tiny = window.matchMedia ? window.matchMedia('(max-width: 400px)') : { matches: false };
+  // ヒーローの文字リンク: 画面例のセクションへ移動(固定ヘッダーの高さを差し引く)
+  var tryLink = document.querySelector('a.hero-try[href="#mock"]');
+  var mockSec = document.getElementById('mock');
+  if (tryLink && mockSec) {
+    tryLink.addEventListener('click', function (e) {
+      e.preventDefault();
+      var head = document.querySelector('.site-header');
+      var top = mockSec.getBoundingClientRect().top + window.scrollY - (head ? head.offsetHeight : 0);
+      window.scrollTo({ top: top, behavior: reduce ? 'instant' : 'smooth' });
+    });
+  }
   function pageSize() { return small.matches ? (tiny.matches && has('field') ? 3 : 4) : 5; }
 
   // ダミーデータ(すべて架空)。金額は商談金額(万円)。ls はリードソース
@@ -280,7 +291,8 @@
   });
 
   // ---------- チャット ----------
-  function scrollLog() { log.scrollTop = log.scrollHeight; }
+  var chatBox = root.querySelector('.mk-chat');
+  function scrollLog() { log.scrollTop = log.scrollHeight; chatBox.scrollTop = chatBox.scrollHeight; }
   function addMsg(html, me) {
     var d = document.createElement('div');
     d.className = 'mk-msg' + (me ? ' is-me' : '');
@@ -329,8 +341,8 @@
   }
   function showScreen() {
     if (narrow.matches) {
-      var r = win.getBoundingClientRect();
-      if (r.top < 0) win.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+      var r = root.getBoundingClientRect();
+      if (r.top < 0) root.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
     }
   }
   function build(userText, thinkText, apply, reply, next, focus) {

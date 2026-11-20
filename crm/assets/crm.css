@@ -677,3 +677,10 @@ input[type=range] { accent-color: #E8721F; cursor: pointer; }
   .sem-pop-date { font-size: 16px; }
   .sem-pop-link { padding: 9px 14px; font-size: 13.5px; }
 }
+
+/* ===== ヒーロー: 画面例へのリンク ===== */
+.hero-try { align-self: flex-start; font-size: 14px; font-weight: 700; letter-spacing: 0.04em; color: #DCE6F2; text-decoration: underline; text-decoration-color: rgba(220,230,242,0.45); text-underline-offset: 4px; }
+.hero-try:hover { color: #fff; text-decoration-color: currentColor; }
+@media (max-width: 600px) {
+  .hero-try { font-size: 13px; }
+}
