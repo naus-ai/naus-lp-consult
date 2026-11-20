@@ -13,6 +13,114 @@
   var small = window.matchMedia ? window.matchMedia('(max-width: 600px)') : { matches: false };
   var PH = 'メッセージを入力';
   var tiny = window.matchMedia ? window.matchMedia('(max-width: 400px)') : { matches: false };
+  // 画面例へのリンク(ヒーロー・メニュー): 固定ヘッダーの高さを差し引いた位置へ移動
+  var mockSec = document.getElementById('mock');
+  var head = document.querySelector('.site-header');
+  var tryLinks = document.querySelectorAll('a.gnav-try[href="#mock"], a.sp-try[href="#mock"]');
+  Array.prototype.forEach.call(tryLinks, function (a) {
+    a.addEventListener('click', function (e) {
+      if (!mockSec) return;
+      e.preventDefault();
+      hideTip();
+      var top = mockSec.getBoundingClientRect().top + window.scrollY - (head ? head.offsetHeight : 0);
+      window.scrollTo({ top: top, behavior: reduce ? 'instant' : 'smooth' });
+    });
+  });
+
+  // メニューの「構築体験」から出す吹き出し。同じ訪問中は一度消したら出さない
+  var tip = document.getElementById('try-tip');
+  var TIP_KEY = 'naus_crm_try_tip';
+  var tipTimer = null, tipOpen = false;
+  function tipDone() { try { return window.sessionStorage.getItem(TIP_KEY) === '1'; } catch (err) { return false; } }
+  function tipSave() { try { window.sessionStorage.setItem(TIP_KEY, '1'); } catch (err) {} }
+  function tipTarget() {
+    var list = document.querySelectorAll('.gnav-try, .sp-try');
+    for (var i = 0; i < list.length; i++) { if (list[i].offsetParent) return list[i]; }
+    return null;
+  }
+  function placeTip() {
+    var t = tipTarget();
+    if (!tip || !t || !head) return false;
+    var hr = head.getBoundingClientRect(), tr = t.getBoundingClientRect();
+    var cx = tr.left + tr.width / 2 - hr.left, w = tip.offsetWidth;
+    var left = Math.max(8, Math.min(cx - w / 2, hr.width - w - 8));
+    tip.style.left = left + 'px';
+    tip.style.setProperty('--tip-arrow', (cx - left) + 'px');
+    return true;
+  }
+  function mockReached() { return !!mockSec && mockSec.getBoundingClientRect().top < window.innerHeight * 0.8; }
+  function hideTip() {
+    if (!tip) return;
+    tipSave();
+    if (tipTimer) { clearTimeout(tipTimer); tipTimer = null; }
+    if (!tipOpen) return;
+    tipOpen = false;
+    tip.classList.remove('is-show');
+    setTimeout(function () { tip.hidden = true; }, 400);
+  }
+  function showTip() {
+    if (!tip || tipDone()) return;
+    if (mockReached()) { tipSave(); return; }
+    tip.hidden = false;
+    if (!placeTip()) { tip.hidden = true; return; }
+    tipOpen = true;
+    tipSave();
+    requestAnimationFrame(function () { requestAnimationFrame(function () { tip.classList.add('is-show'); }); });
+    tipTimer = setTimeout(hideTip, 8000);
+  }
+
+  // 開いた直後だけ、ページを薄暗くして「構築体験」の項目を浮かび上がらせる
+  var openedWithHash = !!window.location.hash;
+  var dim = null, dimTimers = [];
+  var DIM_EVENTS = ['pointerdown', 'touchstart', 'wheel', 'keydown'];
+  function hideDim(quick) {
+    if (!dim) return;
+    var d = dim;
+    dim = null;
+    dimTimers.forEach(clearTimeout);
+    dimTimers = [];
+    DIM_EVENTS.forEach(function (ev) { window.removeEventListener(ev, onDimInput, true); });
+    window.removeEventListener('scroll', onDimInput);
+    if (quick) d.classList.add('is-quick');
+    d.classList.remove('is-show');
+    setTimeout(function () { if (d.parentNode) d.parentNode.removeChild(d); }, quick ? 200 : 450);
+  }
+  function onDimInput() { hideDim(true); }
+  function showDim() {
+    var t = tipTarget();
+    if (!t || !head || reduce || openedWithHash || window.scrollY > 2) return;
+    var hr = head.getBoundingClientRect(), tr = t.getBoundingClientRect(), pad = 6;
+    dim = document.createElement('div');
+    dim.className = 'try-dim';
+    dim.setAttribute('aria-hidden', 'true');
+    dim.style.left = (tr.left - hr.left - pad) + 'px';
+    dim.style.top = (tr.top - hr.top - pad) + 'px';
+    dim.style.width = (tr.width + pad * 2) + 'px';
+    dim.style.height = (tr.height + pad * 2) + 'px';
+    head.appendChild(dim);
+    DIM_EVENTS.forEach(function (ev) { window.addEventListener(ev, onDimInput, { capture: true, passive: true }); });
+    window.addEventListener('scroll', onDimInput, { passive: true });
+    var d = dim;
+    requestAnimationFrame(function () { requestAnimationFrame(function () { if (dim === d) d.classList.add('is-show'); }); });
+    dimTimers.push(setTimeout(function () { hideDim(false); }, 2600));
+  }
+  function showIntro() {
+    if (!tip || tipDone()) return;
+    if (!mockReached()) showDim();
+    showTip();
+  }
+  if (tip) {
+    tip.querySelector('.try-tip-x').addEventListener('click', hideTip);
+    var menuBtn = document.getElementById('menu-btn');
+    if (menuBtn) menuBtn.addEventListener('click', hideTip);
+    window.addEventListener('scroll', function () { if (tipOpen && mockReached()) hideTip(); }, { passive: true });
+    window.addEventListener('resize', function () { if (tipOpen) placeTip(); });
+    window.addEventListener('resize', function () { hideDim(true); });
+    if (!tipDone()) setTimeout(showIntro, 1000);
+  }
+  var urlEl = root.querySelector('.mk-url-t');
+  var URLS = { list: 'list', weekly: 'weekly', follow: 'follow-up', rep: 'members', notice: 'notices' };
+
   function pageSize() { return small.matches ? (tiny.matches && has('field') ? 3 : 4) : 5; }
 
   // ダミーデータ(すべて架空)。金額は商談金額(万円)。ls はリードソース
@@ -113,7 +221,7 @@
     return '<div class="ap">' +
       '<nav class="ap-side" aria-label="ツールのメニュー"><div class="ap-brand">顧客管理<span>自社用</span></div><div class="ap-menu">' + keys.map(function (k) {
         var on = st.tab === k;
-        return '<button type="button" class="ap-item" data-tab="' + k + '" aria-pressed="' + on + '">' + svg(k, 16) + '<span class="ap-item-l">' + TABS[k] + '</span>' + (k === newest && k !== 'list' ? '<span class="mk-new">NEW</span>' : '') + '</button>';
+        return '<button type="button" class="ap-item" data-tab="' + k + '" aria-pressed="' + on + '" aria-label="' + TABS[k] + '" title="' + TABS[k] + '">' + svg(k, 16) + '<span class="ap-item-l">' + TABS[k] + '</span>' + (k === newest && k !== 'list' ? '<span class="mk-new">NEW</span>' : '') + '</button>';
       }).join('') + '</div></nav>' +
       '<div class="ap-main"><div class="ap-head"><span class="ap-title">' + title + '</span><span class="ap-date">11/19 時点</span></div>' +
       '<div class="ap-body">' + body + '</div></div></div>';
@@ -156,17 +264,12 @@
         return '<button type="button" class="ap-chip" data-src="' + s + '" aria-pressed="' + (st.src === s) + '">' + (s ? s : 'すべて') + '</button>';
       }).join('') + '</div>';
     }
-    h += '<table class="ap-table' + (open ? ' is-open' : '') + '"><colgroup>' + (field ? ['12%', '11%', '15%', '16%', '23%', '23%'] : ['17%', '14%', '17%', '19%', '33%']).map(function (w) { return '<col style="width:' + w + '">'; }).join('') + '</colgroup><thead><tr><th>顧客名</th><th>担当</th><th>ステータス</th><th class="is-num">商談金額</th><th>最終連絡日</th>' + (field ? '<th>リードソース</th>' : '') + '</tr></thead><tbody>' +
+    h += '<table class="ap-table' + (open ? ' is-open' : '') + (field ? ' has-ls' : '') + '"><thead><tr><th class="c-name">顧客名</th><th class="c-rep">担当</th><th class="c-st">ステータス</th><th class="c-amt is-num">商談金額</th><th class="c-date">最終連絡日</th>' + (field ? '<th class="c-ls">リードソース</th>' : '') + '</tr></thead><tbody>' +
       shown.map(function (c) {
         var name = open ? '<button type="button" class="ap-link" data-open="' + c.n + '">' + c.n + '</button>' : '<span class="ap-name">' + c.n + '</span>';
-        return '<tr' + (open ? ' data-open="' + c.n + '"' : '') + '><td>' + name + '</td><td>担当' + c.r + '</td><td>' + badge(c.s) + '</td><td class="is-num">' + man(c.a) + '</td>' +
-          '<td>' + c.d + (isStale(c) ? '<span class="ap-warn">' + c.g + '日</span>' : '') + '</td>' + (field ? '<td>' + c.ls + '</td>' : '') + '</tr>';
+        return '<tr' + (open ? ' data-open="' + c.n + '"' : '') + '><td class="c-name">' + name + '</td><td class="c-rep">担当' + c.r + '</td><td class="c-st">' + badge(c.s) + '</td><td class="c-amt is-num">' + man(c.a) + '</td>' +
+          '<td class="c-date">' + c.d + (isStale(c) ? '<span class="ap-warn">' + c.g + '日</span>' : '') + '</td>' + (field ? '<td class="c-ls">' + c.ls + '</td>' : '') + '</tr>';
       }).join('') + '</tbody></table>';
-    h += '<ul class="ap-mlist">' + shown.map(function (c) {
-      var inner = '<span class="ap-mrow-top"><span class="' + (open ? 'ap-link-t' : 'ap-name') + '">' + c.n + '</span><span class="ap-mrow-amt">' + man(c.a) + '</span></span>' +
-        '<span class="ap-mrow-sub">担当' + c.r + '・' + c.s + '・' + (isStale(c) ? '<span class="ap-warn">' + c.g + '日 連絡なし</span>' : '最終連絡 ' + c.d) + (field ? '・' + c.ls : '') + '</span>';
-      return '<li>' + (open ? '<button type="button" class="ap-mrow" data-open="' + c.n + '">' + inner + '</button>' : '<div class="ap-mrow">' + inner + '</div>') + '</li>';
-    }).join('') + '</ul>';
     if (!rows.length) h += '<p class="ap-empty">該当する顧客はいません。</p>';
     h += '<div class="ap-pager"><span>' + (rows.length ? (from + 1) + '-' + (from + shown.length) : 0) + ' / ' + rows.length + '件</span>' +
       '<button type="button" class="ap-btn" data-page="-1"' + (st.page <= 1 ? ' disabled' : '') + '>‹ 前へ</button>' +
@@ -247,10 +350,12 @@
     var h;
     if (st.mode === 'sheet') {
       nameEl.textContent = '顧客リスト - スプレッドシート';
+      urlEl.textContent = 'sheets.example/list';
       screen.classList.remove('is-tool');
       h = sheetHtml();
     } else {
       nameEl.textContent = '顧客管理ツール(自社用)';
+      urlEl.textContent = 'crm.example/' + URLS[st.tab] + (st.tab === 'list' && st.detail ? '/' + st.detail.charAt(0).toLowerCase() : '');
       screen.classList.add('is-tool');
       var detail = st.tab === 'list' && st.detail;
       var body = detail ? detailHtml() : ({ list: listHtml, weekly: weeklyHtml, follow: followHtml, rep: repHtml, notice: noticeHtml })[st.tab]();
@@ -280,7 +385,12 @@
   });
 
   // ---------- チャット ----------
-  function scrollLog() { log.scrollTop = log.scrollHeight; }
+  var chatBox = root.querySelector('.mk-chat');
+  // 選択肢欄に続きがあるとき、下端に「続きがある」表示を出す
+  function updMore() { choicesEl.classList.toggle('is-more', choicesEl.scrollHeight - choicesEl.scrollTop - choicesEl.clientHeight > 4); }
+  choicesEl.addEventListener('scroll', updMore, { passive: true });
+  window.addEventListener('resize', updMore);
+  function scrollLog() { log.scrollTop = log.scrollHeight; chatBox.scrollTop = chatBox.scrollHeight; }
   function addMsg(html, me) {
     var d = document.createElement('div');
     d.className = 'mk-msg' + (me ? ' is-me' : '');
@@ -299,7 +409,10 @@
       return '<button type="button" class="mk-choice' + (c.cls ? ' ' + c.cls : '') + '" data-i="' + i + '" style="animation-delay:' + (i * 80) + 'ms">' + '<span>' + esc(c.label) + '</span>' + (c.cls ? '' : ARROW) + '</button>';
     }).join('');
     choicesEl._items = items;
+    choicesEl.scrollTop = 0;
     scrollLog();
+    updMore();
+    timers.push(setTimeout(updMore, 450));
     if (focus) { var f = choicesEl.querySelector('button'); if (f) f.focus({ preventScroll: true }); }
   }
   choicesEl.addEventListener('click', function (e) {
@@ -313,6 +426,7 @@
   function typeThen(text, fn) {
     busy = true;
     choicesEl.innerHTML = '';
+    updMore();
     inputT.classList.add('is-typing');
     var i = 0, step = reduce ? text.length : 2;
     (function tick() {
@@ -329,8 +443,8 @@
   }
   function showScreen() {
     if (narrow.matches) {
-      var r = win.getBoundingClientRect();
-      if (r.top < 0) win.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+      var r = root.getBoundingClientRect();
+      if (r.top < 0) root.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
     }
   }
   function build(userText, thinkText, apply, reply, next, focus) {
