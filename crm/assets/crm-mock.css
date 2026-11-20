@@ -366,6 +366,13 @@ button.ap-tile.is-on { background: #FDF1E7; }
   .mk-input { display: none; }
   .mk-choices { max-height: calc(100% - 96px); }
 }
+/* スマホ: チャットが画面に入ったら縦幅を広げる(広げた後は戻さない) */
+@media (max-width: 960px) {
+  .mk-chat.is-open { height: clamp(280px, calc((100vh - 175px) * 0.66), 440px); height: clamp(280px, calc((100svh - 175px) * 0.66), 440px); }
+}
+@media (max-width: 960px) and (prefers-reduced-motion: no-preference) {
+  .mk-chat { transition: height .6s cubic-bezier(0.22, 1, 0.36, 1); }
+}
 @media (prefers-reduced-motion: reduce) {
   .mk-screen.is-in > *, .mk-msg, .mk-choice, .mk-b, .mk-rep-bar { animation: none; }
   .mk-think i { animation: none; opacity: .6; }

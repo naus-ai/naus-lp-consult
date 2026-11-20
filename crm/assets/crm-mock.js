@@ -413,6 +413,18 @@
   function updMore() { choicesEl.classList.toggle('is-more', choicesEl.scrollHeight - choicesEl.scrollTop - choicesEl.clientHeight > 4); }
   choicesEl.addEventListener('scroll', updMore, { passive: true });
   window.addEventListener('resize', updMore);
+  // スマホ幅: チャットが画面に入ったら縦幅を広げる(幅の条件はCSS側。動きを減らす設定では最初から広げる)
+  function openChat() { chatBox.classList.add('is-open'); }
+  if (reduce || !('IntersectionObserver' in window)) openChat();
+  else {
+    var chatIo = new IntersectionObserver(function (ents) {
+      for (var i = 0; i < ents.length; i++) {
+        if (ents[i].isIntersecting) { openChat(); chatIo.disconnect(); return; }
+      }
+    }, { threshold: 0.5 });
+    chatIo.observe(chatBox);
+  }
+  chatBox.addEventListener('transitionend', function (e) { if (e.target === chatBox) { scrollLog(); updMore(); } });
   function scrollLog() { log.scrollTop = log.scrollHeight; chatBox.scrollTop = chatBox.scrollHeight; }
   function addMsg(html, me) {
     var d = document.createElement('div');
