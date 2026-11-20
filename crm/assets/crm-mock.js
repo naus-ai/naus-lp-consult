@@ -73,7 +73,29 @@
   var openedWithHash = !!window.location.hash;
   var dim = null, dimTimers = [];
   var DIM_EVENTS = ['pointerdown', 'touchstart', 'wheel', 'keydown'];
+  // スマホ幅(960px以下)は暗転の代わりに、ヘッダーの「体験」ボタンを数回拡大させる
+  var narrowMq = window.matchMedia ? window.matchMedia('(max-width: 960px)') : null;
+  var pulseEl = null, pulseTimer = null;
+  function stopPulse() {
+    if (!pulseEl) return;
+    var p = pulseEl;
+    pulseEl = null;
+    clearTimeout(pulseTimer);
+    p.removeEventListener('animationend', stopPulse);
+    p.classList.remove('is-pulse');
+    DIM_EVENTS.forEach(function (ev) { window.removeEventListener(ev, onDimInput, true); });
+    window.removeEventListener('scroll', onDimInput);
+  }
+  function startPulse(t) {
+    pulseEl = t;
+    t.addEventListener('animationend', stopPulse);
+    t.classList.add('is-pulse');
+    DIM_EVENTS.forEach(function (ev) { window.addEventListener(ev, onDimInput, { capture: true, passive: true }); });
+    window.addEventListener('scroll', onDimInput, { passive: true });
+    pulseTimer = setTimeout(stopPulse, 4000);
+  }
   function hideDim(quick) {
+    stopPulse();
     if (!dim) return;
     var d = dim;
     dim = null;
@@ -89,6 +111,7 @@
   function showDim() {
     var t = tipTarget();
     if (!t || !head || reduce || openedWithHash || window.scrollY > 2) return;
+    if (narrowMq && narrowMq.matches) { startPulse(t); return; }
     var hr = head.getBoundingClientRect(), tr = t.getBoundingClientRect(), pad = 6;
     dim = document.createElement('div');
     dim.className = 'try-dim';
