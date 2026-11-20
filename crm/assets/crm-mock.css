@@ -373,6 +373,115 @@ button.ap-tile.is-on { background: #FDF1E7; }
 @media (max-width: 960px) and (prefers-reduced-motion: no-preference) {
   .mk-chat { transition: height .6s cubic-bezier(0.22, 1, 0.36, 1); }
 }
+/* スマホ: PC画面風の枠を濃い色にし、画面の中身を小さめにして情報の密度を上げる */
+@media (max-width: 960px) {
+  .mk-win { box-sizing: border-box; padding: 0 5px 5px; background: #2A303B; box-shadow: 0 20px 48px rgba(18,36,66,0.24); }
+  .mk-bar { background: #2A303B; border-bottom: 0; }
+  .mk-dots span { background: #5A6475; }
+  .mk-url { background: #3A4250; border-color: #4A5363; color: #D5DBE3; }
+  .mk-reset-s { color: #fff; }
+  .mk-reset-s:hover { background: rgba(255,255,255,0.12); }
+  .mk-screen { background: #fff; border-radius: 4px; }
+}
+@media (min-width: 601px) and (max-width: 960px) {
+  .ap { font-size: 11.5px; line-height: 1.5; }
+  .ap-side { width: 124px; padding: 10px 8px; gap: 10px; }
+  .ap-brand { font-size: 12.5px; }
+  .ap-item { font-size: 11.5px; padding: 5px 7px; }
+  .ap-item[aria-pressed="true"]::before { left: -8px; top: 5px; bottom: 5px; }
+  .ap-head { padding: 8px 12px 0; }
+  .ap-title { font-size: 14px; }
+  .ap-date { font-size: 11px; }
+  .ap-body { padding: 6px 12px 10px; }
+  .ap-panel { padding: 8px 10px; border-radius: 8px; }
+  .ap-panel + .ap-panel { margin-top: 6px; }
+  .ap-panel-h { margin-bottom: 4px; }
+  .ap-panel-title { font-size: 12.5px; }
+  .ap-btn { font-size: 11px; padding: 1px 10px; }
+  .ap-meta { font-size: 11px; margin-bottom: 6px; }
+  .ap-tiles { gap: 6px; margin-bottom: 6px; }
+  .ap-tile { padding: 5px 10px; border-radius: 8px; }
+  .ap-tile-k { font-size: 11px; }
+  .ap-tile-v { font-size: 19px; }
+  .ap-tile-link { font-size: 11px; }
+  .ap-chips { margin-bottom: 6px; }
+  .ap-chip { font-size: 11px; }
+  .ap-table { font-size: 11.5px; }
+  .ap-table th { padding: 2px 6px 4px; }
+  .ap-table td { padding: 4px 6px; }
+  .ap-link { font-size: 11.5px; }
+  .ap-pager { padding-top: 6px; font-size: 11px; }
+  .ap-back { font-size: 11.5px; margin-bottom: 4px; }
+  .ap-rec-name { font-size: 15px; }
+  .ap-steps { margin-top: 8px; }
+  .ap-2col { gap: 6px; margin-top: 6px; }
+  .ap-sec { font-size: 12px; margin-bottom: 4px; }
+  .ap-fields dt { font-size: 11px; }
+  .ap-fields dd { font-size: 11.5px; }
+  .ap-acts li { grid-template-columns: 36px minmax(0, 1fr); gap: 6px; padding: 3px 0; font-size: 11.5px; }
+  .ap-act-n { font-size: 11px; }
+  .mk-legend { font-size: 11px; margin-bottom: 6px; }
+  .mk-chart { height: 140px; }
+  .mk-insight { margin-top: 6px; padding: 6px 8px; font-size: 11px; line-height: 1.6; }
+  .mk-follow { grid-template-columns: 120px minmax(0, 1fr); gap: 6px; }
+  .mk-pick { padding: 4px 8px; font-size: 11px; }
+  .mk-pick b { font-size: 11.5px; }
+  .mk-mail { padding: 8px 10px; font-size: 11.5px; line-height: 1.65; }
+  .mk-mail-h { font-size: 11px; }
+  .mk-rep { gap: 8px; }
+  .mk-rep-row { grid-template-columns: 68px minmax(0, 1fr) 124px; gap: 8px; font-size: 11.5px; }
+  .mk-rep-track { height: 18px; }
+  .mk-notice { padding: 8px; }
+  .mk-notice-head { font-size: 11px; margin-bottom: 6px; }
+  .mk-notice-body { padding: 8px 10px; font-size: 11.5px; line-height: 1.65; }
+}
+@media (max-width: 600px) {
+  .ap { font-size: 11px; line-height: 1.45; }
+  .ap-side { width: 36px; padding: 6px 3px; gap: 6px; }
+  .ap-item { height: 32px; }
+  .ap-item[aria-pressed="true"]::before { left: -3px; }
+  .ap-head { padding: 4px 7px 0; }
+  .ap-title { font-size: 12px; }
+  .ap-body { padding: 4px 6px 6px; }
+  .ap-panel { padding: 6px 7px; border-radius: 6px; }
+  .ap-panel + .ap-panel { margin-top: 4px; }
+  .ap-panel-h { margin-bottom: 2px; }
+  .ap-panel-title { font-size: 11.5px; }
+  .ap-meta { margin-bottom: 3px; }
+  .ap-tiles { gap: 4px; margin-bottom: 4px; }
+  .ap-tile { padding: 3px 4px 3px 5px; border-radius: 6px; }
+  .ap-tile-v { font-size: 14px; }
+  .ap-chips { margin-bottom: 4px; }
+  .ap-table { font-size: 11px; }
+  .ap-table td { padding: 5px 3px; }
+  .ap-link { font-size: 11px; }
+  .ap-pager { padding-top: 4px; }
+  .ap-back { font-size: 11px; }
+  .ap-rec-name { font-size: 13px; }
+  .ap-steps { margin-top: 6px; }
+  .ap-step-dot { width: 18px; height: 18px; }
+  .ap-steps li:not(:first-child)::before { top: 8px; }
+  .ap-2col { gap: 4px; margin-top: 4px; }
+  .ap-sec { font-size: 11.5px; margin-bottom: 3px; }
+  .ap-fields { gap: 2px 10px; }
+  .ap-fields dd { font-size: 11px; }
+  .ap-acts li { grid-template-columns: 32px minmax(0, 1fr); gap: 5px; padding: 3px 0; font-size: 11px; }
+  .mk-legend { margin-bottom: 4px; }
+  .mk-chart { height: 100px; }
+  .mk-insight { margin-top: 4px; padding: 5px 7px; }
+  .mk-follow { gap: 4px; }
+  .mk-pick { padding: 3px 5px; }
+  .mk-pick b { font-size: 11px; }
+  .mk-mail { padding: 6px 8px; font-size: 11px; line-height: 1.6; }
+  .mk-rep { gap: 6px; }
+  .mk-rep-row { font-size: 11px; }
+  .mk-notice { padding: 6px; }
+  .mk-notice-body { padding: 6px 8px; font-size: 11px; line-height: 1.6; }
+}
+@media (max-width: 400px) {
+  .ap-tile { padding: 3px 3px 3px 4px; }
+  .ap-tile-v { font-size: 13px; }
+}
 @media (prefers-reduced-motion: reduce) {
   .mk-screen.is-in > *, .mk-msg, .mk-choice, .mk-b, .mk-rep-bar { animation: none; }
   .mk-think i { animation: none; opacity: .6; }
