@@ -711,6 +711,7 @@ input[type=range] { accent-color: #E8721F; cursor: pointer; }
 .try-dim { position: absolute; z-index: 100; border-radius: 12px; box-shadow: 0 0 0 3px #fff, 0 0 0 200vmax rgba(13,27,51,0.5); pointer-events: none; opacity: 0; transition: opacity .4s ease; }
 .try-dim.is-show { opacity: 1; }
 .try-dim.is-quick { transition: opacity .15s linear; }
+@media (max-width:960px){.try-dim{box-shadow:0 0 0 3px #fff,0 0 0 200vmax rgba(13,27,51,0.7)}}
 /* スマホ幅: 暗転の代わりに「体験」ボタンを3回拡大させる */
 @media (max-width: 960px) and (prefers-reduced-motion: no-preference) {
   .sp-try.is-pulse { animation: tryPulse 1s ease-in-out 3; }
