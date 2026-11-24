@@ -492,3 +492,161 @@ button.ap-tile.is-on { background: #FDF1E7; }
   .mk-think i { animation: none; opacity: .6; }
   .mk-choice.is-primary { box-shadow: 0 0 0 4px rgba(232,114,31,0.3); }
 }
+
+/* スマホ: ツール画面の中の文字を約65%にする */
+@media (min-width: 601px) and (max-width: 960px) {
+  .mk-screen .ap-brand span { font-size: 6.83px; }
+  .mk-screen .mk-new { font-size: 6.17px; }
+  .mk-screen .ap-panel-sub { font-size: 7.15px; }
+  .mk-screen .ap-tile-v small { font-size: 7.15px; }
+  .mk-screen .ap-table th { font-size: 7.15px; }
+  .mk-screen .ap-badge { font-size: 6.83px; }
+  .mk-screen .ap-warn { font-size: 6.83px; }
+  .mk-screen .ap-empty { font-size: 7.8px; }
+  .mk-screen .ap-steps li { font-size: 7.15px; }
+  .mk-screen .ap-step-dot { font-size: 6.83px; }
+  .mk-screen .mk-b span { font-size: 7.15px; }
+  .mk-screen .mk-wk-labels { font-size: 7.15px; }
+  .mk-screen .mk-mail-note { font-size: 7.15px; }
+  .mk-screen .mk-av { font-size: 7.15px; }
+  .mk-screen .mk-rep-bar { font-size: 7.15px; }
+  .mk-screen .mk-rep-sub { font-size: 7.15px; }
+  .mk-screen .mk-ai { font-size: 7.15px; }
+  .mk-screen .ap { font-size: 7.48px; }
+  .mk-screen .ap-brand { font-size: 8.12px; }
+  .mk-screen .ap-item { font-size: 7.48px; }
+  .mk-screen .ap-title { font-size: 9.1px; }
+  .mk-screen .ap-date { font-size: 7.15px; }
+  .mk-screen .ap-panel-title { font-size: 8.12px; }
+  .mk-screen .ap-btn { font-size: 7.15px; }
+  .mk-screen .ap-meta { font-size: 7.15px; }
+  .mk-screen .ap-tile-k { font-size: 7.15px; }
+  .mk-screen .ap-tile-v { font-size: 12.35px; }
+  .mk-screen .ap-tile-link { font-size: 7.15px; }
+  .mk-screen .ap-chip { font-size: 7.15px; }
+  .mk-screen .ap-table { font-size: 7.48px; }
+  .mk-screen .ap-link { font-size: 7.48px; }
+  .mk-screen .ap-pager { font-size: 7.15px; }
+  .mk-screen .ap-back { font-size: 7.48px; }
+  .mk-screen .ap-rec-name { font-size: 9.75px; }
+  .mk-screen .ap-sec { font-size: 7.8px; }
+  .mk-screen .ap-fields dt { font-size: 7.15px; }
+  .mk-screen .ap-fields dd { font-size: 7.48px; }
+  .mk-screen .ap-acts li { font-size: 7.48px; }
+  .mk-screen .ap-act-n { font-size: 7.15px; }
+  .mk-screen .mk-legend { font-size: 7.15px; }
+  .mk-screen .mk-insight { font-size: 7.15px; }
+  .mk-screen .mk-pick { font-size: 7.15px; }
+  .mk-screen .mk-pick b { font-size: 7.48px; }
+  .mk-screen .mk-mail { font-size: 7.48px; }
+  .mk-screen .mk-mail-h { font-size: 7.15px; }
+  .mk-screen .mk-rep-row { font-size: 7.48px; }
+  .mk-screen .mk-notice-head { font-size: 7.15px; }
+  .mk-screen .mk-notice-body { font-size: 7.48px; }
+}
+@media (min-width: 401px) and (max-width: 600px) {
+  .mk-screen .ap-brand { font-size: 9.1px; }
+  .mk-screen .ap-brand span { font-size: 6.83px; }
+  .mk-screen .ap-item { font-size: 8.12px; }
+  .mk-screen .mk-new { font-size: 6.17px; }
+  .mk-screen .ap-empty { font-size: 7.8px; }
+  .mk-screen .mk-mail-h { font-size: 7.48px; }
+  .mk-screen .mk-mail-note { font-size: 7.15px; }
+  .mk-screen .mk-av { font-size: 7.15px; }
+  .mk-screen .mk-ai { font-size: 7.15px; }
+  .mk-screen .ap-item .mk-new { font-size: 0; }
+  .mk-screen .ap-date { font-size: 7.15px; }
+  .mk-screen .ap-panel-sub { font-size: 7.15px; }
+  .mk-screen .ap-meta { font-size: 7.15px; }
+  .mk-screen .ap-btn { font-size: 7.15px; }
+  .mk-screen .ap-tile-k { font-size: 7.15px; }
+  .mk-screen .ap-tile-v small { font-size: 7.15px; }
+  .mk-screen .ap-tile-link { font-size: 7.15px; }
+  .mk-screen .ap-chip { font-size: 7.15px; }
+  .mk-screen .ap-table th { font-size: 7.15px; }
+  .mk-screen .ap-badge { font-size: 7.15px; }
+  .mk-screen .ap-warn { font-size: 7.15px; }
+  .mk-screen .ap-pager { font-size: 7.15px; }
+  .mk-screen .ap-steps li { font-size: 7.15px; }
+  .mk-screen .ap-step-dot { font-size: 7.15px; }
+  .mk-screen .ap-fields dt { font-size: 7.15px; }
+  .mk-screen .ap-act-n { font-size: 7.15px; }
+  .mk-screen .mk-legend { font-size: 7.15px; }
+  .mk-screen .mk-b span { font-size: 7.15px; }
+  .mk-screen .mk-wk-labels { font-size: 6.83px; }
+  .mk-screen .mk-insight { font-size: 7.15px; }
+  .mk-screen .mk-pick { font-size: 7.15px; }
+  .mk-screen .mk-mail-h, .mk-screen .mk-mail-note { font-size: 7.15px; }
+  .mk-screen .mk-rep-bar { font-size: 7.15px; }
+  .mk-screen .mk-rep-sub { font-size: 7.15px; }
+  .mk-screen .mk-notice-head { font-size: 7.15px; }
+  .mk-screen .mk-notice-msg .mk-ai { font-size: 6.17px; }
+  .mk-screen .ap { font-size: 7.15px; }
+  .mk-screen .ap-title { font-size: 7.8px; }
+  .mk-screen .ap-panel-title { font-size: 7.48px; }
+  .mk-screen .ap-tile-v { font-size: 9.1px; }
+  .mk-screen .ap-table { font-size: 7.15px; }
+  .mk-screen .ap-link { font-size: 7.15px; }
+  .mk-screen .ap-back { font-size: 7.15px; }
+  .mk-screen .ap-rec-name { font-size: 8.45px; }
+  .mk-screen .ap-sec { font-size: 7.48px; }
+  .mk-screen .ap-fields dd { font-size: 7.15px; }
+  .mk-screen .ap-acts li { font-size: 7.15px; }
+  .mk-screen .mk-pick b { font-size: 7.15px; }
+  .mk-screen .mk-mail { font-size: 7.15px; }
+  .mk-screen .mk-rep-row { font-size: 7.15px; }
+  .mk-screen .mk-notice-body { font-size: 7.15px; }
+}
+@media (max-width: 400px) {
+  .mk-screen .ap-brand { font-size: 9.1px; }
+  .mk-screen .ap-brand span { font-size: 6.83px; }
+  .mk-screen .ap-item { font-size: 8.12px; }
+  .mk-screen .mk-new { font-size: 6.17px; }
+  .mk-screen .ap-empty { font-size: 7.8px; }
+  .mk-screen .mk-mail-h { font-size: 7.48px; }
+  .mk-screen .mk-mail-note { font-size: 7.15px; }
+  .mk-screen .mk-av { font-size: 7.15px; }
+  .mk-screen .mk-ai { font-size: 7.15px; }
+  .mk-screen .ap-item .mk-new { font-size: 0; }
+  .mk-screen .ap-date { font-size: 7.15px; }
+  .mk-screen .ap-panel-sub { font-size: 7.15px; }
+  .mk-screen .ap-meta { font-size: 7.15px; }
+  .mk-screen .ap-btn { font-size: 7.15px; }
+  .mk-screen .ap-tile-k { font-size: 7.15px; }
+  .mk-screen .ap-tile-v small { font-size: 7.15px; }
+  .mk-screen .ap-tile-link { font-size: 7.15px; }
+  .mk-screen .ap-chip { font-size: 7.15px; }
+  .mk-screen .ap-table th { font-size: 7.15px; }
+  .mk-screen .ap-badge { font-size: 7.15px; }
+  .mk-screen .ap-warn { font-size: 7.15px; }
+  .mk-screen .ap-pager { font-size: 7.15px; }
+  .mk-screen .ap-steps li { font-size: 7.15px; }
+  .mk-screen .ap-step-dot { font-size: 7.15px; }
+  .mk-screen .ap-fields dt { font-size: 7.15px; }
+  .mk-screen .ap-act-n { font-size: 7.15px; }
+  .mk-screen .mk-legend { font-size: 7.15px; }
+  .mk-screen .mk-b span { font-size: 7.15px; }
+  .mk-screen .mk-wk-labels { font-size: 6.83px; }
+  .mk-screen .mk-insight { font-size: 7.15px; }
+  .mk-screen .mk-pick { font-size: 7.15px; }
+  .mk-screen .mk-mail-h, .mk-screen .mk-mail-note { font-size: 7.15px; }
+  .mk-screen .mk-rep-bar { font-size: 7.15px; }
+  .mk-screen .mk-rep-sub { font-size: 7.15px; }
+  .mk-screen .mk-notice-head { font-size: 7.15px; }
+  .mk-screen .mk-notice-msg .mk-ai { font-size: 6.17px; }
+  .mk-screen .ap { font-size: 7.15px; }
+  .mk-screen .ap-title { font-size: 7.8px; }
+  .mk-screen .ap-panel-title { font-size: 7.48px; }
+  .mk-screen .ap-table { font-size: 7.15px; }
+  .mk-screen .ap-link { font-size: 7.15px; }
+  .mk-screen .ap-back { font-size: 7.15px; }
+  .mk-screen .ap-rec-name { font-size: 8.45px; }
+  .mk-screen .ap-sec { font-size: 7.48px; }
+  .mk-screen .ap-fields dd { font-size: 7.15px; }
+  .mk-screen .ap-acts li { font-size: 7.15px; }
+  .mk-screen .mk-pick b { font-size: 7.15px; }
+  .mk-screen .mk-mail { font-size: 7.15px; }
+  .mk-screen .mk-rep-row { font-size: 7.15px; }
+  .mk-screen .mk-notice-body { font-size: 7.15px; }
+  .mk-screen .ap-tile-v { font-size: 8.45px; }
+}
