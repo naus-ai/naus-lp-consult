@@ -20,6 +20,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap">
 <link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="assets/shigyo-mock.css">
 <link rel="stylesheet" href="/assets/booking/booking.css">
 </head>
 <body>
@@ -36,6 +37,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <span class="logo-by">by naus</span>
     </a>
     <nav class="nav-desktop">
+      <a href="#mock" class="gnav-try">構築体験</a>
       <a href="#service">サービス</a>
       <a href="#usecase">ユースケース</a>
       <a href="#pricing">プラン</a>
@@ -43,8 +45,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <a href="#faq">FAQ</a>
       <a href="#contact" data-tab="contact">問い合わせ</a>
     </nav>
+    <a href="#mock" class="sp-try">体験</a>
     <button type="button" class="menu-btn" id="menu-btn" aria-label="メニュー"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#1E2A4A" stroke-width="2" stroke-linecap="round"><path d="M4 7h16"></path><path d="M4 12h16"></path><path d="M4 17h16"></path></svg></button>
   </div>
+  <div class="try-tip" id="try-tip" role="note" hidden><span class="try-tip-txt">画面を操作して、構築を体験できます</span><button type="button" class="try-tip-x" aria-label="閉じる">×</button></div>
   <nav class="nav-mobile" id="nav-mobile" hidden>
     <a href="#service">サービス</a>
     <a href="#usecase">ユースケース</a>
@@ -114,6 +118,42 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
     </div>
   </div>
+</section>
+
+<!-- ===== MOCK ===== -->
+<section id="mock" class="section">
+  <div class="container">
+    <div class="sec-head">
+      <div class="sec-label">LET'S TRY</div>
+      <h2 class="sec-title"><span class="sec-ph">事務所に合った</span><span class="sec-ph">顧問先管理づくりを、</span><span class="sec-ph">体験してみましょう</span></h2>
+      <p class="sec-lead">使う項目も、確認したい数字も、事務所ごとに異なります。AIに必要な機能を伝えると、顧問先リストがどのようにツールへ変わっていくのか。下の画面で、ぜひ実際に操作してお確かめください。</p>
+    </div>
+    <div class="mk" id="mk">
+      <div class="mk-win" role="region" aria-label="操作できる画面の例">
+        <div class="mk-bar">
+          <span class="mk-dots" aria-hidden="true"><span></span><span></span><span></span></span>
+          <span class="mk-name">顧問先リスト - スプレッドシート</span>
+          <span class="mk-url" aria-hidden="true"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg><span class="mk-url-t">sheets.example/list</span></span>
+          <button type="button" class="mk-reset-s" hidden>最初から</button>
+        </div>
+        <div class="mk-screen"></div>
+      </div>
+      <div class="mk-chat" role="region" aria-label="AIとのやりとり">
+        <div class="mk-chat-head">
+          <span class="mk-ai" aria-hidden="true">AI</span>
+          <div><div class="mk-chat-title">AIアシスタント</div><div class="mk-chat-st">選択肢を押して話しかけてください</div></div>
+        </div>
+        <div class="mk-log" aria-live="polite"></div>
+        <div class="mk-choices"></div>
+        <div class="mk-input" aria-hidden="true">
+          <span class="mk-input-t">メッセージを入力</span>
+          <span class="mk-send"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1E2A4A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></span>
+        </div>
+      </div>
+    </div>
+    <p class="mk-note">※ 動きをイメージしていただくための画面例です。顧問先名・担当者・日付は、すべて架空のデータです。実際の手続きの期限とは関係ありません。</p>
+  </div>
+  <script src="assets/shigyo-mock.js" defer></script>
 </section>
 
 <!-- ===== 3. SERVICE ===== -->
