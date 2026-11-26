@@ -220,3 +220,33 @@
 @media (min-width: 1001px) { .kt .kt-guide { width: 330px; margin-left: auto; } }
 #mock .mk-win { box-shadow: 0 0 0 1px #C9D1E0, 0 4px 16px rgba(28,43,75,0.10); }
 .kt .kt-win, .kt .kt-app { border-color: #C9D1E0; box-shadow: 0 4px 16px rgba(28,43,75,0.10); }
+
+/* ===== スマホ・中間幅:3か所を横一列に縮小して並べる ===== */
+@media (max-width:1000px){
+  .kt .kt-sources{grid-template-columns:1fr 1.1fr 1fr;gap:6px}
+  .kt .kt-win{height:auto;border-radius:6px}
+  .kt .kt-win > :not(.kt-win-top){zoom:var(--kt-z,1)}
+  .kt .kt-ss-body{flex:none;height:190px;max-height:none}
+  .kt .kt-pay{flex:none;height:234.4px;grid-template-columns:78px 1fr}
+  .kt .kt-pay-main{max-height:none}
+  .kt .kt-pay-nav{display:block}
+  .kt .kt-ch{flex:none;height:266.6px;grid-template-columns:86px 1fr}
+  .kt .kt-ch-rooms{display:block}
+  .kt .kt-win-top{flex-wrap:wrap;gap:1px 4px;padding:4px 5px;font-size:clamp(7px,2.1vw,10px);line-height:1.35}
+  .kt .kt-win-top .kt-dots{line-height:0}
+  .kt .kt-win-top .kt-dots i{width:5px;height:5px;margin-right:2px}
+  .kt .kt-win-top .kt-num{order:1;width:clamp(13px,3.6vw,18px);height:clamp(13px,3.6vw,18px);font-size:clamp(8.5px,2.5vw,10.5px)}
+  .kt .kt-win-top .kt-name{order:2;flex:0 0 100%;font-size:clamp(8.5px,2.65vw,11.5px)}
+  .kt .kt-win-top > span:nth-child(3){order:3;flex:0 0 100%;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+}
+
+/* ===== スマホ:できあがったツールの画面を全体ごと縮小する ===== */
+@media (max-width:600px){
+  .kt .kt-app{zoom:.6}
+  .kt .kt-rt{min-width:0}
+  .kt .kt-rt td.kt-v3,.kt .kt-rt td.kt-why{min-width:96px}
+}
+@media (max-width:374px){
+  .kt .kt-app{zoom:.52}
+  .kt .kt-rt td.kt-v3,.kt .kt-rt td.kt-why{min-width:84px}
+}

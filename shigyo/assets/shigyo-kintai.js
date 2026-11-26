@@ -25,7 +25,7 @@
     crm.hidden = isKt;
     if (crmNote) crmNote.hidden = isKt;
     if (crmIntro) crmIntro.hidden = isKt;
-    if (isKt) { mount(); kt.hidden = false; }
+    if (isKt) { mount(); kt.hidden = false; fitSources(); }
     else { kt.hidden = true; unmount(); }
   }
   sw.addEventListener('click', function (e) {
@@ -42,7 +42,17 @@
     unmount();
     kt.appendChild(tpl.content.cloneNode(true));
     init();
+    fitSources();
   }
+
+  /* 3か所の窓:横一列に並ぶ幅では、中身をPCと同じ配置のまま窓の幅に合わせて縮小する */
+  var SRC_W = 322; /* PC幅での窓の中身の幅 */
+  function fitSources() {
+    var win = kt.querySelector('.kt-win'); if (!win) return;
+    var z = Math.min(1, win.clientWidth / SRC_W);
+    kt.style.setProperty('--kt-z', z.toFixed(4));
+  }
+  window.addEventListener('resize', fitSources);
 
   /* 作ったツールのボタン(画面例なので表示だけ) */
   kt.addEventListener('click', function (e) {
