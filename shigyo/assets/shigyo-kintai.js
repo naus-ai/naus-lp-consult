@@ -12,10 +12,12 @@
   function later(fn, ms) { timers.push(setTimeout(fn, ms)); }
 
   /* ===== 切り替え ===== */
-  var current = 'crm';
+  /* 最初はどちらも選ばれていない(画面例は出さない) */
+  var current = null;
   function show(which) {
     if (which === current) return;
     current = which;
+    sw.classList.remove('is-idle');
     sw.querySelectorAll('.mksw-btn').forEach(function (b) {
       b.setAttribute('aria-pressed', b.getAttribute('data-mock') === which ? 'true' : 'false');
     });

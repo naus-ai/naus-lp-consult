@@ -5,6 +5,11 @@
 .mksw-btn[aria-pressed="true"] { background: #1E2A4A; color: #fff; cursor: default; }
 .mksw-btn:focus-visible { outline: 3px solid #33619E; outline-offset: 2px; }
 #mk[hidden], #mock .mk-note[hidden] { display: none; }
+.mksw-hint { margin: 0 0 10px; font-size: 12.5px; line-height: 1.6; color: #626E80; text-align: center; }
+@media (prefers-reduced-motion: no-preference) {
+  .mksw.is-idle .mksw-btn { animation: mkswPulse 2.4s ease-in-out infinite; }
+}
+@keyframes mkswPulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.03); } }
 @media (max-width: 600px) {
   .mksw { grid-template-columns: 1fr; gap: 8px; margin-bottom: 20px; }
   .mksw-btn { min-height: 46px; font-size: 14px; }

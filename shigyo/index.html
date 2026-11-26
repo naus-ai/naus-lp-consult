@@ -129,17 +129,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <h2 class="sec-title"><span class="sec-ph">事務所に合った</span><span class="sec-ph">顧問先管理づくりを、</span><span class="sec-ph">体験してみましょう</span></h2>
       <p class="sec-lead">使う項目も、確認したい数字も、事務所ごとに異なります。AIに必要な機能を伝えると、顧問先リストがどのようにツールへ変わっていくのか。下の画面で、ぜひ実際に操作してお確かめください。</p>
     </div>
-    <div class="mksw" id="mksw" role="group" aria-label="画面例の切り替え">
-      <button type="button" class="mksw-btn" data-mock="crm" aria-pressed="true" aria-controls="mk">顧客先管理の自動化を体験する</button>
+    <p class="mksw-hint">体験したいほうを選んでください</p>
+    <div class="mksw is-idle" id="mksw" role="group" aria-label="画面例の切り替え">
+      <button type="button" class="mksw-btn" data-mock="crm" aria-pressed="false" aria-controls="mk">顧客先管理の自動化を体験する</button>
       <button type="button" class="mksw-btn" data-mock="kintai" aria-pressed="false" aria-controls="kt">勤怠管理の自動化を体験する</button>
     </div>
-    <div class="kt mk-intro" id="mk-intro">
+    <div class="kt mk-intro" id="mk-intro" hidden>
       <span class="kt-eyebrow">画面例</span>
       <h3 class="kt-h1">顧問先管理を、自分でツールにする</h3>
       <p class="kt-lead">表計算で管理している顧問先の情報を、AIに頼みながら自分用のツールに育てていきます。</p>
       <p class="mk-guide">選択肢を押して進めてみてください</p>
     </div>
-    <div class="mk" id="mk">
+    <div class="mk" id="mk" hidden>
       <div class="mk-win" role="region" aria-label="操作できる画面の例">
         <div class="mk-bar">
           <span class="mk-dots" aria-hidden="true"><span></span><span></span><span></span></span>
@@ -162,7 +163,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
       </div>
     </div>
-    <p class="mk-note">※ 動きをイメージしていただくための画面例です。顧問先名・担当者・日付は、すべて架空のデータです。実際の手続きの期限とは関係ありません。</p>
+    <p class="mk-note" hidden>※ 動きをイメージしていただくための画面例です。顧問先名・担当者・日付は、すべて架空のデータです。実際の手続きの期限とは関係ありません。</p>
     <div class="kt" id="kt" hidden></div>
     <template id="kt-tpl">
         <span class="kt-eyebrow">画面例</span>
