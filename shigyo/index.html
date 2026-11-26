@@ -122,11 +122,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <!-- ===== MOCK ===== -->
 <section id="mock" class="section">
+  <link rel="stylesheet" href="assets/shigyo-kintai.css">
   <div class="container">
     <div class="sec-head">
       <div class="sec-label">LET'S TRY</div>
       <h2 class="sec-title"><span class="sec-ph">事務所に合った</span><span class="sec-ph">顧問先管理づくりを、</span><span class="sec-ph">体験してみましょう</span></h2>
       <p class="sec-lead">使う項目も、確認したい数字も、事務所ごとに異なります。AIに必要な機能を伝えると、顧問先リストがどのようにツールへ変わっていくのか。下の画面で、ぜひ実際に操作してお確かめください。</p>
+    </div>
+    <div class="mksw" id="mksw" role="group" aria-label="画面例の切り替え">
+      <button type="button" class="mksw-btn" data-mock="crm" aria-pressed="true" aria-controls="mk">顧客先管理の自動化を体験する</button>
+      <button type="button" class="mksw-btn" data-mock="kintai" aria-pressed="false" aria-controls="kt">勤怠管理の自動化を体験する</button>
     </div>
     <div class="mk" id="mk">
       <div class="mk-win" role="region" aria-label="操作できる画面の例">
@@ -152,8 +157,157 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
     </div>
     <p class="mk-note">※ 動きをイメージしていただくための画面例です。顧問先名・担当者・日付は、すべて架空のデータです。実際の手続きの期限とは関係ありません。</p>
+    <div class="kt" id="kt" hidden></div>
+    <template id="kt-tpl">
+        <span class="kt-eyebrow">画面例</span>
+        <h3 class="kt-h1">勤怠チェックの突き合わせを、自分でツールにする</h3>
+        <p class="kt-lead">勤怠シート・給与計算ツール・顧問先とのチャット。3か所を見比べる作業を、AIに頼みながら自分用のツールに育てていきます。右の選択肢を押して進めてみてください。</p>
+
+        <p class="kt-sec-label">いま見比べている3か所 <b id="kt-srcState"></b></p>
+        <div class="kt-sources">
+          <div class="kt-win">
+            <div class="kt-win-top"><span class="kt-dots"><i></i><i></i><i></i></span><span class="kt-name">A社_勤怠_11月分</span><span>顧問先から受領</span><span class="kt-num">1</span></div>
+            <div class="kt-ss-tool"><span></span><span></span><span></span><span></span><span></span></div>
+            <div class="kt-ss-fx"><span class="kt-nb" id="kt-nb">C2</span><span class="kt-fx">fx</span><span class="kt-fv" id="kt-fv">12.5</span></div>
+            <div class="kt-ss-body"><table class="kt-ss" id="kt-ss">
+              <thead><tr><th class="kt-rn"></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th></tr></thead>
+              <tbody>
+                <tr class="kt-h"><th class="kt-rn">1</th><td class="kt-l">社員</td><td>出勤日数</td><td>残業(h)</td><td>有休</td><td>半休</td></tr>
+                <tr><th class="kt-rn">2</th><td class="kt-l">社員A</td><td>20</td><td class="kt-mk kt-on" data-k="1" data-m="1">12.5</td><td>0</td><td>0</td></tr>
+                <tr><th class="kt-rn">3</th><td class="kt-l">社員B</td><td>20</td><td>6.0</td><td>0</td><td class="kt-mk" data-k="2" data-m="2">0</td></tr>
+                <tr><th class="kt-rn">4</th><td class="kt-l">社員C</td><td>19</td><td class="kt-mk" data-k="3" data-m="3">8.0</td><td>1</td><td>0</td></tr>
+                <tr><th class="kt-rn">5</th><td class="kt-l">社員D</td><td>20</td><td>4.0</td><td>0</td><td>0</td></tr>
+                <tr><th class="kt-rn">6</th><td class="kt-l">社員E</td><td>19</td><td>3.5</td><td class="kt-mk" data-k="4" data-m="4">1</td><td>0</td></tr>
+                <tr><th class="kt-rn">7</th><td></td><td></td><td></td><td></td><td></td></tr>
+              </tbody>
+            </table></div>
+            <div class="kt-ss-tabs"><span class="kt-on">11月</span><span>10月</span><span>+</span></div>
+          </div>
+
+          <div class="kt-win">
+            <div class="kt-win-top"><span class="kt-dots"><i></i><i></i><i></i></span><span class="kt-name">給与計算ツール</span><span>事務所で入力済み</span><span class="kt-num">2</span></div>
+            <div class="kt-pay-head"><span class="kt-sq">給</span><b>A社</b><span class="kt-user">担当A</span></div>
+            <div class="kt-pay">
+              <div class="kt-pay-nav"><div>ホーム</div><div>従業員</div><div class="kt-on">勤怠</div><div>給与計算</div><div>明細</div></div>
+              <div class="kt-pay-main">
+                <div class="kt-pay-title">勤怠 11月分 <span class="kt-pill-g">入力済み</span><span class="kt-btn">編集</span></div>
+                <table class="kt-pt">
+                  <thead><tr><th>従業員</th><th>出勤日数</th><th>残業時間</th><th>有休日数</th><th>半休</th></tr></thead>
+                  <tbody>
+                    <tr><td>社員A</td><td>20</td><td class="kt-mk" data-k="1" data-m="1">10:30</td><td>0</td><td>0</td></tr>
+                    <tr><td>社員B</td><td>20</td><td>6:00</td><td>0</td><td class="kt-mk" data-k="2" data-m="2">0</td></tr>
+                    <tr><td>社員C</td><td>19</td><td class="kt-mk" data-k="3" data-m="3">8:00</td><td>1</td><td>0</td></tr>
+                    <tr><td>社員D</td><td>20</td><td>4:00</td><td>0</td><td>0</td></tr>
+                    <tr><td>社員E</td><td class="kt-mk" data-k="4" data-m="4">20</td><td>3:30</td><td class="kt-mk" data-k="4" data-m="4">0</td><td>0</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <div class="kt-win">
+            <div class="kt-win-top"><span class="kt-dots"><i></i><i></i><i></i></span><span class="kt-name">チャット</span><span>A社 ご担当者</span><span class="kt-num">3</span></div>
+            <div class="kt-ch">
+              <div class="kt-ch-rooms"><div class="kt-on">A社 ご担当者</div><div>B社 経理</div><div>C社 総務</div><div>所内連絡</div></div>
+              <div class="kt-ch-main">
+                <div class="kt-ch-log">
+                  <div class="kt-cm"><span class="kt-av">A</span><div class="kt-bd kt-mk" data-k="2" data-m="2"><div class="kt-who">A社 ご担当者　11/9</div>社員Bさん、11/8は午後から半休でした。シートは後で直しておきます。</div></div>
+                  <div class="kt-cm"><span class="kt-av">A</span><div class="kt-bd kt-mk" data-k="4" data-m="4"><div class="kt-who">A社 ご担当者　11/28</div>社員Eさん、11/27は有休でお願いします。</div></div>
+                  <div class="kt-cm"><span class="kt-av">A</span><div class="kt-bd kt-mk" data-k="3" data-m="3"><div class="kt-who">A社 ご担当者　12/1<span class="kt-late">締め後</span></div>すみません、社員Cさんの11/20の退勤が打刻漏れでした。実際は20:00退勤です。</div></div>
+                  <div class="kt-cm"><span class="kt-av kt-me">担</span><div class="kt-bd"><div class="kt-who">担当A　12/1</div>承知しました。確認して反映します。</div></div>
+                </div>
+                <div class="kt-ch-input">メッセージを入力</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <p class="kt-sec-label">AIに頼みながら作る、自分用のツール</p>
+        <div class="kt-build">
+          <div class="kt-app" id="kt-app">
+            <div class="kt-app-top"><span class="kt-dots"><i></i><i></i><i></i></span><span class="kt-name">勤怠チェック(自社用)</span><span class="kt-url" id="kt-url">kintai-check.example</span></div>
+            <div class="kt-app-body">
+              <div class="kt-side">
+                <div class="kt-ttl">勤怠チェック<small>自社用</small></div>
+                <div class="kt-nav" id="kt-nav"></div>
+              </div>
+              <div class="kt-main" id="kt-main">
+                <div class="kt-empty" id="kt-empty"><div>まだ何もありません。<br>右のAIアシスタントに、作りたいものを伝えてください。</div></div>
+
+                <div class="kt-view" id="kt-v-match" hidden>
+                  <div class="kt-vhead"><h4>突き合わせ</h4><span class="kt-sel">顧問先：A社 ▾</span><span class="kt-sel">11月分 ▾</span>
+                    <div class="kt-right"><button class="kt-btn" type="button" data-toast="kt-t1">読み込み直す</button></div></div>
+                  <div class="kt-filters" id="kt-filters"></div>
+                  <div class="kt-card kt-tw" id="kt-matchCard"><table class="kt-rt">
+                    <thead><tr><th></th><th>社員・項目</th><th>状態</th><th>3か所の内容</th><th class="kt-why">考えられる理由</th><th class="kt-why">対応</th></tr></thead>
+                    <tbody id="kt-rows">
+                      <tr data-s="ng" data-w="office"><td><span class="kt-badge">1</span></td><td class="kt-nm">社員A・残業</td><td><span class="kt-st kt-ng">食い違い</span></td>
+                        <td class="kt-v3"><b>シート</b> 12.5h ／ <b>ツール</b> 10.5h ／ <b>チャット</b> 連絡なし</td>
+                        <td class="kt-why">ツールへの転記ずれの可能性。シートの日別合計は12.5h</td><td class="kt-why"><span class="kt-st kt-in">事務所で直す</span></td></tr>
+                      <tr data-s="ng" data-w="client"><td><span class="kt-badge">2</span></td><td class="kt-nm">社員B・半休</td><td><span class="kt-st kt-ng">食い違い</span></td>
+                        <td class="kt-v3"><b>シート</b> 0 ／ <b>ツール</b> 0 ／ <b>チャット</b> 11/8 午後半休</td>
+                        <td class="kt-why">チャットで連絡済みだが、シートが直っていない</td><td class="kt-why"><span class="kt-st kt-ng">顧問先に確認</span></td></tr>
+                      <tr data-s="ng" data-w="client"><td><span class="kt-badge">3</span></td><td class="kt-nm">社員C・残業</td><td><span class="kt-st kt-ng">食い違い</span></td>
+                        <td class="kt-v3"><b>シート</b> 8.0h ／ <b>ツール</b> 8.0h ／ <b>チャット</b> 11/20 20:00退勤(締め後)</td>
+                        <td class="kt-why">締め後の訂正連絡。所定の終業時刻(設定)で計算すると +2.0h</td><td class="kt-why"><span class="kt-st kt-ng">顧問先に確認</span></td></tr>
+                      <tr data-s="ng" data-w="office"><td><span class="kt-badge">4</span></td><td class="kt-nm">社員E・有休</td><td><span class="kt-st kt-ng">食い違い</span></td>
+                        <td class="kt-v3"><b>シート</b> 有休1 ／ <b>ツール</b> 有休0・出勤20 ／ <b>チャット</b> 11/27 有休</td>
+                        <td class="kt-why">シートとチャットは一致。ツールへの入力漏れ</td><td class="kt-why"><span class="kt-st kt-in">事務所で直す</span></td></tr>
+                      <tr data-s="ok" data-w=""><td></td><td class="kt-nm">社員D</td><td><span class="kt-st kt-ok">一致</span></td>
+                        <td class="kt-v3">3か所とも同じ</td><td class="kt-why">―</td><td class="kt-why">―</td></tr>
+                    </tbody>
+                  </table></div>
+                  <div class="kt-setting" id="kt-setting" hidden>計算の設定：<span>所定の終業時刻 18:00</span>(顧問先ごとに変更できます)</div>
+                </div>
+
+                <div class="kt-view" id="kt-v-ask" hidden>
+                  <div class="kt-vhead"><h4>顧問先への確認文</h4><span class="kt-sel">A社</span><span class="kt-sel">対象：②③</span>
+                    <div class="kt-right"><button class="kt-btn kt-pri" type="button" data-toast="kt-t2">文面をコピー</button></div></div>
+                  <div class="kt-draft">A社 ご担当者様
+
+      いつもお世話になっております。11月分の勤怠について、給与計算の前に2点確認させてください。
+
+      1. 社員Bさん 11/8
+      　午後半休とご連絡いただいていますが、勤怠シートでは全日出勤になっています。半休として扱ってよろしいでしょうか。
+
+      2. 社員Cさん 11/20
+      　12/1にいただいた訂正(20:00退勤)を反映すると、残業が2.0時間増えます。この内容で反映してよろしいでしょうか。
+
+      お手数ですが、ご確認をお願いいたします。</div>
+                  <div class="kt-note">このツールには送信の機能はありません。送るかどうか・文面の最終確認は担当者が決めます。<span class="kt-toast" id="kt-t2" hidden>コピーしました(画面例)</span></div>
+                </div>
+
+                <div class="kt-view" id="kt-v-memo" hidden>
+                  <div class="kt-vhead"><h4>修正メモ</h4><span class="kt-sel">給与計算ツールで直す分</span>
+                    <div class="kt-right"><button class="kt-btn" type="button" data-toast="kt-t3">一覧を書き出す</button></div></div>
+                  <div class="kt-card kt-tw"><table class="kt-rt">
+                    <thead><tr><th></th><th>社員・項目</th><th>いまの入力</th><th>直す値</th><th>根拠</th><th>済</th></tr></thead>
+                    <tbody>
+                      <tr><td><span class="kt-badge">1</span></td><td class="kt-nm">社員A・残業</td><td>10:30</td><td><span class="kt-arrow">→</span>12:30</td><td class="kt-v3">勤怠シート(日別合計)</td><td><input type="checkbox" aria-label="社員Aの修正済み"></td></tr>
+                      <tr><td><span class="kt-badge">4</span></td><td class="kt-nm">社員E・出勤／有休</td><td>20日／0日</td><td><span class="kt-arrow">→</span>19日／1日</td><td class="kt-v3">勤怠シート＋チャット 11/28</td><td><input type="checkbox" aria-label="社員Eの修正済み"></td></tr>
+                    </tbody>
+                  </table></div>
+                  <div class="kt-note">給与計算ツールへの入力は担当者が行います。直したら「済」に印をつけます。<span class="kt-toast" id="kt-t3" hidden>画面例のため書き出しはしません</span></div>
+                </div>
+                <span class="kt-toast" id="kt-t1" hidden>3か所を読み込み直しました(画面例)</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="kt-ai">
+            <div class="kt-ai-head"><span class="kt-ai-ic">AI</span><div><b>AIアシスタント</b><small>選択肢を押して話しかけてください</small></div></div>
+            <div class="kt-log" id="kt-log"><div class="kt-b kt-ai-b">勤怠シート・給与計算ツールの入力・チャットの3つを見られる状態です。</div><div class="kt-b kt-ai-b">この3つを照らし合わせるツールを作りましょうか？</div></div>
+            <div class="kt-chips" id="kt-chips"></div>    </div>
+        </div>
+
+        <div class="kt-disclaimer">
+          <p>※ この画面は説明用の画面例です。会社名・社員名・日付・数値はすべて架空のものです。上の3つの画面も、特定の製品の画面ではありません。</p>
+          <p>※ 実際の仕組みは、事務所で使っている様式やツール、確認の手順に合わせて一緒に組み立てます。画面の見た目や動きはこの例と異なります。</p>
+        </div>
+    </template>
   </div>
   <script src="assets/shigyo-mock.js" defer></script>
+  <script src="assets/shigyo-kintai.js" defer></script>
 </section>
 
 <!-- ===== 3. SERVICE ===== -->
