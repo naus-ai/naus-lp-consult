@@ -3,6 +3,7 @@
   var sw = document.getElementById('mksw');
   var crm = document.getElementById('mk');
   var crmNote = document.querySelector('#mock .mk-note');
+  var crmIntro = document.getElementById('mk-intro');
   var kt = document.getElementById('kt');
   var tpl = document.getElementById('kt-tpl');
   if (!sw || !crm || !kt || !tpl) return;
@@ -21,6 +22,7 @@
     var isKt = which === 'kintai';
     crm.hidden = isKt;
     if (crmNote) crmNote.hidden = isKt;
+    if (crmIntro) crmIntro.hidden = isKt;
     if (isKt) { mount(); kt.hidden = false; }
     else { kt.hidden = true; unmount(); }
   }

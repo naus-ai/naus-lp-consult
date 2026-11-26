@@ -206,3 +206,12 @@
   .kt-nav button{white-space:nowrap}
   .kt-main{padding:12px}
 }
+
+/* ===== 画面例の案内・背景・画面枠 ===== */
+#mock { background: #EEF1F6; }
+.mk-intro .kt-lead { margin-bottom: 18px; }
+.mk-guide { margin: 0 0 6px; font-size: 12.5px; line-height: 1.6; color: #626E80; }
+@media (min-width: 961px) { #mock .mk-intro .mk-guide { width: 340px; margin-left: auto; } }
+@media (min-width: 1001px) { .kt .kt-guide { width: 330px; margin-left: auto; } }
+#mock .mk-win { box-shadow: 0 0 0 1px #C9D1E0, 0 4px 16px rgba(28,43,75,0.10); }
+.kt .kt-win, .kt .kt-app { border-color: #C9D1E0; box-shadow: 0 4px 16px rgba(28,43,75,0.10); }
