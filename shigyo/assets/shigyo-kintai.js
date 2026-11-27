@@ -153,14 +153,25 @@
       }
     }
     function pick(k) {
+      toSources();
       done[k] = true; bubble('kt-user', steps[k].q); chips.innerHTML = '';
       later(function () {
         steps[k].run(); bubble('kt-ai-b', steps[k].a, steps[k].done);
         if (!next().length) { bubble('kt-ai-b', '最初は3か所を目で見比べていた作業が、頼むたびに自分の事務所用のツールになっていきました。使いながら「ここをこうしたい」と思ったら、また話しかけてください。'); }
         renderChips(); log.scrollTop = log.scrollHeight;
-        if (window.innerWidth <= 1000) { $('app').scrollIntoView({ behavior: 'smooth', block: 'start' }); }
       }, 400);
     }
     renderChips();
+  }
+
+  /* AIアシスタントが下に積まれる幅:選択肢を押したら「いま見比べている3か所」の見出しを固定ヘッダーの下へ */
+  var stacked = window.matchMedia('(max-width: 1000px)');
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+  function toSources() {
+    if (!stacked.matches) return;
+    var label = kt.querySelector('.kt-sec-label'); if (!label) return;
+    var head = document.querySelector('.site-header');
+    var top = label.getBoundingClientRect().top + window.scrollY - (head ? head.offsetHeight : 0) - 8;
+    window.scrollTo({ top: Math.max(0, top), behavior: reduce.matches ? 'instant' : 'smooth' });
   }
 })();
